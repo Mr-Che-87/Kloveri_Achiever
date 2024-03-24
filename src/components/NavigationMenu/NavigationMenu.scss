@@ -1,0 +1,19 @@
+
+nav {
+  text-align: left;
+  
+ul {
+  list-style-type: none; 
+  padding: 0; 
+  margin: 0; }
+}
+
+
+.routes {
+  flex-grow: 1;
+  height: 300px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  background-color: rgb(116, 170, 204);
+}
