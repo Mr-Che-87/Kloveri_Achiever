@@ -6,17 +6,17 @@ import {
 } from "react-router-dom";
 import "./NavigationMenu.scss";
 
-import WorkersAchievements from "../../pages/WorkersAchievements/WorkersAchievements";
-import TeamsAchievements from "../../pages/TeamsAchievements/TeamsAchievements";
+import Workers from "../../pages/Workers/Workers";
+import Teams from "../../pages/Teams/Teams";
 import AchievementsConstructor from "../../pages/AchievementsConstructor/AchievementsConstructor";
-import AdminAccount from "../../pages/AdminAccount/AdminAccount"; //
-import AccountManagement from "../../pages/AccountManagement/AccountManagement";
+import AdminAccount from "../../pages/AdminAccount/AdminAccount"; 
 
 import workersIcon from "../../assets/workers.svg";
 import managementIcon from "../../assets/management.svg";
 import userAvatarIcon from "../../assets/user-avatar.png";
 import achievementsIcon from "../../assets/achievements.svg";
 import logoIcon from "../../assets/logo.svg";
+import WorkerPage from "../../pages/Workers/WorkerPage/WorkerPage";
 
 // Components for routing
 const NotFound = () => <div>404 Not Found</div>;
@@ -28,21 +28,19 @@ const NavigationMenu = () => {
       <nav className="navigation-menu">
         <div className="menu">
           <div className="logo-container">
-            <NavLink to="/">
-              <img src={logoIcon} alt="Сотрудники" />
-            </NavLink>
+            <img src={logoIcon} alt="Логотип" />
           </div>
           <NavLink to="/achievements-constructor" className="menu-item">
-            <img src={achievementsIcon} alt="Сотрудники" />
+            <img src={achievementsIcon} alt="Библиотека достижений" />
             Библиотека достижений
           </NavLink>
-          <NavLink to="/workers-achievements" className="menu-item">
-            <img src={workersIcon} alt="Сотрудники" />
+          <NavLink to="/teams" className="menu-item">
+            <img src={workersIcon} alt="Команды" />
             Команды
           </NavLink>
-          <NavLink to="/account-management" className="menu-item">
-            <img src={managementIcon} alt="Управление аккаунтами" />
-            Управление аккаунами
+          <NavLink to="/workers" className="menu-item">
+            <img src={managementIcon} alt="Сотрудники" />
+            Сотрудники
           </NavLink>
         </div>
         <div className="admin-account">
@@ -54,18 +52,17 @@ const NavigationMenu = () => {
 
       <div className="routes">
         <Routes>
-          <Route path="/" element={<AdminAccount />} />
-          <Route
-            path="/workers-achievements"
-            element={<WorkersAchievements />}
-          />
-          <Route path="/teams-achievements" element={<TeamsAchievements />} />
-          <Route
-            path="/achievements-constructor"
-            element={<AchievementsConstructor />}
-          />
+          <Route path="/" element={<Workers />} />
+          <Route path="/achievements-constructor" element={<AchievementsConstructor />} />
+          <Route path="/teams" element={<Teams />}  />
+          <Route path="/workers" element={<Workers />} />
+            <>
+            
+               <Route path="/worker-page" element={<WorkerPage />} />
+            
+            </>
+
           <Route path="/admin-account" element={<AdminAccount />} />
-          <Route path="/account-management" element={<AccountManagement />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
