@@ -49,13 +49,20 @@ nav {
     font-weight: 500;
     line-height: 20px;
     margin-right: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
     img {
       margin-right: 8px;
+    }
+    &:hover {
+      opacity: 1;
+      transform: scale(1.05);
     }
     &.active {
       background-color: #f4f4f40a;
       color: #fff;
       opacity: 1;
+      transform: scale(0.95);
     }
   }
 }
