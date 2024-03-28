@@ -1,5 +1,4 @@
-import React from "react";
-import "./TeamListItem.module.scss";
+import "./TeamListItem.scss";
 
 interface TeamListItemProps {
   name: string;

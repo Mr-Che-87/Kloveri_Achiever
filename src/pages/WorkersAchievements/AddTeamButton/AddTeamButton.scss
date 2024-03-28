@@ -1,14 +1,20 @@
 .add-team-button {
-  background: linear-gradient(90deg, #7b61ff, #9b67ff);
-  border: none;
-  border-radius: 20px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  text-decoration: none;
+  background: #6a11c352;
+  border: 1px solid #762dbf52;
   color: white;
+  opacity: 0.8;
   font-size: 16px;
-  padding: 10px 24px;
+  padding: 8px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
   transition: background-color 0.3s, transform 0.3s;
 
   &:hover {
