@@ -1,3 +1,5 @@
+@import "../styles/configcss.scss";
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,11 +18,16 @@
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
+<<<<<<< HEAD
     background-color: #ffffff;
+=======
+    background-color: $main-background-color;
+>>>>>>> dev2
   }
 }
 
 .test {
+<<<<<<< HEAD
   color: red 
 }
 
@@ -37,4 +44,17 @@
 
 div {
   button {background-color: rgb(151, 151, 192)}
+=======
+  color: red;
+}
+
+#root {
+  margin: 0 auto;
+}
+
+div {
+  button {
+    background-color: $main-background-color;
+  }
+>>>>>>> dev2
 }

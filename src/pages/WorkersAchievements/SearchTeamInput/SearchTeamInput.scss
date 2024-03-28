@@ -1,0 +1,25 @@
+.search-team-input {
+  width: 100%;
+  padding: 13px 0px;
+  border: none;
+  border-bottom: 1px solid #ffffff50;
+  background-color: transparent;
+  color: white;
+  min-width: 395px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  outline: none;
+  text-align: left;
+
+  &::placeholder {
+    color: #fff;
+    opacity: 0.5;
+  }
+
+  background-image: url("../../../assets/search-icon.svg");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 20px;
+  text-indent: 40px;
+}
