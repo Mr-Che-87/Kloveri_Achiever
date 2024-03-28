@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-.main {
-    display: flex;
-    flex-direction:row;
-    justify-content: space-between; 
-    align-items: center;
-    background-color: rgb(176, 228, 228);
-  }
-  
-=======
 @import "../../styles/configcss.scss";
 
 .main {
@@ -16,4 +6,4 @@
   justify-content: space-between;
   background-color: $main-background-color;
 }
->>>>>>> dev2
+
