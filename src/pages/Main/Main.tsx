@@ -1,12 +1,6 @@
-import NavigationMenu from "../../components/NavigationMenu/NavigationMenu";
-import './Main.scss'
+import "./Main.scss";
 
 export default function Main() {
-
-    return (
-        <div className="main">
-        <NavigationMenu />
-        </div>
-    )
-    
+  return <div className="main">
+  </div>;
 }
