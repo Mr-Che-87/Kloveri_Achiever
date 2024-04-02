@@ -1,14 +1,14 @@
 import TeamList from "./TeamList/TeamList";
 import AddTeamButton from "./AddTeamButton/AddTeamButton";
 import SearchTeamInput from "./SearchTeamInput/SearchTeamInput";
-import "./WorkersAchievements.scss";
+import "./Teams.scss";
 
-export default function WorkersAchievements() {
+export default function Teams() {
   return (
-    <div className="workers-achievements">
-      <header className="workers-achievements-header">
+    <div className="teams-achievements">
+      <header className="teams-achievements-header">
         <h1>Команды</h1>
-        <div className="edit-workers">
+        <div className="edit-teams">
           <AddTeamButton />
           <SearchTeamInput />
         </div>
