@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TeamListItem from "../TeamListItem/TeamListItem";
 import TeamFilter from "../TeamFilter/TeamFilter";
-import "./TeamList.scss";
+import styles from "./TeamList.module.scss";
 
 const TeamList = () => {
   const [filter, setFilter] = useState<string>("Все");
@@ -22,7 +22,7 @@ const TeamList = () => {
   });
 
   return (
-    <div className="team-list">
+    <div className={styles.teamList}>
       <TeamFilter setFilter={setFilter} />{" "}
       {filteredTeams.map((team) => (
         <TeamListItem key={team.id} name={team.name} members={team.members} />

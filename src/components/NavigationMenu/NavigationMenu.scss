@@ -1,4 +1,4 @@
-@import "../../styles/configcss.scss";
+@import "@/styles/configcss.scss";
 nav {
   display: flex;
   flex-direction: row;
@@ -50,7 +50,9 @@ nav {
     line-height: 20px;
     margin-right: 16px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition:
+      background-color 0.3s,
+      transform 0.3s;
     img {
       margin-right: 8px;
     }

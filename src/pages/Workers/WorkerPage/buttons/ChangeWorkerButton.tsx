@@ -1,7 +1,5 @@
-import "./buttons.scss"
+import styles from "./buttons.module.scss";
 
 export function ChangeWorkerButton() {
-    return (
-        <button className="change-worker-button">Изменить</button>
-    )
+  return <button className={styles.changeWorkerButton}>Изменить</button>;
 }

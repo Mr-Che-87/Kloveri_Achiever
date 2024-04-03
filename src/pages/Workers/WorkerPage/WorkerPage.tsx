@@ -1,4 +1,4 @@
-import "./WokerPage.scss";
+import styles from "./WokerPage.module.scss";
 
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import { ChangeWorkerButton } from "./buttons/ChangeWorkerButton";
@@ -10,28 +10,37 @@ import WorkerAchivements from "./WorkerAchivements/WorkerAchivements";
 
 export default function WorkerPage() {
   return (
-    <div className="worker-page">
-      <header className="worker-header">
-        <div className="worker-initial">
-        <WorkerInitial showEmail={true} /> {/* Передаём проп showEmail со значением true */}
+    <div className={styles.workerPage}>
+      <header className={styles.workerHeader}>
+        <div className={styles.workerInitial}>
+          <WorkerInitial showEmail={true} />{" "}
+          {/* Передаём проп showEmail со значением true */}
         </div>
-        <div className="header-nav-menu">
-          <nav className="worker-nav-menu">
+        <div className={styles.headerNavMenu}>
+          <nav className={styles.workerNavMenu}>
             <ul>
-              <li><ChangeWorkerButton /></li>
-              <li><LinkWorkerButton /></li>
-              <li><BanWorkerButton /></li>
-              <li><DeleteWorkerButton /></li>
+              <li>
+                <ChangeWorkerButton />
+              </li>
+              <li>
+                <LinkWorkerButton />
+              </li>
+              <li>
+                <BanWorkerButton />
+              </li>
+              <li>
+                <DeleteWorkerButton />
+              </li>
             </ul>
           </nav>
         </div>
       </header>
 
-      <main className="worker-main">
-        <div className="worker-data">
+      <main className={styles.workerMain}>
+        <div className={styles.workerData}>
           <WorkerData />
         </div>
-        <div className="worker-achievements">
+        <div className={styles.workerAchievements}>
           <WorkerAchivements />
         </div>
       </main>

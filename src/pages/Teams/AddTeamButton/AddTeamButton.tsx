@@ -1,7 +1,7 @@
-import "./AddTeamButton.scss";
+import styles from "./AddTeamButton.module.scss";
 
 const AddTeamButton = () => {
-  return <button className="add-team-button">+ Добавить</button>;
+  return <button className={styles.addTeamButton}>+ Добавить</button>;
 };
 
 export default AddTeamButton;

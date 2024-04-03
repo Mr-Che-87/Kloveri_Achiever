@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./TeamFilter.scss";
+import styles from "./TeamFilter.module.scss";
 
 // Типы пропсов для TeamFilter
 interface TeamFilterProps {
@@ -19,16 +19,20 @@ const TeamFilter: React.FC<TeamFilterProps> = ({ setFilter }) => {
   };
 
   return (
-    <div className="team-filter">
-      <button className="team-filter-button" onClick={() => setIsOpen(!isOpen)}>
-        {selectedFilter} <span className="arrow">{isOpen ? "▲" : "▼"}</span>
+    <div className={styles.teamFilter}>
+      <button
+        className={styles.teamFilterButton}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {selectedFilter}{" "}
+        <span className={styles.arrow}>{isOpen ? "▲" : "▼"}</span>
       </button>
       {isOpen && (
-        <ul className="team-filter-list">
+        <ul className={styles.teamFilterList}>
           {filters.map((filter) => (
             <li
               key={filter}
-              className="team-filter-item"
+              className={styles.teamFilterItem}
               onClick={() => handleFilterClick(filter)}
             >
               {filter}
