@@ -6,7 +6,7 @@ export default function App() {
   return (
     <>
       <NavigationMenu />
-      <Main />
+      <Main />  {/*хз чё в мейн писать???*/}
     </>
   )
 }

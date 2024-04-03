@@ -1,0 +1,27 @@
+h2 {
+    font-size: medium;
+}
+
+.worker-information {
+    display: grid; /* Отображаем элементы в виде сетки */
+    grid-template-columns: repeat(2, 1fr); /* Два столбца равной ширины */
+    gap: 10px; /* Расстояние между элементами */
+  }
+  
+  .worker-information > div {
+    padding: 10px; /* Добавляем внутренний отступ для каждого дива */
+  }
+  
+  .worker-information h2 {
+    margin-bottom: 5px; /* Добавляем небольшой отступ снизу для заголовков */
+  }
+  
+  .worker-information button {
+    width: 100%; /* Кнопка будет занимать всю доступную ширину дива */
+  }
+  
+  .worker-information input {
+    width: calc(100% - 20px); /* Инпут будет занимать всю доступную ширину минус внутренний отступ */
+    padding: 5px; /* Добавляем внутренний отступ для инпута */
+  }
+  
