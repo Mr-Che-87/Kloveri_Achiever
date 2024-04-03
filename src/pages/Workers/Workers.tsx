@@ -1,7 +1,5 @@
 import { NavLink } from "react-router-dom";
-
-import WorkerPage from "./WorkerPage/WorkerPage";
-
+import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
 
 export default function Workers() {
   return (
@@ -10,7 +8,7 @@ export default function Workers() {
       <br/>....
       <br/>....
       <NavLink to="/worker-page">
-      <WorkerPage />  
+      <WorkerInitial showEmail={false} /> {/* Передаём проп showEmail со значением false */}
            </NavLink>
 
           
