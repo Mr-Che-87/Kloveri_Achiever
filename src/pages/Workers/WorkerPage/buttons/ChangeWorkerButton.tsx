@@ -1,5 +1,18 @@
+import React from "react";
 import styles from "./buttons.module.scss";
 
-export function ChangeWorkerButton() {
-  return <button className={styles.changeWorkerButton}>Изменить</button>;
-}
+type ChangeWorkerButtonProps = {
+  isEditing: boolean;
+  toggleEdit: () => void;
+};
+
+export const ChangeWorkerButton: React.FC<ChangeWorkerButtonProps> = ({
+  isEditing,
+  toggleEdit,
+}) => {
+  return (
+    <button className={styles.changeWorkerButton} onClick={toggleEdit}>
+      {isEditing ? "Сохранить" : "Изменить"}
+    </button>
+  );
+};

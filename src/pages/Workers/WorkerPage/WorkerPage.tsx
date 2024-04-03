@@ -8,7 +8,17 @@ import { DeleteWorkerButton } from "./buttons/DeleteWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerAchivements from "./WorkerAchivements/WorkerAchivements";
 
+import { useState } from "react";
+
+// Функция для переключения режима редактирования
+
 export default function WorkerPage() {
+  const [isEditing, setIsEditing] = useState(false);
+
+  // Функция для переключения режима редактирования
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);
+  };
   return (
     <div className={styles.workerPage}>
       <header className={styles.workerHeader}>
@@ -20,7 +30,10 @@ export default function WorkerPage() {
           <nav className={styles.workerNavMenu}>
             <ul>
               <li>
-                <ChangeWorkerButton />
+                <ChangeWorkerButton
+                  isEditing={isEditing}
+                  toggleEdit={toggleEdit}
+                />
               </li>
               <li>
                 <LinkWorkerButton />
@@ -38,7 +51,7 @@ export default function WorkerPage() {
 
       <main className={styles.workerMain}>
         <div className={styles.workerData}>
-          <WorkerData />
+          <WorkerData isEditing={isEditing} />
         </div>
         <div className={styles.workerAchievements}>
           <WorkerAchivements />
