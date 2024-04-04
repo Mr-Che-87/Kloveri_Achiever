@@ -1,7 +1,7 @@
-.team-filter {
+.teamFilter {
   position: relative;
   margin-top: 32px;
-  .team-filter-button {
+  .teamFilterButton {
     border-radius: 16px;
     text-decoration: none;
     border: 0.5px solid #f4f4f410;
@@ -15,7 +15,9 @@
     cursor: pointer;
     font-weight: 400;
     line-height: 20px;
-    transition: background-color 0.3s, transform 0.3s;
+    transition:
+      background-color 0.3s,
+      transform 0.3s;
 
     &:hover {
       background-color: #f4f4f40a;
@@ -28,7 +30,7 @@
     }
   }
 }
-.team-filter-list {
+.teamFilterList {
   position: absolute;
   top: 100%;
   left: 0;
@@ -40,7 +42,7 @@
   border-radius: 10px;
   box-sizing: border-box;
 }
-.team-filter-item {
+.teamFilterItem {
   padding: 10px;
   cursor: pointer;
   &:hover {

@@ -1,7 +1,7 @@
-import "./buttons.scss"
+import styles from "./buttons.module.scss";
 
 export function LinkWorkerButton() {
-    return (
-        <button className="link-worker-button">Ссылка для авторизации</button>
-    )
+  return (
+    <button className={styles.linkWorkerButton}>Ссылка для авторизации</button>
+  );
 }

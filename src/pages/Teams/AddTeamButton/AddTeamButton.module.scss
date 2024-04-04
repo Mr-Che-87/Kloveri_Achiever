@@ -1,4 +1,4 @@
-.add-team-button {
+.addTeamButton {
   padding: 12px 18px;
   border-radius: 16px;
   text-decoration: none;
@@ -15,7 +15,9 @@
   font-size: 20px;
   font-weight: 500;
   line-height: 28px;
-  transition: background-color 0.3s, transform 0.3s;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
 
   &:hover {
     background: linear-gradient(90deg, #6a50ea, #8950ea);

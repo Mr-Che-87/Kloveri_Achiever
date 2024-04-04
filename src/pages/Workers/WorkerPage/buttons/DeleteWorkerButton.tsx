@@ -1,7 +1,5 @@
-import "./buttons.scss"
+import styles from "./buttons.module.scss";
 
 export function DeleteWorkerButton() {
-    return (
-        <button className="delete-worker-button">Удалить аккаунт</button>
-    )
+  return <button className={styles.deleteWorkerButton}>Удалить аккаунт</button>;
 }

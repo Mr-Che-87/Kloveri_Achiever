@@ -1,4 +1,4 @@
-.search-team-input {
+.searchTeamInput {
   width: 100%;
   padding: 13px 0px;
   border: none;
@@ -17,9 +17,12 @@
     opacity: 0.5;
   }
 
-  background-image: url("../../../assets/search-icon.svg");
+  background-image: url("@/assets/search-icon.svg");
   background-repeat: no-repeat;
   background-position: 10px center;
   background-size: 20px;
   text-indent: 40px;
+}
+.searchInputContainer {
+  visibility: initial;
 }
