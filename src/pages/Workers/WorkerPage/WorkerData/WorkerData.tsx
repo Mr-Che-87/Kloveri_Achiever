@@ -4,7 +4,7 @@ import { ChangeWorkerInformationButton } from "../buttons/ChangeWorkerInformatio
 
 interface WorkerDataProps {
   isEditing: boolean;
-  toggleEdit: () => void; // Добавленный пропс для функции переключения
+  toggleEdit: () => void;
 }
 
 export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
@@ -24,6 +24,15 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
       [name]: value,
     }));
   };
+
+  // Обработчик нажатия Enter
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      toggleEdit();
+    }
+  };
+
   return (
     <div className={styles.workerData}>
       <div className={styles.workerDataTitle}>
@@ -43,7 +52,8 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             placeholder="Введите Логин"
             value={formData.login}
             onChange={handleChange}
-            disabled={!isEditing} // инпут активен только в режиме редактирования
+            onKeyDown={handleKeyDown}
+            disabled={!isEditing}
             required
           />
         </div>
@@ -51,10 +61,12 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
         <div className={styles.workerFullname}>
           <h2>Имя</h2>
           <input
-            name="name"
+            name="fullName"
+            type="text"
             placeholder="Введите ФИО"
             value={formData.fullName}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             disabled={!isEditing}
           />
         </div>
@@ -67,6 +79,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             placeholder="Введите Дату рождения"
             value={formData.birthday}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             disabled={!isEditing}
             pattern="\d{2}.\d{2}.\d{4}"
           />
@@ -80,6 +93,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             placeholder="Введите Табельный номер"
             value={formData.number}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             disabled={!isEditing}
           />
         </div>
@@ -89,8 +103,9 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
           <input
             name="startDate"
             placeholder="Введите Дату начала работы"
-            value={formData.number}
+            value={formData.startDate}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             disabled={!isEditing}
             pattern="\d{2}.\d{2}.\d{4}"
           />
@@ -102,8 +117,9 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             name="position"
             type="text"
             placeholder="Введите Роль"
-            value={formData.number}
+            value={formData.position}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             disabled={!isEditing}
             required
           />
