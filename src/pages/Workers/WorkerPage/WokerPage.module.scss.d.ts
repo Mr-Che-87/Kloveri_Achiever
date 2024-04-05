@@ -1,9 +1,8 @@
 declare const classNames: {
   readonly workerPage: "workerPage";
-  readonly workerHeader: "workerHeader";
+  readonly workerSection: "workerSection";
   readonly workerInitial: "workerInitial";
-  readonly headerNavMenu: "headerNavMenu";
-  readonly workerNavMenu: "workerNavMenu";
+  readonly workerBtnMenu: "workerBtnMenu";
   readonly workerMain: "workerMain";
   readonly workerData: "workerData";
   readonly workerAchievements: "workerAchievements";

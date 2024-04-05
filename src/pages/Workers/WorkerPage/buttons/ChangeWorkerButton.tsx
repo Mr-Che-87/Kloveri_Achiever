@@ -11,7 +11,7 @@ export const ChangeWorkerButton: React.FC<ChangeWorkerButtonProps> = ({
   toggleEdit,
 }) => {
   return (
-    <button className={styles.changeWorkerButton} onClick={toggleEdit}>
+    <button className={styles.ChangeWorkerButton} onClick={toggleEdit}>
       {isEditing ? "Сохранить" : "Изменить"}
     </button>
   );

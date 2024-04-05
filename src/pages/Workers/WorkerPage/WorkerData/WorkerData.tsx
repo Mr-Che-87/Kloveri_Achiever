@@ -1,12 +1,13 @@
 import { useState } from "react";
 import styles from "./WorkerData.module.scss";
+import { ChangeWorkerInformationButton } from "../buttons/ChangeWorkerInformationButton";
 
 interface WorkerDataProps {
   isEditing: boolean;
+  toggleEdit: () => void; // Добавленный пропс для функции переключения
 }
-// Принимаем пропс isEditing для определения режима редактирования
-export default function WorkerData({ isEditing }: WorkerDataProps) {
-  // Состояние для хранения значений полей
+
+export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
   const [formData, setFormData] = useState({
     login: "",
     fullName: "",
@@ -16,7 +17,6 @@ export default function WorkerData({ isEditing }: WorkerDataProps) {
     position: "",
   });
 
-  // Обработчик изменений в инпутах с явным указанием типа события
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -25,8 +25,14 @@ export default function WorkerData({ isEditing }: WorkerDataProps) {
     }));
   };
   return (
-    <div>
-      <h1>Информация</h1>
+    <div className={styles.workerData}>
+      <div className={styles.workerDataTitle}>
+        <h1>Информация</h1>
+        <ChangeWorkerInformationButton
+          isEditing={isEditing}
+          toggleEdit={toggleEdit}
+        />
+      </div>
       <div className={styles.workerInformation}>
         {/* Для каждого инпута используем значение из состояния и обработчик изменений */}
         <div className={styles.workerLogin}>
