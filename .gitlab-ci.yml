@@ -6,13 +6,13 @@ build_test_image:
   after_script:
     - docker rmi docker.infra.cloveri.com/$CI_PROJECT_PATH:t`grep version package.json | grep -Po [0-9.]*`
   rules:
-    - if '$CI_COMMIT_BRANCH == "dev"'
+    - if: '$CI_COMMIT_BRANCH == "dev"'
   tags: [docker]
 
 build_test_image:
   script:
     - docker build -t docker.infra.cloveri.com/$CI_PROJECT_PATH:latest .
-    - docker image tag docker.infra.cloveri.com/$CI_PROJECT_PATH:latest docker.infra.cloveri.com/$CI_PROJECT_PATH:`grep version package.json | grep -Po [0-9.]*' package.json` .
+    - docker image tag docker.infra.cloveri.com/$CI_PROJECT_PATH:latest docker.infra.cloveri.com/$CI_PROJECT_PATH:`grep version package.json | grep -Po [0-9.]*' package.json`
     - docker login https://docker.infra.cloveri.com -u $CI_REGISTRY_USER --password-stdin <<<$CI_JOB_TOKEN
     - docker push docker.infra.cloveri.com/$CI_PROJECT_PATH:latest
     - docker push docker.infra.cloveri.com/$CI_PROJECT_PATH:`grep version package.json | grep -Po [0-9.]*' package.json` .
@@ -20,5 +20,5 @@ build_test_image:
     - docker rmi docker.infra.cloveri.com/$CI_PROJECT_PATH:latest
     - docker rmi docker.infra.cloveri.com/$CI_PROJECT_PATH:`grep version package.json | grep -Po [0-9.]*` .
   rules:
-    - if '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
   tags: [docker]
