@@ -1,5 +1,6 @@
 stages:
   - build
+  - notification
 
 build_test_image:
   stage: build
@@ -27,3 +28,11 @@ build_prod_image:
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
   tags: [docker]
+
+
+notification:
+  stage: notification
+  script:
+    - 'curl -X POST -s -H "Content-Type:multipart/form-data" -F message_thread_id=16 -F chat_id=-1002069789671_16 -F text="Project $CI_PROJECT_TITLE commit in $CI_COMMIT_BRANCH branch. Comment in commit: $CI_COMMIT_MESSAGE. Author of commit: $GITLAB_USER_LOGIN. Status: $CI_JOB_STATUS. $CI_JOB_URL" "https://api.telegram.org/$POS_TOK:$PRE_TOK/sendMessage"'
+  tags: [docker]
+#2069387923
