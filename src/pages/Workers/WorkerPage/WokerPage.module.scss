@@ -1,9 +1,11 @@
 .workerPage {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-left: 40px;
+  justify-content: space-around;
+  gap: 135px;
 }
-.workerHeader {
+.workerSection {
   display: flex;
   flex-direction: column;
   margin-top: 30px;
@@ -12,14 +14,13 @@
   display: flex;
   flex-direction: row;
 }
-.headerNavMenu {
-  margin-top: 32px;
-}
-.workerNavMenu {
+.workerBtnMenu {
   ul {
     display: flex;
     flex-direction: row;
+    margin-top: 32px;
     gap: 20px;
+    list-style: none;
   }
 }
 

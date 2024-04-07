@@ -1,3 +1,16 @@
+.workerData {
+  visibility: inherit;
+}
+
+.teams {
+  display: flex;
+  justify-content: row;
+}
+.workerDataTitle {
+  display: flex;
+  justify-content: space-between;
+}
+
 h2 {
   font-size: medium;
 }
