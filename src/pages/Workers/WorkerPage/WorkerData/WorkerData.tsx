@@ -1,35 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons/ChangeWorkerInformationButton";
-
+import { mockUserData, IUser } from "../../../../mocks/usersData";
 interface WorkerDataProps {
   isEditing: boolean;
   toggleEdit: () => void;
 }
 
 export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
-  const [formData, setFormData] = useState({
-    login: "",
-    fullName: "",
-    birthday: "",
-    number: "",
-    startDate: "",
-    position: "",
-  });
+  // Инициализируем formData начальными значениями из mockUserData
+  const [formData, setFormData] = useState<IUser>(mockUserData);
 
+  // Загрузка начальных данных при монтировании компонента
+  useEffect(() => {
+    setFormData(mockUserData);
+  }, []);
+
+  // Обновляем обработчик изменений
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    // Обратите внимание, что некоторые поля в вашей форме могут иметь разные имена
+    // в mock данных. Необходимо их синхронизировать.
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
   };
 
-  // Обработчик нажатия Enter
+  // Функция для "сохранения" данных (в данном случае просто вывод в консоль)
+  const handleSave = () => {
+    // В реальном приложении здесь отправка данных на сервер
+    console.log("Сохраненные данные:", formData);
+    toggleEdit(); // Закрываем редактирование после сохранения
+  };
+
+  // При нажатии Enter "сохраняем" данные
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      toggleEdit();
+      handleSave();
     }
   };
 
@@ -47,10 +56,10 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
         <div className={styles.workerLogin}>
           <h2>Логин</h2>
           <input
-            name="login"
+            name="email"
             type="email"
             placeholder="Введите Логин"
-            value={formData.login}
+            value={formData.email}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -61,10 +70,10 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
         <div className={styles.workerFullname}>
           <h2>Имя</h2>
           <input
-            name="fullName"
+            name="fullname"
             type="text"
             placeholder="Введите ФИО"
-            value={formData.fullName}
+            value={formData.fullname}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -101,9 +110,9 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <input
-            name="startDate"
+            name="registration_day"
             placeholder="Введите Дату начала работы"
-            value={formData.startDate}
+            value={formData.registration_day}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -114,10 +123,10 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
         <div className={styles.workerPosition}>
           <h2>Роль</h2>
           <input
-            name="position"
+            name="profession"
             type="text"
             placeholder="Введите Роль"
-            value={formData.position}
+            value={formData.profession}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
