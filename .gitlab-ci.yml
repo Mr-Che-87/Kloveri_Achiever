@@ -1,6 +1,35 @@
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_COMMIT_MESSAGE =~ /^Update build version*/
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
 stages:
+  - vars
   - build
   - notification
+
+default:
+  artifacts:
+    when: always
+    paths:
+     - $CI_PROJECT_DIR/package.json
+    expire_in: 2 days
+  tags:
+    - docker
+
+update_version:
+  stage: vars
+  script:
+    - export OLD_VERSION=`grep version package.json | grep -Po [0-9.]*`
+    - export NEW_VERSION=`echo $OLD_VERSION | awk '{split($NF,v,/[.]/); $NF=v[1]"."v[2]"."++v[3]}1'`
+    - 'sed -i "s/\"version\": \"$OLD_VERSION\"/\"version\": \"$NEW_VERSION\"/g" package.json'
+    - git clone --branch $CI_COMMIT_BRANCH $CI_REPOSITORY_URL git_project
+    - cp package.json git_project/package.json
+    - cd git_project && git add . && git commit -m "Update build version" && git push
 
 build_test_image:
   stage: build
@@ -12,7 +41,6 @@ build_test_image:
     - docker rmi docker.infra.cloveri.com/$CI_PROJECT_PATH:t`grep version package.json | grep -Po [0-9.]*`
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
-  tags: [docker]
 
 build_prod_image:
   stage: build
@@ -27,12 +55,9 @@ build_prod_image:
     - docker rmi docker.infra.cloveri.com/$CI_PROJECT_PATH:`grep version package.json | grep -Po [0-9.]*` .
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
-  tags: [docker]
-
 
 notification:
   stage: notification
   script:
-    - 'curl -X POST -s -H "Content-Type:multipart/form-data" -F message_thread_id=16 -F chat_id=-1002069789671_16 -F text="Project $CI_PROJECT_TITLE commit in $CI_COMMIT_BRANCH branch. Comment in commit: $CI_COMMIT_MESSAGE. Author of commit: $GITLAB_USER_LOGIN. Status: $CI_JOB_STATUS. $CI_JOB_URL" "https://api.telegram.org/$POS_TOK:$PRE_TOK/sendMessage"'
-  tags: [docker]
+    - 'curl -X POST -s -H "Content-Type:multipart/form-data" -F message_thread_id=16 -F chat_id=-1002069789671_16 -F text="@Petr2o1o  Project $CI_PROJECT_TITLE commit in $CI_COMMIT_BRANCH branch. Comment in commit: $CI_COMMIT_MESSAGE. Author of commit: $GITLAB_USER_LOGIN. Status: $CI_JOB_STATUS. $CI_JOB_URL" "https://api.telegram.org/$POS_TOK:$PRE_TOK/sendMessage"'
 #2069387923
