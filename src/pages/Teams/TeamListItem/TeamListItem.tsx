@@ -1,4 +1,4 @@
-import "./TeamListItem.scss";
+import styles from "./TeamListItem.module.scss";
 
 interface TeamListItemProps {
   name: string;
@@ -7,12 +7,12 @@ interface TeamListItemProps {
 
 const TeamListItem: React.FC<TeamListItemProps> = ({ name, members }) => {
   return (
-    <div className="team-list-item">
-      <div className="team-info">
-        <div className="team-name">{name}</div>
-        <div className="team-members">{members.join(", ")}</div>
+    <div className={styles.teamListItem}>
+      <div className={styles.teamInfo}>
+        <div className={styles.teamName}>{name}</div>
+        <div className={styles.teamMembers}>{members.join(", ")}</div>
       </div>
-      <div className="team-edit">
+      <div className={styles.teamEdit}>
         <button>⮕</button>
       </div>
     </div>

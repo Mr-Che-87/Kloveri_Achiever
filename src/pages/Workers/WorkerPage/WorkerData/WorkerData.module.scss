@@ -1,0 +1,59 @@
+.workerData {
+  visibility: inherit;
+}
+
+.teams {
+  display: flex;
+  justify-content: row;
+}
+.workerDataTitle {
+  display: flex;
+  justify-content: space-between;
+}
+
+h2 {
+  font-size: medium;
+}
+
+.workerInformation {
+  display: grid; /* Отображаем элементы в виде сетки */
+  grid-template-columns: repeat(2, 1fr); /* Два столбца равной ширины */
+  gap: 10px; /* Расстояние между элементами */
+}
+
+.workerInformation > div {
+  padding: 10px; /* Добавляем внутренний отступ для каждого дива */
+}
+
+.workerInformation h2 {
+  margin-bottom: 5px; /* Добавляем небольшой отступ снизу для заголовков */
+}
+
+.workerInformation button {
+  width: 100%; /* Кнопка будет занимать всю доступную ширину дива */
+}
+
+.workerInformation input {
+  width: calc(
+    100% - 20px
+  ); /* Инпут будет занимать всю доступную ширину минус внутренний отступ */
+  padding: 5px; /* Добавляем внутренний отступ для инпута */
+}
+.workerLogin {
+  visibility: inherit;
+}
+.workerFullname {
+  visibility: inherit;
+}
+.workerBirthday {
+  visibility: inherit;
+}
+.workerNumber {
+  visibility: inherit;
+}
+.workerStartdate {
+  visibility: inherit;
+}
+.workerPosition {
+  visibility: inherit;
+}

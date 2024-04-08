@@ -1,7 +1,5 @@
-import "./buttons.scss"
+import styles from "./buttons.module.scss";
 
 export function BanWorkerButton() {
-    return (
-        <button className="ban-worker-button">Заблокировать</button>
-    )
+  return <button className={styles.banWorkerButton}>Заблокировать</button>;
 }

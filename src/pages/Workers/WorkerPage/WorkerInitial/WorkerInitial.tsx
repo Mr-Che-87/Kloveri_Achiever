@@ -1,15 +1,21 @@
-import "./WorkerInitial.scss";
-import WorkerAvatar from "../../../../assets/Worker-Avatar.png";
+import styles from "./WorkerInitial.module.scss";
+import WorkerAvatar from "@/assets/Worker-Avatar.png";
 
-export default function WorkerInitial({ showEmail }:any) {
-    return (
-        <div className="worker-initial">
-            <img src={WorkerAvatar} alt="Avatar" />
-            <div>
-                <div className="worker-name">...Иван Михайлов</div>
-                <div className={showEmail ? "worker-mail" : "worker-mail hidden" }>...ioann_mikh@company.am</div>
-                {/* Применяем класс "hidden" только если showEmail === false */}
-            </div>
+interface WorkerInitialProps {
+  showEmail: boolean;
+}
+export default function WorkerInitial({ showEmail }: WorkerInitialProps) {
+  return (
+    <div className={styles.workerInitial}>
+      <img className={styles.workerAvatar} src={WorkerAvatar} alt="Avatar" />
+      <div>
+        <div className={styles.workerName}>...Иван Михайлов</div>
+        <div
+          className={`${styles.workerMail} ${showEmail ? "" : styles.hidden}`}
+        >
+          ...ioann_mikh@company.am
         </div>
-    );
+      </div>
+    </div>
+  );
 }

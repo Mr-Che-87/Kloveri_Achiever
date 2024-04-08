@@ -1,0 +1,102 @@
+button {
+  color: white;
+}
+.banWorkerButton {
+  visibility: inherit;
+}
+.ChangeWorkerButton {
+  visibility: inherit;
+}
+.ChangeWorkerInformationButton {
+  display: flex;
+  align-items: center;
+  padding: 8px 8px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #fff;
+  opacity: 0.6;
+  border: 0.5px solid #f4f4f410;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-right: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+  img {
+    margin-right: 8px;
+  }
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  &.active {
+    background-color: #f4f4f40a;
+    color: #fff;
+    opacity: 1;
+    transform: scale(0.95);
+  }
+}
+.deleteBanWorkerButton {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #e04242;
+  opacity: 0.6;
+  border: 0.5px solid #ea3d3d66;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-right: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+  img {
+    margin-right: 8px;
+  }
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  &.active {
+    background-color: #f4f4f40a;
+    color: #fff;
+    opacity: 1;
+    transform: scale(0.95);
+  }
+}
+.linkWorkerButton {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #fff;
+  opacity: 0.6;
+  border: 0.5px solid #f4f4f410;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-right: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+  img {
+    margin-right: 8px;
+  }
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  &.active {
+    background-color: #f4f4f40a;
+    color: #fff;
+    opacity: 1;
+    transform: scale(0.95);
+  }
+}

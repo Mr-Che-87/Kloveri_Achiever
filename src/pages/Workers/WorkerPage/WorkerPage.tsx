@@ -1,40 +1,45 @@
-import "./WokerPage.scss";
+import styles from "./WokerPage.module.scss";
 
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
-import { ChangeWorkerButton } from "./buttons/ChangeWorkerButton";
 import { LinkWorkerButton } from "./buttons/LinkWorkerButton";
-import { BanWorkerButton } from "./buttons/BanWorkerButton";
-import { DeleteWorkerButton } from "./buttons/DeleteWorkerButton";
+import { DeleteBanWorkerButton } from "./buttons/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerAchivements from "./WorkerAchivements/WorkerAchivements";
 
-export default function WorkerPage() {
-  return (
-    <div className="worker-page">
-      <header className="worker-header">
-        <div className="worker-initial">
-        <WorkerInitial showEmail={true} /> {/* Передаём проп showEmail со значением true */}
-        </div>
-        <div className="header-nav-menu">
-          <nav className="worker-nav-menu">
-            <ul>
-              <li><ChangeWorkerButton /></li>
-              <li><LinkWorkerButton /></li>
-              <li><BanWorkerButton /></li>
-              <li><DeleteWorkerButton /></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+import { useState } from "react";
+//import { users } from "../../../mocks/usersData";
 
-      <main className="worker-main">
-        <div className="worker-data">
-          <WorkerData />
+export default function WorkerPage() {
+  const [isEditing, setIsEditing] = useState(false);
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);
+  };
+  return (
+    <div className={styles.workerPage}>
+      <section className={styles.workerSection}>
+        <div className={styles.workerInitial}>
+          <WorkerInitial showEmail={true} />{" "}
+          {/* Передаём проп showEmail со значением true */}
         </div>
-        <div className="worker-achievements">
-          <WorkerAchivements />
+
+        <div className={styles.workerBtnMenu}>
+          <ul>
+            <li>
+              <LinkWorkerButton />
+            </li>
+            <li>
+              <DeleteBanWorkerButton />
+            </li>
+          </ul>
         </div>
-      </main>
+        <div className={styles.divider}></div>
+        <div className={styles.workerData}>
+          <WorkerData isEditing={isEditing} toggleEdit={toggleEdit} />
+        </div>
+      </section>
+      <div className={styles.workerAchievements}>
+        <WorkerAchivements />
+      </div>
     </div>
   );
 }
