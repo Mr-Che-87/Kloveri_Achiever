@@ -4,6 +4,7 @@ declare const classNames: {
   readonly workerInitial: "workerInitial";
   readonly workerBtnMenu: "workerBtnMenu";
   readonly workerMain: "workerMain";
+  readonly divider: "divider";
   readonly workerData: "workerData";
   readonly workerAchievements: "workerAchievements";
 };
