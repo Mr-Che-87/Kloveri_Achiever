@@ -29,7 +29,8 @@ update_version:
     - 'sed -i "s/\"version\": \"$OLD_VERSION\"/\"version\": \"$NEW_VERSION\"/g" package.json'
     - git clone --branch $CI_COMMIT_BRANCH $CI_REPOSITORY_URL git_project
     - cp package.json git_project/package.json
-    - cd git_project && git add . && git commit -m "Update build version" && git push
+    - cd git_project && git add . && git commit -m "Update build version" 
+    - git push https://repository_user_token:$repository_user_token@git.infra.cloveri.com/cloveri.start/achiever/front.git/
 
 build_test_image:
   stage: build
