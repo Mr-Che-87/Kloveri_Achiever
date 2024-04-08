@@ -9,13 +9,13 @@ import "./NavigationMenu.scss";
 import Workers from "../../pages/Workers/Workers";
 import Teams from "../../pages/Teams/Teams";
 import AchievementsConstructor from "../../pages/AchievementsConstructor/AchievementsConstructor";
-import AdminAccount from "../../pages/AdminAccount/AdminAccount"; 
+import AdminAccount from "../../pages/AdminAccount/AdminAccount";
 
-import workersIcon from "../../assets/workers.svg";
-import managementIcon from "../../assets/management.svg";
-import userAvatarIcon from "../../assets/user-avatar.png";
-import achievementsIcon from "../../assets/achievements.svg";
-import logoIcon from "../../assets/logo.svg";
+import workersIcon from "@/assets/workers.svg";
+import managementIcon from "@/assets/management.svg";
+import userAvatarIcon from "@/assets/user-avatar.png";
+import achievementsIcon from "@/assets/achievements.svg";
+import logoIcon from "@/assets/logo.svg";
 import WorkerPage from "../../pages/Workers/WorkerPage/WorkerPage";
 
 // Components for routing
@@ -53,14 +53,15 @@ const NavigationMenu = () => {
       <div className="routes">
         <Routes>
           <Route path="/" element={<Workers />} />
-          <Route path="/achievements-constructor" element={<AchievementsConstructor />} />
-          <Route path="/teams" element={<Teams />}  />
+          <Route
+            path="/achievements-constructor"
+            element={<AchievementsConstructor />}
+          />
+          <Route path="/teams" element={<Teams />} />
           <Route path="/workers" element={<Workers />} />
-            <>
-            
-               <Route path="/worker-page" element={<WorkerPage />} />
-            
-            </>
+          <>
+            <Route path="/worker-page" element={<WorkerPage />} />
+          </>
 
           <Route path="/admin-account" element={<AdminAccount />} />
           <Route path="*" element={<NotFound />} />

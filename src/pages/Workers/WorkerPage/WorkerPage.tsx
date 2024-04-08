@@ -7,6 +7,7 @@ import WorkerData from "./WorkerData/WorkerData";
 import WorkerAchivements from "./WorkerAchivements/WorkerAchivements";
 
 import { useState } from "react";
+//import { users } from "../../../mocks/usersData";
 
 export default function WorkerPage() {
   const [isEditing, setIsEditing] = useState(false);
@@ -31,6 +32,7 @@ export default function WorkerPage() {
             </li>
           </ul>
         </div>
+        <div className={styles.divider}></div>
         <div className={styles.workerData}>
           <WorkerData isEditing={isEditing} toggleEdit={toggleEdit} />
         </div>
