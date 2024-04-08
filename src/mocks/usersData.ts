@@ -7,8 +7,8 @@ export interface IUser {
   email: string;
   profession: string;
   age: number;
-  birthday: string;
-  registration_day: string;
+  birthday: Date;
+  registration_day: Date;
   number: string;
   gender: "male" | "female";
   // Оставляем *company и *site для будущего использования
@@ -24,8 +24,8 @@ export const mockUserData: IUser = {
   email: "ivan.mikhailov@company.com",
   profession: "Developer",
   age: 35,
-  birthday: "02.03.1989",
-  registration_day: "04.05.2017",
+  birthday: new Date("1989-03-02"),
+  registration_day: new Date("2017-05-04"),
   number: "КК 330011",
   gender: "male",
   // company и site добавим позже, когда они будут необходимы

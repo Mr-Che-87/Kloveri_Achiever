@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { format } from 'date-fns'; 
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons/ChangeWorkerInformationButton";
 import { mockUserData, IUser } from "../../../../mocks/usersData";
@@ -19,8 +20,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
   // Обновляем обработчик изменений
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    // Обратите внимание, что некоторые поля в вашей форме могут иметь разные имена
-    // в mock данных. Необходимо их синхронизировать.
+    // Обратите внимание, что некоторые поля в вашей форме могут иметь разные имена в mock данных. Необходимо их синхронизировать.
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
@@ -41,6 +41,10 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
       handleSave();
     }
   };
+  
+  const formattedBirthday: string = format(new Date(formData.birthday), 'dd.MM.yyyy');
+  const formattedRegistrationday: string = format(new Date(formData.registration_day), 'dd.MM.yyyy');
+ 
 
   return (
     <div className={styles.workerData}>
@@ -86,7 +90,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             name="birthday"
             type="text"
             placeholder="Введите Дату рождения"
-            value={formData.birthday}
+            value={formattedBirthday}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -112,7 +116,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
           <input
             name="registration_day"
             placeholder="Введите Дату начала работы"
-            value={formData.registration_day}
+            value={formattedRegistrationday}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
