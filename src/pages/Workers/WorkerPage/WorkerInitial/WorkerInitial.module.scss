@@ -1,6 +1,11 @@
 .workerInitial {
   display: flex;
   flex-direction: row;
+  gap: 16px;
+}
+.workerAvatar {
+  width: 72px;
+  height: 72px;
 }
 .workerName {
   font-size: 48px;
