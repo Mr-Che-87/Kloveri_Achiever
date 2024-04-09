@@ -1,6 +1,5 @@
 declare const classNames: {
   readonly workerData: "workerData";
-  readonly teams: "teams";
   readonly workerDataTitle: "workerDataTitle";
   readonly workerInformation: "workerInformation";
   readonly workerLogin: "workerLogin";

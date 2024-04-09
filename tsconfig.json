@@ -21,6 +21,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "src/pages/Workers/WorkerPage/buttons&inputes/buttons/.module.scss.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

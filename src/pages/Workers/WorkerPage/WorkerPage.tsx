@@ -1,9 +1,10 @@
 import styles from "./WokerPage.module.scss";
 
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
-import { LinkWorkerButton } from "./buttons/LinkWorkerButton";
-import { DeleteBanWorkerButton } from "./buttons/DeleteBanWorkerButton";
+import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
+import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
+import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import WorkerAchivements from "./WorkerAchivements/WorkerAchivements";
 
 import { useState } from "react";
@@ -33,9 +34,15 @@ export default function WorkerPage() {
           </ul>
         </div>
         <div className={styles.divider}></div>
+       
+
         <div className={styles.workerData}>
           <WorkerData isEditing={isEditing} toggleEdit={toggleEdit} />
         </div>
+        <div className={styles.workerTeams}>
+          <WorkerTeams />
+        </div>
+
       </section>
       <div className={styles.workerAchievements}>
         <WorkerAchivements />

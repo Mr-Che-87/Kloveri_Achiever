@@ -5,5 +5,7 @@ declare const classNames: {
   readonly active: "active";
   readonly deleteBanWorkerButton: "deleteBanWorkerButton";
   readonly linkWorkerButton: "linkWorkerButton";
+  readonly giveAchieveButton: "giveAchieveButton";
+  readonly allAchieveButton: "allAchieveButton";
 };
 export = classNames;
