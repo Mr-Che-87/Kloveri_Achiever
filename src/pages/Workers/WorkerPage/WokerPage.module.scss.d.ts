@@ -6,6 +6,7 @@ declare const classNames: {
   readonly workerMain: "workerMain";
   readonly divider: "divider";
   readonly workerData: "workerData";
+  readonly workerTeams: "workerTeams";
   readonly workerAchievements: "workerAchievements";
 };
 export = classNames;

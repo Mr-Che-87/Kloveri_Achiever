@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { format } from 'date-fns'; 
 import styles from "./WorkerData.module.scss";
-import { ChangeWorkerInformationButton } from "../buttons/ChangeWorkerInformationButton";
+import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
 import { mockUserData, IUser } from "../../../../mocks/usersData";
+
 interface WorkerDataProps {
   isEditing: boolean;
   toggleEdit: () => void;
@@ -11,20 +12,30 @@ interface WorkerDataProps {
 export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
   // Инициализируем formData начальными значениями из mockUserData
   const [formData, setFormData] = useState<IUser>(mockUserData);
-
+  
+  
   // Загрузка начальных данных при монтировании компонента
   useEffect(() => {
-    setFormData(mockUserData);
+    // Получаем данные из локального хранилища
+    const storedFormData: IUser = Object.keys(mockUserData).reduce(
+      (acc, key) => ({
+        ...acc,
+        [key]: localStorage.getItem(key) || mockUserData[key],
+      }),
+      {} as IUser
+    );
+    setFormData(storedFormData);
   }, []);
 
   // Обновляем обработчик изменений
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    // Обратите внимание, что некоторые поля в вашей форме могут иметь разные имена в mock данных. Необходимо их синхронизировать.
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
+    // Сохраняем данные в localStorage:
+  localStorage.setItem(name, value);
   };
 
   // Функция для "сохранения" данных (в данном случае просто вывод в консоль)
@@ -32,6 +43,10 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
     // В реальном приложении здесь отправка данных на сервер
     console.log("Сохраненные данные:", formData);
     toggleEdit(); // Закрываем редактирование после сохранения
+       // Сохраняем данные в localStorage:
+      Object.entries(formData).forEach(([key, value]) => {
+        localStorage.setItem(key, value);
+    });
   };
 
   // При нажатии Enter "сохраняем" данные
@@ -115,6 +130,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
           <h2>Дата начала работы</h2>
           <input
             name="registration_day"
+            type="text"
             placeholder="Введите Дату начала работы"
             value={formattedRegistrationday}
             onChange={handleChange}
@@ -138,9 +154,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
           />
         </div>
       </div>
-      <div className={styles.teams}>
-        <h1>Команды</h1>
-      </div>
+       
     </div>
   );
 }

@@ -11,6 +11,7 @@ export interface IUser {
   registration_day: Date;
   number: string;
   gender: "male" | "female";
+  [key: string]: any; 
   // Оставляем *company и *site для будущего использования
   // teams будет использоваться позже
 }
