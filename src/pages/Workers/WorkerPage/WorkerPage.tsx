@@ -5,7 +5,7 @@ import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
 import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
-import WorkerAchivements from "./WorkerAchivements/WorkerAchivements";
+import WorkerAchievements from "./WorkerAchievements/WorkerAchievements";
 
 import { useState } from "react";
 //import { users } from "../../../mocks/usersData";
@@ -45,7 +45,7 @@ export default function WorkerPage() {
 
       </section>
       <div className={styles.workerAchievements}>
-        <WorkerAchivements />
+        <WorkerAchievements />
       </div>
     </div>
   );

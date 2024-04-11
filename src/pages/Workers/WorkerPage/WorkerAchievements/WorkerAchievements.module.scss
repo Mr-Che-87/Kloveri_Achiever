@@ -1,9 +1,9 @@
-.workerAchivements {
+.workerAchievements {
   visibility: inherit;
 }
 
 
-.workerAchivementsNav {
+.workerAchievementsNav {
     ul {
       display: flex;
       flex-direction: row;
@@ -13,7 +13,7 @@
     }
 }
 
-.workerAchivementsList {
+.workerAchievementsList {
   height: 568px; /* ПРИМЕРНАЯ ВЫСОТА ИЗ МАКЕТА */
   overflow-y: auto; /* вертикальный скролл */
   overflow-x: hidden; /* Скрыть горизонтальный скролл */
@@ -22,13 +22,13 @@
   gap: 20px; /* Расстояние между элементами */
 }
 
-.achiveItem {
+.achieveItem {
   display: flex;
   flex-direction: column;
   align-items: center; 
 }
 
-.achiveTitle {
+.achieveTitle {
   margin-top: 10px; 
   text-align: center; 
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import styles from "./WorkerAchivements.module.scss";
+import styles from "./WorkerAchievements.module.scss";
 import { GiveAchieveButton } from "../buttons&inputes/GiveAchieveButton";
 import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
 import { AllAchieveButton } from "../buttons&inputes/AllAchieveButton";
@@ -8,23 +8,29 @@ import { AllAchieveButton } from "../buttons&inputes/AllAchieveButton";
 import { mockAchieveLibrary, IAchieve } from "../../../../mocks/AchieveLibrary";
 import { ModalAchieveLibrary } from "../ModalAchieveLibrary/ModalAchieveLibrary";
 
-export default function WorkerAchivements() {
-  const [achiveList, setAchiveList] = useState<IAchieve[]>(mockAchieveLibrary);
+export default function WorkerAchievements() {
+  const [achieveList, setAchieveList] = useState<IAchieve[]>(mockAchieveLibrary);
   const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
 
   //отображение актуального списка добавленных ачивок и сохранение их в localStorage:
   useEffect(() => {
-    // Динамический импорт данных из AchieveLibrary.ts:
-    import("../../../../mocks/AchieveLibrary").then(({ mockAchieveLibrary }) => {
-      const storedAchieves = localStorage.getItem("achieveList");
+
+    setAchieveList(mockAchieveLibrary);
+    
+    /*
+    const storedAchieves = localStorage.getItem("achieveList");
       if (storedAchieves) {
-        setAchiveList(JSON.parse(storedAchieves));
+        setAchieveList(JSON.parse(storedAchieves));
       } else {
-        setAchiveList(mockAchieveLibrary);
+        setAchieveList(mockAchieveLibrary);
         localStorage.setItem("achieveList", JSON.stringify(mockAchieveLibrary));
       }
-    });
+      */
+
+      
+    
   }, []);
 
   const openModal = () => {
@@ -36,40 +42,41 @@ export default function WorkerAchivements() {
   };
 
   const addAchieve = (achive: IAchieve) => {
-    const updatedAchieves = achiveList.map((item) =>
+    const updatedAchieves = achieveList.map((item) =>
       item.id === achive.id ? { ...item, added: true } : item
     );
-    setAchiveList(updatedAchieves);
+    setAchieveList(updatedAchieves);
     localStorage.setItem("achieveList", JSON.stringify(updatedAchieves));
   };
 
    // Функция удаления ачивки
    const removeAchieve = (id: number) => {
-    const updatedAchieves = achiveList.map((item) =>
+    const updatedAchieves = achieveList.map((item) =>
       item.id === id ? { ...item, added: false } : item
     );
-    setAchiveList(updatedAchieves);
+    setAchieveList(updatedAchieves);
     localStorage.setItem("achieveList", JSON.stringify(updatedAchieves));
   };
 
 
   return (
-    <div className={styles.workerAchivements}>
+    <div className={styles.workerAchievements}>
       <h1>Достижения</h1>
-      <div className={styles.workerAchivementsNav}>
+      <div className={styles.workerAchievementsNav}>
       <ul>
         <li><GiveAchieveButton onClick={openModal}/></li>
-        <li><SearchAchieveInput /></li>
+        <li><SearchAchieveInput searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+       </li>
         <li><AllAchieveButton /></li>
       </ul>
       </div>
 
-      <div className={styles.workerAchivementsList}>
-      {achiveList.filter(achive => achive.added).map((achive) => (
-          <div key={achive.id} className={styles.achiveItem}>
+      <div className={styles.workerAchievementsList}>
+      {achieveList.filter(achieve => achieve.added).map((achive) => (
+          <div key={achive.id} className={styles.achieveItem}>
             <button>
               <img src={achive.image} alt={achive.title} />
-              <h3 className={styles.achiveTitle}>{achive.title}</h3>
+              <h3 className={styles.achieveTitle}>{achive.title}</h3>
               <button className={styles.removeButton} onClick={() => removeAchieve(achive.id)}>
                 &times;
               </button>
@@ -79,7 +86,7 @@ export default function WorkerAchivements() {
       </div>
 
       {showModal && (
-        <ModalAchieveLibrary achiveList={achiveList} closeModal={closeModal} onAchieveAdd={addAchieve} />
+        <ModalAchieveLibrary achieveList={achieveList} closeModal={closeModal} onAchieveAdd={addAchieve} />
       )}
     </div>
   );

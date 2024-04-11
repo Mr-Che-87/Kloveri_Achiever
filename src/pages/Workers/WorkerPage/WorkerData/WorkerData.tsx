@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { format } from 'date-fns'; 
+//ебала с датой  //import { format } from 'date-fns'; 
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
 import { mockUserData, IUser } from "../../../../mocks/usersData";
@@ -15,7 +15,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
   
   
   // Загрузка начальных данных при монтировании компонента
-  useEffect(() => {
+    useEffect(() => {
     // Получаем данные из локального хранилища
     const storedFormData: IUser = Object.keys(mockUserData).reduce(
       (acc, key) => ({
@@ -25,25 +25,33 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
       {} as IUser
     );
     setFormData(storedFormData);
+    
   }, []);
+
 
   // Обновляем обработчик изменений
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+     // Форматирование даты в формат 'dd.MM.yyyy'
     setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-    // Сохраняем данные в localStorage:
-  localStorage.setItem(name, value);
-  };
+    ...prevFormData,
+    [name]: value,
+  }));
 
+  // Сохраняем данные в localStorage:
+  localStorage.setItem(name, value);
+};
+
+    
+
+  
   // Функция для "сохранения" данных (в данном случае просто вывод в консоль)
   const handleSave = () => {
     // В реальном приложении здесь отправка данных на сервер
     console.log("Сохраненные данные:", formData);
     toggleEdit(); // Закрываем редактирование после сохранения
-       // Сохраняем данные в localStorage:
+       
+    // Сохраняем данные в localStorage:
       Object.entries(formData).forEach(([key, value]) => {
         localStorage.setItem(key, value);
     });
@@ -57,8 +65,11 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
     }
   };
   
-  const formattedBirthday: string = format(new Date(formData.birthday), 'dd.MM.yyyy');
-  const formattedRegistrationday: string = format(new Date(formData.registration_day), 'dd.MM.yyyy');
+
+
+ //ебала с датой
+  //const formattedBirthday: string = format(new Date(formData.birthday), 'dd.MM.yyyy');
+  //const formattedRegistrationday: string = format(new Date(formData.registration_day), 'dd.MM.yyyy');
  
 
   return (
@@ -105,11 +116,11 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             name="birthday"
             type="text"
             placeholder="Введите Дату рождения"
-            value={formattedBirthday}
+            value={formData.birthday}   //ебала с датой //value={formattedBirthday}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
-            pattern="\d{2}.\d{2}.\d{4}"
+            //ебала с датой //pattern="\d{2}.\d{2}.\d{4}"
           />
         </div>
 
@@ -132,11 +143,11 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             name="registration_day"
             type="text"
             placeholder="Введите Дату начала работы"
-            value={formattedRegistrationday}
+            value={formData.registration_day}    //ебала с датой //value={formattedRegistrationday}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
-            pattern="\d{2}.\d{2}.\d{4}"
+            //ебала с датой  //pattern="\d{2}.\d{2}.\d{4}"
           />
         </div>
 
