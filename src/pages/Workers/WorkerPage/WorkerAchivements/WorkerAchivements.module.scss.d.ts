@@ -1,7 +1,7 @@
 declare const classNames: {
-  readonly workerAchivements: "workerAchivements";
-  readonly workerAchivementsNav: "workerAchivementsNav";
-  readonly workerAchivementsList: "workerAchivementsList";
+  readonly workerAchievements: "workerAchievements";
+  readonly workerAchievementsNav: "workerAchievementsNav";
+  readonly workerAchievementsList: "workerAchievementsList";
   readonly achiveItem: "achiveItem";
   readonly achiveTitle: "achiveTitle";
   readonly removeButton: "removeButton";

@@ -5,26 +5,31 @@ import { GiveAchieveButton } from "../buttons&inputes/GiveAchieveButton";
 import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
 import { AllAchieveButton } from "../buttons&inputes/AllAchieveButton";
 
-import { mockAchieveLibrary, IAchieve } from "../../../../mocks/AchieveLibrary";
+// Убран неиспользуемый импорт mockAchieveLibrary
+import { IAchieve } from "../../../../mocks/AchieveLibrary";
 import { ModalAchieveLibrary } from "../ModalAchieveLibrary/ModalAchieveLibrary";
 
-export default function WorkerAchivements() {
-  const [achiveList, setAchiveList] = useState<IAchieve[]>(mockAchieveLibrary);
+export default function WorkerAchievements() {
+  const [achiveList, setAchiveList] = useState<IAchieve[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
-
-  //отображение актуального списка добавленных ачивок и сохранение их в localStorage:
   useEffect(() => {
-    // Динамический импорт данных из AchieveLibrary.ts:
-    import("../../../../mocks/AchieveLibrary").then(({ mockAchieveLibrary }) => {
-      const storedAchieves = localStorage.getItem("achieveList");
-      if (storedAchieves) {
-        setAchiveList(JSON.parse(storedAchieves));
-      } else {
-        setAchiveList(mockAchieveLibrary);
-        localStorage.setItem("achieveList", JSON.stringify(mockAchieveLibrary));
+    // Загрузка начального списка достижений через динамический импорт
+    import("../../../../mocks/AchieveLibrary").then(
+      ({ mockAchieveLibrary }) => {
+        const storedAchieves = localStorage.getItem("achieveList");
+        if (storedAchieves) {
+          setAchiveList(JSON.parse(storedAchieves));
+        } else {
+          setAchiveList(mockAchieveLibrary);
+          localStorage.setItem(
+            "achieveList",
+            JSON.stringify(mockAchieveLibrary)
+          );
+        }
       }
-    });
+    );
   }, []);
 
   const openModal = () => {
@@ -36,50 +41,65 @@ export default function WorkerAchivements() {
   };
 
   const addAchieve = (achive: IAchieve) => {
-    const updatedAchieves = achiveList.map((item) =>
-      item.id === achive.id ? { ...item, added: true } : item
-    );
+    const updatedAchieves = [...achiveList, { ...achive, added: true }];
     setAchiveList(updatedAchieves);
     localStorage.setItem("achieveList", JSON.stringify(updatedAchieves));
   };
 
-   // Функция удаления ачивки
-   const removeAchieve = (id: number) => {
-    const updatedAchieves = achiveList.map((item) =>
-      item.id === id ? { ...item, added: false } : item
-    );
+  // Функция удаления ачивки
+  const removeAchieve = (id: number) => {
+    const updatedAchieves = achiveList.filter((item) => item.id !== id);
     setAchiveList(updatedAchieves);
     localStorage.setItem("achieveList", JSON.stringify(updatedAchieves));
   };
-
 
   return (
-    <div className={styles.workerAchivements}>
+    <div className={styles.workerAchievements}>
       <h1>Достижения</h1>
-      <div className={styles.workerAchivementsNav}>
-      <ul>
-        <li><GiveAchieveButton onClick={openModal}/></li>
-        <li><SearchAchieveInput /></li>
-        <li><AllAchieveButton /></li>
-      </ul>
+      <div className={styles.workerAchievementsNav}>
+        <ul>
+          <li>
+            <GiveAchieveButton onClick={openModal} />
+          </li>
+          <li>
+            <SearchAchieveInput
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          </li>
+          <li>
+            <AllAchieveButton />
+          </li>
+        </ul>
       </div>
 
-      <div className={styles.workerAchivementsList}>
-      {achiveList.filter(achive => achive.added).map((achive) => (
-          <div key={achive.id} className={styles.achiveItem}>
-            <button>
+      <div className={styles.workerAchievementsList}>
+        {achiveList
+          .filter(
+            (achive) =>
+              achive.added &&
+              achive.title.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+          .map((achive) => (
+            <div key={achive.id} className={styles.achiveItem}>
               <img src={achive.image} alt={achive.title} />
               <h3 className={styles.achiveTitle}>{achive.title}</h3>
-              <button className={styles.removeButton} onClick={() => removeAchieve(achive.id)}>
+              <button
+                className={styles.removeButton}
+                onClick={() => removeAchieve(achive.id)}
+              >
                 &times;
               </button>
-            </button>
-          </div>
-        ))}
+            </div>
+          ))}
       </div>
 
       {showModal && (
-        <ModalAchieveLibrary achiveList={achiveList} closeModal={closeModal} onAchieveAdd={addAchieve} />
+        <ModalAchieveLibrary
+          achiveList={achiveList}
+          closeModal={closeModal}
+          onAchieveAdd={addAchieve}
+        />
       )}
     </div>
   );
