@@ -11,8 +11,8 @@ import { useState } from "react";
 //import { users } from "../../../mocks/usersData";
 
 export default function WorkerPage() {
-  const [isEditing, setIsEditing] = useState(false);
-  const toggleEdit = () => {
+  const [isEditing, setIsEditing] = useState(false);  //изначально isEditing = false
+  const toggleEdit = () => {  //вот тут  isEditing привязывается к toggleEdit
     setIsEditing(!isEditing);
   };
   return (

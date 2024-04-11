@@ -29,7 +29,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
 
   // Обновляем обработчик изменений
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target;  //деструктуризация объекта e.target(HTML-элемент инпут, на котором произошло событие onChange)
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,

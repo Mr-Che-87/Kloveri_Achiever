@@ -11,7 +11,7 @@ interface ModalAchievementsProps {
 
 export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achiveList, closeModal, onAchieveAdd }) => {
   const handleAchieveAdd = (achive: IAchieve) => {
-    onAchieveAdd(achive); // Вызываем функцию родителя при добавлении ачивки
+    onAchieveAdd(achive); // Вызываем функцию родителя addAchieve при добавлении ачивки
     closeModal(); // Закрываем модальное окно
   };
 
@@ -26,7 +26,7 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achiveLi
         <div className={styles.achievementsList}>
           {achiveList.map((achive) => (
             <div key={achive.id} className={styles.achiveItem}>
-              <button onClick={() => handleAchieveAdd(achive)}> {/* Добавляем обработчик на кнопку */}
+              <button onClick={() => handleAchieveAdd(achive)}> {/*обработчик добавления ачивки */}
               <img src={achive.image} alt={achive.title} />
               <h3 className={styles.achiveTitle}>{achive.title}</h3>
               </button>
