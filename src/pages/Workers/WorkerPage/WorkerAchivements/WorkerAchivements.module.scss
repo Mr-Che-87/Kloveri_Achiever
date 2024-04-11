@@ -1,19 +1,18 @@
-.workerAchivements {
+.workerAchievements {
   visibility: inherit;
 }
 
-
-.workerAchivementsNav {
-    ul {
-      display: flex;
-      flex-direction: row;
-      margin-top: 32px;
-      gap: 20px;
-      list-style: none;
-    }
+.workerAchievementsNav {
+  ul {
+    display: flex;
+    flex-direction: row;
+    margin-top: 32px;
+    gap: 20px;
+    list-style: none;
+  }
 }
 
-.workerAchivementsList {
+.workerAchievementsList {
   height: 568px; /* ПРИМЕРНАЯ ВЫСОТА ИЗ МАКЕТА */
   overflow-y: auto; /* вертикальный скролл */
   overflow-x: hidden; /* Скрыть горизонтальный скролл */
@@ -25,12 +24,12 @@
 .achiveItem {
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
 }
 
 .achiveTitle {
-  margin-top: 10px; 
-  text-align: center; 
+  margin-top: 10px;
+  text-align: center;
 }
 
 button {
