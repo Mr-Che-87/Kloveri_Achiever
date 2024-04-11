@@ -3,15 +3,14 @@ import styles from "./ModalAchieveLibrary.module.scss";
 import { IAchieve } from "../../../../mocks/AchieveLibrary";
 
 interface ModalAchievementsProps {
-  achiveList: IAchieve[];
+  achieveList: IAchieve[];
   closeModal: () => void;
-  onAchieveAdd: (achive: IAchieve) => void; //  функция для передачи ачивки родителю
+  onAchieveAdd: (achieve: IAchieve) => void; //  функция для передачи ачивки родителю
 }
 
-
-export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achiveList, closeModal, onAchieveAdd }) => {
-  const handleAchieveAdd = (achive: IAchieve) => {
-    onAchieveAdd(achive); // Вызываем функцию родителя addAchieve при добавлении ачивки
+export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achieveList, closeModal, onAchieveAdd }) => {
+  const handleAchieveAdd = (achieve: IAchieve) => {
+    onAchieveAdd(achieve); // Вызываем функцию родителя при добавлении ачивки
     closeModal(); // Закрываем модальное окно
   };
 
@@ -24,11 +23,11 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achiveLi
         </button>
         <h2>Библиотека достижений</h2>
         <div className={styles.achievementsList}>
-          {achiveList.map((achive) => (
-            <div key={achive.id} className={styles.achiveItem}>
-              <button onClick={() => handleAchieveAdd(achive)}> {/*обработчик добавления ачивки */}
-              <img src={achive.image} alt={achive.title} />
-              <h3 className={styles.achiveTitle}>{achive.title}</h3>
+          {achieveList.map((achieve) => (
+            <div key={achieve.id} className={styles.achieveItem}>
+              <button onClick={() => handleAchieveAdd(achieve)}> {/* Добавляем обработчик на кнопку */}
+              <img src={achieve.image} alt={achieve.title} />
+              <h3 className={styles.achieveTitle}>{achieve.title}</h3>
               </button>
             </div>
           ))}

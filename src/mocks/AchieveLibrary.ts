@@ -4,12 +4,12 @@ export interface IAchieve {
   id: number;
   title: string;
   image: string;
-  added?: boolean; // Добавлено ли достижение. "?" - пока сделал его необязательным.
+  added?: boolean;   //добавлено ли достижение. "?" - пока сделал его необязательным.
 }
 
 export const mockAchieveLibrary: IAchieve[] = [
   { id: 0, title: 'ачивка-1', image: ImgAchievement, added: true },
-  { id: 1, title: 'ачивка-2', image: ImgAchievement, added: true },
+  {  id: 1, title: 'ачивка-2', image: ImgAchievement, added: true },
   { id: 2, title: 'ачивка-3', image: ImgAchievement, added: true },
   { id: 3, title: 'ачивка-4', image: ImgAchievement, added: true },
   { id: 4, title: 'ачивка-5', image: ImgAchievement, added: true },
