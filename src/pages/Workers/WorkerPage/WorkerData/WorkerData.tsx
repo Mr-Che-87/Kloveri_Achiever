@@ -10,13 +10,11 @@ interface WorkerDataProps {
 }
 
 export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
-  // Инициализируем formData начальными значениями из mockUserData
-  const [formData, setFormData] = useState<IUser>(mockUserData);
-  
+  const [formData, setFormData] = useState<IUser>(mockUserData);  //state данных из мок-заглушки
   
   // Загрузка начальных данных при монтировании компонента
     useEffect(() => {
-    // Получаем данные из локального хранилища
+    //получаем данные из локального хранилища
     const storedFormData: IUser = Object.keys(mockUserData).reduce(
       (acc, key) => ({
         ...acc,
@@ -25,39 +23,35 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
       {} as IUser
     );
     setFormData(storedFormData);
-    
   }, []);
 
 
-  // Обновляем обработчик изменений
+  //Обработчик изменений данных:
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-     // Форматирование даты в формат 'dd.MM.yyyy'
     setFormData((prevFormData) => ({
     ...prevFormData,
     [name]: value,
   }));
-
-  // Сохраняем данные в localStorage:
-  localStorage.setItem(name, value);
-};
+    //сохраняем данные в localStorage:
+    localStorage.setItem(name, value);
+  };
 
     
 
   
-  // Функция для "сохранения" данных (в данном случае просто вывод в консоль)
+  //Обработчик для "сохранения" данных (В РЕАЛЬНОМ ПРИЛОЖЕНИИ ЗДЕСЬ - ОТПРАВКА ДАННЫХ НА СЕРВЕР)
   const handleSave = () => {
-    // В реальном приложении здесь отправка данных на сервер
-    console.log("Сохраненные данные:", formData);
-    toggleEdit(); // Закрываем редактирование после сохранения
-       
-    // Сохраняем данные в localStorage:
+    console.log("Сохраненные данные:", formData);  //в данном случае просто вывод в консоль
+    toggleEdit();       //закрываем редактирование после сохранения
+     
+    //сохраняем данные в localStorage:
       Object.entries(formData).forEach(([key, value]) => {
         localStorage.setItem(key, value);
     });
   };
 
-  // При нажатии Enter "сохраняем" данные
+  //При нажатии Enter "сохраняем" данные:
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -67,7 +61,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
   
 
 
- //ебала с датой
+ //ебала с датой:
   //const formattedBirthday: string = format(new Date(formData.birthday), 'dd.MM.yyyy');
   //const formattedRegistrationday: string = format(new Date(formData.registration_day), 'dd.MM.yyyy');
  

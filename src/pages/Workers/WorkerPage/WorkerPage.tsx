@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./WokerPage.module.scss";
 
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
@@ -7,8 +8,6 @@ import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import WorkerAchievements from "./WorkerAchievements/WorkerAchievements";
 
-import { useState } from "react";
-//import { users } from "../../../mocks/usersData";
 
 export default function WorkerPage() {
   const [isEditing, setIsEditing] = useState(false);

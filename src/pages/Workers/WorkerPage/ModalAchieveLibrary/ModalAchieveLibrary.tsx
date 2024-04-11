@@ -8,7 +8,6 @@ interface ModalAchievementsProps {
   onAchieveAdd: (achieve: IAchieve) => void; //  функция для передачи ачивки родителю
 }
 
-
 export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achieveList, closeModal, onAchieveAdd }) => {
   const handleAchieveAdd = (achieve: IAchieve) => {
     onAchieveAdd(achieve); // Вызываем функцию родителя при добавлении ачивки

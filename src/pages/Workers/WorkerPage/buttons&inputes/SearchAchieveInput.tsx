@@ -4,10 +4,14 @@ interface Props {
 }
 
 export function SearchAchieveInput({ searchQuery, setSearchQuery }: Props) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <input
       value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
+      onChange={handleChange}
       placeholder="Найти по названию"
     />
   );
