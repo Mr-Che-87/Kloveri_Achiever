@@ -1,3 +1,50 @@
-.workerInformation {
+.workerAchivements {
   visibility: inherit;
+}
+
+
+.workerAchivementsNav {
+    ul {
+      display: flex;
+      flex-direction: row;
+      margin-top: 32px;
+      gap: 20px;
+      list-style: none;
+    }
+}
+
+.workerAchivementsList {
+  height: 568px; /* ПРИМЕРНАЯ ВЫСОТА ИЗ МАКЕТА */
+  overflow-y: auto; /* вертикальный скролл */
+  overflow-x: hidden; /* Скрыть горизонтальный скролл */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Три столбца равной ширины */
+  gap: 20px; /* Расстояние между элементами */
+}
+
+.achiveItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.achiveTitle {
+  margin-top: 10px; 
+  text-align: center; 
+}
+
+button {
+  position: relative; // Добавляем позиционирование для крестика
+
+  .removeButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    color: white;
+  }
 }

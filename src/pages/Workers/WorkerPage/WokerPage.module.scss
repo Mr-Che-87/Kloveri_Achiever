@@ -40,8 +40,13 @@
   );
   opacity: 0.8;
 }
+
 .workerData {
   visibility: inherit;
+}
+.workerTeams {
+  display: flex;
+  flex-direction: column;
 }
 .workerAchievements {
   visibility: inherit;
