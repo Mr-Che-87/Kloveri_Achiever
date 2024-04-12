@@ -1,5 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./WokerPage.module.scss";
+import { IUser } from "../../../types/IUser";
+import {
+  fetchUserData,
+  //   fetchUserAchievements
+} from "../../../api/apiService";
 
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
@@ -8,18 +13,36 @@ import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import WorkerAchievements from "./WorkerAchievements/WorkerAchievements";
 
-
 export default function WorkerPage() {
-  const [isEditing, setIsEditing] = useState(false);  //изначально isEditing = false
-  const toggleEdit = () => {  //вот тут  isEditing привязывается к toggleEdit
-    setIsEditing(!isEditing);
-  };
+  const [userData, setUserData] = useState<IUser | null>(null);
+  //const [userAchievements, setUserAchievements] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+
+  // Эффект для загрузки данных пользователя
+  useEffect(() => {
+    const userId = "1";
+    fetchUserData(userId)
+      .then((response) => {
+        setUserData(response.data);
+      })
+      .catch((error) => {
+        console.error("Ошибка при получении данных пользователя:", error);
+      });
+  }, []);
+
+  // Функция переключения режима редактирования
+  const toggleEdit = () => setIsEditing(!isEditing);
+
   return (
     <div className={styles.workerPage}>
       <section className={styles.workerSection}>
         <div className={styles.workerInitial}>
-          <WorkerInitial showEmail={true} />{" "}
-          {/* Передаём проп showEmail со значением true */}
+          {userData && (
+            <WorkerInitial
+              showEmail={true}
+              userData={userData} // Передаем объект userData только если он не null
+            />
+          )}
         </div>
 
         <div className={styles.workerBtnMenu}>
@@ -32,19 +55,25 @@ export default function WorkerPage() {
             </li>
           </ul>
         </div>
+
         <div className={styles.divider}></div>
-       
 
         <div className={styles.workerData}>
-          <WorkerData isEditing={isEditing} toggleEdit={toggleEdit} />
+          <WorkerData
+            isEditing={isEditing}
+            toggleEdit={toggleEdit}
+            userData={userData} // Прокидываем userData в WorkerData
+          />
         </div>
         <div className={styles.workerTeams}>
           <WorkerTeams />
         </div>
-
       </section>
+
       <div className={styles.workerAchievements}>
-        <WorkerAchievements />
+        <WorkerAchievements
+        //userAchievements={userAchievements}
+        />
       </div>
     </div>
   );
