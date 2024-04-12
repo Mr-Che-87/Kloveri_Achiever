@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./WokerPage.module.scss";
 
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
@@ -5,14 +6,12 @@ import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
 import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
-import WorkerAchivements from "./WorkerAchivements/WorkerAchivements";
+import WorkerAchievements from "./WorkerAchievements/WorkerAchievements";
 
-import { useState } from "react";
-//import { users } from "../../../mocks/usersData";
 
 export default function WorkerPage() {
-  const [isEditing, setIsEditing] = useState(false);
-  const toggleEdit = () => {
+  const [isEditing, setIsEditing] = useState(false);  //изначально isEditing = false
+  const toggleEdit = () => {  //вот тут  isEditing привязывается к toggleEdit
     setIsEditing(!isEditing);
   };
   return (
@@ -45,7 +44,7 @@ export default function WorkerPage() {
 
       </section>
       <div className={styles.workerAchievements}>
-        <WorkerAchivements />
+        <WorkerAchievements />
       </div>
     </div>
   );

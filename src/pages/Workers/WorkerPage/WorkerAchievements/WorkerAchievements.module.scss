@@ -2,14 +2,15 @@
   visibility: inherit;
 }
 
+
 .workerAchievementsNav {
-  ul {
-    display: flex;
-    flex-direction: row;
-    margin-top: 32px;
-    gap: 20px;
-    list-style: none;
-  }
+    ul {
+      display: flex;
+      flex-direction: row;
+      margin-top: 32px;
+      gap: 20px;
+      list-style: none;
+    }
 }
 
 .workerAchievementsList {
@@ -21,15 +22,15 @@
   gap: 20px; /* Расстояние между элементами */
 }
 
-.achiveItem {
+.achieveItem {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; 
 }
 
-.achiveTitle {
-  margin-top: 10px;
-  text-align: center;
+.achieveTitle {
+  margin-top: 10px; 
+  text-align: center; 
 }
 
 button {

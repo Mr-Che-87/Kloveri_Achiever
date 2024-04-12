@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { format } from 'date-fns'; 
+//ебала с датой  //import { format } from 'date-fns'; 
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
 import { mockUserData, IUser } from "../../../../mocks/usersData";
@@ -10,13 +10,11 @@ interface WorkerDataProps {
 }
 
 export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
-  // Инициализируем formData начальными значениями из mockUserData
-  const [formData, setFormData] = useState<IUser>(mockUserData);
-  
+  const [formData, setFormData] = useState<IUser>(mockUserData);  //state данных из мок-заглушки
   
   // Загрузка начальных данных при монтировании компонента
-  useEffect(() => {
-    // Получаем данные из локального хранилища
+    useEffect(() => {
+    //получаем данные из локального хранилища
     const storedFormData: IUser = Object.keys(mockUserData).reduce(
       (acc, key) => ({
         ...acc,
@@ -27,29 +25,33 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
     setFormData(storedFormData);
   }, []);
 
-  // Обновляем обработчик изменений
+
+  //Обработчик изменений данных:
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target;  //деструктуризация объекта e.target(HTML-элемент инпут, на котором произошло событие onChange)
     setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-    // Сохраняем данные в localStorage:
-  localStorage.setItem(name, value);
+    ...prevFormData,
+    [name]: value,
+  }));
+    //сохраняем данные в localStorage:
+    localStorage.setItem(name, value);
   };
 
-  // Функция для "сохранения" данных (в данном случае просто вывод в консоль)
+    
+
+  
+  //Обработчик для "сохранения" данных (В РЕАЛЬНОМ ПРИЛОЖЕНИИ ЗДЕСЬ - ОТПРАВКА ДАННЫХ НА СЕРВЕР)
   const handleSave = () => {
-    // В реальном приложении здесь отправка данных на сервер
-    console.log("Сохраненные данные:", formData);
-    toggleEdit(); // Закрываем редактирование после сохранения
-       // Сохраняем данные в localStorage:
+    console.log("Сохраненные данные:", formData);  //в данном случае просто вывод в консоль
+    toggleEdit();       //закрываем редактирование после сохранения
+     
+    //сохраняем данные в localStorage:
       Object.entries(formData).forEach(([key, value]) => {
         localStorage.setItem(key, value);
     });
   };
 
-  // При нажатии Enter "сохраняем" данные
+  //При нажатии Enter "сохраняем" данные:
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -57,8 +59,11 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
     }
   };
   
-  const formattedBirthday: string = format(new Date(formData.birthday), 'dd.MM.yyyy');
-  const formattedRegistrationday: string = format(new Date(formData.registration_day), 'dd.MM.yyyy');
+
+
+ //ебала с датой:
+  //const formattedBirthday: string = format(new Date(formData.birthday), 'dd.MM.yyyy');
+  //const formattedRegistrationday: string = format(new Date(formData.registration_day), 'dd.MM.yyyy');
  
 
   return (
@@ -105,11 +110,11 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             name="birthday"
             type="text"
             placeholder="Введите Дату рождения"
-            value={formattedBirthday}
+            value={formData.birthday}   //ебала с датой //value={formattedBirthday}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
-            pattern="\d{2}.\d{2}.\d{4}"
+            //ебала с датой //pattern="\d{2}.\d{2}.\d{4}"
           />
         </div>
 
@@ -132,11 +137,11 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             name="registration_day"
             type="text"
             placeholder="Введите Дату начала работы"
-            value={formattedRegistrationday}
+            value={formData.registration_day}    //ебала с датой //value={formattedRegistrationday}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
-            pattern="\d{2}.\d{2}.\d{4}"
+            //ебала с датой  //pattern="\d{2}.\d{2}.\d{4}"
           />
         </div>
 
