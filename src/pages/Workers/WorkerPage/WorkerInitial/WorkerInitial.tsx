@@ -1,6 +1,7 @@
 import styles from "./WorkerInitial.module.scss";
 import WorkerAvatar from "../../../../assets/Worker-Avatar.png";
 
+
 interface WorkerInitialProps {
   showEmail: boolean;
   userData: {
@@ -15,7 +16,7 @@ export default function WorkerInitial({
   userData,
 }: WorkerInitialProps) {
   if (!userData) {
-    return <div>Loading user data...</div>;
+    return <div>Не можем найти данные с бэка - user data...</div>;
   }
 
   return (

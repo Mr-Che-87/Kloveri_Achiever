@@ -71,10 +71,10 @@ export default function WorkerAchievements() {
               <button>
                 <img src={achieve.image} alt={achieve.title} />
                 <h3 className={styles.achieveTitle}>{achieve.title}</h3>
+                </button>
                 <button className={styles.removeButton} onClick={() => removeAchieve(achieve.id)}>
                   &times;
                 </button>
-              </button>
             </div>
           ))
         }

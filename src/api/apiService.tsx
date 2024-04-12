@@ -12,10 +12,8 @@ interface UserAchievements {
 }
 
 // Параметр userId теперь строго типизирован как строка
-export const fetchUserData = (
-  userId: string
-): Promise<AxiosResponse<UserData>> => {
-  return axios.get<UserData>(`${API_URL}/user/${userId}/get/`);
+export const fetchUserData = (userId: string) => {
+  return axios.get(`${API_URL}/user/${userId}/get/`);
 };
 
 // Аналогично, параметр userId типизирован, и функция возвращает промис с ответом Axios

@@ -3,7 +3,7 @@ import styles from "./WokerPage.module.scss";
 import { IUser } from "../../../types/IUser";
 import {
   fetchUserData,
-  //   fetchUserAchievements
+  //fetchUserAchievements
 } from "../../../api/apiService";
 
 import WorkerInitial from "./WorkerInitial/WorkerInitial";

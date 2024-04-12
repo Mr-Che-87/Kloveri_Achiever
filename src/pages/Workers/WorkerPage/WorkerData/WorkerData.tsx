@@ -3,6 +3,8 @@ import { IUser } from "../../../../types/IUser";
 //непонятки  с датой  //import { format } from 'date-fns';
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
+//import { mockUserData, IUser } from "../../../../mocks/usersData";
+
 
 interface WorkerDataProps {
   isEditing: boolean;
@@ -104,12 +106,12 @@ export default function WorkerData({
         </div>
 
         <div className={styles.workerNumber}>
-          <h2>Возраст</h2>
+          <h2> Табельный номер</h2>
           <input
-            name="age"
+            name="number"
             type="text"
             placeholder="Введите Табельный номер"
-            value={formData.age || ""}
+            value={formData.number || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}

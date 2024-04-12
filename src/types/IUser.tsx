@@ -9,6 +9,7 @@ export interface IUser {
   foto?: string;
   birthday: string;
   gender?: string;
+  number?: string;
   registration_day: string;
   proffesion: string;
 }
