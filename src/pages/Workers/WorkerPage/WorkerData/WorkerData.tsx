@@ -1,70 +1,55 @@
 import { useState, useEffect } from "react";
-//ебала с датой  //import { format } from 'date-fns'; 
+import { IUser } from "../../../../types/IUser";
+//непонятки  с датой  //import { format } from 'date-fns';
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
-import { mockUserData, IUser } from "../../../../mocks/usersData";
 
 interface WorkerDataProps {
   isEditing: boolean;
   toggleEdit: () => void;
+  userData: IUser | null;
 }
 
-export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
-  const [formData, setFormData] = useState<IUser>(mockUserData);  //state данных из мок-заглушки
-  
-  // Загрузка начальных данных при монтировании компонента
-    useEffect(() => {
-    //получаем данные из локального хранилища
-    const storedFormData: IUser = Object.keys(mockUserData).reduce(
-      (acc, key) => ({
-        ...acc,
-        [key]: localStorage.getItem(key) || mockUserData[key],
-      }),
-      {} as IUser
-    );
-    setFormData(storedFormData);
-  }, []);
+export default function WorkerData({
+  isEditing,
+  toggleEdit,
+  userData,
+}: WorkerDataProps) {
+  const [formData, setFormData] = useState<IUser | null>(null);
 
+  useEffect(() => {
+    if (userData) {
+      setFormData(userData);
+    }
+  }, [userData]);
 
-  //Обработчик изменений данных:
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;  //деструктуризация объекта e.target(HTML-элемент инпут, на котором произошло событие onChange)
-    setFormData((prevFormData) => ({
-    ...prevFormData,
-    [name]: value,
-  }));
-    //сохраняем данные в localStorage:
-    localStorage.setItem(name, value);
+    const { name, value } = e.target;
+    if (formData) {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-    
-
-  
-  //Обработчик для "сохранения" данных (В РЕАЛЬНОМ ПРИЛОЖЕНИИ ЗДЕСЬ - ОТПРАВКА ДАННЫХ НА СЕРВЕР)
   const handleSave = () => {
-    console.log("Сохраненные данные:", formData);  //в данном случае просто вывод в консоль
-    toggleEdit();       //закрываем редактирование после сохранения
-     
-    //сохраняем данные в localStorage:
-      Object.entries(formData).forEach(([key, value]) => {
-        localStorage.setItem(key, value);
-    });
+    console.log("Сохраненные данные:", formData);
+    toggleEdit();
+    // TODO: Добавить логику отправки данных на сервер
   };
 
-  //При нажатии Enter "сохраняем" данные:
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSave();
     }
   };
-  
 
+  if (!formData) {
+    return <div>Loading...</div>; // Или другой индикатор загрузки
+  }
 
- //ебала с датой:
+  //непонятки с датой:
   //const formattedBirthday: string = format(new Date(formData.birthday), 'dd.MM.yyyy');
   //const formattedRegistrationday: string = format(new Date(formData.registration_day), 'dd.MM.yyyy');
- 
 
   return (
     <div className={styles.workerData}>
@@ -83,7 +68,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             name="email"
             type="email"
             placeholder="Введите Логин"
-            value={formData.email}
+            value={formData.email || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -97,7 +82,7 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             name="fullname"
             type="text"
             placeholder="Введите ФИО"
-            value={formData.fullname}
+            value={formData.fullname || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -110,21 +95,21 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             name="birthday"
             type="text"
             placeholder="Введите Дату рождения"
-            value={formData.birthday}   //ебала с датой //value={formattedBirthday}
+            value={formData.birthday || ""} //непонятки с датой //value={formattedBirthday}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
-            //ебала с датой //pattern="\d{2}.\d{2}.\d{4}"
+            //непонятки с датой //pattern="\d{2}.\d{2}.\d{4}"
           />
         </div>
 
         <div className={styles.workerNumber}>
-          <h2>Табельный номер</h2>
+          <h2>Возраст</h2>
           <input
-            name="number"
+            name="age"
             type="text"
             placeholder="Введите Табельный номер"
-            value={formData.number}
+            value={formData.age || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -137,21 +122,21 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
             name="registration_day"
             type="text"
             placeholder="Введите Дату начала работы"
-            value={formData.registration_day}    //ебала с датой //value={formattedRegistrationday}
+            value={formData.registration_day || ""} //непонятки с датой //value={formattedRegistrationday}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
-            //ебала с датой  //pattern="\d{2}.\d{2}.\d{4}"
+            //непонятки с датой  //pattern="\d{2}.\d{2}.\d{4}"
           />
         </div>
 
         <div className={styles.workerPosition}>
           <h2>Роль</h2>
           <input
-            name="profession"
+            name="proffesion"
             type="text"
             placeholder="Введите Роль"
-            value={formData.profession}
+            value={formData.proffesion || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -159,7 +144,6 @@ export default function WorkerData({ isEditing, toggleEdit }: WorkerDataProps) {
           />
         </div>
       </div>
-       
     </div>
   );
 }
