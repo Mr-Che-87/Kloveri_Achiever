@@ -3,8 +3,7 @@ import { IUser } from "../../../../types/IUser";
 //непонятки  с датой  //import { format } from 'date-fns';
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
-//import { mockUserData, IUser } from "../../../../mocks/usersData";
-
+//import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
 
 interface WorkerDataProps {
   isEditing: boolean;
@@ -35,7 +34,7 @@ export default function WorkerData({
   const handleSave = () => {
     console.log("Сохраненные данные:", formData);
     toggleEdit();
-    // TODO: Добавить логику отправки данных на сервер
+    //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

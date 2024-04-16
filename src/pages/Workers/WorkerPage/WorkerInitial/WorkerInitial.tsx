@@ -1,7 +1,6 @@
 import styles from "./WorkerInitial.module.scss";
 import WorkerAvatar from "../../../../assets/Worker-Avatar.png";
 
-
 interface WorkerInitialProps {
   showEmail: boolean;
   userData: {

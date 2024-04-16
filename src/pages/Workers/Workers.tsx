@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { IUser } from "../../types/IUser";
-import { fetchUserData } from "../../api/apiService";
+import { fetchGetUserData,
+         //как будет сервак:  POST-запрос user  -  1) добавляет нового юзера
+         
+ } from "../../api/apiService";  //api
 import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
 
 export default function Workers() {
@@ -9,7 +12,7 @@ export default function Workers() {
 
   useEffect(() => {
     const userId = "1";
-    fetchUserData(userId)
+    fetchGetUserData(userId)
       .then((response) => {
         setUserData(response.data);
       })
