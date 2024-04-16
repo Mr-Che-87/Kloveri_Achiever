@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./ModalAchieveLibrary.module.scss";
 import { IAchieve } from "../../../../mocks/AchieveLibrary";
+//TODO:  fetchGetAchieveLibrary  - !!!!!!!!!!!!!!!!!!!!!!
+//ЛИБО ТУТ:  fetchPostUserAchieve    - !!!!!!фильтр от Лёни!!!!
 
 interface ModalAchievementsProps {
   achieveList: IAchieve[];
@@ -9,9 +11,15 @@ interface ModalAchievementsProps {
 }
 
 export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achieveList, closeModal, onAchieveAdd }) => {
+
+//ЛИБО ТУТ(либо в мок-заглушке)  - GET-запрос на всю библиотеку ачивок fetchGetAchieveLibrary 
+
   const handleAchieveAdd = (achieve: IAchieve) => {
-    onAchieveAdd(achieve); // Вызываем функцию родителя при добавлении ачивки
-    closeModal(); // Закрываем модальное окно
+    onAchieveAdd(achieve); //вызываем функцию родителя при добавлении ачивки
+     
+    //ЛИБО ТУТ(либо в WorkerAchievements) - POST-запрос user-achiev(соединяет юзера и награду) - !!!!фильтр от Лёни!!!! 
+        
+     closeModal(); // Закрываем модальное окно
   };
 
 
