@@ -68,5 +68,7 @@ deploy_in_test:
     - docker compose up -d
   after_script:
     - 'curl -X POST -s -H "Content-Type:multipart/form-data" -F message_thread_id=1491 -F chat_id=-1002069387923_1491 -F text="Project: $CI_PROJECT_TITLE. Commit in the $CI_COMMIT_BRANCH branch. Comment in the commit: $CI_COMMIT_MESSAGE. Author of commit: $GITLAB_USER_LOGIN. New version of the project: `grep version package.json | grep -Po [0-9.]*`. Status: $CI_JOB_STATUS. $CI_JOB_URL" "https://api.telegram.org/$POS_TOK:$PRE_TOK/sendMessage"'
+    - docker compose -p achiever_front logs  || true
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
+  tags: [achiever]
