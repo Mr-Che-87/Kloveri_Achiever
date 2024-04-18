@@ -10,6 +10,7 @@ workflow:
 stages:
   - vars
   - build
+  - deploy
   - notification
 
 default:
@@ -17,7 +18,7 @@ default:
     when: always
     paths:
      - $CI_PROJECT_DIR/package.json
-    expire_in: 2 days
+    expire_in: 1 days
   tags:
     - docker
 
@@ -57,7 +58,15 @@ build_prod_image:
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
 
-notification:
-  stage: notification
+deploy_in_test:
+  stage: deploy
   script:
-   - 'curl -X POST -s -H "Content-Type:multipart/form-data" -F message_thread_id=1491 -F chat_id=-1002069387923_1491 -F text="Project: $CI_PROJECT_TITLE. Commit in the $CI_COMMIT_BRANCH branch. Comment in the commit: $CI_COMMIT_MESSAGE. Author of commit: $GITLAB_USER_LOGIN. New version of the project: `grep version package.json | grep -Po [0-9.]*`. $CI_PIPELINE_URL" "https://api.telegram.org/$POS_TOK:$PRE_TOK/sendMessage"'
+    - sed -i "s/PROJECT_IMAGE_NAME/$CI_PROJECT_NAME:t`grep version package.json | grep -Po [0-9.]*`/g" compose.yaml
+    - docker login https://docker.infra.cloveri.com -u $CI_REGISTRY_USER --password-stdin <<<$CI_JOB_TOKEN
+    - docker compose down -p achiever_front || true
+    - docker rmi `docker images -q docker.infra.cloveri.com/$CI_PROJECT_PATH` || true
+    - docker compose up -d
+  afterscript:
+    - 'curl -X POST -s -H "Content-Type:multipart/form-data" -F message_thread_id=1491 -F chat_id=-1002069387923_1491 -F text="Project: $CI_PROJECT_TITLE. Commit in the $CI_COMMIT_BRANCH branch. Comment in the commit: $CI_COMMIT_MESSAGE. Author of commit: $GITLAB_USER_LOGIN. New version of the project: `grep version package.json | grep -Po [0-9.]*`. Status: $CI_JOB_STATUS. $CI_JOB_URL" "https://api.telegram.org/$POS_TOK:$PRE_TOK/sendMessage"'
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
