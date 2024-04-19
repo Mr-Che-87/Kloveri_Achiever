@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-const API_URL = "http://127.0.0.1:8000/api/v1";  //общий адрес в swagger
+const API_URL = "https://reg.achiever.skroy.ru";  //"http://127.0.0.1:8000/api/v1" - старый адрес в swagger
 
 // Определяем типы для данных, которые возвращает API:
 interface UserData {
@@ -11,10 +11,9 @@ interface UserAchievements {
 }
 
 
-
 //GET-запрос user(возвращает список юзеров):
-export const fetchGetUserData = (userId: string) => {  //userId(0 - админ, 1 - работник) - теперь строго типизирован как строка -  ПЕРЕДЕЛАТЬ ПОД uuId!!!!!!!!!!!!!
-  return axios.get(`${API_URL}/user/${userId}/get/`);
+export const fetchGetUserData = (userId: string) => {  //userId(0 - админ, 1 - работник) 
+  return axios.get(`${API_URL}/user/${userId}`);    //в старом было ещё /get/ в конце
 };
 
 //как будет сервак:  POST-запрос user  -  1) добавляет нового юзера

@@ -16,7 +16,7 @@ export default function WorkerAchievements() {
   useEffect(() => {
 
     //тут GET-запрос на список всех имеющихся наград у юзера fetchGetUserAchievements - !!!!!!фильтр от Лёни!!!!
-
+    
     const storedAchieves = localStorage.getItem("achieveList");
       if (storedAchieves) {
         setAchieveList(JSON.parse(storedAchieves));
