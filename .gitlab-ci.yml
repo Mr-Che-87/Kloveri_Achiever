@@ -5,7 +5,9 @@ workflow:
     - if: $CI_PIPELINE_SOURCE == "web"
     - if: $CI_COMMIT_MESSAGE =~ /^Update build version*/
       when: never
-    - if: $CI_COMMIT_BRANCH
+    - if: $CI_COMMIT_BRANCH == "dev"
+    - if: $CI_COMMIT_BRANCH == "master"
+
 
 stages:
   - vars
@@ -32,6 +34,7 @@ update_version:
     - cp package.json git_project/package.json
     - cd git_project && git add . && git commit -m "Update build version" 
     - git push https://repository_user_token:$repository_user_token@git.infra.cloveri.com/cloveri.start/achiever/front.git/
+
 
 build_test_image:
   stage: build
