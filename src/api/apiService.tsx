@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from "axios";
-
+import { IUser } from "../types/IUser";
 const API_URL = "http://127.0.0.1:8000/api/v1";
 
 // Определяем типы для данных, которые возвращает API
-interface UserData {
-  // ...определения свойств в соответствии с тем, что возвращает API
-}
+//interface UserData {
+// ...определения свойств в соответствии с тем, что возвращает API
+//}
 
 interface UserAchievements {
   // ...определения свойств в соответствии с тем, что возвращает API
@@ -14,8 +14,8 @@ interface UserAchievements {
 // Параметр userId теперь строго типизирован как строка
 export const fetchUserData = (
   userId: string
-): Promise<AxiosResponse<UserData>> => {
-  return axios.get<UserData>(`${API_URL}/user/${userId}/get/`);
+): Promise<AxiosResponse<IUser>> => {
+  return axios.get<IUser>(`${API_URL}/user/${userId}/get/`);
 };
 
 // Аналогично, параметр userId типизирован, и функция возвращает промис с ответом Axios
