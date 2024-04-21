@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { IUser } from "../../../../types/IUser";
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
+//import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
 
 interface WorkerDataProps {
   isEditing: boolean;
@@ -49,6 +50,7 @@ export default function WorkerData({
   const handleSave = () => {
     console.log("Saved data:", formData);
     toggleEdit();
+    //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
   };
 
   const parseDateForPicker = (dateStr?: string): Date | null => {
@@ -115,7 +117,7 @@ export default function WorkerData({
         </div>
 
         <div className={styles.workerNumber}>
-          <h2>Табельный номер</h2>
+          <h2> Табельный номер</h2>
           <input
             name="number"
             type="text"

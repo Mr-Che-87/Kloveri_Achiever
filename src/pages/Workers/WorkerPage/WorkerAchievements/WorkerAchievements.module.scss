@@ -23,6 +23,7 @@
 }
 
 .achieveItem {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center; 
@@ -33,18 +34,22 @@
   text-align: center; 
 }
 
-button {
-  position: relative; // Добавляем позиционирование для крестика
+.removeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  color: white;
+}
 
-  .removeButton {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 5px;
-    color: white;
+button {
+  position: relative; 
+
+  &:focus {
+    outline: none;
   }
 }

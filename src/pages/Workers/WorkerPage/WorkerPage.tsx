@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import styles from "./WokerPage.module.scss";
 import { IUser } from "../../../types/IUser";
 import {
-  fetchUserData,
-  //   fetchUserAchievements
-} from "../../../api/apiService";
+  fetchGetUserData, 
+  //TODO:  fetchGetAchieveLibrary  - !!!!!!!!!!!!!!!!!!!!!!
+  //TODO:  fetchGetUserAchievements - !!!!!!фильтр от Лёни!!!!
+  //TODO:  fetchPostUserAchieve    - !!!!!!фильтр от Лёни!!!!
+  //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
+} from "../../../api/apiService";  //api
 
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
@@ -21,9 +24,9 @@ export default function WorkerPage() {
   // Эффект для загрузки данных пользователя
   useEffect(() => {
     const userId = "1";
-    fetchUserData(userId)
+    fetchGetUserData(userId)
       .then((response) => {
-        setUserData(response.data);
+        setUserData(response.data);   //data - все данные юзера из бэка {....}
       })
       .catch((error) => {
         console.error("Ошибка при получении данных пользователя:", error);
@@ -40,7 +43,7 @@ export default function WorkerPage() {
           {userData && (
             <WorkerInitial
               showEmail={true}
-              userData={userData} // Передаем объект userData только если он не null
+              userData={userData} // передаем объект userData только если он не null
             />
           )}
         </div>
@@ -62,7 +65,7 @@ export default function WorkerPage() {
           <WorkerData
             isEditing={isEditing}
             toggleEdit={toggleEdit}
-            userData={userData} // Прокидываем userData в WorkerData
+            userData={userData} // прокидываем userData в WorkerData
           />
         </div>
         <div className={styles.workerTeams}>

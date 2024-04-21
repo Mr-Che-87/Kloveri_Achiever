@@ -15,14 +15,14 @@ export default function WorkerInitial({
   userData,
 }: WorkerInitialProps) {
   if (!userData) {
-    return <div>Loading user data...</div>;
+    return <div>Не можем найти данные с бэка - user data...</div>;
   }
 
   return (
     <div className={styles.workerInitial}>
       <img
         className={styles.workerAvatar}
-        src={userData.foto || WorkerAvatar}
+        src={userData.foto}  // {WorkerAvatar  || userData.foto} - фотка из заглушки пока
         alt="Avatar"
       />
       <div>
