@@ -37,6 +37,10 @@ h2 {
   //field-sizing: content;
   color: white;
   margin-bottom: 12px;
+  &:enabled {
+    background: #f4f4f405;
+  }
+
   &:disabled {
     cursor: default;
   }
