@@ -3,7 +3,7 @@ export interface IUser {
   name: string;
   fullname: string;
   avatar: string;
-  role: "user" | "admin";
+  role: "worker" | "admin";  //admin(id 0)  или worker(id 1) - фикса
   email: string;
   profession: string;
   age: number;
@@ -18,16 +18,16 @@ export interface IUser {
 
 export const mockUserData: IUser = {
   id: 1,
-  name: "Иван Сергеевич",
-  fullname: "Михайлов Иван Сергеевич",
+  name: "Заглушка Моковская",
+  fullname: "Моковская Заглушка Фронтендовна",
   avatar: "/static/fotos/avatar1.jpg",
-  role: "admin",
-  email: "ivan.mikhailov@company.com",
+  role: "worker",   
+  email: "mock@company.com",
   profession: "Developer",
   age: 35,
   birthday: "1989-03-02",   //ебала с датой:  //birthday: new Date("1989-03-02"),
   registration_day: "2017-05-04",   //ебала с датой:   //registration_day: new Date("2017-05-04"),
   number: "КК 330011",
-  gender: "male",
+  gender: "female",
   // company и site добавим позже, когда они будут необходимы
 };

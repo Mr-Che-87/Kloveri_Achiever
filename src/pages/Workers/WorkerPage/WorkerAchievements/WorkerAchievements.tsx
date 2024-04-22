@@ -15,7 +15,7 @@ export default function WorkerAchievements() {
   //Отображение актуального списка добавленных ачивок и сохранение их в localStorage:
   useEffect(() => {
 
-    //тут GET-запрос на список всех имеющихся наград у юзера fetchGetUserAchievements - !!!!!!фильтр от Лёни!!!!
+    //тут GET-запрос на список всех имеющихся наград у юзера fetchGetUserAchievements - !!!!!!фильтр от Лёни?????
     
     const storedAchieves = localStorage.getItem("achieveList");
       if (storedAchieves) {
@@ -37,7 +37,7 @@ export default function WorkerAchievements() {
   // Функция добавления ачивки:     
     const addAchieve = (achive: IAchieve) => {
   
-      //ЛИБО ТУТ(либо в ModalAchieveLibrary) - POST-запрос user-achiev(соединяет юзера и награду) - !!!!!!фильтр от Лёни!!!!
+      //ЛИБО ТУТ(либо в ModalAchieveLibrary) - POST-запрос user-achiev(соединяет юзера и награду) - !!!!!!фильтр от Лёни??????
         
       const updatedAchieves = achieveList.map((item) =>
       item.id === achive.id ? { ...item, added: true } : item
