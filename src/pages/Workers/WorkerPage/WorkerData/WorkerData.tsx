@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { IUser } from "../../../../types/IUser";
-//непонятки  с датой  //import { format } from 'date-fns';
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
 //import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
@@ -20,37 +21,49 @@ export default function WorkerData({
 
   useEffect(() => {
     if (userData) {
-      setFormData(userData);
+      setFormData({ ...userData });
     }
   }, [userData]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    if (formData) {
-      setFormData({ ...formData, [name]: value });
-    }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      [name]: value,
+    }));
   };
 
-  const handleSave = () => {
-    console.log("Сохраненные данные:", formData);
-    toggleEdit();
-    //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
+  const handleDateChange = (date: Date | null, fieldName: keyof IUser) => {
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      [fieldName]: date ? date.toISOString().split("T")[0] : "",
+    }));
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && isEditing) {
+      event.preventDefault();
       handleSave();
     }
   };
 
-  if (!formData) {
-    return <div>Loading...</div>; // Или другой индикатор загрузки
-  }
+  const handleSave = () => {
+    console.log("Saved data:", formData);
+    toggleEdit();
+    //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
+  };
 
-  //непонятки с датой:
-  //const formattedBirthday: string = format(new Date(formData.birthday), 'dd.MM.yyyy');
-  //const formattedRegistrationday: string = format(new Date(formData.registration_day), 'dd.MM.yyyy');
+  const parseDateForPicker = (dateStr?: string): Date | null => {
+    if (!dateStr) {
+      return null;
+    }
+    const date = new Date(dateStr);
+    return date instanceof Date && !isNaN(date.getTime()) ? date : null;
+  };
+
+  if (!formData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.workerData}>
@@ -62,7 +75,6 @@ export default function WorkerData({
         />
       </div>
       <div className={styles.workerInformation}>
-        {/* Для каждого инпута используем значение из состояния и обработчик изменений */}
         <div className={styles.workerLogin}>
           <h2>Логин</h2>
           <input
@@ -75,6 +87,7 @@ export default function WorkerData({
             disabled={!isEditing}
             required
           />
+          <div className={styles.divider}></div>
         </div>
 
         <div className={styles.workerFullname}>
@@ -88,20 +101,19 @@ export default function WorkerData({
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
           />
+          <div className={styles.divider}></div>
         </div>
 
         <div className={styles.workerBirthday}>
           <h2>Дата рождения</h2>
-          <input
-            name="birthday"
-            type="text"
-            placeholder="Введите Дату рождения"
-            value={formData.birthday || ""} //непонятки с датой //value={formattedBirthday}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
+          <DatePicker
+            selected={parseDateForPicker(formData.birthday)}
+            onChange={(date) => handleDateChange(date, "birthday")}
+            value={formData.birthday || ""}
+            dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
-            //непонятки с датой //pattern="\d{2}.\d{2}.\d{4}"
           />
+          <div className={styles.divider}></div>
         </div>
 
         <div className={styles.workerNumber}>
@@ -115,20 +127,19 @@ export default function WorkerData({
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
           />
+          <div className={styles.divider}></div>
         </div>
 
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
-          <input
-            name="registration_day"
-            type="text"
-            placeholder="Введите Дату начала работы"
-            value={formData.registration_day || ""} //непонятки с датой //value={formattedRegistrationday}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
+          <DatePicker
+            selected={parseDateForPicker(formData.registration_day)}
+            onChange={(date) => handleDateChange(date, "registration_day")}
+            value={formData.registration_day || ""}
+            dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
-            //непонятки с датой  //pattern="\d{2}.\d{2}.\d{4}"
           />
+          <div className={styles.divider}></div>
         </div>
 
         <div className={styles.workerPosition}>
@@ -143,6 +154,7 @@ export default function WorkerData({
             disabled={!isEditing}
             required
           />
+          <div className={styles.divider}></div>
         </div>
       </div>
     </div>

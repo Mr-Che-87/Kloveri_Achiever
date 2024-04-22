@@ -5,35 +5,77 @@
 .workerDataTitle {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
-
 h2 {
-  font-size: medium;
+  font-family: Proxima Nova;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.4%;
+  text-align: left;
 }
 
 .workerInformation {
-  display: grid; /* Отображаем элементы в виде сетки */
-  grid-template-columns: repeat(2, 1fr); /* Два столбца равной ширины */
-  gap: 10px; /* Расстояние между элементами */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 36px;
 }
 
 .workerInformation > div {
-  padding: 10px; /* Добавляем внутренний отступ для каждого дива */
+  display: flex;
+  flex-direction: column;
 }
 
-.workerInformation h2 {
-  margin-bottom: 5px; /* Добавляем небольшой отступ снизу для заголовков */
+.workerInformation input,
+.workerInformation .react-datepicker-wrapper {
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 10px;
+  //field-sizing: content;
+  color: white;
+  margin-bottom: 12px;
+  &:disabled {
+    cursor: default;
+  }
+  &:enabled {
+    background: #f4f4f405;
+  }
+  &:focus {
+    background-color: #193117;   //гыгыгы
+  }
+}
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(#f4f4f4, 0.64),
+    rgba(#f4f4f4, 0.16)
+  );
+  opacity: 0.8;
+}
+
+// Специальный стиль для DatePicker чтобы переопределить внутренние стили
+.react-datepicker-wrapper {
+  width: 100%;
+  .react-datepicker__input-container {
+    width: 100%;
+  }
+  input {
+    width: 100% !important; // переопределить ширину инпута
+  }
 }
 
 .workerInformation button {
-  width: 100%; /* Кнопка будет занимать всю доступную ширину дива */
-}
-
-.workerInformation input {
-  width: calc(
-    100% - 20px
-  ); /* Инпут будет занимать всю доступную ширину минус внутренний отступ */
-  padding: 5px; /* Добавляем внутренний отступ для инпута */
+  border: none;
+  background: rgb(58, 58, 58);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .workerLogin {
   visibility: inherit;
@@ -53,5 +95,3 @@ h2 {
 .workerPosition {
   visibility: inherit;
 }
-
-

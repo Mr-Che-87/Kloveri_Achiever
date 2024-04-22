@@ -3,7 +3,7 @@ export interface IUser {
   name: string;
   fullname: string;
   avatar: string;
-  role: "worker" | "admin";  //admin(id 0)  или worker(id 1) - фикса
+  role: "admin"  | "worker";  //admin(id 0)  |  worker(id 1) - фикса
   email: string;
   profession: string;
   age: number;
