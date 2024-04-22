@@ -1,15 +1,15 @@
 export interface IUser {
-  uid: string;
-  name: string;
-  fullname: string;
-  email: string;
-  age?: number;
-  company?: string;
-  site?: string;
-  foto?: string;
-  birthday: string;
-  gender?: string;
-  number?: string;
-  registration_day: string;
-  proffesion: string;
+  uid?: string | undefined;
+  name?: string | undefined;
+  fullname?: string | undefined;
+  email?: string | undefined;
+  age?: number | undefined;
+  company?: string | undefined;
+  site?: string | undefined;
+  foto?: string | undefined;
+  birthday?: string | undefined;
+  gender?: string | undefined;
+  registration_day?: string | undefined;
+  proffesion?: string | undefined;
+  number?: string | undefined;
 }
