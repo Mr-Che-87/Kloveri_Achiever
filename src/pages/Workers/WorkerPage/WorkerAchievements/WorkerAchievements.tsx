@@ -15,13 +15,17 @@ export default function WorkerAchievements() {
 
   //Отображение актуального списка добавленных ачивок и сохранение их в localStorage:
   useEffect(() => {
+    setAchieveList(mockAchieveLibrary)
+
+    /*
+    //локал-сторадж на резерв:
     const storedAchieves = localStorage.getItem("achieveList");
     if (storedAchieves) {
       setAchieveList(JSON.parse(storedAchieves));
     } else {
       setAchieveList(mockAchieveLibrary);
       localStorage.setItem("achieveList", JSON.stringify(mockAchieveLibrary));
-    }
+    }*/
   }, []);
 
   const openModal = () => {
