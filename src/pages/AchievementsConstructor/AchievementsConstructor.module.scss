@@ -1,0 +1,76 @@
+.achievementsConstructor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.bookIcon {
+  width: 50px;
+  height: auto;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(#f4f4f4, 0.64),
+    rgba(#f4f4f4, 0.16)
+  );
+  opacity: 0.8;
+}
+
+.title {
+  color: #fff; // Белый цвет текста
+  // Добавьте необходимые стили для заголовка
+}
+
+.searchInput {
+  margin-bottom: 30px; // Отступ под поиском
+  // Добавьте необходимые стили для поискового инпута
+}
+
+.achievementsGrid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 1fr)
+  ); // Карточки займут всё доступное пространство
+  gap: 20px; // Расстояние между карточками
+  width: 100%;
+}
+
+.achievementCard {
+  background: #1a1a1a; // Фон карточки
+  border-radius: 8px; // Закругленные углы карточки
+  padding: 15px;
+  // Добавьте необходимые стили для карточки
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // Добавьте необходимые стили для содержимого карточки
+}
+
+.cardTitle {
+  font-size: 1.2em; // Большой размер шрифта для заголовка карточки
+  color: #fff; // Белый цвет текста
+  margin-top: 8px; // Отступ сверху для заголовка
+}
+
+.cardDescription {
+  font-size: 0.9em; // Меньший размер шрифта для описания
+  color: #aaa; // Серый цвет текста
+  text-align: center;
+  margin-top: 4px; // Отступ сверху для описания
+}

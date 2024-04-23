@@ -10,18 +10,20 @@ interface ModalAchievementsProps {
   onAchieveAdd: (achieve: IAchieve) => void; //  функция для передачи ачивки родителю
 }
 
-export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achieveList, closeModal, onAchieveAdd }) => {
-
-//ЛИБО ТУТ(либо в мок-заглушке)  - GET-запрос на всю библиотеку ачивок fetchGetAchieveLibrary 
+export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({
+  achieveList,
+  closeModal,
+  onAchieveAdd,
+}) => {
+  //ЛИБО ТУТ(либо в мок-заглушке)  - GET-запрос на всю библиотеку ачивок fetchGetAchieveLibrary
 
   const handleAchieveAdd = (achieve: IAchieve) => {
     onAchieveAdd(achieve); //вызываем функцию родителя при добавлении ачивки
-     
-    //ЛИБО ТУТ(либо в WorkerAchievements) - POST-запрос user-achiev(соединяет юзера и награду) - !!!!фильтр от Лёни!!!! 
-        
-     closeModal(); // Закрываем модальное окно
-  };
 
+    //ЛИБО ТУТ(либо в WorkerAchievements) - POST-запрос user-achiev(соединяет юзера и награду) - !!!!фильтр от Лёни!!!!
+
+    closeModal(); // Закрываем модальное окно
+  };
 
   return (
     <div className={styles.modalContainer}>
@@ -33,9 +35,11 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achieveL
         <div className={styles.achievementsList}>
           {achieveList.map((achieve) => (
             <div key={achieve.id} className={styles.achieveItem}>
-              <button onClick={() => handleAchieveAdd(achieve)}> {/* Добавляем обработчик на кнопку */}
-              <img src={achieve.image} alt={achieve.title} />
-              <h3 className={styles.achieveTitle}>{achieve.title}</h3>
+              <button onClick={() => handleAchieveAdd(achieve)}>
+                {" "}
+                {/* Добавляем обработчик на кнопку */}
+                <img src={achieve.image} alt={achieve.title} />
+                <h3 className={styles.achieveTitle}>{achieve.title}</h3>
               </button>
             </div>
           ))}
@@ -44,5 +48,3 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achieveL
     </div>
   );
 };
-
-
