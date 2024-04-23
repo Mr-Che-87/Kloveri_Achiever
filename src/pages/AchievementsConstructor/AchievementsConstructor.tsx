@@ -1,10 +1,3 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-//import { SearchAllAchieveInput } from "../Workers/WorkerPage/buttons&inputes/SearchAllAchieveInput";
-import styles from "../../pages/AchievementsConstructor/AchievementsConstructor.module.scss";
-//import BookAvatar from "../../assets/book-icon.png";
-import { IAchieve } from "../../types/IAchieve";
-
 
 export default function AchievementsConstructor() {
 
@@ -15,6 +8,15 @@ return (
 }
 
 /*
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { SearchAllAchieveInput } from "../Workers/WorkerPage/buttons&inputes/SearchAllAchieveInput";
+import styles from "../../pages/AchievementsConstructor/AchievementsConstructor.module.scss";
+import BookAvatar from "../../assets/book-icon.png";
+import { IAchieve } from "../../types/IAchieve";
+
+
 export default function AchievementsConstructor() {
   const [achievements, setAchievements] = useState<IAchieve[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
