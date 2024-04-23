@@ -56,14 +56,13 @@ h2 {
   opacity: 0.8;
 }
 
-// Специальный стиль для DatePicker чтобы переопределить внутренние стили
 .react-datepicker-wrapper {
   width: 100%;
   .react-datepicker__input-container {
     width: 100%;
   }
   input {
-    width: 100% !important; // переопределить ширину инпута
+    width: 100% !important;
   }
 }
 
