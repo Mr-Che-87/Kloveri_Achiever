@@ -1,0 +1,8 @@
+name: achiever_front
+services:
+  front:
+    image: docker.infra.cloveri.com/cloveri.start/achiever/PROJECT_IMAGE_NAME
+    volumes:
+      - /usr/achiever_front/.env:/app/.env
+    ports:
+      - '10001:5173'
