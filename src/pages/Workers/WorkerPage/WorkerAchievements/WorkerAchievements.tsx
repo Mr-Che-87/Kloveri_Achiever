@@ -3,28 +3,50 @@ import styles from "./WorkerAchievements.module.scss";
 import { GiveAchieveButton } from "../buttons&inputes/GiveAchieveButton";
 import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
 import { AllAchieveButton } from "../buttons&inputes/AllAchieveButton";
-
-import { mockAchieveLibrary, IAchieve } from "../../../../mocks/AchieveLibrary";
 import { ModalAchieveLibrary } from "../ModalAchieveLibrary/ModalAchieveLibrary";
 
+
+import { IAchieve } from "../../../../types/IAchieve";
+import { fetchGetAchieveLibrary, fetchGetUserAchievements, fetchPostUserAchieve } from "../../../../api/apiService";
+import { IUser } from "../../../../types/IUser";
+//import { mockAchieveLibrary, IAchieve } from "../../../../mocks/AchieveLibrary";
+
+
 export default function WorkerAchievements() {
-  const [achieveList, setAchieveList] = useState<IAchieve[]>(mockAchieveLibrary);
+  //const [achieveList, setAchieveList] = useState<IAchieve[]>([]);
+  const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]);
+  const [userAchievements, setUserAchievements] = useState<IAchieve[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  //Отображение актуального списка добавленных ачивок и сохранение их в localStorage:
+  //GET-запрос achiev-lib(возвращает всю библиотеку наград):
   useEffect(() => {
+     fetchGetAchieveLibrary()
+     .then((response) => {
+      setAllAchievements(response.data);   //data - все данные юзера из бэка {....}
+    })
+      .catch((error) => {
+        console.error("Ошибка при получении данных пользователя:", error);
+      });
 
-    //тут GET-запрос на список всех имеющихся наград у юзера fetchGetUserAchievements - !!!!!!фильтр от Лёни?????
-    
-    const storedAchieves = localStorage.getItem("achieveList");
-      if (storedAchieves) {
-        setAchieveList(JSON.parse(storedAchieves));
-      } else {
-        setAchieveList(mockAchieveLibrary);
-        localStorage.setItem("achieveList", JSON.stringify(mockAchieveLibrary));
-      }
+      
+   
+     
   }, []);
+
+   //тут GET-запрос на список всех имеющихся наград у юзера fetchGetUserAchievements - !!!!!!фильтр от Лёни?????
+
+  useEffect(() => {
+    fetchGetUserAchievements()
+      .then((response) => {
+        setUserAchievements(response.data);
+      })
+      .catch((error) => {
+        console.error("Ошибка при загрузке ачивок пользователя:", error);
+      });
+  }, []);
+
+
   
   const openModal = () => {
     setShowModal(true);
@@ -35,24 +57,25 @@ export default function WorkerAchievements() {
   };
 
   // Функция добавления ачивки:     
-    const addAchieve = (achive: IAchieve) => {
-  
-      //ЛИБО ТУТ(либо в ModalAchieveLibrary) - POST-запрос user-achiev(соединяет юзера и награду) - !!!!!!фильтр от Лёни??????
-        
-      const updatedAchieves = achieveList.map((item) =>
-      item.id === achive.id ? { ...item, added: true } : item
-    );
-    setAchieveList(updatedAchieves);
-    localStorage.setItem("achieveList", JSON.stringify(updatedAchieves));
+  const onAchieveAdd = (userId: IUser, achieveId: IAchieve) => {
+    fetchPostUserAchieve(userId, achieveId) // Подставьте нужный userId
+      .then(() => {
+        // После успешного добавления ачивки перезагружаем список ачивок пользователя
+        return fetchGetUserAchievements(); // Подставьте нужный userId
+      })
+      .then((response) => {
+        setUserAchievements(response.data);
+      })
+      .catch((error) => {
+        console.error("Ошибка при добавлении ачивки пользователю:", error);
+      });
   };
 
+  
    // Функция удаления ачивки:
-   const removeAchieve = (id: number) => {
-    const updatedAchieves = achieveList.map((item) =>
-      item.id === id ? { ...item, added: false } : item
-    );
-    setAchieveList(updatedAchieves);
-    localStorage.setItem("achieveList", JSON.stringify(updatedAchieves));
+   const removeAchieve = (id: string) => {
+    const updatedAchieves = userAchievements.filter((item) => item.id !== id);
+    setUserAchievements(updatedAchieves);
   };
 
 
@@ -68,14 +91,17 @@ export default function WorkerAchievements() {
       </ul>
       </div>
 
+
       <div className={styles.workerAchievementsList}>
-        {achieveList.filter((achieve) => 
+        {/*{achieveList.filter((achieve) => 
           achieve.added && achieve.title.toLowerCase().includes(searchQuery.toLowerCase())  //если в SearchAchieveInput ничего не введено, то searchQuery будет пустой строкой => метод includes() вернет true для всех элементов, т.к/ пустая строка содержится в любой строке. 
-          ).map((achieve) => (
+          ).map((achieve) => (  */}
+          {userAchievements.map((achieve) => (
+
             <div key={achieve.id} className={styles.achieveItem}>
               <button>
-                <img src={achieve.image} alt={achieve.title} />
-                <h3 className={styles.achieveTitle}>{achieve.title}</h3>
+                <img src={achieve.data.image} alt={achieve.data.title} />
+                <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
                 </button>
                 <button className={styles.removeButton} onClick={() => removeAchieve(achieve.id)}>
                   &times;
@@ -83,14 +109,18 @@ export default function WorkerAchievements() {
             </div>
           ))
         }
-      </div>
+      </div>  
 
       {showModal && (
-        <ModalAchieveLibrary achieveList={achieveList} closeModal={closeModal} onAchieveAdd={addAchieve}/>
+        <ModalAchieveLibrary allAchievements={allAchievements} userAchievements={userAchievements} closeModal={closeModal} onAchieveAdd={onAchieveAdd}/>
         )}
     </div>
   );
 }
+
+
+
+
 
 
 /*

@@ -1,23 +1,25 @@
 import React from "react";
 import styles from "./ModalAchieveLibrary.module.scss";
-import { IAchieve } from "../../../../mocks/AchieveLibrary";
-//TODO:  fetchGetAchieveLibrary  - !!!!!!!!!!!!!!!!!!!!!!
-//ЛИБО ТУТ:  fetchPostUserAchieve    - !!!!!!фильтр от Лёни?????
+
+//import { IAchieve } from "../../../../mocks/AchieveLibrary";
+import { IAchieve } from "../../../../types/IAchieve";
+//ЛИБО ТУТ:  fetchPostUserAchieve    - !!!!!!
 
 interface ModalAchievementsProps {
-  achieveList: IAchieve[];
+  allAchievements: IAchieve[];
+  userAchievements: IAchieve[];
   closeModal: () => void;
   onAchieveAdd: (achieve: IAchieve) => void; //  функция для передачи ачивки родителю
 }
 
-export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achieveList, closeModal, onAchieveAdd }) => {
 
-//ЛИБО ТУТ(либо в мок-заглушке)  - GET-запрос на всю библиотеку ачивок fetchGetAchieveLibrary 
+
+export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchievements, userAchievements,  closeModal, onAchieveAdd }) => {
 
   const handleAchieveAdd = (achieve: IAchieve) => {
     onAchieveAdd(achieve); //вызываем функцию родителя при добавлении ачивки
      
-    //ЛИБО ТУТ(либо в WorkerAchievements) - POST-запрос user-achiev(соединяет юзера и награду) - !!!!фильтр от Лёни?????
+    //ЛИБО ТУТ(либо в WorkerAchievements) - POST-запрос user-achiev(соединяет юзера и награду)!!!!!
         
      closeModal(); // Закрываем модальное окно
   };
@@ -31,11 +33,11 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achieveL
         </button>
         <h2>Библиотека достижений</h2>
         <div className={styles.achievementsList}>
-          {achieveList.map((achieve) => (
+          {allAchievements.map(achieve => (
             <div key={achieve.id} className={styles.achieveItem}>
               <button onClick={() => handleAchieveAdd(achieve)}> {/* Добавляем обработчик на кнопку */}
-              <img src={achieve.image} alt={achieve.title} />
-              <h3 className={styles.achieveTitle}>{achieve.title}</h3>
+              <img src={achieve.data.image} alt={achieve.data.title} />
+              <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
               </button>
             </div>
           ))}

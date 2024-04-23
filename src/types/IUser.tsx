@@ -1,5 +1,5 @@
 export interface IUser {
-  uid?: string | undefined;
+  uuid?: string | undefined;
   name?: string | undefined;
   fullname?: string | undefined;
   email?: string | undefined;
