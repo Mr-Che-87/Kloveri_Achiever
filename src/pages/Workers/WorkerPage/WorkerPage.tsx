@@ -10,17 +10,16 @@ import WorkerAchievements from "./WorkerAchievements/WorkerAchievements";
 import { IUser } from "../../../types/IUser";
 import {
   fetchGetUserData,  
-   //TODO:  fetchGetUserAchievements - !!!!!!фильтр от Лёни???
-  //TODO:  fetchPostUserAchieve    - !!!!!!фильтр от Лёни????
-  //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
+  //как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
 } from "../../../api/apiService";  //api
+
 
 export default function WorkerPage() {
   const [userData, setUserData] = useState<IUser | null>(null);
   //const [userAchievements, setUserAchievements] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Эффект для загрузки данных пользователя(GET-запрос user)
+  ////GET-запрос user(возвращает данные юзера):
   useEffect(() => {
     const userId = "1";
     fetchGetUserData(userId)
@@ -32,7 +31,7 @@ export default function WorkerPage() {
       });
   }, []);
 
-  // Функция переключения режима редактирования
+  //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
 
   return (

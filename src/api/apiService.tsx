@@ -4,23 +4,18 @@ import { IAchieve } from "../types/IAchieve";
 
 const API_URL = "https://reg.achiever.skroy.ru";  //"http://127.0.0.1:8000/api/v1" - старый адрес в swagger
 
-// Определяем типы для данных, которые возвращает API:
-interface UserData {
-  // ...определения свойств в соответствии с тем, что возвращает API
-}
-interface UserAchievements {
-  // ...определения свойств в соответствии с тем, что возвращает API
-}
 
 
-//GET-запрос user(возвращает список юзеров):
+
+//GET-запрос user(возвращает список юзеров и их данные):
 export const fetchGetUserData = (userId: string) => {  //userId(0 - админ, 1 - работник) 
   return axios.get(`${API_URL}/user/${userId}`);    
 };
 
-//как будет сервак:  POST-запрос user  -  1) добавляет нового юзера
-//как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
+//как будет реестр:  POST-запрос user  -  1) добавляет нового юзера
+//как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
  
+
 
 
 
@@ -40,20 +35,37 @@ export const fetchGetIDAchieveLibrary = () => {
 };
 
 
+
+
 ///////////////КОСЯК  АРГУМЕНТАМИ  userId, achieveId - и uuid/////////////////
-//!!!!!!фильтр от Лёни??GET-запрос user-achiev(cписок имеющихся у юзера наград):
-export const fetchGetUserAchievements = (): Promise<AxiosResponse> => {
-//- аналогично userId типизирован, и функция возвращает промис с ответом Axios
+//????????GET-запрос user-achiev(cписок имеющихся у юзера наград):
+export const fetchGetUserAchievements = (): Promise<AxiosResponse> => {  // (userId) - хз нужен ли аргумент??
   return axios.get(`${API_URL}/user-achiev/list/`);  
 };
 
-//!!!!!!фильтр от Лёни???POST-запрос user-achiev(соединяет юзера и награду):
+//????????POST-запрос user-achiev(соединяет юзера и награду):
 export const fetchPostUserAchieve = (userId: IUser, achieveId: IAchieve): Promise<AxiosResponse> => {
     return axios.get(`${API_URL}/user-achiev/create/`);  
   };
 
+
 //(потом)GET-запрос user-achiev(возвращает соединение между юзером и наградой ПО ЕЁ ИДЕНТИФИКАТОРУ - {uuid}):
 export const fetchGetIDUserAchieve = (userId: string): Promise<AxiosResponse<UserAchievements>> => {
-  //- аналогично userId типизирован, и функция возвращает промис с ответом Axios
+  // userId типизирован, и функция возвращает промис с ответом Axios
     return axios.get<UserAchievements>(`${API_URL}/user-achiev/list/get/`);  
   };
+
+
+  
+
+
+
+
+//хз, надо ли??  
+  //определяем типы для данных, которые возвращает API:
+interface UserData {
+  // ...определения свойств в соответствии с тем, что возвращает API
+}
+interface UserAchievements {
+  // ...определения свойств в соответствии с тем, что возвращает API
+}

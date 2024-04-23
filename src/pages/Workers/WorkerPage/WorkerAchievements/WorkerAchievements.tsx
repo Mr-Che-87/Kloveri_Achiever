@@ -13,31 +13,27 @@ import { IUser } from "../../../../types/IUser";
 
 
 export default function WorkerAchievements() {
-  //const [achieveList, setAchieveList] = useState<IAchieve[]>([]);
-  const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]);
-  const [userAchievements, setUserAchievements] = useState<IAchieve[]>([]);
+ 
+  const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]);  //стейт на ачивки библиотеки
+  const [userAchievements, setUserAchievements] = useState<IAchieve[]>([]);  //стейт на ачивки юзера
+  //const [achieveList, setAchieveList] = useState<IAchieve[]>([]);  //старый-единый стейт(фильтрация была по added)
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  //GET-запрос achiev-lib(возвращает всю библиотеку наград):
+//GET-запрос achiev-lib(возвращает всю библиотеку наград):
   useEffect(() => {
      fetchGetAchieveLibrary()
      .then((response) => {
-      setAllAchievements(response.data);   //data - все данные юзера из бэка {....}
+      setAllAchievements(response.data);   //data - все данные юзера из бэка{...}
     })
       .catch((error) => {
         console.error("Ошибка при получении данных пользователя:", error);
       });
-
-      
-   
-     
   }, []);
 
-   //тут GET-запрос на список всех имеющихся наград у юзера fetchGetUserAchievements - !!!!!!фильтр от Лёни?????
-
+//??????GET-запрос на список всех имеющихся наград у юзера fetchGetUserAchievements^ 
   useEffect(() => {
-    fetchGetUserAchievements()
+    fetchGetUserAchievements()   // (userId) - хз нужен ли аргумент??
       .then((response) => {
         setUserAchievements(response.data);
       })
@@ -47,7 +43,6 @@ export default function WorkerAchievements() {
   }, []);
 
 
-  
   const openModal = () => {
     setShowModal(true);
   };
@@ -56,12 +51,15 @@ export default function WorkerAchievements() {
     setShowModal(false);
   };
 
-  // Функция добавления ачивки:     
+
+
+// Функция добавления ачивки:     
   const onAchieveAdd = (userId: IUser, achieveId: IAchieve) => {
-    fetchPostUserAchieve(userId, achieveId) // Подставьте нужный userId
+        //????????POST-запрос user-achiev(соединяет юзера и награду):
+    fetchPostUserAchieve(userId, achieveId)   //хз как сюда приладить user_uuid и achiev_uuid
       .then(() => {
-        // После успешного добавления ачивки перезагружаем список ачивок пользователя
-        return fetchGetUserAchievements(); // Подставьте нужный userId
+        
+        return fetchGetUserAchievements();  //после добавления ачивки перезагружаем список ачивок юзера
       })
       .then((response) => {
         setUserAchievements(response.data);
@@ -91,11 +89,10 @@ export default function WorkerAchievements() {
       </ul>
       </div>
 
-
       <div className={styles.workerAchievementsList}>
         {/*{achieveList.filter((achieve) => 
           achieve.added && achieve.title.toLowerCase().includes(searchQuery.toLowerCase())  //если в SearchAchieveInput ничего не введено, то searchQuery будет пустой строкой => метод includes() вернет true для всех элементов, т.к/ пустая строка содержится в любой строке. 
-          ).map((achieve) => (  */}
+          ).map((achieve) => (  //фильтрация по имени (потом вернуть) */}
           {userAchievements.map((achieve) => (
 
             <div key={achieve.id} className={styles.achieveItem}>
