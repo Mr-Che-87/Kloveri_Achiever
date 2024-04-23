@@ -12,11 +12,13 @@ export default function WorkerAchievements() {
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  //Отображение актуального списка добавленных ачивок и сохранение их в localStorage:
+  ////тут GET-запрос на список всех имеющихся наград у юзера fetchGetUserAchievements:
   useEffect(() => {
 
-    //тут GET-запрос на список всех имеющихся наград у юзера fetchGetUserAchievements - !!!!!!фильтр от Лёни!!!!
-    
+    setAchieveList(mockAchieveLibrary);
+         
+    /*
+    //локал-сторадж на резерв:
     const storedAchieves = localStorage.getItem("achieveList");
       if (storedAchieves) {
         setAchieveList(JSON.parse(storedAchieves));
@@ -24,6 +26,7 @@ export default function WorkerAchievements() {
         setAchieveList(mockAchieveLibrary);
         localStorage.setItem("achieveList", JSON.stringify(mockAchieveLibrary));
       }
+      */
   }, []);
   
   const openModal = () => {
