@@ -21,17 +21,17 @@ export const fetchGetUserData = (userId: string) => {  //userId(0 - админ, 
 
 //GET-запрос achiev-lib(возвращает всю библиотеку наград):
 export const fetchGetAchieveLibrary = () => {
-  return axios.get(`${API_URL}/achievs-lib/list/`);
+  return axios.get(`${API_URL}/achiev-lib/list/`);
 };
 
 //(потом)POST-запрос achiev-lib(записывает в библиотеку новую награду):
 export const fetchPostAchieveLibrary = () => {
-  return axios.post(`${API_URL}/achiev-lib/post/`);
+  return axios.post(`${API_URL}/achiev-lib/create/`);
 };
 
 //(потом)GET-запрос achiev-lib(возвращает награду ПО ЕЁ ИДЕНТИФИКАТОРУ - {uuid}):
 export const fetchGetIDAchieveLibrary = () => {
-  return axios.get(`${API_URL}/achiev-lib/{uuid}/get/`);
+  return axios.get(`${API_URL}/achiev-lib/{uuid}/`);
 };
 
 
@@ -52,7 +52,7 @@ export const fetchPostUserAchieve = (userId: IUser, achieveId: IAchieve): Promis
 //(потом)GET-запрос user-achiev(возвращает соединение между юзером и наградой ПО ЕЁ ИДЕНТИФИКАТОРУ - {uuid}):
 export const fetchGetIDUserAchieve = (userId: string): Promise<AxiosResponse<UserAchievements>> => {
   // userId типизирован, и функция возвращает промис с ответом Axios
-    return axios.get<UserAchievements>(`${API_URL}/user-achiev/list/get/`);  
+    return axios.get<UserAchievements>(`${API_URL}/user-achiev/{uuid}/`);  
   };
 
 

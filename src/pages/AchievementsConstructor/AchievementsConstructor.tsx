@@ -1,4 +1,5 @@
 
+/*
 export default function AchievementsConstructor() {
 
 return (
@@ -6,8 +7,8 @@ return (
 )
 
 }
+*/
 
-/*
 
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -25,7 +26,7 @@ export default function AchievementsConstructor() {
     const fetchAchievements = async () => {
       try {
         const response = await axios.get(
-          "https://reg.achiever.skroy.ru/achievs-lib/list/ "
+          "https://reg.achiever.skroy.ru/achiev-lib/list/ "
         );
         setAchievements(response.data);
       } catch (error) {
@@ -45,7 +46,7 @@ export default function AchievementsConstructor() {
       <SearchAllAchieveInput
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-  />*
+  />
       <div className={styles.divider}></div>
       <div className={styles.achievementsGrid}>
         {achievements.map((achievement: IAchieve) => (
@@ -61,4 +62,3 @@ export default function AchievementsConstructor() {
     </div>
   );
 }
-*/
