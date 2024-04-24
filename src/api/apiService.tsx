@@ -45,7 +45,7 @@ export const fetchGetUserAchievements = (): Promise<AxiosResponse> => {  // (use
 
 //????????POST-запрос user-achiev(соединяет юзера и награду):
 export const fetchPostUserAchieve = (userId: IUser, achieveId: IAchieve): Promise<AxiosResponse> => {
-    return axios.get(`${API_URL}/user-achiev/create/`);  
+    return axios.get(`${API_URL}/user-achiev/create/`);     //хз как сюда приладить user_uuid и achiev_uuid
   };
 
 

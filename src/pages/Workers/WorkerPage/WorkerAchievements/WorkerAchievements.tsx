@@ -31,7 +31,7 @@ export default function WorkerAchievements() {
       });
   }, []);
 
-//??????GET-запрос на список всех имеющихся наград у юзера fetchGetUserAchievements^ 
+//??????GET-запрос на список всех имеющихся наград у юзера fetchGetUserAchievements:
   useEffect(() => {
     fetchGetUserAchievements()   // (userId) - хз нужен ли аргумент??
       .then((response) => {
@@ -54,7 +54,7 @@ export default function WorkerAchievements() {
 
 
 // Функция добавления ачивки:     
-  const onAchieveAdd = (userId: IUser, achieveId: IAchieve) => {
+  const onAchieveAdd = (userId: IUser, achieveId: IAchieve) => {   ////////////????????
         //????????POST-запрос user-achiev(соединяет юзера и награду):
     fetchPostUserAchieve(userId, achieveId)   //хз как сюда приладить user_uuid и achiev_uuid
       .then(() => {
@@ -109,7 +109,7 @@ export default function WorkerAchievements() {
       </div>  
 
       {showModal && (
-        <ModalAchieveLibrary allAchievements={allAchievements} userAchievements={userAchievements} closeModal={closeModal} onAchieveAdd={onAchieveAdd}/>
+        <ModalAchieveLibrary allAchievements={allAchievements} userAchievements={userAchievements} closeModal={closeModal} onAchieveAdd={onAchieveAdd}/>    /////??????????????
         )}
     </div>
   );
