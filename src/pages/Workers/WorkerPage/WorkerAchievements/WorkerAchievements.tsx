@@ -146,11 +146,12 @@ const onAchieveAdd = (achieveId: string) => {
       </div>
 
       <div className={styles.workerAchievementsList}>
-        {/*{achieveList.filter((achieve) => 
-          achieve.added && achieve.title.toLowerCase().includes(searchQuery.toLowerCase())  //если в SearchAchieveInput ничего не введено, то searchQuery будет пустой строкой => метод includes() вернет true для всех элементов, т.к/ пустая строка содержится в любой строке. 
-          ).map((achieve) => (  //фильтрация по имени (потом вернуть) */}
-          {userAchievements.map((achieve) => (
-
+      {userAchievements
+        .filter((achieve) => 
+          //проверяем, есть ли что-то в searchQuery: 
+          searchQuery ?     //если есть, фильтруем по запросу: 
+            achieve.data.title.toLowerCase().includes(searchQuery.toLowerCase()) :             true       //если нет, показываем все ачивки (метод includes() вернет true для всех элементов, т.к. пустая строка содержится в любой строке) 
+          ).map((achieve: IAchieve) => (
             <div key={achieve.id} className={styles.achieveItem}>
               <button>
                 <img src={achieve.data.image} alt={achieve.data.title} />

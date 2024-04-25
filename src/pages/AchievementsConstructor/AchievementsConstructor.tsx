@@ -10,18 +10,34 @@ return (
 */
 
 
-import axios from "axios";
+//import axios from "axios";
 import { useEffect, useState } from "react";
-import { SearchAllAchieveInput } from "../Workers/WorkerPage/buttons&inputes/SearchAllAchieveInput";
 import styles from "../../pages/AchievementsConstructor/AchievementsConstructor.module.scss";
 import BookAvatar from "../../assets/book-icon.png";
-import { IAchieve } from "../../types/IAchieve";
+import { SearchAllAchieveInput } from "../Workers/WorkerPage/buttons&inputes/SearchAllAchieveInput";
 
+import { IAchieve } from "../../types/IAchieve";
+import { fetchGetAchieveLibrary } from "../../api/apiService";
 
 export default function AchievementsConstructor() {
   const [achievements, setAchievements] = useState<IAchieve[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
+
+//GET-запрос achiev-lib(возвращает всю библиотеку наград):
+useEffect(() => {
+  //console.log("useEffect: загрузка всей библиотеки наград"); 
+  fetchGetAchieveLibrary()
+   .then((response) => {
+    //console.log("useEffect: Response всей библиотеки наград", response);
+    setAchievements(response.data);   //data - все данные из бэка{...}
+  })
+    .catch((error) => {
+      console.error("Ошибка при получении данных пользователя:", error);
+    });
+}, []);
+
+  /*
   useEffect(() => {
     const fetchAchievements = async () => {
       try {
@@ -36,6 +52,7 @@ export default function AchievementsConstructor() {
 
     fetchAchievements();
   }, []);
+  */
 
   return (
     <div className={styles.achievementsConstructor}>
