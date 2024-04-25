@@ -15,14 +15,6 @@ import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import WorkerAchievements from "./WorkerAchievements/WorkerAchievements";
-
-import { IUser } from "../../../types/IUser";
-import {
-  fetchGetUserData,  
-  //как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
-} from "../../../api/apiService";  //api
-
-
 export default function WorkerPage() {
   const [userData, setUserData] = useState<IUser | null>(null);
   //const [userAchievements, setUserAchievements] = useState(null);

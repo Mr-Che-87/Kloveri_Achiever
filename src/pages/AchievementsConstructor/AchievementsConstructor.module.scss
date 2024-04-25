@@ -2,75 +2,82 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-}
 
-.titleContainer {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 30px;
-}
+  .titleContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
 
-.bookIcon {
-  width: 50px;
-  height: auto;
-}
+    h1 {
+      margin-left: 1rem;
+    }
+  }
 
-.divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    rgba(#f4f4f4, 0.64),
-    rgba(#f4f4f4, 0.16)
-  );
-  opacity: 0.8;
-}
+  .achievementsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+    padding: 1rem;
 
-.title {
-  color: #fff; // Белый цвет текста
-  // Добавьте необходимые стили для заголовка
-}
+    .achievementCard {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 
-.searchInput {
-  margin-bottom: 30px; // Отступ под поиском
-  // Добавьте необходимые стили для поискового инпута
-}
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
 
-.achievementsGrid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(200px, 1fr)
-  ); // Карточки займут всё доступное пространство
-  gap: 20px; // Расстояние между карточками
-  width: 100%;
-}
+      img {
+        width: 100%;
+        height: auto;
+        // If your images are not square, you might want to enforce a ratio
+      }
 
-.achievementCard {
-  background: #1a1a1a; // Фон карточки
-  border-radius: 8px; // Закругленные углы карточки
-  padding: 15px;
-  // Добавьте необходимые стили для карточки
-}
+      .cardContent {
+        padding: 1rem;
 
-.cardContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  // Добавьте необходимые стили для содержимого карточки
-}
+        h2 {
+          color: #333;
+          font-size: 1.25rem;
+        }
 
-.cardTitle {
-  font-size: 1.2em; // Большой размер шрифта для заголовка карточки
-  color: #fff; // Белый цвет текста
-  margin-top: 8px; // Отступ сверху для заголовка
-}
+        p {
+          color: #666;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(#f4f4f4, 0.64),
+      rgba(#f4f4f4, 0.16)
+    );
+    opacity: 0.8;
+  }
+  .createAchievementButton {
+    background-color: #4caf50; // A green shade, change as per your theme
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 
-.cardDescription {
-  font-size: 0.9em; // Меньший размер шрифта для описания
-  color: #aaa; // Серый цвет текста
-  text-align: center;
-  margin-top: 4px; // Отступ сверху для описания
+    &:hover {
+      background-color: #43a047; // A darker green shade for hover state
+    }
+  }
 }
