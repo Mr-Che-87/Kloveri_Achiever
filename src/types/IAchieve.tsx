@@ -11,5 +11,5 @@ export interface IAchieve {
       title: string;
       description: string;
       achiev_style: string;
-    };    //раньше было }[], сцуко!!
+    };    
  }

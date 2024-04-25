@@ -5,7 +5,7 @@ import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
 import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
-import WorkerAchievements from "./WorkerAchievements/WorkerAchievements";
+import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 
 import { IUser } from "../../../types/IUser";
 import {
@@ -21,9 +21,11 @@ export default function WorkerPage() {
 
   ////GET-запрос user(возвращает данные юзера):
   useEffect(() => {
-    const userId = "1";
-    fetchGetUserData(userId)
+    const userRoleId = "1";    //0 - admin, 1 - worker 
+    //console.log("useEffect: Загружен список данных юзера");
+    fetchGetUserData(userRoleId)
       .then((response) => {
+        //console.log("useEffect: Response списка данных юзера:", response);
         setUserData(response.data);   //data - все данные юзера из бэка {....}
       })
       .catch((error) => {
@@ -72,9 +74,9 @@ export default function WorkerPage() {
       </section>
 
       <div className={styles.workerAchievements}>
-        <WorkerAchievements
-        //userAchievements={userAchievements}
-        />
+      {userData && (
+        <WorkerAchievements     userId={userData.uuid} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
+      )}
       </div>
     </div>
   );

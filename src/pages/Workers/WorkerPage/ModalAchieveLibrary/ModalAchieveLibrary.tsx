@@ -9,17 +9,15 @@ interface ModalAchievementsProps {
   allAchievements: IAchieve[];
   userAchievements: IAchieve[];
   closeModal: () => void;
-  onAchieveAdd: (achieve: IAchieve) => void; //  функция для передачи ачивки родителю
+  onAchieveAdd: (achieveId: string) => void; //функция для передачи ачивки родителю
 }
 
+export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchievements, closeModal, onAchieveAdd }) => {
 
-export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchievements, userAchievements,  closeModal, onAchieveAdd }) => {
-
-  const handleAchieveAdd = (achieve: IAchieve) => {
-    onAchieveAdd(achieve); //вызываем функцию родителя при добавлении ачивки
-     
-    //????ЛИБО ТУТ(либо в WorkerAchievements) - POST-запрос user-achiev(соединяет юзера и награду)
-        
+  const handleAchieveAdd = (achieveId: string) => {
+    console.log("Модалка: Добавление пользователю ачивки с achieveId:", achieveId); 
+    onAchieveAdd(achieveId); //вызываем функцию родителя при добавлении ачивки
+              
      closeModal(); // Закрываем модальное окно
   };
 
@@ -34,7 +32,7 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchie
         <div className={styles.achievementsList}>
           {allAchievements.map(achieve => (
             <div key={achieve.id} className={styles.achieveItem}>
-              <button onClick={() => handleAchieveAdd(achieve)}> 
+              <button onClick={() => handleAchieveAdd(achieve.id)}> 
               <img src={achieve.data.image} alt={achieve.data.title} />
               <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
               </button>
