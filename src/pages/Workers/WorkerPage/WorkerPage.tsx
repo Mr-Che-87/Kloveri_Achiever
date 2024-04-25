@@ -16,12 +16,19 @@ import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import WorkerAchievements from "./WorkerAchievements/WorkerAchievements";
 
+import { IUser } from "../../../types/IUser";
+import {
+  fetchGetUserData,  
+  //как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
+} from "../../../api/apiService";  //api
+
+
 export default function WorkerPage() {
   const [userData, setUserData] = useState<IUser | null>(null);
   //const [userAchievements, setUserAchievements] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Эффект для загрузки данных пользователя
+  ////GET-запрос user(возвращает данные юзера):
   useEffect(() => {
     const userId = "1";
     fetchGetUserData(userId)
@@ -33,7 +40,7 @@ export default function WorkerPage() {
       });
   }, []);
 
-  // Функция переключения режима редактирования
+  //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
 
   return (
@@ -75,7 +82,7 @@ export default function WorkerPage() {
 
       <div className={styles.workerAchievements}>
         <WorkerAchievements
-        ///userAchievements={userAchievements}
+        //userAchievements={userAchievements}
         />
       </div>
     </div>

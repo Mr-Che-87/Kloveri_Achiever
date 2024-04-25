@@ -3,9 +3,14 @@ import styles from "./WorkerAchievements.module.scss";
 import { GiveAchieveButton } from "../buttons&inputes/GiveAchieveButton";
 import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
 import { AllAchieveButton } from "../buttons&inputes/AllAchieveButton";
-
-import { mockAchieveLibrary, IAchieve } from "../../../../mocks/AchieveLibrary";
 import { ModalAchieveLibrary } from "../ModalAchieveLibrary/ModalAchieveLibrary";
+
+
+import { IAchieve } from "../../../../types/IAchieve";
+import { fetchGetAchieveLibrary, fetchGetUserAchievements, fetchPostUserAchieve } from "../../../../api/apiService";
+import { IUser } from "../../../../types/IUser";
+//import { mockAchieveLibrary, IAchieve } from "../../../../mocks/AchieveLibrary";
+
 
 export default function WorkerAchievements() {
   const [achieveList, setAchieveList] =
@@ -13,7 +18,7 @@ export default function WorkerAchievements() {
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  //Отображение актуального списка добавленных ачивок и сохранение их в localStorage:
+//GET-запрос achiev-lib(возвращает всю библиотеку наград):
   useEffect(() => {
     const storedAchieves = localStorage.getItem("achieveList");
     if (storedAchieves) {
