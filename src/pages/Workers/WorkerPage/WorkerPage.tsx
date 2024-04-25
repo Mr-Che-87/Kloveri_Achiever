@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
 import styles from "./WokerPage.module.scss";
+import { IUser } from "../../../types/IUser";
+import {
+  fetchGetUserData,
+  //TODO:  fetchGetAchieveLibrary  - !!!!!!!!!!!!!!!!!!!!!!
+  //TODO:  fetchGetUserAchievements - !!!!!!фильтр от Лёни!!!!
+  //TODO:  fetchPostUserAchieve    - !!!!!!фильтр от Лёни!!!!
+  //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера
+} from "../../../api/apiService"; //api
+
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
 import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
@@ -24,7 +33,7 @@ export default function WorkerPage() {
     const userId = "1";
     fetchGetUserData(userId)
       .then((response) => {
-        setUserData(response.data);   //data - все данные юзера из бэка {....}
+        setUserData(response.data); //data - все данные юзера из бэка {....}
       })
       .catch((error) => {
         console.error("Ошибка при получении данных пользователя:", error);

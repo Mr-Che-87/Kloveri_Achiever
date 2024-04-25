@@ -1,22 +1,9 @@
-
-/*
-export default function AchievementsConstructor() {
-
-return (
-  <div>блаблабла</div>
-)
-
-}
-*/
-
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { SearchAllAchieveInput } from "../Workers/WorkerPage/buttons&inputes/SearchAllAchieveInput";
 import styles from "../../pages/AchievementsConstructor/AchievementsConstructor.module.scss";
 import BookAvatar from "../../assets/book-icon.png";
 import { IAchieve } from "../../types/IAchieve";
-
 
 export default function AchievementsConstructor() {
   const [achievements, setAchievements] = useState<IAchieve[]>([]);
@@ -26,7 +13,7 @@ export default function AchievementsConstructor() {
     const fetchAchievements = async () => {
       try {
         const response = await axios.get(
-          "https://reg.achiever.skroy.ru/achiev-lib/list/ "
+          "https://reg.achiever.skroy.ru/achievs-lib/list/ "
         );
         setAchievements(response.data);
       } catch (error) {
@@ -46,7 +33,7 @@ export default function AchievementsConstructor() {
       <SearchAllAchieveInput
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-  />
+      />
       <div className={styles.divider}></div>
       <div className={styles.achievementsGrid}>
         {achievements.map((achievement: IAchieve) => (
