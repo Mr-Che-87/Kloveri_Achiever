@@ -1,31 +1,31 @@
 import { useEffect, useState } from "react";
 import styles from "./WokerPage.module.scss";
-import { IUser } from "../../../types/IUser";
-import {
-  fetchGetUserData, 
-  //TODO:  fetchGetAchieveLibrary  - !!!!!!!!!!!!!!!!!!!!!!
-  //TODO:  fetchGetUserAchievements - !!!!!!фильтр от Лёни!!!!
-  //TODO:  fetchPostUserAchieve    - !!!!!!фильтр от Лёни!!!!
-  //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
-} from "../../../api/apiService";  //api
-
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
 import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
-import WorkerAchievements from "./WorkerAchievements/WorkerAchievements";
+import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
+
+import { IUser } from "../../../types/IUser";
+import {
+  fetchGetUserData,  
+  //как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
+} from "../../../api/apiService";  //api
+
 
 export default function WorkerPage() {
   const [userData, setUserData] = useState<IUser | null>(null);
   //const [userAchievements, setUserAchievements] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Эффект для загрузки данных пользователя
+  ////GET-запрос user(возвращает данные юзера):
   useEffect(() => {
-    const userId = "1";
-    fetchGetUserData(userId)
+    const userRoleId = "1";    //0 - admin, 1 - worker 
+    //console.log("useEffect: Загружен список данных юзера");
+    fetchGetUserData(userRoleId)
       .then((response) => {
+        //console.log("useEffect: Response списка данных юзера:", response);
         setUserData(response.data);   //data - все данные юзера из бэка {....}
       })
       .catch((error) => {
@@ -33,7 +33,7 @@ export default function WorkerPage() {
       });
   }, []);
 
-  // Функция переключения режима редактирования
+  //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
 
   return (
@@ -74,9 +74,9 @@ export default function WorkerPage() {
       </section>
 
       <div className={styles.workerAchievements}>
-        <WorkerAchievements
-        ///userAchievements={userAchievements}
-        />
+      {userData && (
+        <WorkerAchievements     userId={userData.uuid} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
+      )}
       </div>
     </div>
   );

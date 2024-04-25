@@ -1,24 +1,23 @@
 import React from "react";
 import styles from "./ModalAchieveLibrary.module.scss";
-import { IAchieve } from "../../../../mocks/AchieveLibrary";
-//TODO:  fetchGetAchieveLibrary  - !!!!!!!!!!!!!!!!!!!!!!
-//ЛИБО ТУТ:  fetchPostUserAchieve    - !!!!!!фильтр от Лёни!!!!
+
+//import { IAchieve } from "../../../../mocks/AchieveLibrary";
+import { IAchieve } from "../../../../types/IAchieve";
+
 
 interface ModalAchievementsProps {
-  achieveList: IAchieve[];
+  allAchievements: IAchieve[];
+  userAchievements: IAchieve[];
   closeModal: () => void;
-  onAchieveAdd: (achieve: IAchieve) => void; //  функция для передачи ачивки родителю
+  onAchieveAdd: (achieveId: string) => void; //функция для передачи ачивки родителю
 }
 
-export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achieveList, closeModal, onAchieveAdd }) => {
+export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchievements, closeModal, onAchieveAdd }) => {
 
-//ЛИБО ТУТ(либо в мок-заглушке)  - GET-запрос на всю библиотеку ачивок fetchGetAchieveLibrary 
-
-  const handleAchieveAdd = (achieve: IAchieve) => {
-    onAchieveAdd(achieve); //вызываем функцию родителя при добавлении ачивки
-     
-    //ЛИБО ТУТ(либо в WorkerAchievements) - POST-запрос user-achiev(соединяет юзера и награду) - !!!!фильтр от Лёни!!!! 
-        
+  const handleAchieveAdd = (achieveId: string) => {
+    console.log("Модалка: Добавление пользователю ачивки с achieveId:", achieveId); 
+    onAchieveAdd(achieveId); //вызываем функцию родителя при добавлении ачивки
+              
      closeModal(); // Закрываем модальное окно
   };
 
@@ -31,11 +30,11 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ achieveL
         </button>
         <h2>Библиотека достижений</h2>
         <div className={styles.achievementsList}>
-          {achieveList.map((achieve) => (
+          {allAchievements.map(achieve => (
             <div key={achieve.id} className={styles.achieveItem}>
-              <button onClick={() => handleAchieveAdd(achieve)}> {/* Добавляем обработчик на кнопку */}
-              <img src={achieve.image} alt={achieve.title} />
-              <h3 className={styles.achieveTitle}>{achieve.title}</h3>
+              <button onClick={() => handleAchieveAdd(achieve.id)}> 
+              <img src={achieve.data.image} alt={achieve.data.title} />
+              <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
               </button>
             </div>
           ))}
