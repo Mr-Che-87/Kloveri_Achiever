@@ -22,7 +22,7 @@ export default function WorkerInitial({
     <div className={styles.workerInitial}>
       <img
         className={styles.workerAvatar}
-        src={userData.foto || WorkerAvatar }  //WorkerAvatar - фотка из заглушки на резерв
+        src={userData.foto || WorkerAvatar} // WorkerAvatar  - фотка из заглушки на резерв
         alt="Avatar"
       />
       <div>

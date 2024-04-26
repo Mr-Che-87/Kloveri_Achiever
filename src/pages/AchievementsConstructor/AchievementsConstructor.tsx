@@ -1,20 +1,10 @@
-
-/*
-export default function AchievementsConstructor() {
-
-return (
-  <div>блаблабла</div>
-)
-
-}
-*/
-
-
-//import axios from "axios";
-import { useEffect, useState } from "react";
+import axios from "axios";
 import styles from "../../pages/AchievementsConstructor/AchievementsConstructor.module.scss";
-import BookAvatar from "../../assets/book-icon.png";
+import { useEffect, useState } from "react";
+
+import ModalAddingAchieve from "./ModalAddingAchieve";
 import { SearchAllAchieveInput } from "../Workers/WorkerPage/buttons&inputes/SearchAllAchieveInput";
+import BookAvatar from "../../assets/book-icon.png";
 
 import { IAchieve } from "../../types/IAchieve";
 import { fetchGetAchieveLibrary } from "../../api/apiService";
@@ -22,9 +12,13 @@ import { fetchGetAchieveLibrary } from "../../api/apiService";
 export default function AchievementsConstructor() {
   const [achievements, setAchievements] = useState<IAchieve[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
-//GET-запрос achiev-lib(возвращает всю библиотеку наград):
+  //GET-запрос achiev-lib(возвращает всю библиотеку наград):
 useEffect(() => {
   //console.log("useEffect: загрузка всей библиотеки наград"); 
   fetchGetAchieveLibrary()
@@ -37,23 +31,6 @@ useEffect(() => {
     });
 }, []);
 
-  /*
-  useEffect(() => {
-    const fetchAchievements = async () => {
-      try {
-        const response = await axios.get(
-          "https://reg.achiever.skroy.ru/achiev-lib/list/ "
-        );
-        setAchievements(response.data);
-      } catch (error) {
-        console.error("Ошибка при получении достижений:", error);
-      }
-    };
-
-    fetchAchievements();
-  }, []);
-  */
-
   return (
     <div className={styles.achievementsConstructor}>
       <div className={styles.titleContainer}>
@@ -63,11 +40,21 @@ useEffect(() => {
       <SearchAllAchieveInput
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-  />
+      />
       <div className={styles.divider}></div>
       <div className={styles.achievementsGrid}>
-        {achievements.map((achievement: IAchieve) => (
-          <div key={achievement.id} className={styles.achievementCard}>
+        <button
+          onClick={toggleModal}
+          className={styles.createAchievementButton}
+        >
+          Создать достижение
+        </button>
+        {achievements.map((achievement) => (
+          <div
+            key={achievement.id}
+            className={styles.achievementCard}
+            style={{ backgroundImage: `url(${achievement.data.achiev_style})` }}
+          >
             <img src={achievement.data.image} alt={achievement.data.title} />
             <div className={styles.cardContent}>
               <h2>{achievement.data.title}</h2>
@@ -76,6 +63,7 @@ useEffect(() => {
           </div>
         ))}
       </div>
+      {isModalOpen && <ModalAddingAchieve closeModal={toggleModal} />}
     </div>
   );
 }
