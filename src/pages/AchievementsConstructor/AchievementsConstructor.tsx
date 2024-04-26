@@ -1,10 +1,13 @@
 import axios from "axios";
+import styles from "../../pages/AchievementsConstructor/AchievementsConstructor.module.scss";
 import { useEffect, useState } from "react";
+
 import ModalAddingAchieve from "./ModalAddingAchieve";
 import { SearchAllAchieveInput } from "../Workers/WorkerPage/buttons&inputes/SearchAllAchieveInput";
-import styles from "../../pages/AchievementsConstructor/AchievementsConstructor.module.scss";
 import BookAvatar from "../../assets/book-icon.png";
+
 import { IAchieve } from "../../types/IAchieve";
+import { fetchGetAchieveLibrary } from "../../api/apiService";
 
 export default function AchievementsConstructor() {
   const [achievements, setAchievements] = useState<IAchieve[]>([]);
@@ -15,20 +18,18 @@ export default function AchievementsConstructor() {
     setIsModalOpen(!isModalOpen);
   };
 
-  useEffect(() => {
-    const fetchAchievements = async () => {
-      try {
-        const response = await axios.get(
-          "https://reg.achiever.skroy.ru/achiev-lib/list/"
-        );
-        setAchievements(response.data);
-      } catch (error) {
-        console.error("Ошибка при получении достижений:", error);
-      }
-    };
-
-    fetchAchievements();
-  }, []);
+  //GET-запрос achiev-lib(возвращает всю библиотеку наград):
+useEffect(() => {
+  //console.log("useEffect: загрузка всей библиотеки наград"); 
+  fetchGetAchieveLibrary()
+   .then((response) => {
+    //console.log("useEffect: Response всей библиотеки наград", response);
+    setAchievements(response.data);   //data - все данные из бэка{...}
+  })
+    .catch((error) => {
+      console.error("Ошибка при получении данных пользователя:", error);
+    });
+}, []);
 
   return (
     <div className={styles.achievementsConstructor}>
