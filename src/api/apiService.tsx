@@ -14,16 +14,22 @@ export const fetchGetUserData = (userRoleId: string) => {  //userRoleId(0 - ад
 //как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
 
 
+
 //GET-запрос achiev-lib(возвращает всю библиотеку наград):
 export const fetchGetAchieveLibrary = () => {
   //console.log("АPI-GET: Загружена вся библиотека наград");
   return axios.get(`${API_URL}/achiev-lib/list/`);
 };
-/*
-//(потом)POST-запрос achiev-lib(записывает в библиотеку новую награду):
-export const fetchPostAchieveLibrary = () => {
-  return axios.post(`${API_URL}/achiev-lib/create/`);
+
+//POST-запрос achiev-lib/create (записывает в библиотеку новую награду):
+export const fetchPostAchieveInLibrary = (formData: FormData): Promise<AxiosResponse> => {
+  return axios.post(`${API_URL}/achiev-lib/create/`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
+/*
 //(потом)GET-запрос achiev-lib(возвращает награду ПО ЕЁ ИДЕНТИФИКАТОРУ - {uuid}):
 export const fetchGetIDAchieveLibrary = () => {
   return axios.get(`${API_URL}/achiev-lib/{uuid}/`);
