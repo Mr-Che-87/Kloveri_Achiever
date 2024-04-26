@@ -37,6 +37,10 @@ h2 {
   //field-sizing: content;
   color: white;
   margin-bottom: 12px;
+  &:enabled {
+    background: #f4f4f405;
+  }
+
   &:disabled {
     cursor: default;
   }
@@ -44,7 +48,7 @@ h2 {
     background: #f4f4f405;
   }
   &:focus {
-    background-color: #193117;   //гыгыгы
+    background-color: #193117; //гыгыгы
   }
 }
 .divider {
@@ -58,14 +62,13 @@ h2 {
   opacity: 0.8;
 }
 
-// Специальный стиль для DatePicker чтобы переопределить внутренние стили
 .react-datepicker-wrapper {
   width: 100%;
   .react-datepicker__input-container {
     width: 100%;
   }
   input {
-    width: 100% !important; // переопределить ширину инпута
+    width: 100% !important;
   }
 }
 
