@@ -22,8 +22,13 @@
     padding: 1rem;
 
     .achievementCard {
-      background: #fff;
-      border-radius: 8px;
+      border-radius: 20px;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition:
@@ -36,9 +41,10 @@
       }
 
       img {
-        width: 100%;
+        width: 140px;
+        height: 140px;
         height: auto;
-        // If your images are not square, you might want to enforce a ratio
+        margin-top: 18px;
       }
 
       .cardContent {
@@ -67,17 +73,25 @@
     opacity: 0.8;
   }
   .createAchievementButton {
-    background-color: #4caf50; // A green shade, change as per your theme
-    color: white;
-    border: none;
     border-radius: 8px;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
+    width: 210px;
+    height: 274px;
+    align-items: center;
+    display: flex;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    flex-direction: column;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
 
     &:hover {
-      background-color: #43a047; // A darker green shade for hover state
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
   }
 }
