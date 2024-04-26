@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "./ModalAchieveLibrary.module.scss";
-import { IAchieve } from "../../../../mocks/AchieveLibrary";
-//TODO:  fetchGetAchieveLibrary  - !!!!!!!!!!!!!!!!!!!!!!
-//ЛИБО ТУТ:  fetchPostUserAchieve    - !!!!!!фильтр от Лёни!!!!
+
+//import { IAchieve } from "../../../../mocks/AchieveLibrary";
+import { IAchieve } from "../../../../types/IAchieve";
+
 
 interface ModalAchievementsProps {
-  achieveList: IAchieve[];
+  allAchievements: IAchieve[];
+  userAchievements: IAchieve[];
   closeModal: () => void;
   onAchieveAdd: (achieve: IAchieve) => void; //  функция для передачи ачивки родителю
 }
@@ -33,7 +35,7 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({
         </button>
         <h2>Библиотека достижений</h2>
         <div className={styles.achievementsList}>
-          {achieveList.map((achieve) => (
+          {allAchievements.map(achieve => (
             <div key={achieve.id} className={styles.achieveItem}>
               <button onClick={() => handleAchieveAdd(achieve)}>
                 {" "}
