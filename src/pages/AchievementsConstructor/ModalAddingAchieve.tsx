@@ -18,9 +18,8 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Проверка на наличие всех обязательных полей
-    if (!image || !background || rank === "") {
-      alert("Пожалуйста, заполните все обязательные поля.");
+    if (!title || !description || !image || !background || !rank) {
+      alert("Все поля должны быть заполнены.");
       return;
     }
 
@@ -29,17 +28,25 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     formData.append("description", description);
     formData.append("image", image);
     formData.append("achiev_style", background);
-    formData.append("rank", String(rank));
+    formData.append("rank", rank.toString()); // Приведение rank к строке
 
     try {
-      const response = await axios.post(
-        "https://reg.achiever.skroy.ru/achiev-lib/create/",
-        formData
-      );
+      const response = await axios.post("/api/achiev-lib/create/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log(response.data);
-      closeModal();
+      closeModal(); // Закрытие модального окна после успешной отправки
     } catch (error) {
-      console.error("Ошибка при отправке данных формы:", error);
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Ошибка при отправке данных формы:",
+          error.response?.data
+        );
+      } else {
+        console.error("Неизвестная ошибка при отправке данных формы:", error);
+      }
     }
   };
 
@@ -101,15 +108,8 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
               type="file"
               id="imageInput"
               onChange={handleImageChange}
-              style={{ display: "none" }}
+              required
             />
-            <button
-              type="button"
-              onClick={() => document.getElementById("imageInput")?.click()}
-              className={styles.fileInput}
-            >
-              Выбрать
-            </button>
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="backgroundInput">Фон</label>
@@ -117,17 +117,8 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
               type="file"
               id="backgroundInput"
               onChange={handleBackgroundChange}
-              style={{ display: "none" }}
+              required
             />
-            <button
-              type="button"
-              onClick={() =>
-                document.getElementById("backgroundInput")?.click()
-              }
-              className={styles.fileInput}
-            >
-              Выбрать фон
-            </button>
           </div>
           <div className={styles.formActions}>
             <button
