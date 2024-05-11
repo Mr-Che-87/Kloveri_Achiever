@@ -31,7 +31,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     formData.append("rank", rank.toString()); // Приведение rank к строке
 
     try {
-      const response = await axios.post("/api/achiev-lib/create/", formData, {
+      const response = await axios.post("/api/achievements/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

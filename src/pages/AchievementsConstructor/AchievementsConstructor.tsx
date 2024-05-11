@@ -19,7 +19,7 @@ export default function AchievementsConstructor() {
     const fetchAchievements = async () => {
       try {
         const response = await axios.get(
-          "https://reg.achiever.skroy.ru/achiev-lib/list/"
+          "https://reg.achiever.skroy.ru/achievements/"
         );
         setAchievements(response.data);
       } catch (error) {
