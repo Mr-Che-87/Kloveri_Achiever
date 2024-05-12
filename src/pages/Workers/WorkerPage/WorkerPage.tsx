@@ -73,11 +73,15 @@ export default function WorkerPage() {
         </div>
       </section>
 
+
+{/*   ОТКРЫТЬ!!!!!
       <div className={styles.workerAchievements}>
       {userData && (
         <WorkerAchievements     userId={userData.uuid} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
       )}
       </div>
+
+*/}
     </div>
   );
 }

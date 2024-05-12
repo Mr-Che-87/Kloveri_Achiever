@@ -31,7 +31,7 @@ export const fetchUpdateUser = (
 ): Promise<AxiosResponse<IUser>> => {
   return axios.patch<IUser>(`${API_URL}/profiles/${userId}`, userData);
 };
-*/
+
 
 // Удаление пользователя по ID
 export const fetchDeleteUser = (userId: string): Promise<AxiosResponse> => {

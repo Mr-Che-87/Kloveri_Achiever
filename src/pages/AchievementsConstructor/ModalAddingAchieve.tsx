@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import styles from "./ModalAddingAchieve.module.scss";
 
-import { fetchPostAchieveInLibrary } from "../../api/apiService";
+//import { fetchPostAchieveInLibrary } from "../../api/apiService";
 
 interface ModalAddingAchieveProps {
   closeModal: () => void;
@@ -50,7 +50,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
         console.error("Неизвестная ошибка при отправке данных формы:", error);
       }
     }
-    */
+    
   };
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) =>
