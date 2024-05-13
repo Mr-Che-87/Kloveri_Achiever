@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import styles from "./WokerPage.module.scss";
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
@@ -15,23 +17,24 @@ import {
 
 
 export default function WorkerPage() {
-  const [userData, setUserData] = useState<IUser | null>(null);
-  //const [userAchievements, setUserAchievements] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const { profile_id } = useParams(); // Получаем profileId из параметров маршрута
+  const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
+  const [isEditing, setIsEditing] = useState(false);  //редактирование полей
 
-  ////GET-запрос user(возвращает данные юзера):
+  // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
-    const userRoleId = "1";    //0 - admin, 1 - worker 
-    //console.log("useEffect: Загружен список данных юзера");
-    fetchGetUserData(userRoleId)
-      .then((response) => {
-        //console.log("useEffect: Response списка данных юзера:", response);
-        setUserData(response.data);   //data - все данные юзера из бэка {....}
-      })
-      .catch((error) => {
-        console.error("Ошибка при получении данных пользователя:", error);
-      });
-  }, []);
+    //const userRoleId = "1";    //0 - admin, 1 - worker 
+    if (profile_id) { // Проверяем, что profile_id определен
+      //console.log("useEffect: Загружен список данных юзера");
+      fetchGetUserData(profile_id)
+        .then((response) => {
+          setUserData(response.data);   //data - все данные юзера из бэка {....}
+        })
+        .catch((error) => {
+          console.error("Ошибка при получении данных пользователя:", error);
+        });
+    }
+  }, [profile_id]);
 
   //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
@@ -42,12 +45,14 @@ export default function WorkerPage() {
         <div className={styles.workerInitial}>
           {userData && (
             <WorkerInitial
+              user={userData}  //передаем данные пользователя в WorkerInitial
               showEmail={true}
-              userData={userData} // передаем объект userData только если он не null
+              photoType="photo_main"
+              
             />
           )}
         </div>
-
+        
         <div className={styles.workerBtnMenu}>
           <ul>
             <li>
@@ -73,14 +78,12 @@ export default function WorkerPage() {
         </div>
       </section>
 
-
-{/*   ОТКРЫТЬ!!!!!
+{/*ВЕРНУТЬ
       <div className={styles.workerAchievements}>
       {userData && (
         <WorkerAchievements     userId={userData.uuid} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
       )}
       </div>
-
 */}
     </div>
   );

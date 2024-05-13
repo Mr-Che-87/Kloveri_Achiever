@@ -60,7 +60,7 @@ const NavigationMenu = () => {
           <Route path="/teams" element={<Teams />} />
           <Route path="/workers" element={<Workers />} />
           <>
-            <Route path="/worker-page" element={<WorkerPage />} />
+            <Route path="/worker-page/:profile_id" element={<WorkerPage />} />  {/*в путь добавлен id юзера*/}
           </>
 
           <Route path="/admin-account" element={<AdminAccount />} />

@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import styles from "./ModalAddingAchieve.module.scss";
 
-//import { fetchPostAchieveInLibrary } from "../../api/apiService";
+import { fetchPostAchieveLibrary } from "../../api/apiService";
 
 interface ModalAddingAchieveProps {
   closeModal: () => void;
@@ -25,15 +25,31 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
       return;
     }
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("image", image);
-    formData.append("achiev_style", background);
-    formData.append("rank", rank.toString()); // Приведение rank к строке
+    const achieveData = new FormData();
+    achieveData.append("title", title);
+    achieveData.append("description", description);
+    achieveData.append("image", image as Blob); //приведение к Blob, т.к. изображение явл. типом File
+    achieveData.append("achiev_style", background as Blob); 
+    achieveData.append("rank", rank.toString()); //приведение rank к строке
 
     try {
-      const response = await axios.post("/api/achievements/", formData, {
+      const response = await fetchPostAchieveLibrary(achieveData); 
+      console.log(response.data);
+      closeModal(); //закрытие модального окна после успешной отправки
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Ошибка при отправке данных формы:",
+          error.response?.data
+        );
+      } else {
+        console.error("Неизвестная ошибка при отправке данных формы:", error);
+      }
+    }
+    /*
+    ////СТАРЫЙ АПИ (с инициализацией прям тут)
+    try {
+      const response = await axios.post("/api/achiev-lib/create/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

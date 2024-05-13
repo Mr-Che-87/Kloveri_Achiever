@@ -1,4 +1,3 @@
-import axios from "axios";
 import styles from "../../pages/AchievementsConstructor/AchievementsConstructor.module.scss";
 import { useEffect, useState } from "react";
 
@@ -18,20 +17,18 @@ export default function AchievementsConstructor() {
     setIsModalOpen(!isModalOpen);
   };
 
-  useEffect(() => {
-    const fetchAchievements = async () => {
-      try {
-        const response = await axios.get(
-          "https://reg.achiever.skroy.ru/achievements/"
-        );
-        setAchievements(response.data);
-      } catch (error) {
-        console.error("Ошибка при получении достижений:", error);
-      }
-    };
-
-    fetchAchievements();
-  }, []);
+//GET-запрос achiev-lib(возвращает всю библиотеку наград):
+useEffect(() => {
+  //console.log("useEffect: загрузка всей библиотеки наград"); 
+  fetchGetAchieveLibrary()
+   .then((response) => {
+    //console.log("useEffect: Response всей библиотеки наград", response);
+    setAchievements(response.data);   //data - все данные из бэка{...}
+  })
+    .catch((error) => {
+      console.error("Ошибка при получении данных пользователя:", error);
+    });
+}, []);
 
   return (
     <div className={styles.achievementsConstructor}>
