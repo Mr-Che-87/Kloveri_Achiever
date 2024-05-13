@@ -7,9 +7,9 @@ import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
 
 import { fetchGetAllUsers } from "../../api/apiService";  //api
 import iconHeader from "../../assets/iconsHeader.svg";
-import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
+import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";   //??? решить вопрос
 import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
-import WorkersButtonAddTeam from "./WorkersButtonAddTeam/WorkersButtonAddTeam";
+//import WorkersButtonAddTeam from "./WorkersButtonAddTeam/WorkersButtonAddTeam";
 
 
 export default function Workers() {
@@ -48,7 +48,7 @@ export default function Workers() {
       <div className={styles.workersCards}>
         <div className={styles.workersList}>
           <ul className={styles.workersList__item}>
-            {userList.map((user, index) => (
+            {userList.map((user, index) => (  //МАПИМ МАССИВ ЮЗЕРОВ ИЗ БЭКА
               <li key={index}>
                 <NavLink to={`/worker-page/${user.profile_id}`}>
                   <WorkerInitial
@@ -66,7 +66,8 @@ export default function Workers() {
         </div>
 
 
-        { /*  <div className={styles.workersNotInTheTeam}>
+        { //ПОКА НЕ НАДО:
+        /*  <div className={styles.workersNotInTheTeam}>
           <p>НЕ В КОМАНДЕ</p>
           <ul className={styles.workersList__item}>
             {userList.map((user, index) => (
