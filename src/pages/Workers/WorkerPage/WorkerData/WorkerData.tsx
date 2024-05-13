@@ -59,6 +59,7 @@ export default function WorkerData({
   };
 
 
+  //сохранение через Enter:
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && isEditing) {
       event.preventDefault();
@@ -66,11 +67,11 @@ export default function WorkerData({
     }
   };
 
-
+//общее сохранение:
   const handleSave = () => {
     console.log("Сохранённые данные:", formData);
     toggleEdit();
-    //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
+    //PATCH-Обновление данных существующего пользователя:
     if (formData !== null && formData.profile_id) { //добавляем дополнительную проверку на formData !== null
       fetchUpdateUser(formData.profile_id, formData)
         .then((response) => {
@@ -82,6 +83,7 @@ export default function WorkerData({
     }
   };
 
+//Дата-пикер:
   const parseDateForPicker = (dateStr?: string): Date | null => {
     if (!dateStr) {
       return null;
@@ -89,6 +91,8 @@ export default function WorkerData({
     const date = new Date(dateStr);
     return date instanceof Date && !isNaN(date.getTime()) ? date : null;
   };
+
+
 
   if (!formData) {
     return <div>Loading...</div>;

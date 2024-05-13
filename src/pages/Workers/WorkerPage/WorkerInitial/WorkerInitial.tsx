@@ -22,7 +22,7 @@ export default function WorkerInitial({
     <div className={styles.workerInitial}>
       <img
         className={styles.workerAvatar}
-        src={user[photoType] || WorkerAvatar}    //WorkerAvatar - фотка из заглушки на резерв - НЕ РАБОТАЕТ С ПУСТЫМ url!!!
+        src={user[photoType] || WorkerAvatar}    //WorkerAvatar - фотка из заглушки на резерв - НЕ РАБОТАЕТ С ПУСТЫМ url!!!  - попробовать через вес или 404
         alt="Avatar"
       />
       <div>
