@@ -21,22 +21,18 @@ export default function WorkerPage() {
 
   ////GET-запрос user(возвращает данные юзера):
   useEffect(() => {
-    
-    const userRoleId = "";    //0 - admin, 1 - worker 
-    // console.log("useEffect: Загружен список данных юзера");
-   
-    fetchGetUserData(userRoleId)
-      .then((response) => {
-        console.log("useEffect: Response списка данных юзера:", response.data);
-        setUserData(response.data);   //data - все данные юзера из бэка {....}
-       
-         console.log("userRoleId", response.data)
-        
-      })
-      .catch((error) => {
-        console.error("Ошибка при получении данных пользователя:", error);
-      });
-  }, []);
+    //const userRoleId = "1";    //0 - admin, 1 - worker 
+    if (profile_id) { // Проверяем, что profile_id определен
+      //console.log("useEffect: Загружен список данных юзера");
+      fetchGetUserData(profile_id)
+        .then((response) => {
+          setUserData(response.data);   //data - все данные юзера из бэка {....}
+        })
+        .catch((error) => {
+          console.error("Ошибка при получении данных пользователя:", error);
+        });
+    }
+  }, [profile_id]);
 
   //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);

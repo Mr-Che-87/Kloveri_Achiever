@@ -95,11 +95,11 @@ export default function WorkerData({
         <div className={styles.workerFullname}>
           <h2>Имя</h2>
           <input
-            name="first_name"
+            name="full-name"
             type="text"
             placeholder="Введите ФИО"
-            value={formData.first_name || ""}
-            onChange={handleChange}
+            value={`${formData.first_name || ""} ${formData.middle_name || ""} ${formData.last_name || ""}`}
+            onChange={handleFullNameChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
           />

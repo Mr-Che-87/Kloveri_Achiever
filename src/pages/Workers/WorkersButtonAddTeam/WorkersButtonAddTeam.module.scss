@@ -1,0 +1,29 @@
+.workersButtonAddTeam {
+  width: 69px;
+  height: 36px;
+  padding-right: 14px;
+  box-sizing: border-box;
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  text-align: right;
+  background: url("../../../assets/iconsBtnAddToTean.svg") no-repeat ,rgba(106, 17, 195, 0.32);
+  background-position: 11px 8px;
+  font-size: 30px;
+  border: none;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+
+    &:hover {
+        background:url("../../../assets/iconsBtnAddToTean.svg") no-repeat, linear-gradient(90deg, #6a50ea, #8950ea);
+        background-position: 11px 8px;
+        transform: scale(1.05);
+    
+        &:active {
+          background:url("../../../assets/iconsBtnAddToTean.svg") no-repeat, linear-gradient(90deg, #5938d7, #7638d7);
+          background-position: 11px 8px;
+          transform: scale(0.95);
+        }
+      }
+    
+}
