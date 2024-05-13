@@ -44,51 +44,28 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
       });
   }, []);
 
-  //??????GET-запрос  user-achiev (на список всех имеющихся СОЕДИНЕНИЙ награда+юзер):
-  //работает через жопу!!!  (возможно проблема в отображении дублирующихся ачивок)
-  useEffect(() => {
-    if (userId) {
-      console.log("useEffect: загрузка ачивок пользователя с userId:", userId);
-      fetchGetIDUserAchieve(userId)
-        .then((response) => {
-          console.log("useEffect: Response ачивок пользователя:", response);
-          
-          const userConnections: IConnection[] = response.data; //получаем список соединений пользователь-награда
-          const map = {};
-          userConnections.forEach(obj=>{
-            map[obj.data.profile_id] = obj;
-          })
-          const userAchieveIds = userConnections.map(
-            (connection) => connection.data.achiev_uuid
-          );
-          const filterUserAchiementsId = allAchievements.map((item) => {
-            return item.id;
-          });
-          console.log("filterUserAchiementsId", filterUserAchiementsId);
-          console.log("userAchieveIds", userAchieveIds);
-          console.log("userConnections",userConnections)
-          const reversFilterId = filterUserAchiementsId.map(uuid => map[uuid] ).filter(Boolean)
-        
-          console.log("reversFilterId", reversFilterId);
 
-          //извлекаем идентификаторы ачивок из соединений
-          const filteredAchievements = allAchievements.filter((achievement) =>
-            userAchieveIds.includes(achievement.id)
-          ); //фильтруем все ачивки из библиотеки по идентификаторам из соединений
-              const filtersAchievem = filteredAchievements.map((item,index) => {
-            
-            return { ...item, achieveId: reversFilterId[index].id };
-          });
-          setUserAchievements(filtersAchievem);
-      
-          console.log("filteredAchievements:", filteredAchievements);
-          console.log("userConnections", userConnections);
-        })
-        .catch((error) => {
-          console.error("Ошибка при загрузке ачивок пользователя:", error);
-        });
-    }
-  }, [userId, allAchievements]);
+
+//??????GET-запрос  user-achiev (на список всех имеющихся СОЕДИНЕНИЙ награда+юзер): 
+//работает через жопу!!!  (возможно проблема в отображении дублирующихся ачивок)
+useEffect(() => {
+  if (userId) {
+    console.log("useEffect: загрузка ачивок пользователя с userId:", userId);
+    fetchGetIDUserAchieve(userId)
+    .then((response) => {
+      console.log("useEffect: Response ачивок пользователя:", response);
+      const userConnections: IConnection[] = response.data;  //получаем список соединений пользователь-награда
+      const userAchieveIds = userConnections.map(connection => connection.data.achiev_uuid); //извлекаем идентификаторы ачивок из соединений
+      const filteredAchievements = allAchievements.filter(achievement => userAchieveIds.includes(achievement.id));   //фильтруем все ачивки из библиотеки по идентификаторам из соединений
+      setUserAchievements(filteredAchievements);
+    })
+    .catch((error) => {
+      console.error("Ошибка при загрузке ачивок пользователя:", error);
+    });
+  }
+}, [userId, allAchievements]);
+
+
 
   const openModal = () => {
     setShowModal(true);
