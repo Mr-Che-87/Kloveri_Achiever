@@ -17,7 +17,7 @@ import {
 
 
 export default function WorkerPage() {
-  const { profile_id } = useParams(); // Получаем profileId из параметров маршрута
+  const { profile_id } = useParams();    //получаем profileId из параметров маршрута
   const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
   const [isEditing, setIsEditing] = useState(false);  //редактирование полей
 

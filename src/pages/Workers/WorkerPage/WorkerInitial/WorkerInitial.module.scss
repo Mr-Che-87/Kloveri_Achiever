@@ -3,7 +3,7 @@
   flex-direction: row;
   gap: 16px;
 }
-.workerAvatar {
+.workerAvatar {   //сделать условие: 72*72 для WorkerPage,   48*48 для Workers
   width: 72px;
   height: 72px;
 }

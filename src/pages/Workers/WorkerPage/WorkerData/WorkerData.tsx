@@ -22,7 +22,8 @@ export default function WorkerData({
   toggleEdit,
   userData,
 }: WorkerDataProps) {
-  const [formData, setFormData] = useState<IUser | null>(null);
+  
+  const [formData, setFormData] = useState<IUser | null>(null);    //внутренний state данных юзера
 
   useEffect(() => {
     if (userData) {
@@ -51,7 +52,7 @@ export default function WorkerData({
     }));
   };
 
-  const handleDateChange = (date: Date | null, fieldName: keyof IUser) => {
+  const handleDateChange = (date: Date | null, fieldName: string) => {
     setFormData((currentFormData) => ({
       ...currentFormData,
       [fieldName]: date ? date.toISOString().split("T")[0] : "",
@@ -111,10 +112,10 @@ export default function WorkerData({
         <div className={styles.workerLogin}>
           <h2>Логин</h2>
           <input
-            name="contact_email"
+            name="email"
             type="email"
             placeholder="Введите Логин"
-            value={formData.contact_email?.[0]?.value || ""}
+            value={formData.email || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -150,12 +151,12 @@ export default function WorkerData({
         </div>
 
         <div className={styles.workerNumber}>
-          <h2> Табельный номер</h2>
+          <h2>Телефон</h2>
           <input
-            name="tabel-number"
+            name="phone"
             type="text"
-            placeholder="Введите Табельный номер"
-            value={formData.project_id || ""}  //ЗАГЛУШКА, ибо "number" - НЕТ ПОЛЯ В РЕЕСТРЕ
+            placeholder="Введите телефон"
+            value={formData.phone || ""}  
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -166,9 +167,9 @@ export default function WorkerData({
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <DatePicker
-            selected={parseDateForPicker(formData.birth_date)}
-            onChange={(date) => handleDateChange(date, "birth_date")}  //ЗАГЛУШКА, ибо "registration_day" - НЕТ ПОЛЯ В РЕЕСТРЕ
-            value={formData.birth_date || ""}
+            selected={parseDateForPicker(formData?.other_info?.start_work)}
+            onChange={(date) => handleDateChange(date, "start_work")}  //ЗАГЛУШКА, ибо "registration_day" - НЕТ ПОЛЯ В РЕЕСТРЕ
+            value={formData?.other_info?.start_work || ""}
             dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
           />
@@ -181,7 +182,7 @@ export default function WorkerData({
             name="proffesion"
             type="text"
             placeholder="Введите Роль"
-            value={formData?.project_info?.other_info?.proffesion || ""}
+            value={formData?.other_info?.proffesion || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
