@@ -66,7 +66,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
         console.error("Неизвестная ошибка при отправке данных формы:", error);
       }
     }
-    
+  */  
   };
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) =>
