@@ -21,12 +21,17 @@ export default function WorkerPage() {
 
   ////GET-запрос user(возвращает данные юзера):
   useEffect(() => {
-    const userRoleId = "1";    //0 - admin, 1 - worker 
-    //console.log("useEffect: Загружен список данных юзера");
+    
+    const userRoleId = "";    //0 - admin, 1 - worker 
+    // console.log("useEffect: Загружен список данных юзера");
+   
     fetchGetUserData(userRoleId)
       .then((response) => {
-        //console.log("useEffect: Response списка данных юзера:", response);
+        console.log("useEffect: Response списка данных юзера:", response.data);
         setUserData(response.data);   //data - все данные юзера из бэка {....}
+       
+         console.log("userRoleId", response.data)
+        
       })
       .catch((error) => {
         console.error("Ошибка при получении данных пользователя:", error);
@@ -45,6 +50,7 @@ export default function WorkerPage() {
               showEmail={true}
               userData={userData} // передаем объект userData только если он не null
             />
+            
           )}
         </div>
 
@@ -75,7 +81,7 @@ export default function WorkerPage() {
 
       <div className={styles.workerAchievements}>
       {userData && (
-        <WorkerAchievements     userId={userData.uuid} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
+        <WorkerAchievements     userId={userData.profile_id} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
       )}
       </div>
     </div>

@@ -14,15 +14,19 @@ export default function Workers() {
 
 //GET-запрос user(возвращает список юзеров и их данные):
   useEffect(() => {
-    const userId = "1";
+    const userId = "";
     fetchGetUserData(userId)
       .then((response) => {
-        setUserData(response.data);
+      
+          setUserData(response.data)
+    
+        
       })
       .catch((error) => {
         console.error("Ошибка при получении данных пользователя:", error);
       });
   }, []);
+  
 
   //возвращаем индикатор загрузки пока данные не загружены:
   if (!userData) {
