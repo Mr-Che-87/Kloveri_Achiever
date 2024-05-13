@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
 import styles from "./WokerPage.module.scss";
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
@@ -17,11 +15,11 @@ import {
 
 
 export default function WorkerPage() {
-  const { profile_id } = useParams(); // Получаем profileId из параметров маршрута
-  const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
-  const [isEditing, setIsEditing] = useState(false);  //редактирование полей
+  const [userData, setUserData] = useState<IUser | null>(null);
+  //const [userAchievements, setUserAchievements] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
-  // GET-Получение данных одного пользователя по ID:
+  ////GET-запрос user(возвращает данные юзера):
   useEffect(() => {
     
     const userRoleId = "";    //0 - admin, 1 - worker 
@@ -49,15 +47,13 @@ export default function WorkerPage() {
         <div className={styles.workerInitial}>
           {userData && (
             <WorkerInitial
-              user={userData}  //передаем данные пользователя в WorkerInitial
               showEmail={true}
-              photoType="photo_main"
-              
+              userData={userData} // передаем объект userData только если он не null
             />
             
           )}
         </div>
-        
+
         <div className={styles.workerBtnMenu}>
           <ul>
             <li>
@@ -83,13 +79,11 @@ export default function WorkerPage() {
         </div>
       </section>
 
-{/*ВЕРНУТЬ
       <div className={styles.workerAchievements}>
       {userData && (
         <WorkerAchievements     userId={userData.profile_id} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
       )}
       </div>
-*/}
     </div>
   );
 }

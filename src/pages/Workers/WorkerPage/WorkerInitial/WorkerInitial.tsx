@@ -1,6 +1,5 @@
 import styles from "./WorkerInitial.module.scss";
-import WorkerAvatar from "../../../../assets/Worker-Avatar.png";  //заглушка на резерв
-import { IUser } from "../../../../types/IUser";
+import WorkerAvatar from "../../../../assets/Worker-Avatar.png";
 
 interface WorkerInitialProps {
   showEmail: boolean;
@@ -13,15 +12,13 @@ interface WorkerInitialProps {
 }
 
 export default function WorkerInitial({
-  user,
   showEmail,
-  photoType
+  userData,
 }: WorkerInitialProps) {
-  if (!user) {
+  if (!userData) {
     return <div>Не можем найти данные с бэка - user data...</div>;
   }
 
-  
   return (
     <div className={styles.workerInitial}>
       <img
