@@ -6,6 +6,11 @@ import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
 //import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
 
+import {
+  fetchUpdateUser, 
+  //как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
+} from "../../../../api/apiService";  //api
+
 interface WorkerDataProps {
   isEditing: boolean;
   toggleEdit: () => void;
@@ -27,11 +32,24 @@ export default function WorkerData({
    
   }, [userData]);
 
+
+  
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((currentFormData) => ({
       ...(currentFormData ?? {}),
       [name]: value,
+    }));
+  };
+
+  const handleFullNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fullName = event.target.value;
+    const [firstName, middleName, lastName] = fullName.split(' ');
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      first_name: firstName,
+      middle_name: middleName,
+      last_name: lastName,
     }));
   };
 
@@ -42,6 +60,7 @@ export default function WorkerData({
     }));
   };
 
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && isEditing) {
       event.preventDefault();
@@ -49,10 +68,20 @@ export default function WorkerData({
     }
   };
 
+
   const handleSave = () => {
-    console.log("Saved data:", formData);
+    console.log("Сохранённые данные:", formData);
     toggleEdit();
     //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
+    if (formData !== null && formData.profile_id) { //добавляем дополнительную проверку на formData !== null
+      fetchUpdateUser(formData.profile_id, formData)
+        .then((response) => {
+          console.log("Данные юзера успешно обновлены:", response.data);
+        })
+        .catch((error) => {
+          console.error("Ошибка при обновлении данных пользователя:", error);
+        });
+    }
   };
 
   const parseDateForPicker = (dateStr?: string): Date | null => {
@@ -80,10 +109,10 @@ export default function WorkerData({
         <div className={styles.workerLogin}>
           <h2>Логин</h2>
           <input
-            name="email"
+            name="contact_email"
             type="email"
             placeholder="Введите Логин"
-            value={formData.email || ""}
+            value={formData.contact_email?.[0]?.value || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -95,11 +124,11 @@ export default function WorkerData({
         <div className={styles.workerFullname}>
           <h2>Имя</h2>
           <input
-            name="first_name"
+            name="full-name"
             type="text"
             placeholder="Введите ФИО"
-            value={formData.first_name || ""}
-            onChange={handleChange}
+            value={`${formData.first_name || ""} ${formData.middle_name || ""} ${formData.last_name || ""}`}
+            onChange={handleFullNameChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
           />
@@ -109,9 +138,9 @@ export default function WorkerData({
         <div className={styles.workerBirthday}>
           <h2>Дата рождения</h2>
           <DatePicker
-            selected={parseDateForPicker(formData.birthday)}
-            onChange={(date) => handleDateChange(date, "birthday")}
-            value={formData.birthday || ""}
+            selected={parseDateForPicker(formData.birth_date)}
+            onChange={(date) => handleDateChange(date, "birth_date")}
+            value={formData.birth_date || ""}
             dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
           />
@@ -121,10 +150,10 @@ export default function WorkerData({
         <div className={styles.workerNumber}>
           <h2> Табельный номер</h2>
           <input
-            name="number"
+            name="tabel-number"
             type="text"
             placeholder="Введите Табельный номер"
-            value={formData.number || ""}
+            value={formData.project_id || ""}  //ЗАГЛУШКА, ибо "number" - НЕТ ПОЛЯ В РЕЕСТРЕ
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -135,9 +164,9 @@ export default function WorkerData({
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <DatePicker
-            selected={parseDateForPicker(formData.registration_day)}
-            onChange={(date) => handleDateChange(date, "registration_day")}
-            value={formData.registration_day || ""}
+            selected={parseDateForPicker(formData.birth_date)}
+            onChange={(date) => handleDateChange(date, "birth_date")}  //ЗАГЛУШКА, ибо "registration_day" - НЕТ ПОЛЯ В РЕЕСТРЕ
+            value={formData.birth_date || ""}
             dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
           />
@@ -150,7 +179,7 @@ export default function WorkerData({
             name="proffesion"
             type="text"
             placeholder="Введите Роль"
-            value={formData.proffesion || ""}
+            value={formData?.project_info?.other_info?.proffesion || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}

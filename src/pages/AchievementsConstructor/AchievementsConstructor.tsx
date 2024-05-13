@@ -1,4 +1,3 @@
-import axios from "axios";
 import styles from "../../pages/AchievementsConstructor/AchievementsConstructor.module.scss";
 import { useEffect, useState } from "react";
 
@@ -18,7 +17,7 @@ export default function AchievementsConstructor() {
     setIsModalOpen(!isModalOpen);
   };
 
-  //GET-запрос achiev-lib(возвращает всю библиотеку наград):
+//GET-запрос achiev-lib(возвращает всю библиотеку наград):
 useEffect(() => {
   //console.log("useEffect: загрузка всей библиотеки наград"); 
   fetchGetAchieveLibrary()
