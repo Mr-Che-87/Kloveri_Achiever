@@ -23,18 +23,22 @@ export default function WorkerPage() {
 
   // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
-    //const userRoleId = "1";    //0 - admin, 1 - worker 
-    if (profile_id) { // Проверяем, что profile_id определен
-      //console.log("useEffect: Загружен список данных юзера");
-      fetchGetUserData(profile_id)
-        .then((response) => {
-          setUserData(response.data);   //data - все данные юзера из бэка {....}
-        })
-        .catch((error) => {
-          console.error("Ошибка при получении данных пользователя:", error);
-        });
-    }
-  }, [profile_id]);
+    
+    const userRoleId = "";    //0 - admin, 1 - worker 
+    // console.log("useEffect: Загружен список данных юзера");
+   
+    fetchGetUserData(userRoleId)
+      .then((response) => {
+        console.log("useEffect: Response списка данных юзера:", response.data);
+        setUserData(response.data);   //data - все данные юзера из бэка {....}
+       
+         console.log("userRoleId", response.data)
+        
+      })
+      .catch((error) => {
+        console.error("Ошибка при получении данных пользователя:", error);
+      });
+  }, []);
 
   //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
@@ -50,6 +54,7 @@ export default function WorkerPage() {
               photoType="photo_main"
               
             />
+            
           )}
         </div>
         
@@ -81,7 +86,7 @@ export default function WorkerPage() {
 {/*ВЕРНУТЬ
       <div className={styles.workerAchievements}>
       {userData && (
-        <WorkerAchievements     userId={userData.uuid} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
+        <WorkerAchievements     userId={userData.profile_id} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
       )}
       </div>
 */}

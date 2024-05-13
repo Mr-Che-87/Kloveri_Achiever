@@ -27,7 +27,9 @@ export default function WorkerData({
   useEffect(() => {
     if (userData) {
       setFormData({ ...userData });
+     
     }
+   
   }, [userData]);
 
 
@@ -35,7 +37,7 @@ export default function WorkerData({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((currentFormData) => ({
-      ...currentFormData,
+      ...(currentFormData ?? {}),
       [name]: value,
     }));
   };
@@ -126,11 +128,11 @@ export default function WorkerData({
         <div className={styles.workerFullname}>
           <h2>Имя</h2>
           <input
-            name="full-name"
+            name="first_name"
             type="text"
             placeholder="Введите ФИО"
-            value={`${formData.first_name || ""} ${formData.middle_name || ""} ${formData.last_name || ""}`}
-            onChange={handleFullNameChange}
+            value={formData.first_name || ""}
+            onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
           />
