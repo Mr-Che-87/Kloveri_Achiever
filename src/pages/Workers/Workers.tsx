@@ -16,21 +16,11 @@ export default function Workers() {
 
   //GET-Получение списка всех пользователей:
   useEffect(() => {
-<<<<<<< HEAD
-    const userId = "";
-    fetchGetUserData(userId)
-      .then((response) => {
-      
-          setUserData(response.data)
-    
-        
-=======
     //const userId = "1";   //хз, как сейчас будут делить на admin | worker ???
     //console.log("useEffect: Загружен список всех пользователей");
     fetchGetAllUsers()
       .then((response) => {
         setUserList(response.data);
->>>>>>> 84b04fdffedf7bf0dc5fe59c5dff0a07968af5d9
       })
       .catch((error) => {
         console.error("Ошибка при получении списка пользователей", error);
