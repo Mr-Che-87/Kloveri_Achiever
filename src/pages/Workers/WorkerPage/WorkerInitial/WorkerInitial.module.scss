@@ -1,17 +1,20 @@
 .workerInitial {
   display: flex;
+  align-items: center;
   flex-direction: row;
   gap: 16px;
 }
-.workerAvatar {   //сделать условие: 72*72 для WorkerPage,   48*48 для Workers
-  width: 72px;
-  height: 72px;
+.workerAvatar {
+  width: 48px;
+  height: 48px;
+  padding-left: 24px;
 }
 .workerName {
-  font-size: 48px;
+  font-size: 24px;
   color: #fff;
   font-weight: 700;
   line-height: 56px;
+
 }
 .workerMail {
   font-size: 16px;
