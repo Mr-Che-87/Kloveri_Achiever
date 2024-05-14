@@ -28,7 +28,7 @@ export const fetchPostUser = (
 export const fetchGetUserData = (
   userId: string
 ): Promise<AxiosResponse<IUser>> => {
-  return axios.get<IUser>(`${API_URL}/profiles/${userId}`);
+  return axios.get<IUser>(`${API_URL}/profiles/${userId}/`);
 };
 
 // PATCH-Обновление данных существующего пользователя  //ДЕЛАТЬ!!!
@@ -42,7 +42,7 @@ export const fetchUpdateUser = (
 
 // DELETE-Удаление пользователя по ID     //ДЕЛАТЬ!!!
 export const fetchDeleteUser = (userId: string): Promise<AxiosResponse> => {
-  return axios.delete(`${API_URL}/profiles/${userId}`);
+  return axios.delete(`${API_URL}/profiles/${userId}/`);
 };
 
 
