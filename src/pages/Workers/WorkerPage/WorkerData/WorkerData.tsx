@@ -1,29 +1,24 @@
-import React, { useState, useEffect, FormEvent  } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { IUser } from "../../../../types/IUser";
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
+
+import { IUser } from "../../../../types/IUser";
+import { fetchUpdateUser } from "../../../../api/apiService";  //api
 //import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
 
-
-import axios from "axios";
-import { fetchUpdateUser } from "../../../../api/apiService";  //api
 
 interface WorkerDataProps {
   isEditing: boolean;
   toggleEdit: () => void;
   userData: IUser | null;
-  profile_id?: string;
-  //updateUserData: (updatedUserData: IUser) => void;
 }
 
 export default function WorkerData({
   isEditing,
   toggleEdit,
   userData,
-  profile_id,
-  //updateUserData,
 }: WorkerDataProps) {
   
   const [formData, setFormData] = useState<IUser | null>(null);    //внутренний state данных юзера
@@ -34,46 +29,8 @@ export default function WorkerData({
     }
   }, [userData]);
 
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!profile_id) {
-      console.error('profile_id is undefined');
-      return;
-    }
   
-  const workerData = new FormData();
-  workerData.append("first_name", formData?.first_name || ""); // Исправление ошибки с first_name
-  workerData.append("last_name", formData?.last_name || "");
-  workerData.append("middle_name", formData?.middle_name || "");
-  workerData.append("birth_date", formData?.birth_date || "");
-  workerData.append("sex", formData?.sex || "");
-  workerData.append("phone", formData?.phone || "");
-  workerData.append("email", formData?.email || "");
-  workerData.append("photo_main", formData?.photo_main || "");
-  workerData.append("photo_small", formData?.photo_small || "");
-  workerData.append("proffesion", formData?.other_info?.proffesion || "");
-  workerData.append("start_work", formData?.other_info?.start_work || "");
-  
-  try {
-    const response = await fetchUpdateUser(profile_id, workerData);
-    console.log(response.data);
-    
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error( "Ошибка при отправке данных формы:", error.response?.data);
-    } else {
-      console.error("Неизвестная ошибка при отправке данных формы:", error);
-    }
-  }
-  }
-  
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    handleSubmit(e); // Вызываем handleSubmit без аргументов
-  };
-
-  
+  //РУЧКИ ИЗМЕНЕНИЯ ИНПУТОВ:
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("Вызов функции handleChange");
     const { name, value } = event.target;
@@ -103,7 +60,7 @@ export default function WorkerData({
   };
 
 
-  /*
+  //PATCH:
   const handleSave = () => {
     console.log("Вызов функции handleSave");
     console.log("Сохранённые данные до отправки на сервер:", formData);
@@ -118,8 +75,6 @@ export default function WorkerData({
         });
     }
   };
-*/
-
   //сохранение через Enter:
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     console.log("Нажата клавиша:", event.key);
@@ -131,8 +86,6 @@ export default function WorkerData({
   };
 
 
-
-
 //Дата-пикер:
   const parseDateForPicker = (dateStr?: string): Date | null => {
     if (!dateStr) {
@@ -141,7 +94,7 @@ export default function WorkerData({
     const date = new Date(dateStr);
     return date instanceof Date && !isNaN(date.getTime()) ? date : null;
   };
-
+  
 
 
   if (!formData) {
@@ -155,7 +108,8 @@ export default function WorkerData({
         <h1>Информация</h1>
         <ChangeWorkerInformationButton
           isEditing={isEditing}
-          toggleEdit={toggleEdit}    //или   {handleSave}
+          toggleEdit={toggleEdit} 
+          handleSave={handleSave}   
         />
       </div>
       <div className={styles.workerInformation}>
@@ -196,6 +150,7 @@ export default function WorkerData({
             value={formData.birth_date || ""}
             dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
+            onKeyDown={handleKeyDown} 
           />
           <div className={styles.divider}></div>
         </div>
@@ -218,10 +173,16 @@ export default function WorkerData({
           <h2>Дата начала работы</h2>
           <DatePicker
             selected={parseDateForPicker(formData?.other_info?.start_work)}
-            onChange={(date) => handleDateChange(date, "start_work")}  
-            value={formData?.other_info?.start_work || ""}
+            onChange={(date) => setFormData({
+                ...formData,
+                other_info: {
+                 ...formData?.other_info,
+                 start_work: date?.toISOString().split("T")[0] || "",
+                },
+            })}
             dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
+            onKeyDown={handleKeyDown}
           />
           <div className={styles.divider}></div>
         </div>
@@ -233,7 +194,16 @@ export default function WorkerData({
             type="text"
             placeholder="Введите Роль"
             value={formData?.other_info?.proffesion || ""}
-            onChange={handleChange}
+            onChange={e => {
+              const value = e.target.value;
+              setFormData((prevFormData) => ({
+                ...prevFormData,
+                other_info: {
+                  ...prevFormData?.other_info,
+                  proffesion: value,
+                },
+              }));
+            }}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
             required

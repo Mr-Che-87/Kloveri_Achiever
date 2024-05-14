@@ -6,15 +6,16 @@ import saveIcon from "@/assets/saveIcon.svg";
 type ChangeWorkerInformationButtonProps = {
   isEditing: boolean;
   toggleEdit: () => void;
+  handleSave: () => void; 
 };
 
 export const ChangeWorkerInformationButton: React.FC<
   ChangeWorkerInformationButtonProps
-> = ({ isEditing, toggleEdit }) => {
+> = ({ isEditing, toggleEdit, handleSave }) => {
   return (
     <button
       className={styles.ChangeWorkerInformationButton}
-      onClick={toggleEdit}
+      onClick={() => (isEditing ? handleSave() : toggleEdit())} // Вызываем handleSave, если isEditing true, иначе toggleEdit
     >
       {isEditing ? (
         <img src={saveIcon} alt="Сохранить" />
