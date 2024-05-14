@@ -10,10 +10,11 @@ interface WorkerInitialProps {
 }
 
 export default function WorkerInitial({
+  user,
   showEmail,
   avatarSize,
 }: WorkerInitialProps) {
-  if (!userData) {
+  if (!user) {
     return <div>Не можем найти данные с бэка - user data...</div>;
   }
 
@@ -36,17 +37,13 @@ export default function WorkerInitial({
       <div>
         <div className={styles.workerName}>
           {`${user.first_name} ${user.last_name}` || "Загружаем имя..."}
-          
         </div>
-       
-        
         {showEmail && (
           <div className={styles.workerMail}>
             {user.email || "Загружаем email..."}
           </div>
         )}
       </div>
-      
     </div>
   );
 }
