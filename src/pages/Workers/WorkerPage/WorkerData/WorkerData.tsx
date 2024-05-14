@@ -81,7 +81,7 @@ export default function WorkerData({
     if (event.key === "Enter" && isEditing) {
       console.log("Обработка сохранения через Enter");
       event.preventDefault();
-      //handleSubmit(userData);
+      handleSave();
     }
   };
 
@@ -103,7 +103,6 @@ export default function WorkerData({
 
   return (
     <div className={styles.workerData}>
-     <form onSubmit={handleFormSubmit}> 
       <div className={styles.workerDataTitle}>
         <h1>Информация</h1>
         <ChangeWorkerInformationButton
@@ -211,7 +210,6 @@ export default function WorkerData({
           <div className={styles.divider}></div>
         </div>
       </div>
-      </form>
     </div>
   );
 }
