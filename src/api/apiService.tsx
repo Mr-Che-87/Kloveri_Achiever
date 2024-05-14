@@ -34,7 +34,7 @@ export const fetchGetUserData = (
 // PATCH-Обновление данных существующего пользователя  
 export const fetchUpdateUser = (
   userId: string,
-  userData: IUser
+  userData: FormData
 ): Promise<AxiosResponse<IUser>> => {
   console.log("Отправка запроса на обновление данных пользователя:", userData);
   return axios.patch<IUser>(`${API_URL}/profiles/${userId}/`, userData);
@@ -71,10 +71,10 @@ export const fetchPostAchieveLibrary = (
 export const fetchGetAchieveById = (
   achieveId: string
 ): Promise<AxiosResponse<IAchieve>> => {
-  return axios.get<IAchieve>(`${API_URL}/achievements/${achieveId}`);
+  return axios.get<IAchieve>(`${API_URL}/achievements/${achieveId}/`);
 };
 
-// PATCH-Обновление достижения по ID      //ДЕЛАТЬ!!!
+// PATCH-Обновление достижения по ID     
 export const fetchUpdateAchieve = (
   achieveId: string,
   achieveData: IAchieve
