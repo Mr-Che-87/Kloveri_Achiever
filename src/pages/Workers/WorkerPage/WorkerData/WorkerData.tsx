@@ -1,4 +1,5 @@
-import React, { useState, useEffect, FormEvent  } from "react";
+
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./WorkerData.module.scss";
@@ -7,7 +8,6 @@ import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerIn
 import { IUser } from "../../../../types/IUser";
 import { fetchUpdateUser } from "../../../../api/apiService";  //api
 //import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
-
 
 interface WorkerDataProps {
   isEditing: boolean;
@@ -59,7 +59,6 @@ export default function WorkerData({
     }));
   };
 
-
   //PATCH:
   const handleSave = () => {
     console.log("Вызов функции handleSave");
@@ -81,10 +80,9 @@ export default function WorkerData({
     if (event.key === "Enter" && isEditing) {
       console.log("Обработка сохранения через Enter");
       event.preventDefault();
-      //handleSubmit(userData);
+      handleSave();
     }
   };
-
 
 //Дата-пикер:
   const parseDateForPicker = (dateStr?: string): Date | null => {
@@ -96,14 +94,12 @@ export default function WorkerData({
   };
   
 
-
   if (!formData) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className={styles.workerData}>
-     <form onSubmit={handleFormSubmit}> 
       <div className={styles.workerDataTitle}>
         <h1>Информация</h1>
         <ChangeWorkerInformationButton
@@ -211,7 +207,8 @@ export default function WorkerData({
           <div className={styles.divider}></div>
         </div>
       </div>
-      </form>
     </div>
   );
 }
+
+

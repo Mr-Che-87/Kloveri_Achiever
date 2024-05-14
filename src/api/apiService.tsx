@@ -56,7 +56,6 @@ export const fetchGetAchieveLibrary = (): Promise<
   return axios.get<IAchieve[]>(`${API_URL}/achievements/`);
 };
 
-
 // POST-Добавление новой награды в библиотеку
 export const fetchPostAchieveLibrary = (
   achieveData: FormData
@@ -75,7 +74,7 @@ export const fetchGetAchieveById = (
   return axios.get<IAchieve>(`${API_URL}/achievements/${achieveId}/`);
 };
 
-// PATCH-Обновление достижения по ID      //ДЕЛАТЬ!!!
+// PATCH-Обновление достижения по ID     
 export const fetchUpdateAchieve = (
   achieveId: string,
   achieveData: IAchieve
