@@ -1,4 +1,4 @@
-import styles from "./Worker.module.scss";
+import styles from "./Workers.module.scss";
 
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -54,7 +54,7 @@ export default function Workers() {
                   <WorkerInitial
                     user={user} //передаем данные пользователя в WorkerInitial
                     showEmail={false}
-                    photoType="photo_small"
+                    avatarSize="small"
                   />
                 </NavLink>
                 <div className={styles.workersTeamName}>

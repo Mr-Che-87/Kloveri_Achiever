@@ -1,24 +1,26 @@
 import styles from "./WorkerInitial.module.scss";
-import WorkerAvatar from "../../../../assets/Worker-Avatar.png";  //заглушка на резерв
+import defaultAvatar from "../../../../assets/defaultAvatar.png";  //заглушка если бэк ниалё
 import { IUser } from "../../../../types/IUser";
 
 interface WorkerInitialProps {
   user: IUser | undefined;
   showEmail: boolean;  //отображение мейла
-  photoType: "photo_small" | "photo_main";  //отображение размера фотки
+  avatarSize: "small" | "large";    //отображение размера фотки
+  //photoType: "photo_small" | "photo_main";  //отображение размера фотки
 }
 
 export default function WorkerInitial({
   user,
   showEmail,
-  photoType
+  avatarSize,
 }: WorkerInitialProps) {
   if (!user) {
     return <div>Не можем найти данные с бэка - user data...</div>;
   }
 
+
   //Проверка на пустой url(ошибка404) без картинки:
-  const imageUrl = user[photoType] || WorkerAvatar;
+  const imageUrl = user[(avatarSize === "small") ? "photo_small" : "photo_main"] || defaultAvatar;
   const imageExists = (url:string) => { 
     const img = new Image(); 
     img.src = url; 
@@ -26,10 +28,10 @@ export default function WorkerInitial({
 };  
 
   return (
-    <div className={styles.workerInitial}>
+    <div className={`${styles.workerInitial} ${avatarSize === "small" ? styles.small : styles.large}`}>
       <img
         className={styles.workerAvatar}
-        src={imageExists(imageUrl) ? imageUrl : WorkerAvatar}    //WorkerAvatar - фотка из заглушки(если url нет или он пустой)
+        src={imageExists(imageUrl) ? imageUrl : defaultAvatar}    //defaultAvatar - если url нет или он пустой
         alt="Avatar"
       />
       <div>

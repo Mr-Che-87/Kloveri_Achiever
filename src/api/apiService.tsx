@@ -36,6 +36,7 @@ export const fetchUpdateUser = (
   userId: string,
   userData: IUser
 ): Promise<AxiosResponse<IUser>> => {
+  console.log("Отправка запроса на обновление данных пользователя:", userData);
   return axios.patch<IUser>(`${API_URL}/profiles/${userId}`, userData);
 };
 
