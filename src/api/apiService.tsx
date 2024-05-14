@@ -28,7 +28,7 @@ export const fetchPostUser = (
 export const fetchGetUserData = (
   userId: string
 ): Promise<AxiosResponse<IUser>> => {
-  return axios.get<IUser>(`${API_URL}/profiles/${userId}`);
+  return axios.get<IUser>(`${API_URL}/profiles/${userId}/`);
 };
 
 // PATCH-Обновление данных существующего пользователя  //ДЕЛАТЬ!!!
@@ -37,16 +37,12 @@ export const fetchUpdateUser = (
   userData: FormData
 ): Promise<AxiosResponse<IUser>> => {
   console.log("Отправка запроса на обновление данных пользователя:", userData);
-  return axios.patch<IUser>(`${API_URL}/profiles/${userId}`, userData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  return axios.patch<IUser>(`${API_URL}/profiles/${userId}/`, userData);
 };
 
 // DELETE-Удаление пользователя по ID     //ДЕЛАТЬ!!!
 export const fetchDeleteUser = (userId: string): Promise<AxiosResponse> => {
-  return axios.delete(`${API_URL}/profiles/${userId}`);
+  return axios.delete(`${API_URL}/profiles/${userId}/`);
 };
 
 
@@ -59,6 +55,7 @@ export const fetchGetAchieveLibrary = (): Promise<
 > => {
   return axios.get<IAchieve[]>(`${API_URL}/achievements/`);
 };
+
 
 // POST-Добавление новой награды в библиотеку
 export const fetchPostAchieveLibrary = (
