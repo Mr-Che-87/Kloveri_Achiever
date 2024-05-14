@@ -8,21 +8,19 @@ import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 
 import { IUser } from "../../../types/IUser";
-import {
-  fetchGetUserData,  
-  //как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
-} from "../../../api/apiService";  //api
+import { fetchGetUserData } from "../../../api/apiService";  //api
 
 
 export default function WorkerPage() {
-  const [userData, setUserData] = useState<IUser | null>(null);
-  //const [userAchievements, setUserAchievements] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const { profile_id } = useParams();    //получаем profileId из параметров маршрута
+  const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
+  const [isEditing, setIsEditing] = useState(false);  //редактирование полей
 
   ////GET-запрос user(возвращает данные юзера):
   useEffect(() => {
-    //const userRoleId = "1";    //0 - admin, 1 - worker 
-    if (profile_id) { // Проверяем, что profile_id определен
+    //const userRoleId = "1";    //0 - admin, 1 - worker - старое
+    
+    if (profile_id) { //проверяем, что profile_id определен
       //console.log("useEffect: Загружен список данных юзера");
       fetchGetUserData(profile_id)
         .then((response) => {
@@ -44,7 +42,7 @@ export default function WorkerPage() {
           {userData && (
             <WorkerInitial
               showEmail={true}
-              userData={userData} // передаем объект userData только если он не null
+              avatarSize="large"  //пропс файла и css-размеров картинки
             />
             
           )}

@@ -16,7 +16,7 @@ export const fetchGetUserData = (userRoleId: string) => {  //userRoleId(0 - ад
   return axios.get(`${API_URL}/user/${userRoleId}`);    
 };  */
 
-// POST-Добавление нового пользователя
+// POST-Добавление нового пользователя   //ДЕЛАТЬ
 export const fetchPostUser = (
   userData: IUser
 ): Promise<AxiosResponse<IUser>> => {
@@ -27,20 +27,21 @@ export const fetchPostUser = (
 export const fetchGetUserData = (
   userId: string
 ): Promise<AxiosResponse<IUser>> => {
-  return axios.get<IUser>(`${API_URL}/profiles/${userId}`);
+  return axios.get<IUser>(`${API_URL}/profiles/${userId}/`);
 };
 
-// PATCH-Обновление данных существующего пользователя  //ДЕЛАТЬ!!!
+// PATCH-Обновление данных существующего пользователя  
 export const fetchUpdateUser = (
   userId: string,
   userData: IUser
 ): Promise<AxiosResponse<IUser>> => {
-  return axios.patch<IUser>(`${API_URL}/profiles/${userId}`, userData);
+  console.log("Отправка запроса на обновление данных пользователя:", userData);
+  return axios.patch<IUser>(`${API_URL}/profiles/${userId}/`, userData);
 };
 
-// DELETE-Удаление пользователя по ID     //ДЕЛАТЬ!!!
+// DELETE-Удаление пользователя по ID     //ДЕЛАТЬ
 export const fetchDeleteUser = (userId: string): Promise<AxiosResponse> => {
-  return axios.delete(`${API_URL}/profiles/${userId}`);
+  return axios.delete(`${API_URL}/profiles/${userId}/`);
 };
 
 
@@ -54,7 +55,6 @@ export const fetchGetAchieveLibrary = (): Promise<
   return axios.get<IAchieve[]>(`${API_URL}/achievements/`);
 };
 
-
 // POST-Добавление новой награды в библиотеку
 export const fetchPostAchieveLibrary = (
   achieveData: FormData
@@ -65,10 +65,82 @@ export const fetchPostAchieveLibrary = (
     },
   });
 };
-/*
-//(потом)GET-запрос achiev-lib(возвращает награду ПО ЕЁ ИДЕНТИФИКАТОРУ - {uuid}):
-export const fetchGetIDAchieveLibrary = () => {
-  return axios.get(`${API_URL}/achiev-lib/{uuid}/`);
+
+// GET-Получение достижения по ID
+export const fetchGetAchieveById = (
+  achieveId: string
+): Promise<AxiosResponse<IAchieve>> => {
+  return axios.get<IAchieve>(`${API_URL}/achievements/${achieveId}`);
+};
+
+// PATCH-Обновление достижения по ID      //ДЕЛАТЬ!!!
+export const fetchUpdateAchieve = (
+  achieveId: string,
+  achieveData: IAchieve
+): Promise<AxiosResponse<IAchieve>> => {
+  return axios.patch<IAchieve>(
+    `${API_URL}/achievements/${achieveId}/`,
+    achieveData
+  );
+};
+
+// DELETE-Удаление достижения по ID           //ДЕЛАТЬ!!!
+export const fetchDeleteAchieve = (
+  achieveId: string
+): Promise<AxiosResponse> => {
+  return axios.delete(`${API_URL}/achievements/${achieveId}/`);
+};
+
+
+
+
+
+
+//НИЧЁ НЕ ПЕРЕНАСТРОЕНО  - ДЕЛАТЬ:
+//Connections//
+// GET-Получение списка всех связей пользователя с достижениями
+export const fetchGetUserAchievements = (): Promise<
+  AxiosResponse<IUserAchievements[]>
+> => {
+  return axios.get<IUserAchievements[]>(`${API_URL}/user-achievements/`);
+};
+
+// POST-Создание связи между пользователем и достижением
+export const fetchPostUserAchieve = (
+  userId: string,
+  achieveId: string
+): Promise<AxiosResponse<IUserAchievements>> => {
+  return axios.post<IUserAchievements>(`${API_URL}/user-achievements/`, {
+    userId,
+    achieveId,
+  });
+};
+
+// GET-Получение связи между пользователем и достижением по ID
+export const fetchGetIDUserAchieve = (
+  userAchievementId: string
+): Promise<AxiosResponse<IUserAchievements>> => {
+  return axios.get<IUserAchievements>(
+    `${API_URL}/user-achievements/${userAchievementId}/`
+  );
+};
+
+// PATCH-Обновление связи между пользователем и достижением по ID
+export const fetchUpdateUserAchievement = (
+  userAchievementId: string,
+  updates: Partial<IUserAchievements>
+): Promise<AxiosResponse<IUserAchievements>> => {
+  return axios.patch<IUserAchievements>(
+    `${API_URL}/user-achievements/${userAchievementId}/`,
+    updates
+  );
+};
+
+// DELETE-Удаление связи между пользователем и достижением по ID
+export const fetchDeleteUserAchievement = (
+  userAchievementId: string
+): Promise<AxiosResponse> => {
+  return axios.delete(`${API_URL}/user-achievements/${userAchievementId}/`);
 };
 */
 

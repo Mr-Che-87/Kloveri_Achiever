@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { IUser } from "../../../../types/IUser";
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
+
+import { IUser } from "../../../../types/IUser";
+import { fetchUpdateUser } from "../../../../api/apiService";  //api
 //import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
+
 
 interface WorkerDataProps {
   isEditing: boolean;
@@ -17,7 +20,8 @@ export default function WorkerData({
   toggleEdit,
   userData,
 }: WorkerDataProps) {
-  const [formData, setFormData] = useState<IUser | null>(null);
+  
+  const [formData, setFormData] = useState<IUser | null>(null);    //внутренний state данных юзера
 
   useEffect(() => {
     if (userData) {
@@ -27,34 +31,64 @@ export default function WorkerData({
    
   }, [userData]);
 
+  
+  //РУЧКИ ИЗМЕНЕНИЯ ИНПУТОВ:
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Вызов функции handleChange");
     const { name, value } = event.target;
+       console.log("Изменённые данные до отправки на сервер:", event.target.value);
     setFormData((currentFormData) => ({
       ...(currentFormData ?? {}),
       [name]: value,
     }));
   };
 
-  const handleDateChange = (date: Date | null, fieldName: keyof IUser) => {
+  const handleFullNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fullName = event.target.value;
+    const [firstName, middleName, lastName] = fullName.split(' ');
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      first_name: firstName,
+      middle_name: middleName,
+      last_name: lastName,
+    }));
+  };
+
+  const handleDateChange = (date: Date | null, fieldName: string) => {
     setFormData((currentFormData) => ({
       ...currentFormData,
       [fieldName]: date ? date.toISOString().split("T")[0] : "",
     }));
   };
 
+
+  //PATCH:
+  const handleSave = () => {
+    console.log("Вызов функции handleSave");
+    console.log("Сохранённые данные до отправки на сервер:", formData);
+    toggleEdit();
+    if (formData !== null && formData.profile_id) { 
+      fetchUpdateUser(formData.profile_id, formData)
+        .then((response) => {
+          console.log("Данные юзера успешно обновлены:", response.data);
+        })
+        .catch((error) => {
+          console.error("Ошибка при обновлении данных пользователя:", error);
+        });
+    }
+  };
+  //сохранение через Enter:
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log("Нажата клавиша:", event.key);
     if (event.key === "Enter" && isEditing) {
+      console.log("Обработка сохранения через Enter");
       event.preventDefault();
       handleSave();
     }
   };
 
-  const handleSave = () => {
-    console.log("Saved data:", formData);
-    toggleEdit();
-    //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
-  };
 
+//Дата-пикер:
   const parseDateForPicker = (dateStr?: string): Date | null => {
     if (!dateStr) {
       return null;
@@ -62,6 +96,8 @@ export default function WorkerData({
     const date = new Date(dateStr);
     return date instanceof Date && !isNaN(date.getTime()) ? date : null;
   };
+  
+
 
   if (!formData) {
     return <div>Loading...</div>;
@@ -73,7 +109,8 @@ export default function WorkerData({
         <h1>Информация</h1>
         <ChangeWorkerInformationButton
           isEditing={isEditing}
-          toggleEdit={toggleEdit}
+          toggleEdit={toggleEdit} 
+          handleSave={handleSave}   
         />
       </div>
       <div className={styles.workerInformation}>
@@ -114,17 +151,18 @@ export default function WorkerData({
             value={formData.birthday || ""}
             dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
+            onKeyDown={handleKeyDown} 
           />
           <div className={styles.divider}></div>
         </div>
 
         <div className={styles.workerNumber}>
-          <h2> Табельный номер</h2>
+          <h2>Телефон</h2>
           <input
-            name="number"
+            name="phone"
             type="text"
-            placeholder="Введите Табельный номер"
-            value={formData.number || ""}
+            placeholder="Введите телефон"
+            value={formData.phone || ""}  
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -135,11 +173,17 @@ export default function WorkerData({
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <DatePicker
-            selected={parseDateForPicker(formData.registration_day)}
-            onChange={(date) => handleDateChange(date, "registration_day")}
-            value={formData.registration_day || ""}
+            selected={parseDateForPicker(formData?.other_info?.start_work)}
+            onChange={(date) => setFormData({
+                ...formData,
+                other_info: {
+                 ...formData?.other_info,
+                 start_work: date?.toISOString().split("T")[0] || "",
+                },
+            })}
             dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
+            onKeyDown={handleKeyDown}
           />
           <div className={styles.divider}></div>
         </div>
@@ -150,8 +194,17 @@ export default function WorkerData({
             name="proffesion"
             type="text"
             placeholder="Введите Роль"
-            value={formData.proffesion || ""}
-            onChange={handleChange}
+            value={formData?.other_info?.proffesion || ""}
+            onChange={e => {
+              const value = e.target.value;
+              setFormData((prevFormData) => ({
+                ...prevFormData,
+                other_info: {
+                  ...prevFormData?.other_info,
+                  proffesion: value,
+                },
+              }));
+            }}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
             required

@@ -1,25 +1,36 @@
 import styles from "./WorkerInitial.module.scss";
-import WorkerAvatar from "../../../../assets/Worker-Avatar.png";
+import defaultAvatar from "../../../../assets/defaultAvatar.png";  //заглушка если бэк ниалё
+import { IUser } from "../../../../types/IUser";
 
 interface WorkerInitialProps {
   user: IUser | undefined;
   showEmail: boolean;  //отображение мейла
-  photoType: "photo_small" | "photo_main";  //отображение размера фотки
+  avatarSize: "small" | "large";    //отображение размера фотки
+  //photoType: "photo_small" | "photo_main";  //отображение размера фотки
 }
 
 export default function WorkerInitial({
   showEmail,
-  userData,
+  avatarSize,
 }: WorkerInitialProps) {
   if (!userData) {
     return <div>Не можем найти данные с бэка - user data...</div>;
   }
 
+
+  //Проверка на пустой url(ошибка404) без картинки:
+  const imageUrl = user[(avatarSize === "small") ? "photo_small" : "photo_main"] || defaultAvatar;
+  const imageExists = (url:string) => { 
+    const img = new Image(); 
+    img.src = url; 
+    return img.complete && img.naturalHeight !== 0; 
+};  
+
   return (
-    <div className={styles.workerInitial}>
+    <div className={`${styles.workerInitial} ${avatarSize === "small" ? styles.small : styles.large}`}>
       <img
         className={styles.workerAvatar}
-        src={user[photoType] || WorkerAvatar}    //WorkerAvatar - фотка из заглушки на резерв - НЕ РАБОТАЕТ С ПУСТЫМ url!!!
+        src={imageExists(imageUrl) ? imageUrl : defaultAvatar}    //defaultAvatar - если url нет или он пустой
         alt="Avatar"
       />
       <div>
@@ -31,7 +42,7 @@ export default function WorkerInitial({
         
         {showEmail && (
           <div className={styles.workerMail}>
-            {user.contact_email?.[0]?.value || "Загружаем email..."}
+            {user.email || "Загружаем email..."}
           </div>
         )}
       </div>

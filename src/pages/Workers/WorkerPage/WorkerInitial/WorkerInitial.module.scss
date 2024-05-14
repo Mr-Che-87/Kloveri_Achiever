@@ -4,16 +4,25 @@
   flex-direction: row;
   gap: 16px;
 }
+
 .workerAvatar {
-  width: 48px;
-  height: 48px;
   padding-left: 24px;
 }
+.small .workerAvatar {
+  width: 48px;
+  height: 48px;
+}
+.large .workerAvatar {
+  width: 72px;
+  height: 72px;
+}
+
 .workerName {
   font-size: 24px;
   color: #fff;
   font-weight: 700;
   line-height: 56px;
+
 }
 .workerMail {
   font-size: 16px;
