@@ -6,23 +6,23 @@ import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
 //import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
 
-import {
-  fetchUpdateUser, 
-  //как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
-} from "../../../../api/apiService";  //api
+import {  fetchUpdateUser } from "../../../../api/apiService";  //api
 
 interface WorkerDataProps {
   isEditing: boolean;
   toggleEdit: () => void;
   userData: IUser | null;
+  //updateUserData: (updatedUserData: IUser) => void;
 }
 
 export default function WorkerData({
   isEditing,
   toggleEdit,
   userData,
+  //updateUserData,
 }: WorkerDataProps) {
-  const [formData, setFormData] = useState<IUser | null>(null);
+  
+  const [formData, setFormData] = useState<IUser | null>(null);    //внутренний state данных юзера
 
   useEffect(() => {
     if (userData) {
@@ -33,7 +33,9 @@ export default function WorkerData({
 
   
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Вызов функции handleChange");
     const { name, value } = event.target;
+       console.log("Изменённые данные до отправки на сервер:", event.target.value);
     setFormData((currentFormData) => ({
       ...currentFormData,
       [name]: value,
@@ -51,27 +53,18 @@ export default function WorkerData({
     }));
   };
 
-  const handleDateChange = (date: Date | null, fieldName: keyof IUser) => {
+  const handleDateChange = (date: Date | null, fieldName: string) => {
     setFormData((currentFormData) => ({
       ...currentFormData,
       [fieldName]: date ? date.toISOString().split("T")[0] : "",
     }));
   };
 
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter" && isEditing) {
-      event.preventDefault();
-      handleSave();
-    }
-  };
-
-
   const handleSave = () => {
-    console.log("Сохранённые данные:", formData);
+    console.log("Вызов функции handleSave");
+    console.log("Сохранённые данные до отправки на сервер:", formData);
     toggleEdit();
-    //как будет сервак:  POST-запрос user  -  2) изменяет данные существующего юзера 
-    if (formData !== null && formData.profile_id) { //добавляем дополнительную проверку на formData !== null
+    if (formData !== null && formData.profile_id) { 
       fetchUpdateUser(formData.profile_id, formData)
         .then((response) => {
           console.log("Данные юзера успешно обновлены:", response.data);
@@ -82,6 +75,20 @@ export default function WorkerData({
     }
   };
 
+  //сохранение через Enter:
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log("Нажата клавиша:", event.key);
+    if (event.key === "Enter" && isEditing) {
+      console.log("Обработка сохранения через Enter");
+      event.preventDefault();
+      handleSave();
+    }
+  };
+
+
+
+
+//Дата-пикер:
   const parseDateForPicker = (dateStr?: string): Date | null => {
     if (!dateStr) {
       return null;
@@ -89,6 +96,8 @@ export default function WorkerData({
     const date = new Date(dateStr);
     return date instanceof Date && !isNaN(date.getTime()) ? date : null;
   };
+
+
 
   if (!formData) {
     return <div>Loading...</div>;
@@ -100,17 +109,17 @@ export default function WorkerData({
         <h1>Информация</h1>
         <ChangeWorkerInformationButton
           isEditing={isEditing}
-          toggleEdit={toggleEdit}
+          toggleEdit={toggleEdit}    //или   {handleSave}
         />
       </div>
       <div className={styles.workerInformation}>
         <div className={styles.workerLogin}>
           <h2>Логин</h2>
           <input
-            name="contact_email"
+            name="email"
             type="email"
             placeholder="Введите Логин"
-            value={formData.contact_email?.[0]?.value || ""}
+            value={formData.email || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -146,12 +155,12 @@ export default function WorkerData({
         </div>
 
         <div className={styles.workerNumber}>
-          <h2> Табельный номер</h2>
+          <h2>Телефон</h2>
           <input
-            name="tabel-number"
+            name="phone"
             type="text"
-            placeholder="Введите Табельный номер"
-            value={formData.project_id || ""}  //ЗАГЛУШКА, ибо "number" - НЕТ ПОЛЯ В РЕЕСТРЕ
+            placeholder="Введите телефон"
+            value={formData.phone || ""}  
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
@@ -162,9 +171,9 @@ export default function WorkerData({
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <DatePicker
-            selected={parseDateForPicker(formData.birth_date)}
-            onChange={(date) => handleDateChange(date, "birth_date")}  //ЗАГЛУШКА, ибо "registration_day" - НЕТ ПОЛЯ В РЕЕСТРЕ
-            value={formData.birth_date || ""}
+            selected={parseDateForPicker(formData?.other_info?.start_work)}
+            onChange={(date) => handleDateChange(date, "start_work")}  
+            value={formData?.other_info?.start_work || ""}
             dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
           />
@@ -177,7 +186,7 @@ export default function WorkerData({
             name="proffesion"
             type="text"
             placeholder="Введите Роль"
-            value={formData?.project_info?.other_info?.proffesion || ""}
+            value={formData?.other_info?.proffesion || ""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}

@@ -12,12 +12,13 @@ import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 import { IUser } from "../../../types/IUser";
 import {
   fetchGetUserData,  
+  fetchUpdateUser,
   //как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
 } from "../../../api/apiService";  //api
 
 
 export default function WorkerPage() {
-  const { profile_id } = useParams(); // Получаем profileId из параметров маршрута
+  const { profile_id } = useParams();    //получаем profileId из параметров маршрута
   const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
   const [isEditing, setIsEditing] = useState(false);  //редактирование полей
 
@@ -39,6 +40,24 @@ export default function WorkerPage() {
   //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
 
+/*
+  const updateUserData = (updatedUserData: IUser) => {
+    setUserData(updatedUserData); // Обновление состояния данных пользователя
+    // Проверка на наличие profile_id
+    if (updatedUserData.profile_id) {
+      // Вызов апи для обновления данных на сервере
+      fetchUpdateUser(updatedUserData.profile_id, updatedUserData)
+        .then((response) => {
+          console.log("Данные юзера успешно обновлены:", response.data);
+        })
+        .catch((error) => {
+          console.error("Ошибка при обновлении данных пользователя:", error);
+        });
+    }
+  };
+*/
+
+
   return (
     <div className={styles.workerPage}>
       <section className={styles.workerSection}>
@@ -47,7 +66,7 @@ export default function WorkerPage() {
             <WorkerInitial
               user={userData}  //передаем данные пользователя в WorkerInitial
               showEmail={true}
-              photoType="photo_main"
+              avatarSize="large"
               
             />
           )}
@@ -71,6 +90,7 @@ export default function WorkerPage() {
             isEditing={isEditing}
             toggleEdit={toggleEdit}
             userData={userData} // прокидываем userData в WorkerData
+            //updateUserData={updateUserData}
           />
         </div>
         <div className={styles.workerTeams}>
