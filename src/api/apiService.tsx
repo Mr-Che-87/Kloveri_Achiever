@@ -17,7 +17,7 @@ export const fetchGetUserData = (userRoleId: string) => {  //userRoleId(0 - ад
   return axios.get(`${API_URL}/user/${userRoleId}`);    
 };  */
 
-// POST-Добавление нового пользователя
+// POST-Добавление нового пользователя   //ДЕЛАТЬ
 export const fetchPostUser = (
   userData: IUser
 ): Promise<AxiosResponse<IUser>> => {
@@ -40,7 +40,7 @@ export const fetchUpdateUser = (
   return axios.patch<IUser>(`${API_URL}/profiles/${userId}/`, userData);
 };
 
-// DELETE-Удаление пользователя по ID     //ДЕЛАТЬ!!!
+// DELETE-Удаление пользователя по ID     //ДЕЛАТЬ
 export const fetchDeleteUser = (userId: string): Promise<AxiosResponse> => {
   return axios.delete(`${API_URL}/profiles/${userId}/`);
 };
