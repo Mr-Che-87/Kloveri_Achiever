@@ -1,0 +1,23 @@
+.authorizationLinksButton {
+  width: 278px;
+  height: 40px;
+  box-sizing: border-box;
+  font-size: 16px;
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  border: none;
+  background: url("../../../assets/link-auth.svg")no-repeat,rgba(244, 244, 244, 0.02);
+  background-position: 21px 10px;;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  &.active {
+    background-color: #f4f4f40a;
+    color: #fff;
+    opacity: 1;
+    transform: scale(0.95);
+  }
+}
