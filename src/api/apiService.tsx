@@ -34,10 +34,14 @@ export const fetchGetUserData = (
 // PATCH-Обновление данных существующего пользователя  //ДЕЛАТЬ!!!
 export const fetchUpdateUser = (
   userId: string,
-  userData: IUser
+  userData: FormData
 ): Promise<AxiosResponse<IUser>> => {
   console.log("Отправка запроса на обновление данных пользователя:", userData);
-  return axios.patch<IUser>(`${API_URL}/profiles/${userId}`, userData);
+  return axios.patch<IUser>(`${API_URL}/profiles/${userId}`, userData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 // DELETE-Удаление пользователя по ID     //ДЕЛАТЬ!!!

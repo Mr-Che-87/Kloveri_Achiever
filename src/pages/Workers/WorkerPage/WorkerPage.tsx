@@ -90,7 +90,8 @@ export default function WorkerPage() {
             isEditing={isEditing}
             toggleEdit={toggleEdit}
             userData={userData} // прокидываем userData в WorkerData
-            //updateUserData={updateUserData}
+            profile_id={profile_id}
+                        //updateUserData={updateUserData}
           />
         </div>
         <div className={styles.workerTeams}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent  } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { IUser } from "../../../../types/IUser";
@@ -6,12 +6,15 @@ import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
 //import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
 
-import {  fetchUpdateUser } from "../../../../api/apiService";  //api
+
+import axios from "axios";
+import { fetchUpdateUser } from "../../../../api/apiService";  //api
 
 interface WorkerDataProps {
   isEditing: boolean;
   toggleEdit: () => void;
   userData: IUser | null;
+  profile_id?: string;
   //updateUserData: (updatedUserData: IUser) => void;
 }
 
@@ -19,6 +22,7 @@ export default function WorkerData({
   isEditing,
   toggleEdit,
   userData,
+  profile_id,
   //updateUserData,
 }: WorkerDataProps) {
   
@@ -30,6 +34,44 @@ export default function WorkerData({
     }
   }, [userData]);
 
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!profile_id) {
+      console.error('profile_id is undefined');
+      return;
+    }
+  
+  const workerData = new FormData();
+  workerData.append("first_name", formData?.first_name || ""); // Исправление ошибки с first_name
+  workerData.append("last_name", formData?.last_name || "");
+  workerData.append("middle_name", formData?.middle_name || "");
+  workerData.append("birth_date", formData?.birth_date || "");
+  workerData.append("sex", formData?.sex || "");
+  workerData.append("phone", formData?.phone || "");
+  workerData.append("email", formData?.email || "");
+  workerData.append("photo_main", formData?.photo_main || "");
+  workerData.append("photo_small", formData?.photo_small || "");
+  workerData.append("proffesion", formData?.other_info?.proffesion || "");
+  workerData.append("start_work", formData?.other_info?.start_work || "");
+  
+  try {
+    const response = await fetchUpdateUser(profile_id, workerData);
+    console.log(response.data);
+    
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error( "Ошибка при отправке данных формы:", error.response?.data);
+    } else {
+      console.error("Неизвестная ошибка при отправке данных формы:", error);
+    }
+  }
+  }
+  
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    handleSubmit(e); // Вызываем handleSubmit без аргументов
+  };
 
   
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,6 +102,8 @@ export default function WorkerData({
     }));
   };
 
+
+  /*
   const handleSave = () => {
     console.log("Вызов функции handleSave");
     console.log("Сохранённые данные до отправки на сервер:", formData);
@@ -74,6 +118,7 @@ export default function WorkerData({
         });
     }
   };
+*/
 
   //сохранение через Enter:
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -81,7 +126,7 @@ export default function WorkerData({
     if (event.key === "Enter" && isEditing) {
       console.log("Обработка сохранения через Enter");
       event.preventDefault();
-      handleSave();
+      //handleSubmit(userData);
     }
   };
 
@@ -105,6 +150,7 @@ export default function WorkerData({
 
   return (
     <div className={styles.workerData}>
+     <form onSubmit={handleFormSubmit}> 
       <div className={styles.workerDataTitle}>
         <h1>Информация</h1>
         <ChangeWorkerInformationButton
@@ -195,6 +241,7 @@ export default function WorkerData({
           <div className={styles.divider}></div>
         </div>
       </div>
+      </form>
     </div>
   );
 }
