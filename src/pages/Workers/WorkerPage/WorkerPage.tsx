@@ -10,11 +10,7 @@ import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 
 import { IUser } from "../../../types/IUser";
-import {
-  fetchGetUserData,  
-  fetchUpdateUser,
-  //как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
-} from "../../../api/apiService";  //api
+import { fetchGetUserData } from "../../../api/apiService";  //api
 
 
 export default function WorkerPage() {
@@ -24,8 +20,9 @@ export default function WorkerPage() {
 
   // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
-    //const userRoleId = "1";    //0 - admin, 1 - worker 
-    if (profile_id) { // Проверяем, что profile_id определен
+    //const userRoleId = "1";    //0 - admin, 1 - worker - старое
+    
+    if (profile_id) { //проверяем, что profile_id определен
       //console.log("useEffect: Загружен список данных юзера");
       fetchGetUserData(profile_id)
         .then((response) => {
@@ -40,24 +37,6 @@ export default function WorkerPage() {
   //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
 
-/*
-  const updateUserData = (updatedUserData: IUser) => {
-    setUserData(updatedUserData); // Обновление состояния данных пользователя
-    // Проверка на наличие profile_id
-    if (updatedUserData.profile_id) {
-      // Вызов апи для обновления данных на сервере
-      fetchUpdateUser(updatedUserData.profile_id, updatedUserData)
-        .then((response) => {
-          console.log("Данные юзера успешно обновлены:", response.data);
-        })
-        .catch((error) => {
-          console.error("Ошибка при обновлении данных пользователя:", error);
-        });
-    }
-  };
-*/
-
-
   return (
     <div className={styles.workerPage}>
       <section className={styles.workerSection}>
@@ -66,8 +45,7 @@ export default function WorkerPage() {
             <WorkerInitial
               user={userData}  //передаем данные пользователя в WorkerInitial
               showEmail={true}
-              avatarSize="large"
-              
+              avatarSize="large"  //пропс файла и css-размеров картинки
             />
           )}
         </div>
@@ -90,7 +68,6 @@ export default function WorkerPage() {
             isEditing={isEditing}
             toggleEdit={toggleEdit}
             userData={userData} // прокидываем userData в WorkerData
-            //updateUserData={updateUserData}
           />
         </div>
         <div className={styles.workerTeams}>

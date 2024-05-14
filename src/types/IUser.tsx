@@ -14,7 +14,7 @@ export interface IUser {
   other_info?: {
       proffesion?: string | undefined;     
       start_work?: string | undefined;  
-      //СЮДА МЫ,ВРОДЕ КАК, САМИ ДОЛЖНЫ ЗАСУНУТЬ СВОЙСТВА ТИПА "дата начала работы", "код подразделения" и тп!!!
+      //СЮДА МЫ МОЖЕМ САМИ КЛАСТЬ ДОП-СВОЙСТВА
    },
   project_id?: string | undefined;        
 

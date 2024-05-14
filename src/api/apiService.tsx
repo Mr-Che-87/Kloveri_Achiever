@@ -81,7 +81,7 @@ export const fetchUpdateAchieve = (
   achieveData: IAchieve
 ): Promise<AxiosResponse<IAchieve>> => {
   return axios.patch<IAchieve>(
-    `${API_URL}/achievements/${achieveId}`,
+    `${API_URL}/achievements/${achieveId}/`,
     achieveData
   );
 };
@@ -90,7 +90,7 @@ export const fetchUpdateAchieve = (
 export const fetchDeleteAchieve = (
   achieveId: string
 ): Promise<AxiosResponse> => {
-  return axios.delete(`${API_URL}/achievements/${achieveId}`);
+  return axios.delete(`${API_URL}/achievements/${achieveId}/`);
 };
 
 
@@ -123,7 +123,7 @@ export const fetchGetIDUserAchieve = (
   userAchievementId: string
 ): Promise<AxiosResponse<IUserAchievements>> => {
   return axios.get<IUserAchievements>(
-    `${API_URL}/user-achievements/${userAchievementId}`
+    `${API_URL}/user-achievements/${userAchievementId}/`
   );
 };
 
@@ -133,7 +133,7 @@ export const fetchUpdateUserAchievement = (
   updates: Partial<IUserAchievements>
 ): Promise<AxiosResponse<IUserAchievements>> => {
   return axios.patch<IUserAchievements>(
-    `${API_URL}/user-achievements/${userAchievementId}`,
+    `${API_URL}/user-achievements/${userAchievementId}/`,
     updates
   );
 };
@@ -142,7 +142,7 @@ export const fetchUpdateUserAchievement = (
 export const fetchDeleteUserAchievement = (
   userAchievementId: string
 ): Promise<AxiosResponse> => {
-  return axios.delete(`${API_URL}/user-achievements/${userAchievementId}`);
+  return axios.delete(`${API_URL}/user-achievements/${userAchievementId}/`);
 };
 /* //СТАРОЕ
 //POST-запрос user-achiev(соединяет юзера и награду):
