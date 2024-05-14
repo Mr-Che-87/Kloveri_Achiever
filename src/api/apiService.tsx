@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-//import { IUser } from "../types/IUser";
-//import { IAchieve } from "../types/IAchieve";
+import { IUser } from "../types/IUser";
+import { IAchieve } from "../types/IAchieve";
+import { IUserAchievements } from "../types/IUserAchievements";
 //import { IConnection } from "../types/IConnection";
 
 const API_URL = "https://reg.achiever.skroy.ru"; //обновлённый базовый URL
@@ -142,10 +143,7 @@ export const fetchDeleteUserAchievement = (
 ): Promise<AxiosResponse> => {
   return axios.delete(`${API_URL}/user-achievements/${userAchievementId}/`);
 };
-*/
-
-
-
+/* //СТАРОЕ
 //POST-запрос user-achiev(соединяет юзера и награду):
 export const fetchPostUserAchieve = (userId: string, achieveId: string): Promise<AxiosResponse> => {
   //console.log("АPI-POST: Добавление соединения юзера с ачивкой с achieveId", achieveId, "пользователю с userId:", userId);
@@ -158,8 +156,7 @@ export const fetchGetIDUserAchieve = (userId: string): Promise<AxiosResponse> =>
   return axios.get(`${API_URL}/user-achiev/${userId}/`);  
 };  //работает через жопу!!! (возможно проблема в отображении дублирующихся ачивок)
 
-
-/*  НЕ РАБОТАЕТ!!!!
+//НЕ РАБОТАЕТ!!!!
 //????DELETE-запрос  user-achiev/deactivate (удаляет СОЕДИНЕНИЕ юзера и награды)
 export const fetchDeleteUserAchieve = (connectUuid: string): Promise<AxiosResponse<void>> => {
   console.log("АPI-DELETE: Удаление соединения с connectUuid", connectUuid);
@@ -171,23 +168,6 @@ export const fetchDeleteUserAchieve = (uuid: string, achieveId: string): Promise
     return axios.delete<void>(`${API_URL}/user-achiev/deactivate/`, { user_uuid: uuid, achiev_uuid: achieveId });  // где user_uuid и achiev_uuid - из соединения  из fetchPostUserAchieve 
 };
 */ 
-export const fetchDeleteUserAchieve=(id: string):Promise<void>=>{
-  if(!id || !API_URL){
-    throw new Error("Ошибка: connectUuid или API_URL не определены.")
-  }
-  console.log("API-DELETE: Ачивка удалина")
-
-  return axios.delete(`${API_URL}/user-achievements/${id}`)
-  .then(() =>{
-    console.log("Ачивка удалена с сервера");
-
-    return Promise.resolve()
-  })
-  .catch((error) =>{
-    console.log("Ошибка при удалении ачивки с сервера", error)
-  })
-}
-
 
 
 
