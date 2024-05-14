@@ -8,6 +8,7 @@ import { IUser } from "../../../../types/IUser";
 import { fetchUpdateUser } from "../../../../api/apiService";  //api
 //import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
 
+
 interface WorkerDataProps {
   isEditing: boolean;
   toggleEdit: () => void;
@@ -58,6 +59,7 @@ export default function WorkerData({
     }));
   };
 
+
   //PATCH:
   const handleSave = () => {
     console.log("Вызов функции handleSave");
@@ -83,6 +85,7 @@ export default function WorkerData({
     }
   };
 
+
 //Дата-пикер:
   const parseDateForPicker = (dateStr?: string): Date | null => {
     if (!dateStr) {
@@ -92,6 +95,7 @@ export default function WorkerData({
     return date instanceof Date && !isNaN(date.getTime()) ? date : null;
   };
   
+
 
   if (!formData) {
     return <div>Loading...</div>;
