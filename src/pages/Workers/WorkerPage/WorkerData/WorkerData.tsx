@@ -26,9 +26,7 @@ export default function WorkerData({
   useEffect(() => {
     if (userData) {
       setFormData({ ...userData });
-     
     }
-   
   }, [userData]);
 
   
@@ -38,7 +36,7 @@ export default function WorkerData({
     const { name, value } = event.target;
        console.log("Изменённые данные до отправки на сервер:", event.target.value);
     setFormData((currentFormData) => ({
-      ...(currentFormData ?? {}),
+      ...currentFormData,
       [name]: value,
     }));
   };
@@ -146,9 +144,9 @@ export default function WorkerData({
         <div className={styles.workerBirthday}>
           <h2>Дата рождения</h2>
           <DatePicker
-            selected={parseDateForPicker(formData.birthday)}
-            onChange={(date) => handleDateChange(date, "birthday")}
-            value={formData.birthday || ""}
+            selected={parseDateForPicker(formData.birth_date)}
+            onChange={(date) => handleDateChange(date, "birth_date")}
+            value={formData.birth_date || ""}
             dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
             onKeyDown={handleKeyDown} 
