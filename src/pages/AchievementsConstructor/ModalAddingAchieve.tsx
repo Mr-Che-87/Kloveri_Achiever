@@ -6,21 +6,39 @@ import { fetchPostAchieveLibrary } from "../../api/apiService";
 
 interface ModalAddingAchieveProps {
   closeModal: () => void;
+  avatars: Array<{
+    id: string;
+    data: { image: string; title: string; description: string };
+  }>;
+  backgrounds: Array<{
+    id: string;
+    data: { image: string; title: string; description: string };
+  }>;
 }
 
 const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
-  closeModal
+  closeModal,
+  avatars,
+  backgrounds,
 }) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [image, setImage] = useState<File | null>(null);
-  const [background, setBackground] = useState<File | null>(null);
-  const [rank, setRank] = useState<number | "">(""); // Добавляем состояние для ранга
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedBackground, setSelectedBackground] = useState<string | null>(
+    null
+  );
+  const [rank, setRank] = useState<number | "">("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!title || !description || !image || !background || !rank) {
+    if (
+      !title ||
+      !description ||
+      !selectedImage ||
+      !selectedBackground ||
+      !rank
+    ) {
       alert("Все поля должны быть заполнены.");
       return;
     }
@@ -28,14 +46,14 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     const achieveData = new FormData();
     achieveData.append("title", title);
     achieveData.append("description", description);
-    achieveData.append("image", image as Blob); //приведение к Blob, т.к. изображение явл. типом File
-    achieveData.append("achiev_style", background as Blob); 
-    achieveData.append("rank", rank.toString()); //приведение rank к строке
+    achieveData.append("image", selectedImage);
+    achieveData.append("achiev_style", selectedBackground);
+    achieveData.append("rank", rank.toString());
 
     try {
-      const response = await fetchPostAchieveLibrary(achieveData); 
+      const response = await fetchPostAchieveLibrary(achieveData);
       console.log(response.data);
-      closeModal(); //закрытие модального окна после успешной отправки
+      closeModal();
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error(
@@ -46,39 +64,12 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
         console.error("Неизвестная ошибка при отправке данных формы:", error);
       }
     }
-    /*
-    ////СТАРЫЙ АПИ (с инициализацией прям тут)
-    try {
-      const response = await axios.post("/api/achiev-lib/create/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log(response.data);
-      closeModal(); // Закрытие модального окна после успешной отправки
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error(
-          "Ошибка при отправке данных формы:",
-          error.response?.data
-        );
-      } else {
-        console.error("Неизвестная ошибка при отправке данных формы:", error);
-      }
-    }
-  */  
   };
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setTitle(e.target.value);
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
     setDescription(e.target.value);
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setImage(e.target.files[0]);
-  };
-  const handleBackgroundChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setBackground(e.target.files[0]);
-  };
   const handleRankChange = (e: ChangeEvent<HTMLInputElement>) =>
     setRank(e.target.valueAsNumber);
 
@@ -108,6 +99,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
               placeholder="Введите описание"
               value={description}
               onChange={handleDescriptionChange}
+              required
             />
           </div>
           <div className={styles.formGroup}>
@@ -122,22 +114,34 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
             />
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="imageInput">Изображение</label>
-            <input
-              type="file"
-              id="imageInput"
-              onChange={handleImageChange}
+            <label htmlFor="image">Изображение</label>
+            <select
+              id="image"
+              onChange={(e) => setSelectedImage(e.target.value)}
               required
-            />
+            >
+              <option value="">Выберите изображение</option>
+              {avatars.map((avatar) => (
+                <option key={avatar.id} value={avatar.data.image}>
+                  {avatar.data.title}
+                </option>
+              ))}
+            </select>
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="backgroundInput">Фон</label>
-            <input
-              type="file"
-              id="backgroundInput"
-              onChange={handleBackgroundChange}
+            <label htmlFor="background">Фон</label>
+            <select
+              id="background"
+              onChange={(e) => setSelectedBackground(e.target.value)}
               required
-            />
+            >
+              <option value="">Выберите фон</option>
+              {backgrounds.map((background) => (
+                <option key={background.id} value={background.data.image}>
+                  {background.data.title}
+                </option>
+              ))}
+            </select>
           </div>
           <div className={styles.formActions}>
             <button
