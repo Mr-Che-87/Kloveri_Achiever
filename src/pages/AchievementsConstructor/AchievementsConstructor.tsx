@@ -2,6 +2,7 @@ import styles from "../../pages/AchievementsConstructor/AchievementsConstructor.
 import { useEffect, useState } from "react";
 
 import ModalAddingAchieve from "./ModalAddingAchieve";
+import ModalConfirmDelete from "./ModalConfirmDelete"; // Импорт нового компонента
 import { SearchAllAchieveInput } from "../Workers/WorkerPage/buttons&inputes/SearchAllAchieveInput";
 import BookAvatar from "../../assets/book-icon.png";
 
@@ -10,17 +11,46 @@ import {
   fetchGetAchieveLibrary,
   fetchGetAvatars,
   fetchGetBackgrounds,
+  fetchDeleteAchieve, // Импорт метода удаления достижения
 } from "../../api/apiService";
 
 export default function AchievementsConstructor() {
   const [achievements, setAchievements] = useState<IAchieve[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false); // Состояние для модального окна подтверждения
+  const [selectedAchieveId, setSelectedAchieveId] = useState<string | null>(
+    null
+  ); // Состояние для выбранного достижения
   const [avatars, setAvatars] = useState([]);
   const [backgrounds, setBackgrounds] = useState([]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
+  };
+
+  const toggleConfirmModal = () => {
+    setIsConfirmModalOpen(!isConfirmModalOpen);
+  };
+
+  const handleDeleteClick = (achieveId: string) => {
+    setSelectedAchieveId(achieveId);
+    toggleConfirmModal();
+  };
+
+  const confirmDeleteAchieve = () => {
+    if (selectedAchieveId) {
+      fetchDeleteAchieve(selectedAchieveId)
+        .then(() => {
+          setAchievements(
+            achievements.filter((achieve) => achieve.id !== selectedAchieveId)
+          );
+          toggleConfirmModal();
+        })
+        .catch((error) => {
+          console.error("Ошибка при удалении достижения:", error);
+        });
+    }
   };
 
   // Получение библиотеки достижений
@@ -67,9 +97,7 @@ export default function AchievementsConstructor() {
         <button
           onClick={toggleModal}
           className={styles.createAchievementButton}
-        >
-          Создать достижение
-        </button>
+        ></button>
         {achievements
           .filter((achievement) =>
             achievement.data.title
@@ -84,6 +112,12 @@ export default function AchievementsConstructor() {
                 backgroundImage: `url(${achievement.data.achiev_style})`,
               }}
             >
+              <button
+                className={styles.deleteButton}
+                onClick={() => handleDeleteClick(achievement.id)}
+              >
+                &#128465;
+              </button>
               <img src={achievement.data.image} alt={achievement.data.title} />
               <div className={styles.cardContent}>
                 <h2>{achievement.data.title}</h2>
@@ -97,6 +131,12 @@ export default function AchievementsConstructor() {
           closeModal={toggleModal}
           avatars={avatars}
           backgrounds={backgrounds}
+        />
+      )}
+      {isConfirmModalOpen && (
+        <ModalConfirmDelete
+          closeModal={toggleConfirmModal}
+          confirmDelete={confirmDeleteAchieve}
         />
       )}
     </div>

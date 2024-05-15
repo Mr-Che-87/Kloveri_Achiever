@@ -3,8 +3,9 @@ declare const classNames: {
   readonly titleContainer: "titleContainer";
   readonly divider: "divider";
   readonly achievementsGrid: "achievementsGrid";
-  readonly achievementCard: "achievementCard";
   readonly createAchievementButton: "createAchievementButton";
+  readonly achievementCard: "achievementCard";
+  readonly deleteButton: "deleteButton";
   readonly cardContent: "cardContent";
 };
 export = classNames;
