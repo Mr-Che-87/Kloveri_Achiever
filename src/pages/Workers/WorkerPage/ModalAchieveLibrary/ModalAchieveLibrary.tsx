@@ -15,7 +15,7 @@ interface ModalAchievementsProps {
 export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchievements, closeModal, onAchieveAdd }) => {
 
   const handleAchieveAdd = (achieveId: string) => {
-    console.log("Модалка: Добавление пользователю ачивки с achieveId:", achieveId); 
+    //console.log("Модалка: Добавление пользователю ачивки с achieveId:", achieveId); 
     onAchieveAdd(achieveId); //вызываем функцию родителя при добавлении ачивки
               
      closeModal(); // Закрываем модальное окно
