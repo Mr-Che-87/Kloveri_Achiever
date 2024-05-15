@@ -9,7 +9,7 @@ interface ModalAddingAchieveProps {
 }
 
 const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
-  closeModal
+  closeModal,
 }) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -29,11 +29,11 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     achieveData.append("title", title);
     achieveData.append("description", description);
     achieveData.append("image", image as Blob); //приведение к Blob, т.к. изображение явл. типом File
-    achieveData.append("achiev_style", background as Blob); 
+    achieveData.append("achiev_style", background as Blob);
     achieveData.append("rank", rank.toString()); //приведение rank к строке
 
     try {
-      const response = await fetchPostAchieveLibrary(achieveData); 
+      const response = await fetchPostAchieveLibrary(achieveData);
       console.log(response.data);
       closeModal(); //закрытие модального окна после успешной отправки
     } catch (error) {

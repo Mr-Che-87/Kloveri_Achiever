@@ -10,10 +10,34 @@ import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
 import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 import AuthorizationLinksButton from "./AuthorizationLinksButton/AuthorizationLinksButton";
 import WorkersButtonAddTeam from "./WorkersButtonAddTeam/WorkersButtonAddTeam";
+import WorkersModal from "./WorkersModal/WorkersModal";
+
+
+
+function filterName (searchTextName, nameList)  {
+  if(!searchTextName){
+    return nameList;
+  }
+  return nameList.filter(({first_name, last_name}) =>
+    [first_name, last_name].some(
+        (name) => name?.toLowerCase().includes(searchTextName.toLowerCase())
+    )
+   
+  )
+}
 
 export default function Workers() {
   const [userList, setUserList] = useState<IUser[]>([]); //state списка всех юзеров
+  const [isSearchName, setIsSearchName] = useState("");
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
+  
+
+ const filtredUserList = filterName(isSearchName, userList)
+
+
+
+ console.log("filtredUserList", filtredUserList)
   //GET-Получение списка всех пользователей:
   useEffect(() => {
     //const userId = "1";   //хз, как сейчас будут делить на admin | worker ???
@@ -40,16 +64,31 @@ export default function Workers() {
           <h1> Сотрудники</h1>
         </div>
         <div className={styles.workersBtn}>
-          <AddTeamButton />
+          <AddTeamButton 
+          onClick={() => setIsOpenModal(true)}
+           />
+          <WorkersModal
+           isOpen={isOpenModal} 
+           onClose ={() => setIsOpenModal(false)}
+          />
           <AuthorizationLinksButton />
-          <SearchInputWorkers />
+         
+          <SearchInputWorkers  
+          isSearchName={isSearchName}
+          setIsSearchName={setIsSearchName}
+          />
+            
+         
+            
+         
+            
         </div>
 
         <div className={styles.workersCards}>
           <div className={styles.workersList}>
             <p>В КОМАНДЕ</p>
             <ul className={styles.workersList__item}>
-              {userList.map((user, index) => (
+              {filtredUserList.map((user, index) => (
                 <li key={index}>
                   <NavLink to={`/worker-page/${user.profile_id}`}>
                     <WorkerInitial
@@ -66,7 +105,7 @@ export default function Workers() {
             </ul>
           </div>
 
-          <div className={styles.workersNotInTheTeam}>
+          {/* <div className={styles.workersNotInTheTeam}>
             <p>НЕ В КОМАНДЕ</p>
             <ul className={styles.workersList__item}>
               {userList.map((user, index) => (
@@ -84,7 +123,8 @@ export default function Workers() {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
+
         </div>
       </div>
     </>
