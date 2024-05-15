@@ -2,16 +2,22 @@ import axios, { AxiosResponse } from "axios";
 import { IUser } from "../types/IUser";
 import { IAchieve } from "../types/IAchieve";
 import { IConnection } from "../types/IConnection";
+//import { IConnection } from "../types/IConnection";
 
-const API_URL = "https://reg.achiever.skroy.ru"; // обновлённый базовый URL
+const API_URL = "https://reg.achiever.skroy.ru"; //обновлённый базовый URL
 
-// Profiles
+
+//Profiles//
 // GET-Получение списка всех пользователей
 export const fetchGetAllUsers = (): Promise<AxiosResponse> => {
   return axios.get(`${API_URL}/profiles/`);
 };
+/* //СТАРОЕ (не удалять пока)
+export const fetchGetUserData = (userRoleId: string) => {  //userRoleId(0 - админ, 1 - работник) 
+  return axios.get(`${API_URL}/user/${userRoleId}`);    
+};  */
 
-// POST-Добавление нового пользователя
+// POST-Добавление нового пользователя                      //ДЕЛАТЬ Андрей
 export const fetchPostUser = (
   userData: IUser
 ): Promise<AxiosResponse<IUser>> => {
@@ -22,24 +28,27 @@ export const fetchPostUser = (
 export const fetchGetUserData = (
   userId: string
 ): Promise<AxiosResponse<IUser>> => {
-  return axios.get<IUser>(`${API_URL}/profiles/${userId}`);
+  return axios.get<IUser>(`${API_URL}/profiles/${userId}/`);
 };
 
-// PATCH-Обновление данных существующего пользователя
+// PATCH-Обновление данных существующего пользователя  
 export const fetchUpdateUser = (
   userId: string,
   userData: IUser
 ): Promise<AxiosResponse<IUser>> => {
   console.log("Отправка запроса на обновление данных пользователя:", userData);
-  return axios.patch<IUser>(`${API_URL}/profiles/${userId}`, userData);
+  return axios.patch<IUser>(`${API_URL}/profiles/${userId}/`, userData);
 };
 
-// DELETE-Удаление пользователя по ID
+// DELETE-Удаление пользователя по ID                           //ДЕЛАТЬ Андрей
 export const fetchDeleteUser = (userId: string): Promise<AxiosResponse> => {
-  return axios.delete(`${API_URL}/profiles/${userId}`);
+  return axios.delete(`${API_URL}/profiles/${userId}/`);
 };
 
-// Achievements library
+
+
+
+//Achievements library//
 // GET-Получение всей библиотеки наград
 export const fetchGetAchieveLibrary = (): Promise<
   AxiosResponse<IAchieve[]>
@@ -58,29 +67,29 @@ export const fetchPostAchieveLibrary = (
   });
 };
 
-// GET-Получение достижения по ID
+// GET-Получение достижения по ID                              //потом
 export const fetchGetAchieveById = (
   achieveId: string
 ): Promise<AxiosResponse<IAchieve>> => {
   return axios.get<IAchieve>(`${API_URL}/achievements/${achieveId}`);
 };
 
-// PATCH-Обновление достижения по ID
+// PATCH-Обновление достижения по ID                          //потом
 export const fetchUpdateAchieve = (
   achieveId: string,
   achieveData: IAchieve
 ): Promise<AxiosResponse<IAchieve>> => {
   return axios.patch<IAchieve>(
-    `${API_URL}/achievements/${achieveId}`,
+    `${API_URL}/achievements/${achieveId}/`,
     achieveData
   );
 };
 
-// DELETE-Удаление достижения по ID
+// DELETE-Удаление достижения по ID                        
 export const fetchDeleteAchieve = (
   achieveId: string
 ): Promise<AxiosResponse> => {
-  return axios.delete(`${API_URL}/achievements/${achieveId}`);
+  return axios.delete(`${API_URL}/achievements/${achieveId}/`);
 };
 
 // Avatars and Backgrounds
@@ -94,48 +103,57 @@ export const fetchGetBackgrounds = (): Promise<AxiosResponse> => {
   return axios.get(`${API_URL}/templates-images/`);
 };
 
-// Connections
-// GET-Получение списка всех связей пользователя с достижениями
+
+
+//Connections//
+// GET-Получение списка всех связей всех пользователей с достижениями     //хз зачем, потом  
 export const fetchGetUserAchievements = (): Promise<
-  AxiosResponse<IUserAchievements[]>
+  AxiosResponse<IConnection>
 > => {
-  return axios.get<IUserAchievements[]>(`${API_URL}/user-achievements/`);
+  return axios.get<IConnection>(`${API_URL}/user-achievements/`);
 };
 
-// POST-Создание связи между пользователем и достижением
+// POST-Создание связи между пользователем и достижением           
 export const fetchPostUserAchieve = (
   userId: string,
   achieveId: string
-): Promise<AxiosResponse<IUserAchievements>> => {
-  return axios.post<IUserAchievements>(`${API_URL}/user-achievements/`, {
-    userId,
-    achieveId,
+): Promise<AxiosResponse<IConnection>> => {
+  //console.log("АPI-POST: Добавление соединения пользователя с userId", userId, "с ачивкой achieveId:", achieveId);
+  return axios.post<IConnection>(`${API_URL}/user-achievements/`, { 
+    user_id: userId, 
+    achievement_id: achieveId 
   });
 };
 
-// GET-Получение связи между пользователем и достижением по ID
+// GET-Получение списка достижений пользователя по ID
 export const fetchGetIDUserAchieve = (
   userAchievementId: string
-): Promise<AxiosResponse<IUserAchievements>> => {
-  return axios.get<IUserAchievements>(
-    `${API_URL}/user-achievements/${userAchievementId}`
+): Promise<AxiosResponse> => {    //убрал <IConnection> - ибо в интефейсе он объект, а нужен массив(на код не влияет, но TS ругается)
+  return axios.get(               //убрал <IConnection>
+    `${API_URL}/user-achievements/${userAchievementId}/`
   );
 };
 
-// PATCH-Обновление связи между пользователем и достижением по ID
+// PATCH-Обновление связи между пользователем и достижением по ID       //хз зачем, потом  
 export const fetchUpdateUserAchievement = (
   userAchievementId: string,
-  updates: Partial<IUserAchievements>
-): Promise<AxiosResponse<IUserAchievements>> => {
-  return axios.patch<IUserAchievements>(
-    `${API_URL}/user-achievements/${userAchievementId}`,
+  updates: Partial<IConnection>
+): Promise<AxiosResponse<IConnection>> => {
+   return axios.patch<IConnection>(
+    `${API_URL}/user-achievements/${userAchievementId}/`,
     updates
   );
 };
 
-// DELETE-Удаление связи между пользователем и достижением по ID
+// DELETE-Удаление связи между пользователем и достижением по ID        //ДЕЛАТЬ Лёша
 export const fetchDeleteUserAchievement = (
-  userAchievementId: string
+  userAchievementId: string,
 ): Promise<AxiosResponse> => {
-  return axios.delete(`${API_URL}/user-achievements/${userAchievementId}`);
+  console.log("АПИ Выполняется запрос на удаление ачивки с id:", userAchievementId);
+  return axios.delete(`${API_URL}/user-achievements/${userAchievementId}/`);
 };
+
+
+
+
+
