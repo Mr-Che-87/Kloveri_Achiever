@@ -75,13 +75,11 @@ export default function WorkerPage() {
         </div>
       </section>
 
-{/*ВЕРНУТЬ
       <div className={styles.workerAchievements}>
       {userData && (
-        <WorkerAchievements     userId={userData.uuid} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
+        <WorkerAchievements     userId={userData.profile_id} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
       )}
       </div>
-*/}
     </div>
   );
 }
