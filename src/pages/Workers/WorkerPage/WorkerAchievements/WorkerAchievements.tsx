@@ -21,23 +21,22 @@ interface WorkerAchievementsProps {
   userId: string | undefined;
 }
 
-export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
-  userId,
-}) => {
+export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({ userId }) => {
+ 
   //const [achieveList, setAchieveList] = useState<IAchieve[]>([]);  //старый-единый стейт(фильтрация по added)
-  const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]); //стейт на ачивки библиотеки
-  const [userAchievements, setUserAchievements] = useState<IAchieve[]>([]); //стейт на ачивки юзера
+  const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]);  //стейт на ачивки библиотеки
+  const [userAchievements, setUserAchievements] = useState<IAchieve[]>([]);  //стейт на ачивки юзера
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
 // GET-Получение всей библиотеки наград:
   useEffect(() => {
-    //console.log("useEffect: загрузка всей библиотеки наград");
+    //console.log("useEffect: загрузка всей библиотеки наград"); 
     fetchGetAchieveLibrary()
-      .then((response) => {
-        console.log("useEffect: Response всей библиотеки наград", response);
-        setAllAchievements(response.data); //data - все данные из бэка{...}
-      })
+     .then((response) => {
+      //console.log("useEffect: Response всей библиотеки наград", response);
+      setAllAchievements(response.data);   //data - все данные из бэка{...}
+    })
       .catch((error) => {
         console.error("Ошибка при получении данных пользователя:", error);
       });
@@ -133,20 +132,12 @@ const onAchieveAdd = (achieveId: string) => {
     <div className={styles.workerAchievements}>
       <h1>Достижения</h1>
       <div className={styles.workerAchievementsNav}>
-        <ul>
-          <li>
-            <GiveAchieveButton onClick={openModal} />
-          </li>
-          <li>
-            <SearchAchieveInput
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-            />
-          </li>
-          <li>
-            <AllAchieveButton />
-          </li>
-        </ul>
+      <ul>
+        <li><GiveAchieveButton onClick={openModal} /></li>
+        <li><SearchAchieveInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+       </li>
+        <li><AllAchieveButton /></li>
+      </ul>
       </div>
 
       <div className={styles.workerAchievementsList}>
@@ -156,24 +147,19 @@ const onAchieveAdd = (achieveId: string) => {
                 <img src={achieve.data.image} alt={achieve.data.title} />
                 <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
                 </button>
-                <button className={styles.removeButton} onClick={() => removeAchieve(achieve.achieveId)}>
+                <button className={styles.removeButton} onClick={() => removeAchieve(achieve.id)}>
                   &times;
                 </button>
             </div>
-          ))}
-      </div>
+          ))
+        }
+      </div>  
 
       {showModal && (
-        <ModalAchieveLibrary
-          allAchievements={allAchievements}
-          userAchievements={userAchievements}
-          closeModal={closeModal}
-          onAchieveAdd={onAchieveAdd}
-        />
-      )}
+        <ModalAchieveLibrary allAchievements={allAchievements} userAchievements={userAchievements} closeModal={closeModal} onAchieveAdd={onAchieveAdd}/>    
+        )}
     </div>
   );
-};
-
+}
 
 
