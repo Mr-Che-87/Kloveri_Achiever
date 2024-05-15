@@ -92,6 +92,7 @@ export const fetchDeleteAchieve = (
   return axios.delete(`${API_URL}/achievements/${achieveId}/`);
 };
 
+
 // Avatars and Backgrounds
 // GET-Получение списка аватаров
 export const fetchGetAvatars = (): Promise<AxiosResponse> => {
@@ -145,12 +146,12 @@ export const fetchUpdateUserAchievement = (
   );
 };
 
-// DELETE-Удаление связи между пользователем и достижением по ID        //ДЕЛАТЬ Лёша
+// DELETE-Удаление связи между пользователем и достижением по ID      
 export const fetchDeleteUserAchievement = (
-  userAchievementId: string,
-): Promise<AxiosResponse> => {
-  console.log("АПИ Выполняется запрос на удаление ачивки с id:", userAchievementId);
-  return axios.delete(`${API_URL}/user-achievements/${userAchievementId}/`);
+  id: string,
+): Promise<AxiosResponse<IConnection>> => {
+  console.log("АПИ Выполняется запрос на удаление ачивки с id:", id);
+  return axios.delete<IConnection>(`${API_URL}/user-achievements/${id}/`);
 };
 
 

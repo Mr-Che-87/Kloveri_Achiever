@@ -25,7 +25,7 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({ userId }
  
   //const [achieveList, setAchieveList] = useState<IAchieve[]>([]);  //старый-единый стейт(фильтрация по added)
   const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]);  //стейт на ачивки библиотеки
-  const [userAchievements, setUserAchievements] = useState<IAchieve[]>([]);  //стейт на ачивки юзера
+  const [userAchievements, setUserAchievements] = useState<IConnection[]>([]);  //стейт на ачивки юзера
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -52,8 +52,13 @@ useEffect(() => {
     fetchGetIDUserAchieve(userId)
     .then((response) => {
       console.log("useEffect: Response ачивок пользователя:", response);
-      const userAchievements: IAchieve[] = response.data.map((connection: IConnection) => connection.data.achievement); // извлекаем только награды из соединений
-      setUserAchievements(userAchievements);
+      const userAchievements: IConnection[] = response.data.map((connection: IConnection) => ({
+        id: connection.id,
+        data: connection.data
+        //connection.data.achievement); // извлекаем только награды из соединений
+      }))
+      
+        setUserAchievements(userAchievements);
     })
     .catch((error) => {
       console.error("Ошибка при загрузке ачивок пользователя:", error);
@@ -76,17 +81,14 @@ useEffect(() => {
 // Функция добавления ачивки: 
 const onAchieveAdd = (achieveId: string) => { 
   //console.log("onAchieveAdd: Добавление соединения с ачивкой с achieveId:", achieveId);  
-
   if (userId) {
 //POST-Создание связи между пользователем и достижением: 
      fetchPostUserAchieve(userId , achieveId)
-    .then(() => {
-      return fetchGetIDUserAchieve(userId);
-    })
-    .then((response) => {
-      console.log("onAchieveAdd: Response соединения пользователя с ачивкой после добавления:", response.data);
-      const userAchievements: IAchieve[] = response.data.map((connection: IConnection) => connection.data.achievement); // извлекаем только награды из соединений
-      setUserAchievements(userAchievements);
+     .then((response) => {
+      setUserAchievements((prevUserAchievements) => {
+        const newConnection: IConnection = response.data;
+        return [...prevUserAchievements, newConnection];
+      });
     })
     .catch((error) => {
       console.error("Ошибка при добавлении ачивки пользователю:", error);
@@ -99,14 +101,14 @@ const onAchieveAdd = (achieveId: string) => {
 
 // Функция удаления ачивки: 
   // DELETE-Удаление связи между пользователем и достижением по ID     //НЕ РАБОТАЕТ после перезагрузки!!
-  const removeAchieve = (id: string) => {
+  const removeAchieve = (userAchievementId: string) => {
     // Отправляем запрос на удаление ачивки у пользователя
-    console.log("Удаляем ачивку с id:", id);
-    fetchDeleteUserAchievement(id)
+    console.log("Удаляем ачивку с id:", userAchievementId);
+    fetchDeleteUserAchievement(userAchievementId)
       .then(() => {
         console.log("Ачивка успешно удалена на сервере.");
         // Обновляем список ачивок пользователя на клиенте
-        setUserAchievements(prevAchievements => prevAchievements.filter((item) => item.id !== id));
+        setUserAchievements(prevAchievements => prevAchievements.filter((connect) => connect.id !== userAchievementId));
     })
       .catch((error) => {
         console.error("Ошибка при удалении ачивки пользователя:", error);
@@ -141,13 +143,13 @@ const onAchieveAdd = (achieveId: string) => {
       </div>
 
       <div className={styles.workerAchievementsList}>
-      {userAchievements.map((achieve: IAchieve) => (
-            <div key={achieve.id} className={styles.achieveItem}>
+      {userAchievements.map((connect, index) => (
+            <div key={index} className={styles.achieveItem}>
               <button>
-                <img src={achieve.data.image} alt={achieve.data.title} />
-                <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
+                <img src={connect.data.achievement.data.image} alt={connect.data.achievement.data.title} />
+                <h3 className={styles.achieveTitle}>{connect.data.achievement.data.title}</h3>
                 </button>
-                <button className={styles.removeButton} onClick={() => removeAchieve(achieve.id)}>
+                <button className={styles.removeButton} onClick={() => removeAchieve(connect.id)}>
                   &times;
                 </button>
             </div>

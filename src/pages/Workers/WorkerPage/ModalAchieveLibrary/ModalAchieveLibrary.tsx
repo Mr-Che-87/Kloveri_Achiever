@@ -3,11 +3,12 @@ import styles from "./ModalAchieveLibrary.module.scss";
 
 //import { IAchieve } from "../../../../mocks/AchieveLibrary";
 import { IAchieve } from "../../../../types/IAchieve";
+import { IConnection } from "../../../../types/IConnection";
 
 
 interface ModalAchievementsProps {
   allAchievements: IAchieve[];
-  userAchievements: IAchieve[];
+  userAchievements: IConnection[];
   closeModal: () => void;
   onAchieveAdd: (achieveId: string) => void; //функция для передачи ачивки родителю
 }
