@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { IUser } from "../types/IUser";
 import { IAchieve } from "../types/IAchieve";
 import { IUserAchievements } from "../types/IUserAchievements";
+import { IConnection } from "../types/IConnection";
 //import { IConnection } from "../types/IConnection";
 
 const API_URL = "https://reg.achiever.skroy.ru"; //обновлённый базовый URL
@@ -67,14 +68,14 @@ export const fetchPostAchieveLibrary = (
   });
 };
 
-// GET-Получение достижения по ID
+// GET-Получение достижения по ID       //потом
 export const fetchGetAchieveById = (
   achieveId: string
 ): Promise<AxiosResponse<IAchieve>> => {
   return axios.get<IAchieve>(`${API_URL}/achievements/${achieveId}`);
 };
 
-// PATCH-Обновление достижения по ID      //ДЕЛАТЬ!!!
+// PATCH-Обновление достижения по ID      //потом
 export const fetchUpdateAchieve = (
   achieveId: string,
   achieveData: IAchieve
@@ -95,38 +96,45 @@ export const fetchDeleteAchieve = (
 
 
 
-
-
-//НИЧЁ НЕ ПЕРЕНАСТРОЕНО  - ДЕЛАТЬ:
 //Connections//
-// GET-Получение списка всех связей пользователя с достижениями
+// GET-Получение списка всех связей всех пользователей с достижениями  //хз зачем, потом  
 export const fetchGetUserAchievements = (): Promise<
-  AxiosResponse<IUserAchievements[]>
+  AxiosResponse<IConnection[]>
 > => {
-  return axios.get<IUserAchievements[]>(`${API_URL}/user-achievements/`);
+  return axios.get<IConnection[]>(`${API_URL}/user-achievements/`);
 };
 
-// POST-Создание связи между пользователем и достижением
+// POST-Создание связи между пользователем и достижением           //ДЕЛАТЬ!!!
 export const fetchPostUserAchieve = (
   userId: string,
   achieveId: string
-): Promise<AxiosResponse<IUserAchievements>> => {
-  return axios.post<IUserAchievements>(`${API_URL}/user-achievements/`, {
-    userId,
-    achieveId,
+): Promise<AxiosResponse<IConnection>> => {
+  //console.log("АPI-POST: Добавление соединения юзера с ачивкой с achieveId", achieveId, "пользователю с userId:", userId);
+  return axios.post<IConnection>(`${API_URL}/user-achievements/`, { 
+    user_id: userId, 
+    achievement_id: achieveId 
   });
 };
 
-// GET-Получение связи между пользователем и достижением по ID
+
+  //return axios.post(`${API_URL}/user-achiev/create/`, { user_uuid: userId, achiev_uuid: achieveId });
+
+
+
+
+// GET-Получение списка достижения пользователя по ID    //ДЕЛАТЬ!!!
 export const fetchGetIDUserAchieve = (
   userAchievementId: string
-): Promise<AxiosResponse<IUserAchievements>> => {
-  return axios.get<IUserAchievements>(
+): Promise<AxiosResponse<IConnection>> => {
+  return axios.get<IConnection>(
     `${API_URL}/user-achievements/${userAchievementId}/`
   );
 };
 
-// PATCH-Обновление связи между пользователем и достижением по ID
+
+
+
+// PATCH-Обновление связи между пользователем и достижением по ID    //хз зачем, потом  
 export const fetchUpdateUserAchievement = (
   userAchievementId: string,
   updates: Partial<IUserAchievements>
@@ -137,18 +145,13 @@ export const fetchUpdateUserAchievement = (
   );
 };
 
-// DELETE-Удаление связи между пользователем и достижением по ID
+// DELETE-Удаление связи между пользователем и достижением по ID     //ДЕЛАТЬ!!!
 export const fetchDeleteUserAchievement = (
   userAchievementId: string
 ): Promise<AxiosResponse> => {
   return axios.delete(`${API_URL}/user-achievements/${userAchievementId}/`);
 };
 /* //СТАРОЕ
-//POST-запрос user-achiev(соединяет юзера и награду):
-export const fetchPostUserAchieve = (userId: string, achieveId: string): Promise<AxiosResponse> => {
-  //console.log("АPI-POST: Добавление соединения юзера с ачивкой с achieveId", achieveId, "пользователю с userId:", userId);
-  return axios.post(`${API_URL}/user-achiev/create/`, { user_uuid: userId, achiev_uuid: achieveId });
-};
 
 //?????????GET-запрос user-achiev (возвращает СОЕДИНЕНИЕ между юзером и наградой ПО ЕЁ ИДЕНТИФИКАТОРУ - {uuid}):
 export const fetchGetIDUserAchieve = (userId: string): Promise<AxiosResponse> => {
