@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { IUser } from "../types/IUser";
 import { IAchieve } from "../types/IAchieve";
-import { IUserAchievements } from "../types/IUserAchievements";
+import { IConnection } from "../types/IConnection";
 
 const API_URL = "https://reg.achiever.skroy.ru"; // обновлённый базовый URL
 
