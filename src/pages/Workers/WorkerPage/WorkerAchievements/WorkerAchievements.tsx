@@ -143,10 +143,21 @@ const onAchieveAdd = (achieveId: string) => {
       </div>
 
       <div className={styles.workerAchievementsList}>
-      {userAchievements.map((connect, index) => (
-            <div key={index} className={styles.achieveItem}>
-              <button>
-                <img src={connect.data.achievement.data.image} alt={connect.data.achievement.data.title} />
+      {userAchievements
+        .filter((connect) => 
+          //проверяем, есть ли что-то в searchQuery: 
+          searchQuery ?     //если есть, фильтруем по запросу: 
+          connect.data.achievement.data.title.toLowerCase().includes(searchQuery.toLowerCase()) :             true       //если нет, показываем все ачивки (метод includes() вернет true для всех элементов, т.к. пустая строка содержится в любой строке) 
+          ).map((connect, index) => (
+            <div
+            key={index}
+            className={styles.achievementCard}
+            style={{
+              backgroundImage: `url(${connect.data.achievement.data.achiev_style})`,
+            }}
+          >
+              <button className={styles.achieveButton}>
+                <img className={styles.achieveImg} src={connect.data.achievement.data.image} alt={connect.data.achievement.data.title} />
                 <h3 className={styles.achieveTitle}>{connect.data.achievement.data.title}</h3>
                 </button>
                 <button className={styles.removeButton} onClick={() => removeAchieve(connect.id)}>
