@@ -1,5 +1,6 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import styles from "./ModalAchieveLibrary.module.scss";
+import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
 
 //import { IAchieve } from "../../../../mocks/AchieveLibrary";
 import { IAchieve } from "../../../../types/IAchieve";
@@ -14,12 +15,29 @@ interface ModalAchievementsProps {
 }
 
 export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchievements, closeModal, onAchieveAdd }) => {
+  const [searchQuery, setSearchQuery] = useState("");
 
+
+  useEffect(() => {
+//закрытие страницы по кнопке Esc:
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [closeModal]);
+
+//вызов функции добавления ачивки юзеру:
   const handleAchieveAdd = (achieveId: string) => {
     //console.log("Модалка: Добавление пользователю ачивки с achieveId:", achieveId); 
     onAchieveAdd(achieveId); //вызываем функцию родителя при добавлении ачивки
-              
-     closeModal(); // Закрываем модальное окно
+    closeModal(); // Закрываем модальное окно
   };
 
 
@@ -29,9 +47,16 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchie
         <button className={styles.closeButton} onClick={closeModal}>
           &times;
         </button>
-        <h2>Библиотека достижений</h2>
+        <h1>Библиотека достижений</h1>
+        <div className={styles.searchInput}>
+          <SearchAchieveInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        </div>
         <div className={styles.achievementsList}>
-          {allAchievements.map(achieve => (
+        {allAchievements
+            .filter((achieve) =>
+              searchQuery ? achieve.data.title.toLowerCase().includes(searchQuery.toLowerCase()) : true
+            )
+          .map(achieve => (
             <div
             key={achieve.id}
             className={styles.achieveCard}

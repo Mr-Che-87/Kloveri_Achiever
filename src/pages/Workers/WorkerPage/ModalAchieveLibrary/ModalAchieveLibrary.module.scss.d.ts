@@ -2,6 +2,7 @@ declare const classNames: {
   readonly modalContainer: "modalContainer";
   readonly modalContent: "modalContent";
   readonly closeButton: "closeButton";
+  readonly searchInput: "searchInput";
   readonly achievementsList: "achievementsList";
   readonly achieveCard: "achieveCard";
   readonly achieveButton: "achieveButton";

@@ -45,7 +45,6 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({ userId }
 
 
 //GET-Получение списка достижений пользователя по ID:
-//проблема в отображении дублирующихся ачивок!!(отображает, но криво удаляет + ошибка)
 useEffect(() => {
   if (userId) {
     console.log("useEffect: загрузка ачивок пользователя с userId:", userId);
@@ -55,17 +54,14 @@ useEffect(() => {
       const userAchievements: IConnection[] = response.data.map((connection: IConnection) => ({
         id: connection.id,
         data: connection.data
-        //connection.data.achievement); // извлекаем только награды из соединений
-      }))
-      
-        setUserAchievements(userAchievements);
+            }))
+      setUserAchievements(userAchievements);
     })
     .catch((error) => {
       console.error("Ошибка при загрузке ачивок пользователя:", error);
     });
   }
 }, [userId]);
-
 
 
   const openModal = () => {
@@ -75,7 +71,6 @@ useEffect(() => {
   const closeModal = () => {
     setShowModal(false);
   };
-
 
 
 // Функция добавления ачивки: 
@@ -100,7 +95,7 @@ const onAchieveAdd = (achieveId: string) => {
   
 
 // Функция удаления ачивки: 
-  // DELETE-Удаление связи между пользователем и достижением по ID     //НЕ РАБОТАЕТ после перезагрузки!!
+  // DELETE-Удаление связи между пользователем и достижением по ID     
   const removeAchieve = (userAchievementId: string) => {
     // Отправляем запрос на удаление ачивки у пользователя
     console.log("Удаляем ачивку с id:", userAchievementId);
@@ -114,21 +109,8 @@ const onAchieveAdd = (achieveId: string) => {
         console.error("Ошибка при удалении ачивки пользователя:", error);
       });
   };
- 
- /* 
- //СТАРАЯ ФУНКЦИЯ: 
-  const removeAchieve = (id: string) => {
-    const updatedAchieves = userAchievements.filter((item) => item.id !== id);
-    setUserAchievements(updatedAchieves);
-  };
- */
- 
-  
-
   
   
-
-//console.log("Ключи элементов списка:", userAchievements.map(achieve => achieve.id));  //какая-то муть с уникальными ключами id-соединения - ДУБЛЯЖ АЧИВОК
 
   return (
     <div className={styles.workerAchievements}>
