@@ -23,7 +23,9 @@ export default function WorkersModalAddUser({
         <div className={styles.title}>
           <p>Добавить сотрудника</p>
         </div>
-            <WorkersModalAddUserContent/>
+            <WorkersModalAddUserContent
+            
+            />
      
       </div>
     </div>

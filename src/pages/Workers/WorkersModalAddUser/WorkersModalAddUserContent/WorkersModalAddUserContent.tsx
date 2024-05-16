@@ -153,6 +153,23 @@ export default function WorkersModalAddUserContent({
         </div>
 
         <div className={styles.workerStartdate}>
+          <h2>Дата Рождения</h2>
+          <DatePicker
+            selected={parseDateForPicker(formData?.other_info?.start_work)}
+            onChange={(date) => setFormData({
+                ...formData,
+                other_info: {
+                 ...formData?.other_info,
+                 start_work: date?.toISOString().split("T")[0] || "",
+                },
+            })}
+            dateFormat="yyyy-MM-dd"
+            disabled={!isEditing}
+            onKeyDown={handleKeyDown}
+          />
+          <div className={styles.divider}></div>
+        </div>
+        <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <DatePicker
             selected={parseDateForPicker(formData?.other_info?.start_work)}
