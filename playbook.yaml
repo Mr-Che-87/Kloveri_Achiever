@@ -1,0 +1,145 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name:       Old docker container's ID
+      shell:     'docker inspect --format="{{"{{"}}.ID{{"}}"}}" {{ container_name }}'
+      register:   old_image_id
+      ignore_errors: yes
+    
+    - name:       Login into private registry and force re-authorization
+      community.docker.docker_login:
+        registry_url: https://docker.infra.cloveri.com
+        username: '{{ cli_user_name }}'
+        password: '{{ cli_secret }}'
+        reauthorize: true
+
+    - name:       Stopped docker compose
+      shell:     'docker compose -p {{ project_name }} down'
+      ignore_errors: yes
+    
+    - name:       Show results
+      ansible.builtin.debug:
+        var:      output
+
+    - name:       Transfer config files
+      copy:
+        src:     '{{ item }}'
+        dest:    '/usr/{{ project_name }}/{{ item }}'
+        owner: '{{ owner_user }}'
+        group: '{{ owner_user }}'
+      loop:     
+                - 'compose.yaml'
+                - 'package.json'
+
+    - name:       New tag image
+      shell:     'grep version /usr/{{ project_name }}/package.json | grep -Po [0-9.]*'
+      register:   image_tag
+
+    - name:        Update tag image
+      ansible.builtin.replace:
+        path:    "/usr/{{ project_name }}/compose.yaml"
+        regexp:  'IMAGE_TAG'
+        replace: 't{{ image_tag.stdout }}'
+
+    - name:       Deleted old image
+      community.docker.docker_image:
+        name: '{{ image_name }}'
+        state:    absent
+      ignore_errors: yes
+
+    - name:       Pull a new image
+      community.docker.docker_image:
+        name: '{{ image_name }}:t{{ image_tag.stdout }}'
+        force_source: yes
+        source:   pull
+    
+    - name:       Start docker compose
+      shell:     'docker compose up -d'
+      args:
+        chdir:   /usr/{{ project_name }}/
+      register:   output
+
+    - name:       Show results
+      ansible.builtin.debug:
+        var:      output.stderr_lines
+
+    - name:       Show results
+      ansible.builtin.debug:
+        var:      output.stdout_lines
+
+    - name:       New docker container's ID
+      shell:     'docker inspect --format="{{"{{"}}.ID{{"}}"}}" {{ container_name }}'
+      register:   new_image_id
+      ignore_errors: yes
+
+    - name:       Replace ID container in monitoring
+      ansible.builtin.replace:
+        path:    "/home/devops/monitoring/promtail/promtail-local-config.yaml"
+        regexp:  '{{ old_image_id.stdout }}'
+        replace: '{{ new_image_id.stdout }}'
+      notify:     Restart Promtail service
+      ignore_errors: yes
+    
+    - name:       Start Promtail as systemd service
+      service:
+        name:     promtail
+        state:    started
+        enabled:  yes
+      # when: (service_state is not skipped) and (service_state.rc == 0)
+
+    - name:       Pause 30 seconds
+      pause:
+        seconds:  30
+
+    - name:       Get infos on container
+      community.docker.docker_container_info:
+        name:    '{{ container_name }}'
+      register:   result
+
+    - name:       Print information about container
+      ansible.builtin.debug:
+        var:      result.container
+
+    - name:       Check container exist?
+      ansible.builtin.debug:
+        msg:     "The container {{ 'exists' if result.exists else 'does not exist' }}"
+    
+    - name:       Send message via Telegram API
+      uri:
+        url:     "https://api.telegram.org/{{ POS_TOK }}:{{ PRE_TOK }}/sendMessage"
+        method:   POST
+        headers:
+          Content-Type: "multipart/form-data"
+        body_format:     form-multipart
+        body:
+          message_thread_id: "1491"
+          chat_id:          "-1002069387923_1491"
+          text: |
+            Project: `{{ CI_PROJECT_TITLE }}`
+            Commit in the `{{ CI_COMMIT_BRANCH }}` branch.
+            Comment in the commit: `{{ CI_COMMIT_MESSAGE }}`
+            Author of commit: `{{ GITLAB_USER_LOGIN }}`
+            Status: `{{ 'success' if result.exists else 'failed' }}`
+            {{ CI_JOB_URL }}
+    
+    - name:       Register logs project
+      shell:     'docker compose -p {{ project_name }} logs'
+      register:   output_logs
+
+    - name:       Print logs of project
+      ansible.builtin.debug:
+        var:      output_logs.stdout_lines
+
+    - name:       Print logs of project
+      ansible.builtin.debug:
+        var:      output_logs.stderr_lines
+
+
+  handlers:
+    - name:       Restart Promtail service
+      service:
+        name:     promtail
+        state:    restarted
+      # when: (service_state is not skipped) and (service_state.rc == 0)

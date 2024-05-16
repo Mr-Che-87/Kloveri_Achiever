@@ -10,21 +10,19 @@ import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 
 import { IUser } from "../../../types/IUser";
-import {
-  fetchGetUserData,  
-  //как будет реестр:  POST-запрос user  -  2) изменяет данные существующего юзера 
-} from "../../../api/apiService";  //api
+import { fetchGetUserData } from "../../../api/apiService";  //api
 
 
 export default function WorkerPage() {
-  const { profile_id } = useParams(); // Получаем profileId из параметров маршрута
+  const { profile_id } = useParams();    //получаем profileId из параметров маршрута
   const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
   const [isEditing, setIsEditing] = useState(false);  //редактирование полей
-
+  
   // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
-    //const userRoleId = "1";    //0 - admin, 1 - worker 
-    if (profile_id) { // Проверяем, что profile_id определен
+    //const userRoleId = "1";    //0 - admin, 1 - worker - старое
+    
+    if (profile_id) { //проверяем, что profile_id определен
       //console.log("useEffect: Загружен список данных юзера");
       fetchGetUserData(profile_id)
         .then((response) => {
@@ -35,6 +33,8 @@ export default function WorkerPage() {
         });
     }
   }, [profile_id]);
+
+
 
   //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
@@ -47,8 +47,7 @@ export default function WorkerPage() {
             <WorkerInitial
               user={userData}  //передаем данные пользователя в WorkerInitial
               showEmail={true}
-              photoType="photo_main"
-              
+              avatarSize="large"  //пропс файла и css-размеров картинки
             />
             
           )}
@@ -79,13 +78,11 @@ export default function WorkerPage() {
         </div>
       </section>
 
-{/*ВЕРНУТЬ
       <div className={styles.workerAchievements}>
       {userData && (
         <WorkerAchievements     userId={userData.profile_id} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
       )}
       </div>
-*/}
     </div>
   );
 }

@@ -11,6 +11,7 @@ import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 import AuthorizationLinksButton from "./AuthorizationLinksButton/AuthorizationLinksButton";
 import WorkersButtonAddTeam from "./WorkersButtonAddTeam/WorkersButtonAddTeam";
 import WorkersModal from "./WorkersModal/WorkersModal";
+import WorkersModalAddUser from "./WorkersModalAddUser/WorkersModalAddUser";
 
 
 
@@ -79,7 +80,7 @@ export default function Workers() {
           />
             
          
-            
+            <WorkersModalAddUser/>
          
             
         </div>

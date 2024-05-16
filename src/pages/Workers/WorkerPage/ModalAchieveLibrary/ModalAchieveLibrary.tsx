@@ -3,11 +3,12 @@ import styles from "./ModalAchieveLibrary.module.scss";
 
 //import { IAchieve } from "../../../../mocks/AchieveLibrary";
 import { IAchieve } from "../../../../types/IAchieve";
+import { IConnection } from "../../../../types/IConnection";
 
 
 interface ModalAchievementsProps {
   allAchievements: IAchieve[];
-  userAchievements: IAchieve[];
+  userAchievements: IConnection[];
   closeModal: () => void;
   onAchieveAdd: (achieveId: string) => void; //функция для передачи ачивки родителю
 }
@@ -15,7 +16,7 @@ interface ModalAchievementsProps {
 export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchievements, closeModal, onAchieveAdd }) => {
 
   const handleAchieveAdd = (achieveId: string) => {
-    console.log("Модалка: Добавление пользователю ачивки с achieveId:", achieveId); 
+    //console.log("Модалка: Добавление пользователю ачивки с achieveId:", achieveId); 
     onAchieveAdd(achieveId); //вызываем функцию родителя при добавлении ачивки
               
      closeModal(); // Закрываем модальное окно

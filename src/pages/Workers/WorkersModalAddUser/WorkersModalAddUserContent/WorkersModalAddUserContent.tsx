@@ -1,42 +1,34 @@
-import { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import styles from "./WorkerData.module.scss";
-import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
-
+import React, { useEffect, useState } from "react";
 import { IUser } from "../../../../types/IUser";
-import { fetchUpdateUser } from "../../../../api/apiService";  //api
-//import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
+import styles from "./WorkersModalAddUserContent.module.scss";
+import defaultAvatar from "../../../../assets/defaultAvatar.png";
+import { fetchUpdateUser } from "../../../../api/apiService";
+import { DatePicker } from "@mui/lab";
 
-
-interface WorkerDataProps {
+interface WorkersModalAddUserContentProps {
   isEditing: boolean;
   toggleEdit: () => void;
   userData: IUser | null;
 }
 
-export default function WorkerData({
+export default function WorkersModalAddUserContent({
   isEditing,
   toggleEdit,
   userData,
-}: WorkerDataProps) {
-  
-  const [formData, setFormData] = useState<IUser | null>(null);    //внутренний state данных юзера
+}: WorkersModalAddUserContentProps) {
+  const [formData, setFormData] = useState<IUser | null>(null); //внутренний state данных юзера
 
   useEffect(() => {
     if (userData) {
       setFormData({ ...userData });
-     
     }
-   
   }, [userData]);
 
-  
   //РУЧКИ ИЗМЕНЕНИЯ ИНПУТОВ:
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("Вызов функции handleChange");
     const { name, value } = event.target;
-       console.log("Изменённые данные до отправки на сервер:", event.target.value);
+    console.log("Изменённые данные до отправки на сервер:", event.target.value);
     setFormData((currentFormData) => ({
       ...(currentFormData ?? {}),
       [name]: value,
@@ -45,7 +37,7 @@ export default function WorkerData({
 
   const handleFullNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fullName = event.target.value;
-    const [firstName, middleName, lastName] = fullName.split(' ');
+    const [firstName, middleName, lastName] = fullName.split(" ");
     setFormData((currentFormData) => ({
       ...currentFormData,
       first_name: firstName,
@@ -61,13 +53,12 @@ export default function WorkerData({
     }));
   };
 
-
   //PATCH:
   const handleSave = () => {
     console.log("Вызов функции handleSave");
     console.log("Сохранённые данные до отправки на сервер:", formData);
     toggleEdit();
-    if (formData !== null && formData.profile_id) { 
+    if (formData !== null && formData.profile_id) {
       fetchUpdateUser(formData.profile_id, formData)
         .then((response) => {
           console.log("Данные юзера успешно обновлены:", response.data);
@@ -77,6 +68,7 @@ export default function WorkerData({
         });
     }
   };
+
   //сохранение через Enter:
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     console.log("Нажата клавиша:", event.key);
@@ -87,8 +79,7 @@ export default function WorkerData({
     }
   };
 
-
-//Дата-пикер:
+  //Дата-пикер:
   const parseDateForPicker = (dateStr?: string): Date | null => {
     if (!dateStr) {
       return null;
@@ -96,76 +87,67 @@ export default function WorkerData({
     const date = new Date(dateStr);
     return date instanceof Date && !isNaN(date.getTime()) ? date : null;
   };
-  
-
-
-  if (!formData) {
-    return <div>Loading...</div>;
-  }
 
   return (
-    <div className={styles.workerData}>
-      <div className={styles.workerDataTitle}>
-        <h1>Информация</h1>
-        <ChangeWorkerInformationButton
-          isEditing={isEditing}
-          toggleEdit={toggleEdit} 
-          handleSave={handleSave}   
-        />
-      </div>
-      <div className={styles.workerInformation}>
+    <div className={styles.WorkersModalAddUserContent}>
+      <div className={styles.header}>
+        <div className={styles.avatarUser}>
+          <img src={defaultAvatar} alt="" />
+        </div>
         <div className={styles.workerLogin}>
           <h2>Логин</h2>
           <input
             name="email"
             type="email"
             placeholder="Введите Логин"
-            value={formData.email || ""}
+            value={""}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            disabled={!isEditing}
             required
           />
           <div className={styles.divider}></div>
         </div>
-
-        <div className={styles.workerFullname}>
+      </div>
+      <div className={styles.checkbox__link}>
+        <form action="checkbox__link">
+          <input type="checkbox" name="checkbox__link" id="checkbox__link" />
+          <label htmlFor="checkbox">
+            <p>Отправить ссылку для авторизации</p>
+          </label>
+        </form>
+        <div className={styles.workerName}>
           <h2>Имя</h2>
           <input
-            name="full-name"
+            name="firstName"
             type="text"
-            placeholder="Введите ФИО"
-            value={`${formData.first_name || ""} ${formData.middle_name || ""} ${formData.last_name || ""}`}
+            placeholder="Введите Имя"
+            value={""}
             onChange={handleFullNameChange}
             onKeyDown={handleKeyDown}
-            disabled={!isEditing}
           />
           <div className={styles.divider}></div>
         </div>
-
-        <div className={styles.workerBirthday}>
-          <h2>Дата рождения</h2>
-          <DatePicker
-            selected={parseDateForPicker(formData.birth_date)}
-            onChange={(date) => handleDateChange(date, "birth_date")}
-            value={formData.birth_date || ""}
-            dateFormat="yyyy-MM-dd"
-            disabled={!isEditing}
-            onKeyDown={handleKeyDown} 
-          />
-          <div className={styles.divider}></div>
-        </div>
-
-        <div className={styles.workerNumber}>
-          <h2>Телефон</h2>
+        <div className={styles.workerName}>
+          <h2>Фамилия</h2>
           <input
-            name="phone"
+            name="secondName"
             type="text"
-            placeholder="Введите телефон"
-            value={formData.phone || ""}  
-            onChange={handleChange}
+            placeholder="Введите Фамилию"
+            value={""}
+            onChange={handleFullNameChange}
             onKeyDown={handleKeyDown}
-            disabled={!isEditing}
+          />
+          <div className={styles.divider}></div>
+        </div>
+        <div className={styles.workerName}>
+          <h2>Отчество</h2>
+          <input
+            name="patronymic"
+            type="text"
+            placeholder="Введите Отчество"
+            value={""}
+            onChange={handleFullNameChange}
+            onKeyDown={handleKeyDown}
           />
           <div className={styles.divider}></div>
         </div>
@@ -184,30 +166,6 @@ export default function WorkerData({
             dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
             onKeyDown={handleKeyDown}
-          />
-          <div className={styles.divider}></div>
-        </div>
-
-        <div className={styles.workerPosition}>
-          <h2>Роль</h2>
-          <input
-            name="proffesion"
-            type="text"
-            placeholder="Введите Роль"
-            value={formData?.other_info?.proffesion || ""}
-            onChange={e => {
-              const value = e.target.value;
-              setFormData((prevFormData) => ({
-                ...prevFormData,
-                other_info: {
-                  ...prevFormData?.other_info,
-                  proffesion: value,
-                },
-              }));
-            }}
-            onKeyDown={handleKeyDown}
-            disabled={!isEditing}
-            required
           />
           <div className={styles.divider}></div>
         </div>

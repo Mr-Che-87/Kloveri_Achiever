@@ -70,7 +70,7 @@ const WorkersModal = ({ isOpen, onClose }) => {
               </form>
             </div>
             <div className={styles.btnGroups}>
-              <button className={styles.btn__close}>
+              <button className={styles.btn__close} onClick={onClose}>
                 <img src={iconClose} alt="" />
                 Отменить
               </button>

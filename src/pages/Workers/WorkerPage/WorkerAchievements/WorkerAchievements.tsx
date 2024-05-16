@@ -9,14 +9,13 @@ import { ModalAchieveLibrary } from "../ModalAchieveLibrary/ModalAchieveLibrary"
 //import { IUser } from "../../../../types/IUser";
 import { IAchieve } from "../../../../types/IAchieve";
 import { IConnection } from "../../../../types/IConnection";
-import {
-  fetchGetAchieveLibrary,
-  fetchPostUserAchieve,
-  fetchGetIDUserAchieve,
-  fetchDeleteUserAchieve,
-} from "../../../../api/apiService";
-import axios from "axios";
-import { achievementCard } from "../../../AchievementsConstructor/AchievementsConstructor.module.scss";
+import { fetchGetAchieveLibrary, 
+         //fetchGetUserAchievements,
+         fetchGetIDUserAchieve,
+         fetchPostUserAchieve,
+         fetchDeleteUserAchievement
+        } from "../../../../api/apiService";
+
 
 interface WorkerAchievementsProps {
   userId: string | undefined;
@@ -26,12 +25,12 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
   userId,
 }) => {
   //const [achieveList, setAchieveList] = useState<IAchieve[]>([]);  //старый-единый стейт(фильтрация по added)
-  const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]); //стейт на ачивки библиотеки
-  const [userAchievements, setUserAchievements] = useState<IAchieve[]>([]); //стейт на ачивки юзера
+  const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]);  //стейт на ачивки библиотеки
+  const [userAchievements, setUserAchievements] = useState<IConnection[]>([]);  //стейт на ачивки юзера
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  //GET-запрос achiev-lib(возвращает всю библиотеку наград):
+// GET-Получение всей библиотеки наград:
   useEffect(() => {
     //console.log("useEffect: загрузка всей библиотеки наград");
     fetchGetAchieveLibrary()
@@ -44,51 +43,31 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
       });
   }, []);
 
-  //??????GET-запрос  user-achiev (на список всех имеющихся СОЕДИНЕНИЙ награда+юзер):
-  //работает через жопу!!!  (возможно проблема в отображении дублирующихся ачивок)
-  useEffect(() => {
-    if (userId) {
-      console.log("useEffect: загрузка ачивок пользователя с userId:", userId);
-      fetchGetIDUserAchieve(userId)
-        .then((response) => {
-          console.log("useEffect: Response ачивок пользователя:", response);
-          
-          const userConnections: IConnection[] = response.data; //получаем список соединений пользователь-награда
-          const map = {};
-          userConnections.forEach(obj=>{
-            map[obj.data.profile_id] = obj;
-          })
-          const userAchieveIds = userConnections.map(
-            (connection) => connection.data.achiev_uuid
-          );
-          const filterUserAchiementsId = allAchievements.map((item) => {
-            return item.id;
-          });
-          console.log("filterUserAchiementsId", filterUserAchiementsId);
-          console.log("userAchieveIds", userAchieveIds);
-          console.log("userConnections",userConnections)
-          const reversFilterId = filterUserAchiementsId.map(uuid => map[uuid] ).filter(Boolean)
-        
-          console.log("reversFilterId", reversFilterId);
 
-          //извлекаем идентификаторы ачивок из соединений
-          const filteredAchievements = allAchievements.filter((achievement) =>
-            userAchieveIds.includes(achievement.id)
-          ); //фильтруем все ачивки из библиотеки по идентификаторам из соединений
-              const filtersAchievem = filteredAchievements.map((item,index) => {
-            
-            return { ...item, achieveId: reversFilterId[index].id };
-          });
-          setUserAchievements(filtersAchievem);
+
+//GET-Получение списка достижений пользователя по ID:
+//проблема в отображении дублирующихся ачивок!!(отображает, но криво удаляет + ошибка)
+useEffect(() => {
+  if (userId) {
+    console.log("useEffect: загрузка ачивок пользователя с userId:", userId);
+    fetchGetIDUserAchieve(userId)
+    .then((response) => {
+      console.log("useEffect: Response ачивок пользователя:", response);
+      const userAchievements: IConnection[] = response.data.map((connection: IConnection) => ({
+        id: connection.id,
+        data: connection.data
+        //connection.data.achievement); // извлекаем только награды из соединений
+      }))
       
-          console.log("filteredAchievements:", filteredAchievements);
-          console.log("userConnections", userConnections);
-        })
-        .catch((error) => {
-          console.error("Ошибка при загрузке ачивок пользователя:", error);
-        });
-    }
-  }, [userId, allAchievements]);
+        setUserAchievements(userAchievements);
+    })
+    .catch((error) => {
+      console.error("Ошибка при загрузке ачивок пользователя:", error);
+    });
+  }
+}, [userId]);
+
+
 
   const openModal = () => {
     setShowModal(true);
@@ -98,85 +77,59 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
     setShowModal(false);
   };
 
-  // Функция добавления ачивки:
-  const onAchieveAdd = (achieveId: string) => {
-    console.log(
-      "onAchieveAdd: Добавление соединения с ачивкой с achieveId:",
-      achieveId
-    );
-    // GET-запрос user-achiev (возвращает СОЕДИНЕНИЕ между юзером и наградой
-    if (userId) {
-      fetchPostUserAchieve(userId, achieveId)
-        .then(() => {
-          return fetchGetIDUserAchieve(userId);
-        })
-        .then((response) => {
-          console.log(
-            "onAchieveAdd: Response соединения пользователя с ачивкой после добавления:",
-            response.data
-          );
-          const userConnections: IConnection[] = response.data;
-          const userAchieveIds = userConnections.map(
-            (connection) => connection.data.achiev_uuid
-          );
-          const filteredAchievements = allAchievements.filter((achievement) =>
-            userAchieveIds.includes(achievement.id)
-          );
-          setUserAchievements(filteredAchievements);
-        })
-        .catch((error) => {
-          console.error("Ошибка при добавлении ачивки пользователю:", error);
-        });
-    } else {
-      console.error("Ошибка: userId не определен.");
-    }
+
+
+// Функция добавления ачивки: 
+const onAchieveAdd = (achieveId: string) => { 
+  //console.log("onAchieveAdd: Добавление соединения с ачивкой с achieveId:", achieveId);  
+  if (userId) {
+//POST-Создание связи между пользователем и достижением: 
+     fetchPostUserAchieve(userId , achieveId)
+     .then((response) => {
+      setUserAchievements((prevUserAchievements) => {
+        const newConnection: IConnection = response.data;
+        return [...prevUserAchievements, newConnection];
+      });
+    })
+    .catch((error) => {
+      console.error("Ошибка при добавлении ачивки пользователю:", error);
+    });
+  } else {
+    console.error("Ошибка: userId не определен.");
+  }
+};
+  
+
+// Функция удаления ачивки: 
+  // DELETE-Удаление связи между пользователем и достижением по ID     //НЕ РАБОТАЕТ после перезагрузки!!
+  const removeAchieve = (userAchievementId: string) => {
+    // Отправляем запрос на удаление ачивки у пользователя
+    console.log("Удаляем ачивку с id:", userAchievementId);
+    fetchDeleteUserAchievement(userAchievementId)
+      .then(() => {
+        console.log("Ачивка успешно удалена на сервере.");
+        // Обновляем список ачивок пользователя на клиенте
+        setUserAchievements(prevAchievements => prevAchievements.filter((connect) => connect.id !== userAchievementId));
+    })
+      .catch((error) => {
+        console.error("Ошибка при удалении ачивки пользователя:", error);
+      });
   };
-
-  const removeAchieve = async (Uuid: string) => {
-    try {
-      await fetchDeleteUserAchieve(Uuid);
-      setUserAchievements(
-        userAchievements.filter((achieve) => achieve.id !== Uuid)
-      );
-    } catch (error) {
-      console.error("Ошибка при удалении ачивки пользователя:", error);
-    }
+ 
+ /* 
+ //СТАРАЯ ФУНКЦИЯ: 
+  const removeAchieve = (id: string) => {
+    const updatedAchieves = userAchievements.filter((item) => item.id !== id);
+    setUserAchievements(updatedAchieves);
   };
+ */
+ 
+  
 
-  // Функция удаления ачивки:  - ПОКА СТАРОЕ
-  // const removeAchieve = (id: string) => {
-  //   const updatedAchieves = userAchievements.filter((item) => item.id !== id);
-  //   setUserAchievements(updatedAchieves);
-  // };
+  
+  
 
-  //DELETE-запрос на удаление ачивки user-achiev/deactivate
-  //НЕ РАБОТАЕТ!!
-  // const removeAchieve = (connectUuid: string) => {
-  //   console.log("removeAchieve: Удаление соединения с connectUuid", connectUuid);
-
-  //   if (userId) {
-  //     fetchDeleteUserAchieve(connectUuid)
-  //       .then(() => {
-  //         // После успешного удаления обновляем список ачивок пользователя с сервера
-  //         return fetchGetIDUserAchieve(userId);
-  //       })
-  //       .then((response) => {
-  //         console.log("removeAchieve: Response ачивок пользователя после удаления:", response.data);
-  //         const updatedUserAchievements = response.data.map((connection: IConnection) => {
-  //           return allAchievements.find((achievement) => achievement.id === connection.data.achiev_uuid);
-  //         }).filter((achievement: IAchieve | undefined) => !!achievement);
-
-  //         setUserAchievements(updatedUserAchievements);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Ошибка при удалении ачивки пользователя:", error);
-  //       });
-  //   } else {
-  //     console.error("Ошибка: userId не определен.");
-  //   }
-  // };
-
-  //console.log("Ключи элементов списка:", userAchievements.map(achieve => achieve.id));  //какая-то муть с уникальными ключами id-соединения
+//console.log("Ключи элементов списка:", userAchievements.map(achieve => achieve.id));  //какая-то муть с уникальными ключами id-соединения - ДУБЛЯЖ АЧИВОК
 
   return (
     <div className={styles.workerAchievements}>
@@ -199,18 +152,13 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
       </div>
 
       <div className={styles.workerAchievementsList}>
-      {userAchievements
-        .filter((achieve) => 
-          //проверяем, есть ли что-то в searchQuery: 
-          searchQuery ?     //если есть, фильтруем по запросу: 
-            achieve.data.title.toLowerCase().includes(searchQuery.toLowerCase()) :             true       //если нет, показываем все ачивки (метод includes() вернет true для всех элементов, т.к. пустая строка содержится в любой строке) 
-          ).map((achieve: IAchieve) => (
-            <div key={achieve.id} className={styles.achieveItem}>
+      {userAchievements.map((connect, index) => (
+            <div key={index} className={styles.achieveItem}>
               <button>
-                <img src={achieve.data.image} alt={achieve.data.title} />
-                <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
+                <img src={connect.data.achievement.data.image} alt={connect.data.achievement.data.title} />
+                <h3 className={styles.achieveTitle}>{connect.data.achievement.data.title}</h3>
                 </button>
-                <button className={styles.removeButton} onClick={() => removeAchieve(achieve.achieveId)}>
+                <button className={styles.removeButton} onClick={() => removeAchieve(connect.id)}>
                   &times;
                 </button>
             </div>
@@ -232,3 +180,5 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
 function err(reason: any): PromiseLike<never> {
   throw new Error("Function not implemented.");
 }
+
+
