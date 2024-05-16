@@ -1,0 +1,131 @@
+.modalOverlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 150px;
+  left: center;
+  width: 514px;
+  height: 557px;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modalContent {
+  background: #2c2c2c;
+
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  max-height: 90%;
+  overflow: hidden;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+}
+
+h2 {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.backgroundsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  max-height: 60vh; /* Ограничиваем высоту сетки */
+  overflow-y: auto; /* Добавляем вертикальный скролл только для сетки */
+}
+
+.backgroundCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  position: relative;
+  width: 136px;
+  height: 180px;
+  border-radius: 20px;
+  &.selected {
+    border: 3px solid #4caf50;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .cardContent {
+    padding: 10px;
+    text-align: center;
+    color: white;
+    bottom: 10px;
+    h5 {
+      margin: 0;
+    }
+
+    p {
+      margin: 5px 0 0;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+
+  position: sticky; /* Закрепляем кнопки внизу */
+  bottom: 0;
+  background: #2c2c2c; /* Фон для закрепленных кнопок */
+  padding: 10px 0; /* Отступы для закрепленных кнопок */
+
+  .cancelButton {
+    background: #ff4d4d;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #ff1a1a;
+    }
+  }
+
+  .confirmButton {
+    background: #4caf50;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #45a049;
+    }
+  }
+}

@@ -3,7 +3,9 @@ declare const classNames: {
   readonly modalContent: "modalContent";
   readonly closeButton: "closeButton";
   readonly achievementsList: "achievementsList";
-  readonly achieveItem: "achieveItem";
+  readonly achieveCard: "achieveCard";
+  readonly achieveButton: "achieveButton";
   readonly achieveTitle: "achieveTitle";
+  readonly achieveImg: "achieveImg";
 };
 export = classNames;

@@ -1,27 +1,22 @@
 import React from "react";
 import styles from "./ModalAchieveLibrary.module.scss";
-
-//import { IAchieve } from "../../../../mocks/AchieveLibrary";
 import { IAchieve } from "../../../../types/IAchieve";
-import { IConnection } from "../../../../types/IConnection";
-
 
 interface ModalAchievementsProps {
   allAchievements: IAchieve[];
-  userAchievements: IConnection[];
   closeModal: () => void;
-  onAchieveAdd: (achieveId: string) => void; //функция для передачи ачивки родителю
+  onAchieveAdd: (achieveId: string) => void; // функция для передачи ачивки родителю
 }
 
-export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchievements, closeModal, onAchieveAdd }) => {
-
+export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({
+  allAchievements,
+  closeModal,
+  onAchieveAdd,
+}) => {
   const handleAchieveAdd = (achieveId: string) => {
-    //console.log("Модалка: Добавление пользователю ачивки с achieveId:", achieveId); 
-    onAchieveAdd(achieveId); //вызываем функцию родителя при добавлении ачивки
-              
-     closeModal(); // Закрываем модальное окно
+    onAchieveAdd(achieveId); // вызываем функцию родителя при добавлении ачивки
+    closeModal(); // Закрываем модальное окно
   };
-
 
   return (
     <div className={styles.modalContainer}>
@@ -31,11 +26,24 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchie
         </button>
         <h2>Библиотека достижений</h2>
         <div className={styles.achievementsList}>
-          {allAchievements.map(achieve => (
-            <div key={achieve.id} className={styles.achieveItem}>
-              <button onClick={() => handleAchieveAdd(achieve.id)}> 
-              <img src={achieve.data.image} alt={achieve.data.title} />
-              <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
+          {allAchievements.map((achieve) => (
+            <div
+              key={achieve.id}
+              className={styles.achieveCard}
+              style={{
+                backgroundImage: `url(${achieve.data.achiev_style})`,
+              }}
+            >
+              <button
+                className={styles.achieveButton}
+                onClick={() => handleAchieveAdd(achieve.id)}
+              >
+                <img
+                  className={styles.achieveImg}
+                  src={achieve.data.image}
+                  alt={achieve.data.title}
+                />
+                <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
               </button>
             </div>
           ))}
@@ -44,6 +52,3 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchie
     </div>
   );
 };
-
-
-
