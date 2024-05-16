@@ -3,11 +3,12 @@ import styles from "./ModalAchieveLibrary.module.scss";
 
 //import { IAchieve } from "../../../../mocks/AchieveLibrary";
 import { IAchieve } from "../../../../types/IAchieve";
+import { IConnection } from "../../../../types/IConnection";
 
 
 interface ModalAchievementsProps {
   allAchievements: IAchieve[];
-  userAchievements: IAchieve[];
+  userAchievements: IConnection[];
   closeModal: () => void;
   onAchieveAdd: (achieveId: string) => void; //функция для передачи ачивки родителю
 }
@@ -31,9 +32,15 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchie
         <h2>Библиотека достижений</h2>
         <div className={styles.achievementsList}>
           {allAchievements.map(achieve => (
-            <div key={achieve.id} className={styles.achieveItem}>
-              <button onClick={() => handleAchieveAdd(achieve.id)}> 
-              <img src={achieve.data.image} alt={achieve.data.title} />
+            <div
+            key={achieve.id}
+            className={styles.achieveCard}
+            style={{
+              backgroundImage: `url(${achieve.data.achiev_style})`,
+            }}
+          >
+              <button className={styles.achieveButton} onClick={() => handleAchieveAdd(achieve.id)}> 
+              <img className={styles.achieveImg} src={achieve.data.image} alt={achieve.data.title} />
               <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
               </button>
             </div>

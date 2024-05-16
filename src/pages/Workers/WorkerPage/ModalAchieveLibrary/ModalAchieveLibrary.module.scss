@@ -37,14 +37,43 @@
   gap: 20px;
 }
 
-.achieveItem {
-  display: flex;
-  flex-direction: column;
+.achieveCard {
+  border-radius: 20px;
   align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 210px;
+  height: 274px;
+  flex-direction: column;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  position: relative;
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+}
+.achieveButton {
+  width: 210px;
+  height: 274px;
 }
 
 .achieveTitle {
   margin-top: 10px;
   text-align: center;
   color: white; /* Цвет заголовка */
+}
+.achieveImg {
+  width: 140px;
+  height: 140px;
 }
