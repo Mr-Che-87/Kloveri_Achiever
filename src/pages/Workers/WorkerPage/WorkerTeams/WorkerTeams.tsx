@@ -7,13 +7,13 @@ export default function WorkerTeams() {
         <h1>Команды</h1>
         <div className={styles.workerTeamsList}>
           <div className={styles.workerTeam}>
-              <img src={iconTeam} alt="Avatar" />
-              <div>Название команды-1</div>
+            <img className={styles.workerImg} src={iconTeam} alt="Avatar" />
+            <h2 className={styles.workerName}>Название команды-1</h2>
           </div>
           <div className={styles.workerTeam}>
-              <img src={iconTeam} alt="Avatar" />
-              <div>Название команды-2</div>
-          </div>
+            <img className={styles.workerImg} src={iconTeam} alt="Avatar" />
+            <h2 className={styles.workerName}>Название команды-2</h2>
+            </div>
        </div>  
         
 

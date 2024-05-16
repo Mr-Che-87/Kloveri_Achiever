@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { IUser } from "../../types/IUser";
-import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
 import styles from "./Workers.module.scss";
-import { fetchGetAllUsers } from "../../api/apiService"; //api
 import iconHeader from "../../assets/iconsHeader.svg";
-import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
+
+import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
 import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
-import AuthorizationLinksButton from "./AuthorizationLinksButton/AuthorizationLinksButton";
-import WorkersButtonAddTeam from "./WorkersButtonAddTeam/WorkersButtonAddTeam";
+//import AuthorizationLinksButton from "./AuthorizationLinksButton/AuthorizationLinksButton";
+//import WorkersButtonAddTeam from "./WorkersButtonAddTeam/WorkersButtonAddTeam";
+import AddWorkerButton from "./AddWorkerButton/AddWorkerButton";
+//import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
 import WorkersModal from "./WorkersModal/WorkersModal";
 import WorkersModalAddUser from "./WorkersModalAddUser/WorkersModalAddUser";
+
+import { fetchGetAllUsers } from "../../api/apiService"; //api
+
 
 
 
@@ -64,7 +68,7 @@ export default function Workers() {
           <h1> Сотрудники</h1>
         </div>
         <div className={styles.workersBtn}>
-          <AddTeamButton 
+          <AddWorkerButton
           onClick={() => setIsOpenModal(true)}
            />
           <WorkersModal

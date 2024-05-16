@@ -20,14 +20,17 @@ h2 {
 .workerInformation {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 25px;
   margin-bottom: 36px;
 }
 
 .workerInformation > div {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
+
+
 
 .workerInformation input,
 .workerInformation .react-datepicker-wrapper {
@@ -62,15 +65,31 @@ h2 {
   opacity: 0.8;
 }
 
+
+.workerInformation input[type=text],  //чтобы инпут дата-пикера не выезжал за пределы контейнера.
+.workerInformation textarea {  //но так имя не влезает!
+   width: 100%;
+    box-sizing: border-box;
+  
+  //или:
+  //width: -webkit-fill-available !important;
+}
+/*
+.workerInformation .react-datepicker-wrapper {
+    width: calc(100% - 22px); 
+}
 .react-datepicker-wrapper {
   width: 100%;
+  overflow: hidden;
   .react-datepicker__input-container {
-    width: 100%;
-  }
-  input {
     width: 100% !important;
   }
 }
+.react-datepicker-wrapper input {
+  width: 100% !important;
+  box-sizing: border-box;
+}
+*/
 
 .workerInformation button {
   border: none;
