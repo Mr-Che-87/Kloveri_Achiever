@@ -3,6 +3,9 @@ import axios from "axios";
 import styles from "./ModalAddingAchieve.module.scss";
 
 import { fetchPostAchieveLibrary } from "../../api/apiService";
+import { IAchieve } from "../../types/IAchieve";
+import ModalChooseImage from "./ModalChooseImage";
+import ModalChooseBG from "./ModalChooseBG";
 
 interface ModalAddingAchieveProps {
   closeModal: () => void;
@@ -14,12 +17,14 @@ interface ModalAddingAchieveProps {
     id: string;
     data: { image: string; title: string; description: string };
   }>;
+  onAchieveAdd: (newAchieve: IAchieve) => void; // функция для передачи нового достижения родителю
 }
 
 const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
   closeModal,
   avatars,
   backgrounds,
+  onAchieveAdd,
 }) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -28,6 +33,8 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     null
   );
   const [rank, setRank] = useState<number | "">("");
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [isBGModalOpen, setIsBGModalOpen] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,9 +57,15 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     achieveData.append("achiev_style", selectedBackground);
     achieveData.append("rank", rank.toString());
 
+    // Отладочные сообщения
+    console.log("FormData entries:");
+    achieveData.forEach((value, key) => {
+      console.log(key, value);
+    });
+
     try {
       const response = await fetchPostAchieveLibrary(achieveData);
-      console.log(response.data);
+      onAchieveAdd(response.data); // Передача нового достижения родителю
       closeModal();
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -72,6 +85,12 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     setDescription(e.target.value);
   const handleRankChange = (e: ChangeEvent<HTMLInputElement>) =>
     setRank(e.target.valueAsNumber);
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setSelectedImage(e.target.files[0].name); // Хранение имени файла
+  };
+  const handleBackgroundChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setSelectedBackground(e.target.files[0].name); // Хранение имени файла
+  };
 
   return (
     <div className={styles.modalOverlay}>
@@ -114,34 +133,18 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
             />
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="image">Изображение</label>
-            <select
-              id="image"
-              onChange={(e) => setSelectedImage(e.target.value)}
-              required
-            >
-              <option value="">Выберите изображение</option>
-              {avatars.map((avatar) => (
-                <option key={avatar.id} value={avatar.data.image}>
-                  {avatar.data.title}
-                </option>
-              ))}
-            </select>
+            <label>Изображение</label>
+            <button type="button" onClick={() => setIsImageModalOpen(true)}>
+              Выбрать
+            </button>
+            <input type="file" onChange={handleImageChange} />
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="background">Фон</label>
-            <select
-              id="background"
-              onChange={(e) => setSelectedBackground(e.target.value)}
-              required
-            >
-              <option value="">Выберите фон</option>
-              {backgrounds.map((background) => (
-                <option key={background.id} value={background.data.image}>
-                  {background.data.title}
-                </option>
-              ))}
-            </select>
+            <label>Фон</label>
+            <button type="button" onClick={() => setIsBGModalOpen(true)}>
+              Выбрать фон
+            </button>
+            <input type="file" onChange={handleBackgroundChange} />
           </div>
           <div className={styles.formActions}>
             <button
@@ -157,6 +160,26 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
           </div>
         </form>
       </div>
+      {isImageModalOpen && (
+        <ModalChooseImage
+          images={avatars}
+          closeModal={() => setIsImageModalOpen(false)}
+          onSelectImage={(image) => {
+            setSelectedImage(image);
+            setIsImageModalOpen(false);
+          }}
+        />
+      )}
+      {isBGModalOpen && (
+        <ModalChooseBG
+          backgrounds={backgrounds}
+          closeModal={() => setIsBGModalOpen(false)}
+          onSelectBackground={(background) => {
+            setSelectedBackground(background);
+            setIsBGModalOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -8,16 +8,18 @@
   width: 80%; /* Ширина окна 80% от ширины экрана */
   height: 80%; /* Высота окна 80% от высоты экрана */
   overflow-y: auto; /* Включаем вертикальный скролл при необходимости */
-  background-color: black; /* Цвет фона */
+  background-color: rgba(0, 0, 0, 0.8); /* Цвет фона с прозрачностью */
   z-index: 1000;
 }
 
 .modalContent {
   padding: 20px;
+  background: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%; /* Ширина контента 100% от родительского контейнера */
   height: 100%; /* Высота контента 100% от родительского контейнера */
+  position: relative;
 }
 
 .closeButton {
@@ -33,8 +35,9 @@
 
 .achievementsList {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: 20px;
+  padding: 20px;
 }
 
 .achieveCard {
@@ -50,22 +53,28 @@
   background-position: center;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   color: #fff;
   font-size: 1.25rem;
   cursor: pointer;
 
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      }
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
 }
+
 .achieveButton {
-  width: 210px;
-  height: 274px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .achieveTitle {
@@ -73,6 +82,7 @@
   text-align: center;
   color: white; /* Цвет заголовка */
 }
+
 .achieveImg {
   width: 140px;
   height: 140px;
