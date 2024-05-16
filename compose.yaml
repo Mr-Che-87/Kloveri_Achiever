@@ -1,8 +1,10 @@
-name: achiever_front
+name:         achiever_front
 services:
   front:
-    image: docker.infra.cloveri.com/cloveri.start/achiever/PROJECT_IMAGE_NAME
+    image:    docker.infra.cloveri.com/cloveri.start/achiever/front/vit.ru.achiever:IMAGE_TAG
+    container_name: vit.ru.achiever
+    restart:  unless-stopped
     volumes:
-      - /usr/achiever_front/.env:/app/.env
+      -      /usr/achiever_front/.env:/app/.env
     ports:
-      - '10001:5173'
+      -      '10001:5173'
