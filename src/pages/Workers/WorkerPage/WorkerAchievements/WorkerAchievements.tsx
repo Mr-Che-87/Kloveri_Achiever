@@ -25,11 +25,7 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({ userId }
  
   //const [achieveList, setAchieveList] = useState<IAchieve[]>([]);  //старый-единый стейт(фильтрация по added)
   const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]);  //стейт на ачивки библиотеки
-<<<<<<< HEAD
   const [userAchievements, setUserAchievements] = useState<IAchieve[]>([]);  //стейт на ачивки юзера
-=======
-  const [userAchievements, setUserAchievements] = useState<IConnection[]>([]);  //стейт на ачивки юзера
->>>>>>> ebe003af96fdd565a3a350ab93cfd9dc5330fdd1
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -153,11 +149,7 @@ const onAchieveAdd = (achieveId: string) => {
                 <img src={connect.data.achievement.data.image} alt={connect.data.achievement.data.title} />
                 <h3 className={styles.achieveTitle}>{connect.data.achievement.data.title}</h3>
                 </button>
-<<<<<<< HEAD
                 <button className={styles.removeButton} onClick={() => removeAchieve(achieve.id)}>
-=======
-                <button className={styles.removeButton} onClick={() => removeAchieve(connect.id)}>
->>>>>>> ebe003af96fdd565a3a350ab93cfd9dc5330fdd1
                   &times;
                 </button>
             </div>
@@ -170,13 +162,6 @@ const onAchieveAdd = (achieveId: string) => {
         )}
     </div>
   );
-<<<<<<< HEAD
-=======
-};
-
-function err(reason: any): PromiseLike<never> {
-  throw new Error("Function not implemented.");
->>>>>>> ebe003af96fdd565a3a350ab93cfd9dc5330fdd1
 }
 
 

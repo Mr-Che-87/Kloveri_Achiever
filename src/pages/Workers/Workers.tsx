@@ -80,7 +80,7 @@ export default function Workers() {
           />
             
          
-            <WorkersModalAddUser/>
+           {/* <WorkersModalAddUser/>  */}
          
             
         </div>
@@ -95,7 +95,7 @@ export default function Workers() {
                     <WorkerInitial
                       user={user} //передаем данные пользователя в WorkerInitial
                       showEmail={false}
-                      photoType="photo_small"
+                      avatarSize="small"
                     />
                   </NavLink>
                   <div className={styles.workersTeamName}>
