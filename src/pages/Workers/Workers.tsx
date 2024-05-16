@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-import styles from "./Workers.module.scss";
-
-=======
 import React from "react";
->>>>>>> ebe003af96fdd565a3a350ab93cfd9dc5330fdd1
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { IUser } from "../../types/IUser";
 import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
-<<<<<<< HEAD
-=======
 import styles from "./Worker.module.scss";
 import { fetchGetAllUsers } from "../../api/apiService"; //api
 import iconHeader from "../../assets/iconsHeader.svg";
@@ -19,11 +12,8 @@ import AuthorizationLinksButton from "./AuthorizationLinksButton/AuthorizationLi
 import WorkersButtonAddTeam from "./WorkersButtonAddTeam/WorkersButtonAddTeam";
 import WorkersModal from "./WorkersModal/WorkersModal";
 import WorkersModalAddUser from "./WorkersModalAddUser/WorkersModalAddUser";
->>>>>>> ebe003af96fdd565a3a350ab93cfd9dc5330fdd1
 
 
-<<<<<<< HEAD
-=======
 
 function filterName (searchTextName, nameList)  {
   if(!searchTextName){
@@ -36,7 +26,6 @@ function filterName (searchTextName, nameList)  {
    
   )
 }
->>>>>>> ebe003af96fdd565a3a350ab93cfd9dc5330fdd1
 
 export default function Workers() {
   const [userList, setUserList] = useState<IUser[]>([]); //state списка всех юзеров
@@ -70,64 +59,6 @@ export default function Workers() {
 
   return (
     <>
-<<<<<<< HEAD
-    <div className={styles.workers}>
-      <div className={styles.workersTitle}>
-        <img src={iconHeader} alt="title icon" />
-        <h1> Сотрудники</h1>
-      </div>
-      <div className={styles.workersBtn}>
-        <AddTeamButton />
-        <SearchInputWorkers />
-      </div>
-
-      <div className={styles.workersCards}>
-        <div className={styles.workersList}>
-          <ul className={styles.workersList__item}>
-            {userList.map((user, index) => (  //МАПИМ МАССИВ ЮЗЕРОВ ИЗ БЭКА
-              <li key={index}>
-                <NavLink to={`/worker-page/${user.profile_id}`}>
-                  <WorkerInitial
-                    user={user} //передаем данные пользователя в WorkerInitial
-                    showEmail={false}
-                    avatarSize="small"
-                  />
-                </NavLink>
-                <div className={styles.workersTeamName}>
-                  <p>Название команды</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-
-        { //ПОКА НЕ НАДО:
-        /*  <div className={styles.workersNotInTheTeam}>
-          <p>НЕ В КОМАНДЕ</p>
-          <ul className={styles.workersList__item}>
-            {userList.map((user, index) => (
-              <li key={index}>
-                <NavLink to={`/worker-page/${user.profile_id}`}>
-                  <WorkerInitial
-                    user={user} //передаем данные пользователя в WorkerInitial
-                    showEmail={false}
-                    photoType="photo_small"
-                  />
-                </NavLink>
-                <div className={styles.workersAddTeam}>
-                  <WorkersButtonAddTeam/>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>   */}
-        
-      </div>
-    </div>
-  </>
-
-=======
       <div className={styles.workers}>
         <div className={styles.workersTitle}>
           <img src={iconHeader} alt="title icon" />
@@ -198,6 +129,5 @@ export default function Workers() {
         </div>
       </div>
     </>
->>>>>>> ebe003af96fdd565a3a350ab93cfd9dc5330fdd1
   );
 }
