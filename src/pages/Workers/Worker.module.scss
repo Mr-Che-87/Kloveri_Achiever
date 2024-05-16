@@ -1,9 +1,10 @@
 .workers {
   display: grid;
+  padding-left: 40px;
 
   .workersTitle {
     display: flex;
-    font-size: 32px;
+    
   }
   .workersBtn {
     display: flex;
@@ -26,6 +27,7 @@
       .workersList__item li {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         padding-right: 32px;
         width: 640px;
         box-sizing: border-box;

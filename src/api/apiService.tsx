@@ -34,7 +34,7 @@ export const fetchGetUserData = (
 // PATCH-Обновление данных существующего пользователя  
 export const fetchUpdateUser = (
   userId: string,
-  userData: FormData
+  userData: IUser
 ): Promise<AxiosResponse<IUser>> => {
   console.log("Отправка запроса на обновление данных пользователя:", userData);
   return axios.patch<IUser>(`${API_URL}/profiles/${userId}/`, userData);
@@ -71,7 +71,7 @@ export const fetchPostAchieveLibrary = (
 export const fetchGetAchieveById = (
   achieveId: string
 ): Promise<AxiosResponse<IAchieve>> => {
-  return axios.get<IAchieve>(`${API_URL}/achievements/${achieveId}/`);
+  return axios.get<IAchieve>(`${API_URL}/achievements/${achieveId}`);
 };
 
 // PATCH-Обновление достижения по ID                          //потом
@@ -85,13 +85,24 @@ export const fetchUpdateAchieve = (
   );
 };
 
-// DELETE-Удаление достижения по ID                         //ДЕЛАТЬ Саня
+// DELETE-Удаление достижения по ID                        
 export const fetchDeleteAchieve = (
   achieveId: string
 ): Promise<AxiosResponse> => {
   return axios.delete(`${API_URL}/achievements/${achieveId}/`);
 };
 
+
+// Avatars and Backgrounds
+// GET-Получение списка аватаров
+export const fetchGetAvatars = (): Promise<AxiosResponse> => {
+  return axios.get(`${API_URL}/avatar-images/`);
+};
+
+// GET-Получение списка фоновых изображений
+export const fetchGetBackgrounds = (): Promise<AxiosResponse> => {
+  return axios.get(`${API_URL}/templates-images/`);
+};
 
 
 
@@ -135,10 +146,10 @@ export const fetchUpdateUserAchievement = (
   );
 };
 
-// DELETE-Удаление связи между пользователем и достижением по ID        //ДЕЛАТЬ Лёша
+// DELETE-Удаление связи между пользователем и достижением по ID      
 export const fetchDeleteUserAchievement = (
-  userAchievementId: string,
-): Promise<AxiosResponse> => {
-  console.log("АПИ Выполняется запрос на удаление ачивки с id:", userAchievementId);
-  return axios.delete(`${API_URL}/user-achievements/${userAchievementId}/`);
+  id: string,
+): Promise<AxiosResponse<IConnection>> => {
+  console.log("АПИ Выполняется запрос на удаление ачивки с id:", id);
+  return axios.delete<IConnection>(`${API_URL}/user-achievements/${id}/`);
 };

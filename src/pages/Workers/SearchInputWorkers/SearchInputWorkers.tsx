@@ -1,11 +1,15 @@
+import { useState } from "react";
 import styles from "./SearchInputWorkers.module.scss"
 
-const SearchInputWorkers = () => {
-
+const SearchInputWorkers = ({isSearchName, setIsSearchName}) => {
+   
+   
+    
     return(
         <div className={styles.searchInputContainer}>
                 <input
-                type="text"
+                value={isSearchName}
+                onChange={(e) => setIsSearchName(e.target.value)}  
                 className={styles.searchWorkersInput}
                 placeholder="Найти по имени"
                 />
