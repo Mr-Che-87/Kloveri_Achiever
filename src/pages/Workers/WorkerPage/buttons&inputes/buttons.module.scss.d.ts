@@ -7,5 +7,6 @@ declare const classNames: {
   readonly linkWorkerButton: "linkWorkerButton";
   readonly giveAchieveButton: "giveAchieveButton";
   readonly allAchieveButton: "allAchieveButton";
+  readonly addWorkButton: "addWorkButton";
 };
 export = classNames;

@@ -1,11 +1,18 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import styles from "./WorkersModal.module.scss";
 import uploadFile from "../../../assets/UploadFile.svg";
 import iconCollaborator from "../../../assets/iconCollaborator.svg";
 import iconClose from "../../../assets/iconCross.svg";
 import iconCheack from "../../../assets/IconCheck.svg";
+import WorkersModalAddUser from "../WorkersModalAddUser/WorkersModalAddUser";
+
+interface WorkersModalProps{
+  isOpen(): boolean;
+  onClose():boolean
+}
 
 const WorkersModal = ({ isOpen, onClose }) => {
+  const [isAddUserOpen, setIsAddUserOpen] = useState(false);
   if (!isOpen) {
     return null;
   }
@@ -18,7 +25,9 @@ const WorkersModal = ({ isOpen, onClose }) => {
     }
   };
 
-
+const handleAddUserClick = () =>{
+  setIsAddUserOpen(true)
+}
   return (
     <>
       {isOpen && (
@@ -39,15 +48,11 @@ const WorkersModal = ({ isOpen, onClose }) => {
                   />
                     <img src={uploadFile} alt="" />
                     <p>Загрузить файл</p>
-                  {/* <button type="button" className={styles.btn_upload}>
-                   
-                    Загрузить файл
-                  </button> */}
                 </label>
               </form>
               <p className={styles.or}>или</p>
               <form action="">
-                <button type="button" className={styles.btn_collaborator}>
+                <button type="button" className={styles.btn_collaborator} onClick={handleAddUserClick} >
                   <img src={iconCollaborator} alt="" />
                   Ввести данные
                 </button>
@@ -81,6 +86,9 @@ const WorkersModal = ({ isOpen, onClose }) => {
             </div>
           </div>
         </div>
+      )}
+      {isAddUserOpen &&(
+        <WorkersModalAddUser onClose={() => setIsAddUserOpen(false)}/>
       )}
     </>
   );

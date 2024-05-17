@@ -8,14 +8,11 @@ interface WorkerModalAddUserProps {
   showEmail: boolean; //отображение мейла
   avatarSize: "small" | "large"; //отображение размера фотки
   //photoType: "photo_small" | "photo_main";  //отображение размера фотки
+  onClose: boolean;
 }
 
-export default function WorkersModalAddUser({
-  user,
-  showEmail,
-  avatarSize,
-}: WorkerModalAddUserProps) {
-  const [userData, setUserData] = useState<IUser | null>(null);
+export default function WorkersModalAddUser({onClose}) {
+
   
   return (
     <div className={styles.workerModalAddUser}>
@@ -24,9 +21,9 @@ export default function WorkersModalAddUser({
           <p>Добавить сотрудника</p>
         </div>
             <WorkersModalAddUserContent
-            
+            onClose={onClose}
             />
-     
+          
       </div>
     </div>
   );

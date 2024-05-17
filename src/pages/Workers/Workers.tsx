@@ -3,15 +3,15 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { IUser } from "../../types/IUser";
 import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
-import styles from "./Worker.module.scss";
+import styles from "./Workers.module.scss";
 import { fetchGetAllUsers } from "../../api/apiService"; //api
 import iconHeader from "../../assets/iconsHeader.svg";
-import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
 import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 import AuthorizationLinksButton from "./AuthorizationLinksButton/AuthorizationLinksButton";
 import WorkersButtonAddTeam from "./WorkersButtonAddTeam/WorkersButtonAddTeam";
 import WorkersModal from "./WorkersModal/WorkersModal";
 import WorkersModalAddUser from "./WorkersModalAddUser/WorkersModalAddUser";
+import AddWorkButton from "./WorkerPage/buttons&inputes/AddWorkButton";
 
 
 
@@ -65,14 +65,14 @@ export default function Workers() {
           <h1> Сотрудники</h1>
         </div>
         <div className={styles.workersBtn}>
-          <AddTeamButton 
+          <AddWorkButton 
           onClick={() => setIsOpenModal(true)}
            />
           <WorkersModal
            isOpen={isOpenModal} 
            onClose ={() => setIsOpenModal(false)}
           />
-          <AuthorizationLinksButton />
+          {/* <AuthorizationLinksButton /> */}
          
           <SearchInputWorkers  
           isSearchName={isSearchName}
@@ -80,14 +80,14 @@ export default function Workers() {
           />
             
          
-            <WorkersModalAddUser/>
+         
          
             
         </div>
 
         <div className={styles.workersCards}>
           <div className={styles.workersList}>
-            <p>В КОМАНДЕ</p>
+            {/* <p>В КОМАНДЕ</p> */}
             <ul className={styles.workersList__item}>
               {filtredUserList.map((user, index) => (
                 <li key={index}>
@@ -95,7 +95,7 @@ export default function Workers() {
                     <WorkerInitial
                       user={user} //передаем данные пользователя в WorkerInitial
                       showEmail={false}
-                      photoType="photo_small"
+                      avatarSize="small"
                     />
                   </NavLink>
                   <div className={styles.workersTeamName}>

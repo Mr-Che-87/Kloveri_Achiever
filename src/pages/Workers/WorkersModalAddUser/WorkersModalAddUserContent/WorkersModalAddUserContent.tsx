@@ -3,17 +3,19 @@ import { IUser } from "../../../../types/IUser";
 import styles from "./WorkersModalAddUserContent.module.scss";
 import defaultAvatar from "../../../../assets/defaultAvatar.png";
 import { fetchUpdateUser } from "../../../../api/apiService";
-import { DatePicker } from "@mui/lab";
+import iconClose from "../../../../assets/iconCross.svg";
+import iconCheack from "../../../../assets/IconCheck.svg";
 
 interface WorkersModalAddUserContentProps {
   isEditing: boolean;
   toggleEdit: () => void;
   userData: IUser | null;
+  onClose: boolean;
 }
 
 export default function WorkersModalAddUserContent({
   isEditing,
-  toggleEdit,
+ onClose,
   userData,
 }: WorkersModalAddUserContentProps) {
   const [formData, setFormData] = useState<IUser | null>(null); //внутренний state данных юзера
@@ -46,18 +48,18 @@ export default function WorkersModalAddUserContent({
     }));
   };
 
-  const handleDateChange = (date: Date | null, fieldName: string) => {
-    setFormData((currentFormData) => ({
-      ...currentFormData,
-      [fieldName]: date ? date.toISOString().split("T")[0] : "",
-    }));
-  };
+  // const handleDateChange = (date: Date | null, fieldName: string) => {
+  //   setFormData((currentFormData) => ({
+  //     ...currentFormData,
+  //     [fieldName]: date ? date.toISOString().split("T")[0] : "",
+  //   }));
+  // };
 
   //PATCH:
   const handleSave = () => {
     console.log("Вызов функции handleSave");
     console.log("Сохранённые данные до отправки на сервер:", formData);
-    toggleEdit();
+   
     if (formData !== null && formData.profile_id) {
       fetchUpdateUser(formData.profile_id, formData)
         .then((response) => {
@@ -79,22 +81,26 @@ export default function WorkersModalAddUserContent({
     }
   };
 
-  //Дата-пикер:
-  const parseDateForPicker = (dateStr?: string): Date | null => {
-    if (!dateStr) {
-      return null;
-    }
-    const date = new Date(dateStr);
-    return date instanceof Date && !isNaN(date.getTime()) ? date : null;
-  };
+ 
 
   return (
     <div className={styles.WorkersModalAddUserContent}>
       <div className={styles.header}>
         <div className={styles.avatarUser}>
-          <img src={defaultAvatar} alt="" />
+          <label >
+                    <input
+                    type="file"
+                    name="uploadFile"
+                    id="buttonFile"
+                    accept="image/*"
+                    style={{display:"none"}}
+                  />
+                  <img src={defaultAvatar} alt="" />
+          </label>
+                  
+          
         </div>
-        <div className={styles.workerLogin}>
+        <div className={styles.workerLoginAdd}>
           <h2>Логин</h2>
           <input
             name="email"
@@ -105,7 +111,6 @@ export default function WorkersModalAddUserContent({
             onKeyDown={handleKeyDown}
             required
           />
-          <div className={styles.divider}></div>
         </div>
       </div>
       <div className={styles.checkbox__link}>
@@ -115,78 +120,115 @@ export default function WorkersModalAddUserContent({
             <p>Отправить ссылку для авторизации</p>
           </label>
         </form>
-        <div className={styles.workerName}>
-          <h2>Имя</h2>
-          <input
-            name="firstName"
-            type="text"
-            placeholder="Введите Имя"
-            value={""}
-            onChange={handleFullNameChange}
-            onKeyDown={handleKeyDown}
-          />
-          <div className={styles.divider}></div>
-        </div>
-        <div className={styles.workerName}>
-          <h2>Фамилия</h2>
-          <input
-            name="secondName"
-            type="text"
-            placeholder="Введите Фамилию"
-            value={""}
-            onChange={handleFullNameChange}
-            onKeyDown={handleKeyDown}
-          />
-          <div className={styles.divider}></div>
-        </div>
-        <div className={styles.workerName}>
-          <h2>Отчество</h2>
-          <input
-            name="patronymic"
-            type="text"
-            placeholder="Введите Отчество"
-            value={""}
-            onChange={handleFullNameChange}
-            onKeyDown={handleKeyDown}
-          />
-          <div className={styles.divider}></div>
-        </div>
+      </div>
 
-        <div className={styles.workerStartdate}>
-          <h2>Дата Рождения</h2>
-          <DatePicker
-            selected={parseDateForPicker(formData?.other_info?.start_work)}
-            onChange={(date) => setFormData({
-                ...formData,
-                other_info: {
-                 ...formData?.other_info,
-                 start_work: date?.toISOString().split("T")[0] || "",
-                },
-            })}
-            dateFormat="yyyy-MM-dd"
-            disabled={!isEditing}
-            onKeyDown={handleKeyDown}
+      <div className={styles.formFilling}>
+        <div className={styles.formFilling__leftContent}>
+          <div className={styles.workerNameAdd}>
+            <h2>Имя</h2>
+            <input
+              name="firstName"
+              type="text"
+              placeholder="Введите Имя"
+              value={""}
+              onChange={handleFullNameChange}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
+
+          <div className={styles.workerSecondNameAdd}>
+            <h2>Фамилия</h2>
+            <input
+              name="secondName"
+              type="text"
+              placeholder="Введите Фамилию"
+              value={""}
+              onChange={handleFullNameChange}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
+
+          <div className={styles.workerPatronymiAdd}>
+            <h2>Отчество</h2>
+            <input
+              name="patronymic"
+              type="text"
+              placeholder="Введите Отчество"
+              value={""}
+              onChange={handleFullNameChange}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
+
+          <div className={styles.workerBirthdayAdd}>
+            <h2>Дата Рождения</h2>
+         <input
+         name="birthday"
+         value={""}
+         type="date"
+         onChange={handleFullNameChange}
+         onKeyDown={handleKeyDown}
           />
-          <div className={styles.divider}></div>
+          </div>
         </div>
-        <div className={styles.workerStartdate}>
-          <h2>Дата начала работы</h2>
-          <DatePicker
-            selected={parseDateForPicker(formData?.other_info?.start_work)}
-            onChange={(date) => setFormData({
-                ...formData,
-                other_info: {
-                 ...formData?.other_info,
-                 start_work: date?.toISOString().split("T")[0] || "",
-                },
-            })}
-            dateFormat="yyyy-MM-dd"
-            disabled={!isEditing}
+        <div className={styles.formFilling__rightContent}>
+          <div className={styles.workerStartdateAdd}>
+            <h2>Дата начала работы</h2>
+            <input 
+            name="birthday"
+            value={""}
+            type="date"
+            onChange={handleFullNameChange}
             onKeyDown={handleKeyDown}
-          />
-          <div className={styles.divider}></div>
+            />
+          </div>
+
+          <div className={styles.workerServiceNumber}>
+            <h2>Табельный номер</h2>
+            <input
+              name="patronymic"
+              type="text"
+              placeholder="Введите табельный номер"
+              value={""}
+              onChange={handleFullNameChange}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
+
+          <div className={styles.workerPositionAdd}>
+            <h2>Роль</h2>
+            <input
+              name="proffesion"
+              type="text"
+              placeholder="Введите Роль"
+              value={formData?.other_info?.proffesion || ""}
+              onChange={(e) => {
+                const value = e.target.value;
+                setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  other_info: {
+                    ...prevFormData?.other_info,
+                    proffesion: value,
+                  },
+                }));
+              }}
+              onKeyDown={handleKeyDown}
+              required
+            />
+          </div>
         </div>
       </div>
+
+      <div className={styles.btnGroups}>
+              <button className={styles.btn__close} onClick={onClose} >
+                <img src={iconClose} alt="" />
+                Отменить
+              </button>
+              <button className={styles.btn__add}>
+                <img src={iconCheack} alt="" />
+                Добавить
+              </button>
+            </div>
     </div>
   );
 }
