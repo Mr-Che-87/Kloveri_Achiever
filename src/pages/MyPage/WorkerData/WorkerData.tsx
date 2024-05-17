@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
 
-import { IUser } from "../../../../types/IUser";
-import { fetchUpdateUser } from "../../../../api/apiService";  //api
+import { IUser } from "../../../types/IUser";
+import { fetchUpdateUser } from "../../../api/apiService";  //api
 //import { mockUserData, IUser } from "../../../../mocks/usersData"; //старая мок-заглушка
 
 
@@ -31,35 +30,7 @@ export default function WorkerData({
 
   
   //РУЧКИ ИЗМЕНЕНИЯ И ВАЛИДАЦИИ ИНПУТОВ:
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Вызов функции handleChange");
-    const { name, value } = event.target;
-       console.log("Изменённые данные до отправки на сервер:", event.target.value);
-    setFormData((currentFormData) => ({
-      ...currentFormData,
-      [name]: value,
-    }));
-  };
-
-  const handleFullNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fullName = event.target.value;
-    const [firstName, middleName, lastName] = fullName.split(' ');
-    setFormData((currentFormData) => ({
-      ...currentFormData,
-      first_name: firstName,
-      middle_name: middleName,
-      last_name: lastName,
-    }));
-  };
-
-  const handleDateChange = (date: Date | null, fieldName: string) => {
-    setFormData((currentFormData) => ({
-      ...currentFormData,
-      [fieldName]: date ? date.toISOString().split("T")[0] : "",
-    }));
-  };
-
-  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     const sanitizedValue = inputValue.replace(/[^\d8]/g, ''); // Оставляем только "8"
     if (/^(\8)?\d{0,10}$/.test(sanitizedValue)) {
@@ -97,15 +68,6 @@ export default function WorkerData({
   };
 
 
-//Дата-пикер:
-  const parseDateForPicker = (dateStr?: string): Date | null => {
-    if (!dateStr) {
-      return null;
-    }
-    const date = new Date(dateStr);
-    return date instanceof Date && !isNaN(date.getTime()) ? date : null;
-  };
-  
 
 
   if (!formData) {
@@ -130,9 +92,7 @@ export default function WorkerData({
             type="email"
             placeholder="Введите Логин"
             value={formData.email || ""}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            disabled={!isEditing}
+            readOnly={!isEditing}
             required
           />
           <div className={styles.divider}></div>
@@ -145,22 +105,19 @@ export default function WorkerData({
             type="text"
             placeholder="Введите ФИО"
             value={`${formData.first_name || ""} ${formData.middle_name || ""} ${formData.last_name || ""}`}
-            onChange={handleFullNameChange}
-            onKeyDown={handleKeyDown}
-            disabled={!isEditing}
+            readOnly
           />
           <div className={styles.divider}></div>
         </div>
 
         <div className={styles.workerBirthday}>
           <h2>Дата рождения</h2>
-          <DatePicker
-            selected={parseDateForPicker(formData.birth_date)}
-            onChange={(date) => handleDateChange(date, "birth_date")}
-            value={formData.birth_date || ""}
-            dateFormat="yyyy-MM-dd"
-            disabled={!isEditing}
-            onKeyDown={handleKeyDown} 
+                 
+          <input
+            name="birth_date"
+            type="text"
+            value={  formData.birth_date || ""}
+            readOnly
           />
           <div className={styles.divider}></div>
         </div>
@@ -181,19 +138,13 @@ export default function WorkerData({
 
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
-          <DatePicker
-            selected={parseDateForPicker(formData?.other_info?.start_work)}
-            onChange={(date) => setFormData({
-                ...formData,
-                other_info: {
-                 ...formData?.other_info,
-                 start_work: date?.toISOString().split("T")[0] || "",
-                },
-            })}
-            dateFormat="yyyy-MM-dd"
-            disabled={!isEditing}
-            onKeyDown={handleKeyDown}
+          <input
+            name="start_work"
+            type="text"
+            value={  formData?.other_info?.start_work || ""}
+            readOnly
           />
+          
           <div className={styles.divider}></div>
         </div>
 
@@ -204,18 +155,8 @@ export default function WorkerData({
             type="text"
             placeholder="Введите Роль"
             value={formData?.other_info?.proffesion || ""}
-            onChange={e => {
-              const value = e.target.value;
-              setFormData((prevFormData) => ({
-                ...prevFormData,
-                other_info: {
-                  ...prevFormData?.other_info,
-                  proffesion: value,
-                },
-              }));
-            }}
-            onKeyDown={handleKeyDown}
-            disabled={!isEditing}
+            
+            readOnly
             required
           />
           <div className={styles.divider}></div>

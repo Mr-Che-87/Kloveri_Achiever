@@ -1,22 +1,20 @@
 import { useState, useEffect } from "react";
 import styles from "./WorkerAchievements.module.scss";
-import { GiveAchieveButton } from "../buttons&inputes/GiveAchieveButton";
 import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
 import { AllAchieveButton } from "../buttons&inputes/AllAchieveButton";
 
 import { ModalAchieveLibrary } from "../ModalAchieveLibrary/ModalAchieveLibrary";
-import ConfirmModal from "../ConfirmModal/ConfirmModal";
+
 
 //import { mockAchieveLibrary, IAchieve } from "../../../../mocks/AchieveLibrary";  //старая заглушка
 //import { IUser } from "../../../../types/IUser";
-import { IAchieve } from "../../../../types/IAchieve";
-import { IConnection } from "../../../../types/IConnection";
+import { IAchieve } from "../../../types/IAchieve";
+import { IConnection } from "../../../types/IConnection";
 import { fetchGetAchieveLibrary, 
          //fetchGetUserAchievements,
          fetchGetIDUserAchieve,
-         fetchPostUserAchieve,
-         fetchDeleteUserAchievement
-        } from "../../../../api/apiService";
+         
+        } from "../../../api/apiService";
 
 
 interface WorkerAchievementsProps {
@@ -31,9 +29,7 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({ userId }
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-//confirm-модака удаления:
-const [showDeleteModal, setShowDeleteModal] = useState(false);
-const [selectedAchieveId, setSelectedAchieveId] = useState<string | null>(null); 
+
 
 
 // GET-Получение всей библиотеки наград:
@@ -52,7 +48,6 @@ const [selectedAchieveId, setSelectedAchieveId] = useState<string | null>(null);
 
 
 //GET-Получение списка достижений пользователя по ID:
-//проблема в отображении дублирующихся ачивок!!(отображает, но криво удаляет + ошибка)
 useEffect(() => {
   if (userId) {
     console.log("useEffect: загрузка ачивок пользователя с userId:", userId);
@@ -83,64 +78,8 @@ useEffect(() => {
     setShowModal(false);
   };
 
-//confirm-модака удаления:
-const openDeleteModal = (achieveId: string) => {
-  setSelectedAchieveId(achieveId);
-  setShowDeleteModal(true);
-};
-
-const handleDeleteConfirm = () => {
-  if (selectedAchieveId) {
-    removeAchieve(selectedAchieveId);
-    setShowDeleteModal(false);
-  }
-};
-
-const handleCancel = () => {
-  setShowDeleteModal(false);
-  //setShowAddModal(false);
-};
 
 
-
-// Функция добавления ачивки: 
-const onAchieveAdd = (achieveId: string) => { 
-  //console.log("onAchieveAdd: Добавление соединения с ачивкой с achieveId:", achieveId);  
-  if (userId) {
-//POST-Создание связи между пользователем и достижением: 
-     fetchPostUserAchieve(userId , achieveId)
-     .then((response) => {
-      setUserAchievements((prevUserAchievements) => {
-        const newConnection: IConnection = response.data;
-        return [...prevUserAchievements, newConnection];
-      });
-    })
-    .catch((error) => {
-      console.error("Ошибка при добавлении ачивки пользователю:", error);
-    });
-  } else {
-    console.error("Ошибка: userId не определен.");
-  }
-};
-  
-
-// Функция удаления ачивки: 
-  // DELETE-Удаление связи между пользователем и достижением по ID     //НЕ РАБОТАЕТ после перезагрузки!!
-  const removeAchieve = (userAchievementId: string) => {
-    setSelectedAchieveId(userAchievementId);   //конфирм-модалка
-    setShowDeleteModal(true);  //конфирм-модалка
-    //console.log("Удаляем ачивку с id:", userAchievementId);
-    fetchDeleteUserAchievement(userAchievementId)
-      .then(() => {
-        console.log("Ачивка успешно удалена на сервере.");
-        // Обновляем список ачивок пользователя на клиенте
-        setUserAchievements(prevAchievements => prevAchievements.filter((connect) => connect.id !== userAchievementId));
-    })
-      .catch((error) => {
-        console.error("Ошибка при удалении ачивки пользователя:", error);
-      });
-      setShowDeleteModal(false); //закрываем конфирм-модалку после выполнения
-  };
 
 
   return (
@@ -148,10 +87,9 @@ const onAchieveAdd = (achieveId: string) => {
       <h1>Достижения</h1>
       <div className={styles.workerAchievementsNav}>
       <ul>
-        <li><GiveAchieveButton onClick={openModal} /></li>
-        <li><SearchAchieveInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+       <li><SearchAchieveInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
        </li>
-        <li><AllAchieveButton /></li>
+        <li><AllAchieveButton onClick={openModal}/></li>
       </ul>
       </div>
 
@@ -174,9 +112,7 @@ const onAchieveAdd = (achieveId: string) => {
                 <h3 className={styles.achieveTitle}>{connect.data.achievement.data.title}</h3>
                 <p>{connect.data.achievement.data.description}</p>
                 </button>
-                <button className={styles.removeButton} onClick={() => openDeleteModal(connect.id)}>
-                  &times;
-                </button>
+                
             </div>
           ))
         }
@@ -187,17 +123,11 @@ const onAchieveAdd = (achieveId: string) => {
           allAchievements={allAchievements} 
           userAchievements={userAchievements} 
           closeModal={closeModal} 
-          onAchieveAdd={onAchieveAdd}   
+             
         />    
         )}
 
-{showDeleteModal && (
-    <ConfirmModal
-      message="Вы уверены, что хотите удалить ачивку?"
-      onConfirm={handleDeleteConfirm}
-      onCancel={handleCancel}
-    />
-  )}
+
     </div>
   );
 }

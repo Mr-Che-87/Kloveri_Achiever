@@ -1,0 +1,21 @@
+.workerTeamsMenu {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.workerTeamsList {
+  visibility: inherit;
+}
+
+.workerTeam {
+  display: flex;
+  margin: 10px;
+}
+.workerImg {
+  margin: 10px;
+
+}
+.workerName {
+  margin: 13px;
+}

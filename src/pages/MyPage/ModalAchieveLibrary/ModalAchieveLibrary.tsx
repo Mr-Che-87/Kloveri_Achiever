@@ -3,18 +3,18 @@ import styles from "./ModalAchieveLibrary.module.scss";
 import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
 
 //import { IAchieve } from "../../../../mocks/AchieveLibrary";
-import { IAchieve } from "../../../../types/IAchieve";
-import { IConnection } from "../../../../types/IConnection";
+import { IAchieve } from "../../../types/IAchieve";
+import { IConnection } from "../../../types/IConnection";
 
 
 interface ModalAchievementsProps {
   allAchievements: IAchieve[];
   userAchievements: IConnection[];
   closeModal: () => void;
-  onAchieveAdd: (achieveId: string) => void; //функция для передачи ачивки родителю
+  
 }
 
-export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchievements, closeModal, onAchieveAdd }) => {
+export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchievements, closeModal, }) => {
   
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -34,13 +34,7 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchie
       }, [closeModal]);
     
 
-  const handleAchieveAdd = (achieveId: string) => {
-    //console.log("Модалка: Добавление пользователю ачивки с achieveId:", achieveId); 
-    onAchieveAdd(achieveId); //вызываем функцию родителя при добавлении ачивки
-              
-     closeModal(); // Закрываем модальное окно
-  };
-
+ 
 
   return (
     <div className={styles.modalContainer}>
@@ -65,7 +59,7 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchie
               backgroundImage: `url(${achieve.data.achiev_style})`,
             }}
           >
-              <button className={styles.achieveButton} onClick={() => handleAchieveAdd(achieve.id)}> 
+              <button className={styles.achieveButton} > 
               <img className={styles.achieveImg} src={achieve.data.image} alt={achieve.data.title} />
               <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
               <p>{achieve.data.description}</p>
