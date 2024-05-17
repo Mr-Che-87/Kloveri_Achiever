@@ -35,6 +35,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
   const [rank, setRank] = useState<number | "">("");
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isBGModalOpen, setIsBGModalOpen] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(true);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -88,95 +89,125 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) setSelectedImage(e.target.files[0].name); // Хранение имени файла
   };
-  const handleBackgroundChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setSelectedBackground(e.target.files[0].name); // Хранение имени файла
-  };
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
-        <button onClick={closeModal} className={styles.closeButton}>
-          &times;
-        </button>
-        <h2>Создать достижение</h2>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label htmlFor="title">Название</label>
-            <input
-              type="text"
-              id="title"
-              placeholder="Введите название"
-              value={title}
-              onChange={handleTitleChange}
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="description">Описание</label>
-            <textarea
-              id="description"
-              placeholder="Введите описание"
-              value={description}
-              onChange={handleDescriptionChange}
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="rank">Ранг</label>
-            <input
-              type="number"
-              id="rank"
-              placeholder="Введите ранг"
-              value={rank}
-              onChange={handleRankChange}
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label>Изображение</label>
-            <button type="button" onClick={() => setIsImageModalOpen(true)}>
-              Выбрать
+    <div>
+      {isModalVisible && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <button onClick={closeModal} className={styles.closeButton}>
+              &times;
             </button>
-            <input type="file" onChange={handleImageChange} />
+            <h2>Создать достижение</h2>
+            <form onSubmit={handleSubmit} className={styles.form}>
+              <div className={styles.formGroup}>
+                <label htmlFor="title">Название</label>
+                <input
+                  className={styles.titleInput}
+                  type="text"
+                  id="title"
+                  placeholder="Введите название"
+                  value={title}
+                  onChange={handleTitleChange}
+                  required
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="description">Описание</label>
+                <textarea
+                  id="description"
+                  placeholder="Введите описание"
+                  value={description}
+                  onChange={handleDescriptionChange}
+                  required
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="rank">Ранг</label>
+                <input
+                  className={styles.rankInput}
+                  type="number"
+                  id="rank"
+                  placeholder="Введите ранг"
+                  value={rank}
+                  onChange={handleRankChange}
+                  required
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label>Изображение</label>
+                <div className={styles.inputContainer}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsImageModalOpen(true);
+                      setIsModalVisible(false);
+                    }}
+                  >
+                    Выбрать
+                  </button>
+                  <input
+                    className={styles.fileDownload}
+                    type="file"
+                    onChange={handleImageChange}
+                  />
+                </div>
+              </div>
+              <div className={styles.formGroup}>
+                <label>Фон</label>
+                <div className={styles.inputContainer}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsBGModalOpen(true);
+                      setIsModalVisible(false);
+                    }}
+                  >
+                    Выбрать фон
+                  </button>
+                </div>
+              </div>
+              <div className={styles.formActions}>
+                <button
+                  type="button"
+                  onClick={closeModal}
+                  className={styles.cancelButton}
+                >
+                  Отменить
+                </button>
+                <button type="submit" className={styles.submitButton}>
+                  Добавить
+                </button>
+              </div>
+            </form>
           </div>
-          <div className={styles.formGroup}>
-            <label>Фон</label>
-            <button type="button" onClick={() => setIsBGModalOpen(true)}>
-              Выбрать фон
-            </button>
-            <input type="file" onChange={handleBackgroundChange} />
-          </div>
-          <div className={styles.formActions}>
-            <button
-              type="button"
-              onClick={closeModal}
-              className={styles.cancelButton}
-            >
-              Отменить
-            </button>
-            <button type="submit" className={styles.submitButton}>
-              Добавить
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
+      )}
       {isImageModalOpen && (
         <ModalChooseImage
           images={avatars}
-          closeModal={() => setIsImageModalOpen(false)}
+          closeModal={() => {
+            setIsImageModalOpen(false);
+            setIsModalVisible(true);
+          }}
           onSelectImage={(image) => {
             setSelectedImage(image);
             setIsImageModalOpen(false);
+            setIsModalVisible(true);
           }}
         />
       )}
       {isBGModalOpen && (
         <ModalChooseBG
           backgrounds={backgrounds}
-          closeModal={() => setIsBGModalOpen(false)}
+          closeModal={() => {
+            setIsBGModalOpen(false);
+            setIsModalVisible(true);
+          }}
           onSelectBackground={(background) => {
             setSelectedBackground(background);
             setIsBGModalOpen(false);
+            setIsModalVisible(true);
           }}
         />
       )}

@@ -7,6 +7,7 @@ declare const classNames: {
   readonly imageCard: "imageCard";
   readonly selected: "selected";
   readonly cardContent: "cardContent";
+  readonly cardDescription: "cardDescription";
   readonly actions: "actions";
   readonly cancelButton: "cancelButton";
   readonly confirmButton: "confirmButton";

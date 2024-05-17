@@ -48,7 +48,9 @@ const ModalChooseImage: React.FC<ModalChooseImageProps> = ({
               ></div>
               <div className={styles.cardContent}>
                 <h5>{image.data.title}</h5>
-                <p>{image.data.description}</p>
+                <p className={styles.cardDescription}>
+                  {image.data.description}
+                </p>
               </div>
             </div>
           ))}

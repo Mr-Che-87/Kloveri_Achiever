@@ -99,14 +99,17 @@ h2 {
     h5 {
       margin: 0;
     }
-
-    p {
-      margin: 5px 0 0;
-      font-size: 0.8rem;
-    }
   }
 }
-
+.cardDescription {
+  margin: 5px 0 0;
+  width: 40px;
+  height: 20px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .actions {
   display: flex;
   justify-content: space-between;
