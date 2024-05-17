@@ -1,0 +1,31 @@
+.addWorkerButton {
+  padding: 12px 18px;
+  border-radius: 16px;
+  text-decoration: none;
+  background: #6a11c352;
+  border: 1px solid #762dbf52;
+  color: white;
+  opacity: 0.8;
+  font-size: 16px;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+
+  &:hover {
+    background: linear-gradient(90deg, #6a50ea, #8950ea);
+    transform: scale(1.05);
+
+    &:active {
+      background: linear-gradient(90deg, #5938d7, #7638d7);
+      transform: scale(0.95);
+    }
+  }
+}

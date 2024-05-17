@@ -30,7 +30,7 @@ export default function WorkerData({
   }, [userData]);
 
   
-  //РУЧКИ ИЗМЕНЕНИЯ ИНПУТОВ:
+  //РУЧКИ ИЗМЕНЕНИЯ И ВАЛИДАЦИИ ИНПУТОВ:
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("Вызов функции handleChange");
     const { name, value } = event.target;
@@ -57,6 +57,17 @@ export default function WorkerData({
       ...currentFormData,
       [fieldName]: date ? date.toISOString().split("T")[0] : "",
     }));
+  };
+
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+    const sanitizedValue = inputValue.replace(/[^\d8]/g, ''); // Оставляем только "8"
+    if (/^(\8)?\d{0,10}$/.test(sanitizedValue)) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        phone: sanitizedValue,
+      }));
+    }
   };
 
 
@@ -161,7 +172,7 @@ export default function WorkerData({
             type="text"
             placeholder="Введите телефон"
             value={formData.phone || ""}  
-            onChange={handleChange}
+            onChange={handlePhoneChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
           />
