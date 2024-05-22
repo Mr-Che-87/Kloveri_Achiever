@@ -1,117 +1,152 @@
 .modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
 
 .modalContent {
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 10px;
+  background: #2c2c2c;
   padding: 20px;
+  border-radius: 8px;
   width: 90%;
   max-width: 500px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
-  display: flex;
-  flex-direction: column;
 }
 
 .closeButton {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
   position: absolute;
   top: 10px;
   right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
   cursor: pointer;
+  color: white;
 }
-.modalTitle {
-  font-size: large;
+
+h2 {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
 }
-.formCntainer {
-  display: flex;
-}
+
 .form {
   display: flex;
   flex-direction: column;
 }
+
 .formGroup {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 
   label {
     display: block;
     margin-bottom: 5px;
+    color: white;
   }
 
-  .fileInputContainer {
-    display: flex;
-    align-items: center;
+  .titleInput,
+  .rankInput {
+    color: white;
+    width: 100%;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    background-color: #f4f4f40f;
+  }
+  .fileDownload {
+    width: 100%;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    background-color: #f4f4f40f;
+  }
+  textarea,
+  select {
+    color: white;
+    width: 100%;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    background-color: #f4f4f40f;
+  }
 
-    .fileInput,
-    .uploadButton {
-      display: flex;
+  textarea {
+    resize: vertical;
+  }
+
+  button,
+  input[type="file"] {
+    width: calc(50% - 10px);
+    height: 48px; /* Распределение кнопок на 50% ширины контейнера */
+    border-radius: 10px;
+    align-items: center;
+    cursor: pointer;
+    background: #f4f4f405;
+    border: 1px solid #f4f4f414;
+    color: #f4f4f4;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: rgba(106, 17, 195, 0.32);
+      border: 1px solid rgba(118, 45, 191, 0.32);
+      color: white;
+      opacity: 0.8;
     }
   }
-}
 
-.fileInput {
-  display: flex;
-}
-
-.uploadButton {
-  display: flex;
+  .inputContainer {
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
 }
 
 .formActions {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
-}
 
-.inputGroup {
-  margin-bottom: 15px;
-}
+  .cancelButton {
+    background: #ff4d4d;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s ease;
 
-label {
-  display: block;
-  margin-bottom: 5px;
-}
+    &:hover {
+      background: #ff1a1a;
+    }
+  }
 
-input[type="text"],
-textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
+  .submitButton {
+    background: #4caf50;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s ease;
 
-.actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.cancelButton {
-  background: #f44336;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
-}
-
-.submitButton {
-  background: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 15px;
-  cursor: pointer;
+    &:hover {
+      background: #45a049;
+    }
+  }
 }

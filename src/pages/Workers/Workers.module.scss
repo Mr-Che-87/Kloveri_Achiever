@@ -1,9 +1,16 @@
 .workers {
   display: grid;
   padding-left: 40px;
+  padding-left: 40px;
 
   .workersTitle {
     display: flex;
+    align-items: center;
+    img{
+      width: 56px;
+      height: 56px;
+
+    }
     
   }
   .workersBtn {
@@ -27,6 +34,7 @@
       .workersList__item li {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         align-items: center;
         padding-right: 32px;
         width: 640px;

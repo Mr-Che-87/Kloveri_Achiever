@@ -10,7 +10,7 @@ export interface IUser {
   phone?: string | undefined; 
   email?: string | undefined;    
   photo_main?: string | undefined;        //"https://i.ibb.co/dK1hhcD/big1.png"
-  photo_small?: string | undefined;       //"https://i.ibb.co/VwzhZgk/small1.png"
+  photo_small?: string | undefined ;       //"https://i.ibb.co/VwzhZgk/small1.png"
   other_info?: {
       proffesion?: string | undefined;     
       start_work?: string | undefined;  

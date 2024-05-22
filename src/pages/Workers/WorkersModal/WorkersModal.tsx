@@ -5,13 +5,31 @@ import iconCollaborator from "../../../assets/iconCollaborator.svg";
 import iconClose from "../../../assets/iconCross.svg";
 import iconCheack from "../../../assets/IconCheck.svg";
 import WorkersModalAddUser from "../WorkersModalAddUser/WorkersModalAddUser";
+import { fetchPostUser } from "../../../api/apiService";
+import { IUser } from "../../../types/IUser";
 
 interface WorkersModalProps{
-  isOpen(): boolean;
-  onClose():boolean
+  isOpen: boolean;
+  onClose: () => void;
+  createdUser: IUser | null;
+  onAddContact: (user: IUser) => void;
+  userData: IUser | null;
 }
 
-const WorkersModal = ({ isOpen, onClose }) => {
+const WorkersModal = ({
+   isOpen,
+    onClose, 
+    onAddContact,
+     userData
+
+ }: WorkersModalProps) => {
+  
+ 
+
+  const handleAddContact = (user: IUser) => {
+    setContacts((prevContacts) => [...prevContacts,user])
+  }
+  
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
   if (!isOpen) {
     return null;
@@ -24,6 +42,9 @@ const WorkersModal = ({ isOpen, onClose }) => {
       onClose();
     }
   };
+
+
+
 
 const handleAddUserClick = () =>{
   setIsAddUserOpen(true)
@@ -79,8 +100,8 @@ const handleAddUserClick = () =>{
                 <img src={iconClose} alt="" />
                 Отменить
               </button>
-              <button className={styles.btn__add}>
-                <img src={iconCheack} alt="" />
+              <button className={styles.btn__add} >
+                <img src={iconCheack}  alt="" />
                 Добавить
               </button>
             </div>
@@ -88,7 +109,10 @@ const handleAddUserClick = () =>{
         </div>
       )}
       {isAddUserOpen &&(
-        <WorkersModalAddUser onClose={() => setIsAddUserOpen(false)}/>
+        <WorkersModalAddUser  
+        onAddContact={handleAddContact}
+        userData={userData}
+        onClose={() => setIsAddUserOpen(false)}/>
       )}
     </>
   );

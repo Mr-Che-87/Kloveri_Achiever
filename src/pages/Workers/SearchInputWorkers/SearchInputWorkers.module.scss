@@ -2,7 +2,7 @@
     border: none;
     margin-left: 20px;
   .searchWorkersInput {
-    text-align: right;
+    padding-left: 30px;
     width: 148px;
     height: 40px;
     border: none;
@@ -10,6 +10,7 @@
     background-position: 6px 9px;
     box-sizing: border-box;
     border-bottom: 1px solid rgba(244, 244, 244, 0.04);
+ 
     &:hover {
       opacity: 1;
       transform: scale(1.05);
