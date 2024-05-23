@@ -53,6 +53,10 @@ export default function AchievementsConstructor() {
     }
   };
 
+  const handleAchieveAdd = (newAchieve: IAchieve) => {
+    setAchievements((prevAchievements) => [...prevAchievements, newAchieve]);
+  };
+
   // Получение библиотеки достижений
   useEffect(() => {
     fetchGetAchieveLibrary()
@@ -131,6 +135,7 @@ export default function AchievementsConstructor() {
           closeModal={toggleModal}
           avatars={avatars}
           backgrounds={backgrounds}
+          onAchieveAdd={handleAchieveAdd}
         />
       )}
       {isConfirmModalOpen && (

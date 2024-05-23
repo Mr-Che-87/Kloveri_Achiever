@@ -1,0 +1,96 @@
+
+.title{
+    position: relative;
+    left: 20px;
+}
+
+.WorkersModalAddUserContent {
+    position: fixed;
+    left: 701px;
+    top: 85px;
+    width: 670px;
+    height: 718px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    box-shadow:
+      4px 4px 100px 0px rgba(0, 0, 0, 0.05),
+      -4px -4px 100px 0px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(60px);
+    background: rgba(32, 32, 33, 0.8);
+  }
+  .header {
+    display: flex;
+    align-items: center;
+  
+    .avatarUser {
+      width: 72px;
+      height: 72px;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+    .workerLoginAdd {
+      margin: 0;
+      input {
+        width: 215px;
+        height: 36px;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 10px;
+        background: rgba(244, 244, 244, 0.02);
+      }
+    }
+    .checkbox__link {
+      display: flex;
+    }
+  }
+  
+  .formFilling {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .btnGroups {
+    position: relative;
+    top: 66px;
+    left: 397px;
+  }
+  .btn__close {
+    width: 124px;
+    height: 36px;
+    font-size: 18px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    backdrop-filter: blur(12px);
+    background: rgba(244, 244, 244, 0.06);
+    opacity: 0.8;
+    border: none;
+    margin-right: 12px;
+    cursor: pointer;
+    img {
+      position: relative;
+      top: 4px;
+      right: 6px;
+      border: 1px dotted gray;
+    }
+  }
+  
+  .btn__add {
+    width: 124px;
+    height: 36px;
+    font-size: 18px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    backdrop-filter: blur(12px);
+    background: rgba(106, 17, 195, 0.32);
+    border: none;
+    margin-right: 12px;
+    cursor: pointer;
+    img {
+      position: relative;
+      top: 4px;
+      right: 6px;
+      border: 1px dotted gray;
+    }
+  }
+  

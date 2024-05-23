@@ -1,8 +1,8 @@
 import styles from "./AddTeamButton.module.scss";
 
-const AddTeamButton = ({onClick}) => {
+const AddTeamButton = () => {
   return <button 
-  onClick={onClick}
+  
   className={styles.addTeamButton}>+ Добавить</button>;
 };
 

@@ -2,43 +2,50 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { IUser } from "../../types/IUser";
-import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
-import styles from "./Worker.module.scss";
-import { fetchGetAllUsers } from "../../api/apiService"; //api
+import styles from "./Workers.module.scss";
 import iconHeader from "../../assets/iconsHeader.svg";
-import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
+
+import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
+import { fetchGetAllUsers } from "../../api/apiService"; //api
 import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
-import AuthorizationLinksButton from "./AuthorizationLinksButton/AuthorizationLinksButton";
-import WorkersButtonAddTeam from "./WorkersButtonAddTeam/WorkersButtonAddTeam";
 import WorkersModal from "./WorkersModal/WorkersModal";
-import WorkersModalAddUser from "./WorkersModalAddUser/WorkersModalAddUser";
 
+import AddWorkButton from "./WorkerPage/buttons&inputes/AddWorkButton";
+import { Value } from "sass";
 
-
-function filterName (searchTextName, nameList)  {
-  if(!searchTextName){
-    return nameList;
-  }
-  return nameList.filter(({first_name, last_name}) =>
-    [first_name, last_name].some(
-        (name) => name?.toLowerCase().includes(searchTextName.toLowerCase())
-    )
-   
-  )
+interface WorkersModalProps{
+  isOpne: boolean;
+  onClose: () => void;
+  createdUser: IUser | null;
+  onAddContact?:(user:IUser) => void;
 }
 
-export default function Workers() {
+
+
+function filterName(searchTextName, nameList) {
+  if (!searchTextName) {
+    return nameList;
+  }
+  return nameList.filter(({ first_name, last_name }) =>
+    [first_name, last_name].some((name) =>
+      name?.toLowerCase().includes(searchTextName.toLowerCase())
+    )
+  );
+}
+
+export default function Workers({isOpen, onClose, createdUser, onAddContact}: WorkersModalProps) {
+  //GET-Получение списка всех пользователей:
   const [userList, setUserList] = useState<IUser[]>([]); //state списка всех юзеров
   const [isSearchName, setIsSearchName] = useState("");
-  const [isOpenModal, setIsOpenModal] = useState(false)
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
-  
+  const filtredUserList = filterName(isSearchName, userList);
 
- const filtredUserList = filterName(isSearchName, userList)
+const handleAddContact = (user: IUser) => {
+  setUserList((prevUserList:IUser[]) =>[...prevUserList, user])
+}
 
-
-
- console.log("filtredUserList", filtredUserList)
+  console.log("filtredUserList", filtredUserList);
   //GET-Получение списка всех пользователей:
   useEffect(() => {
     //const userId = "1";   //хз, как сейчас будут делить на admin | worker ???
@@ -52,10 +59,16 @@ export default function Workers() {
       });
   }, []);
 
+
+
+
+
   //возвращаем индикатор загрузки пока данные не загружены:
   if (userList.length === 0) {
     return <div>Loading user data...</div>;
   }
+
+
 
   return (
     <>
@@ -65,32 +78,27 @@ export default function Workers() {
           <h1> Сотрудники</h1>
         </div>
         <div className={styles.workersBtn}>
-          <AddTeamButton 
-          onClick={() => setIsOpenModal(true)}
-           />
+          <AddWorkButton onClick={() => setIsOpenModal(true)} />
           <WorkersModal
-           isOpen={isOpenModal} 
-           onClose ={() => setIsOpenModal(false)}
+            isOpen={isOpenModal}
+            onClose={() => setIsOpenModal(false)}
+            onAddContact={handleAddContact}
+           
           />
-          <AuthorizationLinksButton />
-         
-          <SearchInputWorkers  
-          isSearchName={isSearchName}
-          setIsSearchName={setIsSearchName}
+          {/* <AuthorizationLinksButton /> */}
+
+          <SearchInputWorkers
+            isSearchName={isSearchName}
+            setIsSearchName={setIsSearchName}
           />
-            
-         
-           {/* <WorkersModalAddUser/>  */}
-         
-            
         </div>
 
         <div className={styles.workersCards}>
           <div className={styles.workersList}>
-            <p>В КОМАНДЕ</p>
-            <ul className={styles.workersList__item}>
+            {filtredUserList.length > 0 ? (
+                 <ul className={styles.workersList__item}>
               {filtredUserList.map((user, index) => (
-                <li key={index}>
+                <li key={index} >
                   <NavLink to={`/worker-page/${user.profile_id}`}>
                     <WorkerInitial
                       user={user} //передаем данные пользователя в WorkerInitial
@@ -104,6 +112,13 @@ export default function Workers() {
                 </li>
               ))}
             </ul>
+            ) : (
+              <div className={styles.notFound}>
+                {isSearchName ? `Пользователь "${isSearchName}" не найден ` : "Пользователь не найден"}
+                 </div>
+            )}
+            {/* <p>В КОМАНДЕ</p> */}
+         
           </div>
 
           {/* <div className={styles.workersNotInTheTeam}>
@@ -125,7 +140,6 @@ export default function Workers() {
               ))}
             </ul>
           </div> */}
-
         </div>
       </div>
     </>

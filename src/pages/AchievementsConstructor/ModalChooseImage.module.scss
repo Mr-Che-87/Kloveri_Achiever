@@ -1,0 +1,151 @@
+.modalOverlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modalContent {
+  background: #2c2c2c;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  max-height: 90%;
+  overflow: hidden;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+}
+
+h2 {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.imagesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  max-height: 60vh;
+
+  overflow-y: auto;
+}
+.card {
+  display: flex;
+  width: 136px;
+  height: 180px;
+  align-items: center;
+  flex-direction: column;
+  background-image: url(../../assets/CardAchievementBG.png);
+  background-repeat: no-repeat;
+  background-position: center center center;
+}
+
+.imageCard {
+  display: flex;
+  flex-direction: column;
+  width: 55px;
+  height: 75px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 12px;
+  margin-top: 18px;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  position: relative;
+
+  &.selected {
+    border: 3px solid #4caf50;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .cardContent {
+    border-radius: 12px;
+    text-overflow: write-space;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    position: absolute;
+    bottom: 10px;
+    width: 90%;
+
+    h5 {
+      margin: 0;
+    }
+  }
+}
+.cardDescription {
+  margin: 5px 0 0;
+  width: 40px;
+  height: 20px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  position: sticky;
+  bottom: 0;
+  background: #2c2c2c;
+  padding: 10px 0;
+
+  .cancelButton {
+    background: #ff4d4d;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #ff1a1a;
+    }
+  }
+
+  .confirmButton {
+    background: #4caf50;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #45a049;
+    }
+  }
+}
