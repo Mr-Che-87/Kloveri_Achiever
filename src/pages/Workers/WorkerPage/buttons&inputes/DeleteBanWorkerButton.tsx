@@ -1,3 +1,4 @@
+
 import { useParams } from "react-router-dom";
 import styles from "./buttons.module.scss";
 import deliteBanIcon from "@/assets/deliteBanIcon.svg";
