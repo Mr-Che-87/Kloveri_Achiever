@@ -2,15 +2,14 @@
   visibility: inherit;
 }
 
-
 .workerAchievementsNav {
-    ul {
-      display: flex;
-      flex-direction: row;
-      margin-top: 32px;
-      gap: 20px;
-      list-style: none;
-    }
+  ul {
+    display: flex;
+    flex-direction: row;
+    margin-top: 32px;
+    gap: 20px;
+    list-style: none;
+  }
 }
 
 .workerAchievementsList {
@@ -30,9 +29,6 @@
   width: 210px;
   height: 274px;
   flex-direction: column;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition:
@@ -42,21 +38,31 @@
   color: #fff;
   font-size: 1.25rem;
   cursor: pointer;
+  background-size: cover;
+  background-position: center;
 
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      }
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
 }
+
 .achieveButton {
   width: 210px;
   height: 274px;
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .achieveTitle {
-  margin-top: 10px; 
-  text-align: center; 
+  margin-top: 10px;
+  text-align: center;
 }
+
 .achieveImg {
   width: 140px;
   height: 140px;
@@ -75,7 +81,7 @@
 }
 
 button {
-  position: relative; 
+  position: relative;
 
   &:focus {
     outline: none;
