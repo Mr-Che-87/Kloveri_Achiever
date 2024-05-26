@@ -1,11 +1,23 @@
 declare const classNames: {
+  readonly workerModalAddUser: "workerModalAddUser";
   readonly title: "title";
   readonly WorkersModalAddUserContent: "WorkersModalAddUserContent";
   readonly header: "header";
   readonly avatarUser: "avatarUser";
   readonly workerLoginAdd: "workerLoginAdd";
-  readonly checkbox__link: "checkbox__link";
+  readonly description__title: "description__title";
+  readonly workersModalAddUser__input: "workersModalAddUser__input";
   readonly formFilling: "formFilling";
+  readonly btnAddTag: "btnAddTag";
+  readonly checkbox__link: "checkbox__link";
+  readonly workerBirthdayAdd: "workerBirthdayAdd";
+  readonly workerNameAdd: "workerNameAdd";
+  readonly workerSecondNameAdd: "workerSecondNameAdd";
+  readonly workerPatronymiAdd: "workerPatronymiAdd";
+  readonly workerPhone: "workerPhone";
+  readonly workerPassword: "workerPassword";
+  readonly workerPositionAdd: "workerPositionAdd";
+  readonly workerStartdateAdd: "workerStartdateAdd";
   readonly btnGroups: "btnGroups";
   readonly btn__close: "btn__close";
   readonly btn__add: "btn__add";

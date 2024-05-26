@@ -24,7 +24,8 @@ const WorkersModal = ({
 
  }: WorkersModalProps) => {
   
- 
+ // Добавление состояния для contacts и setContacts функции
+ const [contacts, setContacts] = useState<IUser[]>([]);
 
   const handleAddContact = (user: IUser) => {
     setContacts((prevContacts) => [...prevContacts,user])
