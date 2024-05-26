@@ -52,27 +52,37 @@ export default function WorkersModalAddUser({
   };
 
 
+  // const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if(file){
+  //     const formData = new FormData();
+  //     formData.append("photo", file);
+      
+  //     axios.post('/media/imag/', formData)
+  //     .then(response => {
+  //       const imageUrl = response.data.url;
+  //       setFormData((currentFormData) => ({
+  //         ...currentFormData,
+  //         photo_main:imageUrl,
+  //         photo_small:imageUrl,
+  //       }))
+  //     })
+  //     .catch(error => {
+  //       console.error(error)
+  //     })
+  //   }
+  // }
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if(file){
-      const formData = new FormData();
-      formData.append("photo", file);
-      
-      axios.post('/media/imag/', formData)
-      .then(response => {
-        const imageUrl = response.data.url;
-        setFormData((currentFormData) => ({
-          ...currentFormData,
-          photo_main:imageUrl,
-          photo_small:imageUrl,
-        }))
-      })
-      .catch(error => {
-        console.error(error)
-      })
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setFormData((currentFormData) => ({
+        ...currentFormData,
+        photo_small: url,
+        photo_main: url,
+      }));
     }
-  }
-
+  };
 
   // const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   const file = event.target.files?.[0];
