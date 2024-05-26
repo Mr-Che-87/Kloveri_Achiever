@@ -113,7 +113,7 @@ export default function AchievementsConstructor() {
               key={achievement.id}
               className={styles.achievementCard}
               style={{
-                backgroundImage: `url(${achievement.data.achiev_style})`,
+                "--background-image": `url(${achievement.data.achiev_style})`,
               }}
             >
               <button
