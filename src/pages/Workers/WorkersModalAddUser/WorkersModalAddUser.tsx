@@ -72,17 +72,36 @@ export default function WorkersModalAddUser({
   //     })
   //   }
   // }
+
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setFormData((currentFormData) => ({
-        ...currentFormData,
-        photo_small: url,
-        photo_main: url,
-      }));
-    }
-  };
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      photo_main: file ? URL.createObjectURL(file) : defaultAvatar,
+      photo_small: file ? URL.createObjectURL(file): defaultAvatar
+    }))
+  }
+
+  // const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     const url = URL.createObjectURL(file);
+  //     setFormData((currentFormData) => ({
+  //       ...currentFormData,
+  //       photo_small: url as string ,
+  //       photo_main: url as string ,
+  //     }));
+  //   } else{
+  //     setFormData((currentFormData) => ({
+  //       ...currentFormData,
+  //       photo_main: defaultAvatar,
+  //       photo_small: defaultAvatar,
+  //     }))
+  //   }
+  // };
+
+
+
 
   // const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   const file = event.target.files?.[0];
@@ -93,12 +112,12 @@ export default function WorkersModalAddUser({
   //       setFormData((currentFormData) => ({
   //         ...currentFormData,
        
-  //         photo_small: event.target?.result as string,
-  //         photo_main: event.target?.result as string,
-  //         // photo_main:
-  //         //   "https://i.pinimg.com/564x/d0/71/a4/d071a4b903ae8678c26a1628511c41ad.jpg",
-  //         // photo_small:
-  //         //   "https://i.pinimg.com/564x/d0/71/a4/d071a4b903ae8678c26a1628511c41ad.jpg",
+  //         // photo_small: event.target?.result as string,
+  //         // photo_main: event.target?.result as string,
+  //         photo_main:
+  //           "https://i.pinimg.com/564x/d0/71/a4/d071a4b903ae8678c26a1628511c41ad.jpg",
+  //         photo_small:
+  //           "https://i.pinimg.com/564x/d0/71/a4/d071a4b903ae8678c26a1628511c41ad.jpg",
   //       }));
   //     };
   //     reader.readAsDataURL(file);
@@ -340,6 +359,7 @@ export default function WorkersModalAddUser({
                   onChange={handlePhoneChange}
                 />
               </div>
+              
               <div className={styles.workerPassword}>
                 <h2 className={styles.description__title}>Пароль</h2>
                 <input

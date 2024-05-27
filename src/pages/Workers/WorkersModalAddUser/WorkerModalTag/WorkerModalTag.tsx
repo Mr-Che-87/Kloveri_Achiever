@@ -16,7 +16,7 @@ export default function WorkerModalTag({
    tags
    }:WorkerModalTagProps) {
 
-  // добавление тега
+
 
 
 // удаление тега
