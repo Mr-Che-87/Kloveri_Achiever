@@ -6,6 +6,8 @@ import styles from "./MyPage.module.scss";
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
+
+import mockWithoutAchieve from "@/assets/mock_withoutAchieve.png"
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 import WorkerRanks from "./WorkerRanks/WorkerRanks";
 
@@ -64,6 +66,13 @@ export default function MyPage() {
         </div>
       </section>
 
+      <section className={styles.mockWithoutAchieve}>
+        <h2>ЭЭЭЭ, ЗАЧЭМ ТЭБЭ АЧИВКИ ДАРАГОЙ, ТЫ ИТАК КРАСАУЧЕГ!!</h2>
+        <img  className={styles.mockWithoutAchieveImg} src={mockWithoutAchieve}  />
+
+      </section>
+
+      {/* на случай, если hr-у можно будет выдавать ачивки  
       <section className={styles.workerRanksAndAchievements}>
         <div className={styles.workerRanks}>
         <WorkerRanks />
@@ -75,6 +84,7 @@ export default function MyPage() {
         )}
         </div>
       </section>
+      */}
     </div>
   );
 }

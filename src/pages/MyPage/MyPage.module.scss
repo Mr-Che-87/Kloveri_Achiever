@@ -50,6 +50,20 @@
 }
 
 
+
+
+
+.mockWithoutAchieve {
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+}
+.mockWithoutAchieveImg {
+  visibility: inherit;
+}
+
+/* 
+//на случай, если hr-у можно будет выдавать ачивки:  
 .workerRanksAndAchievements {
   display: flex;
   flex-direction: column;
@@ -62,4 +76,4 @@
     visibility: inherit;
   }
 }
-
+*/

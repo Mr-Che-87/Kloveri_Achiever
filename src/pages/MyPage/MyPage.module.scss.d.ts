@@ -7,8 +7,7 @@ declare const classNames: {
   readonly divider: "divider";
   readonly workerData: "workerData";
   readonly workerTeams: "workerTeams";
-  readonly workerRanksAndAchievements: "workerRanksAndAchievements";
-  readonly workerAchievements: "workerAchievements";
-  readonly workerRanks: "workerRanks";
+  readonly mockWithoutAchieve: "mockWithoutAchieve";
+  readonly mockWithoutAchieveImg: "mockWithoutAchieveImg";
 };
 export = classNames;
