@@ -12,10 +12,10 @@ interface ModalAchievementsProps {
   onAchieveAdd: (achieveId: string) => void; //функция для передачи ачивки родителю
 }
 
-export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({
-  allAchievements,
-  closeModal,
-  onAchieveAdd,
+export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ 
+  allAchievements, 
+  closeModal, 
+  onAchieveAdd 
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -34,7 +34,8 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({
   }, [closeModal]);
 
   const handleAchieveAdd = (achieveId: string) => {
-    onAchieveAdd(achieveId);
+    //console.log("Модалка: Добавление пользователю ачивки с achieveId:", achieveId); 
+    onAchieveAdd(achieveId); //вызываем функцию родителя при добавлении ачивки
     closeModal(); // Закрываем модальное окно
   };
 
@@ -46,9 +47,9 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({
         </button>
         <h1>Библиотека достижений</h1>
         <div className={styles.searchInput}>
-          <SearchAchieveInput
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
+          <SearchAchieveInput 
+          searchQuery={searchQuery} 
+          setSearchQuery={setSearchQuery} 
           />
         </div>
         <div className={styles.achievementsList}>
