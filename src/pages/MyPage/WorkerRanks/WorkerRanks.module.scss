@@ -1,0 +1,38 @@
+.workerRanksMenu {
+  display: flex;
+  flex-direction: row;
+}
+
+.workerRanksTitle {
+  visibility: inherit;
+}
+.workerRanksIcon {
+  width: 40px;
+  height: 40px;
+  padding: 15px 20px;
+}
+.workerRanksInput {
+  margin: 20px;
+  background-color: #1C1C1C;
+  color: white;
+  font-size: 35px;
+  text-align: right;
+  width: 150px;
+  height: 40px;
+  border: none;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(244, 244, 244, 0.04);
+  margin-left: auto; /* Сместить вправо */
+  /*
+  &:hover {
+    background: #444; 
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  */
+  &:active {
+    background: #f4f4f405;
+  }
+  
+}
+

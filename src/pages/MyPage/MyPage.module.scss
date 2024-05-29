@@ -1,54 +1,79 @@
 .workerPage {
+  display: flex;
+  flex-direction: row;
+  margin-left: 40px;
+  justify-content: space-around;
+  gap: 135px;
+}
+.workerSection {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+.workerInitial {
+  display: flex;
+  flex-direction: row;
+}
+.workerBtnMenu {
+  ul {
     display: flex;
     flex-direction: row;
-    margin-left: 40px;
-    justify-content: space-around;
-    gap: 135px;
+    margin-top: 32px;
+    gap: 20px;
+    list-style: none;
   }
-  .workerSection {
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
-  }
-  .workerInitial {
-    display: flex;
-    flex-direction: row;
-  }
-  .workerBtnMenu {
-    ul {
-      display: flex;
-      flex-direction: row;
-      margin-top: 32px;
-      gap: 20px;
-      list-style: none;
-    }
-  }
-  
-  .workerMain {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-    justify-content: space-between;
-  }
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      rgba(#f4f4f4, 0.64),
-      rgba(#f4f4f4, 0.16)
-    );
-    opacity: 0.8;
-  }
-  
-  .workerData {
-    visibility: inherit;
-  }
-  .workerTeams {
-    display: flex;
-    flex-direction: column;
-  }
+}
+
+.workerMain {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(#f4f4f4, 0.64),
+    rgba(#f4f4f4, 0.16)
+  );
+  opacity: 0.8;
+}
+
+.workerData {
+  visibility: inherit;
+}
+.workerTeams {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+
+.mockWithoutAchieve {
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+}
+.mockWithoutAchieveImg {
+  visibility: inherit;
+}
+
+/* 
+//на случай, если hr-у можно будет выдавать ачивки:  
+.workerRanksAndAchievements {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+
   .workerAchievements {
+    padding-top: 125px;
+  }
+  .workerRanks {
     visibility: inherit;
   }
-  
+}
+*/

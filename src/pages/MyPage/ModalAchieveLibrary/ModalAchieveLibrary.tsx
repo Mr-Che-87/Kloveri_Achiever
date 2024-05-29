@@ -11,11 +11,12 @@ interface ModalAchievementsProps {
   allAchievements: IAchieve[];
   userAchievements: IConnection[];
   closeModal: () => void;
-  
 }
 
-export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchievements, closeModal, }) => {
-  
+export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ 
+  allAchievements, 
+  closeModal, 
+}) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -34,8 +35,6 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchie
       }, [closeModal]);
     
 
- 
-
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modalContent}>
@@ -44,7 +43,10 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchie
         </button>
         <h1>Библиотека достижений</h1>
         <div className={styles.searchInput}>
-          <SearchAchieveInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <SearchAchieveInput 
+          searchQuery={searchQuery} 
+          setSearchQuery={setSearchQuery} 
+          />
         </div>
         <div className={styles.achievementsList}>
         {allAchievements
@@ -59,7 +61,7 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ allAchie
               backgroundImage: `url(${achieve.data.achiev_style})`,
             }}
           >
-              <button className={styles.achieveButton} > 
+              <button className={styles.achieveButton}> 
               <img className={styles.achieveImg} src={achieve.data.image} alt={achieve.data.title} />
               <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
               <p>{achieve.data.description}</p>

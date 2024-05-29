@@ -22,6 +22,7 @@
   gap: 20px; /* Расстояние между элементами */
 }
 
+
 .achievementCard {
   border-radius: 20px;
   align-items: center;
@@ -51,6 +52,12 @@
 .achieveButton {
   width: 210px;
   height: 274px;
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .achieveTitle {
@@ -73,6 +80,7 @@
   padding: 5px;
   color: white;
 }
+
 
 button {
   position: relative; 

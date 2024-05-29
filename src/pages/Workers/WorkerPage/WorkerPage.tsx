@@ -8,6 +8,7 @@ import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
+import WorkerRanks from "./WorkerRanks/WorkerRanks";
 
 import { IUser } from "../../../types/IUser";
 import { fetchGetUserData } from "../../../api/apiService";  //api
@@ -75,11 +76,17 @@ export default function WorkerPage() {
         </div>
       </section>
 
-      <div className={styles.workerAchievements}>
-      {userData && (
-        <WorkerAchievements     userId={userData.profile_id} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
-      )}
-      </div>
+      <section className={styles.workerRanksAndAchievements}>
+        <div className={styles.workerRanks}>
+        <WorkerRanks />
+        </div>
+
+        <div className={styles.workerAchievements}>
+        {userData && (
+          <WorkerAchievements     userId={userData.profile_id} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
+        )}
+        </div>
+      </section>
     </div>
   );
 }

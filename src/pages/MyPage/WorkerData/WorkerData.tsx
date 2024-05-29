@@ -155,7 +155,6 @@ export default function WorkerData({
             type="text"
             placeholder="Введите Роль"
             value={formData?.other_info?.proffesion || ""}
-            
             readOnly
             required
           />
