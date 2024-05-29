@@ -1,5 +1,5 @@
 import styles from "../../pages/AchievementsConstructor/AchievementsConstructor.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, CSSProperties } from "react";
 
 import ModalAddingAchieve from "./ModalAddingAchieve";
 import ModalConfirmDelete from "./ModalConfirmDelete"; // Импорт нового компонента
@@ -13,6 +13,11 @@ import {
   fetchGetBackgrounds,
   fetchDeleteAchieve, // Импорт метода удаления достижения
 } from "../../api/apiService";
+
+
+interface CSSPropertiesWithVars extends CSSProperties {
+  '--background-image'?: string;
+}
 
 export default function AchievementsConstructor() {
   const [achievements, setAchievements] = useState<IAchieve[]>([]);
@@ -112,9 +117,11 @@ export default function AchievementsConstructor() {
             <div
               key={achievement.id}
               className={styles.achievementCard}
-              style={{
-                backgroundImage: `url(${achievement.data.achiev_style})`,
-              }}
+              style={
+                {
+                  '--background-image': `url(${achievement.data.achiev_style})`,
+                } as CSSPropertiesWithVars
+              }
             >
               <button
                 className={styles.deleteButton}

@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   position: fixed;
+  border-radius: 16px;
   top: 10%; /* Отступ сверху на 10% от высоты экрана */
   left: 10%; /* Отступ слева на 10% от ширины экрана */
   width: 80%; /* Ширина окна 80% от ширины экрана */
@@ -21,12 +22,15 @@
   width: 100%; /* Ширина контента 100% от родительского контейнера */
   height: 100%; /* Высота контента 100% от родительского контейнера */
   align-items: center;
+  position: relative;
 }
 
 .closeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  position:sticky;
+  display: flex;
+  align-self:flex-end;
+  top: 15px;
+  
   background: none;
   border: none;
   font-size: 20px;
@@ -41,10 +45,9 @@ h1 {
 
 .searchInput {
   display: flex;
-    align-items: center;
-    width: 1245px;
-    padding-bottom: 24px;
-   
+  align-self: start;
+  width: 100px;
+  padding-bottom: 24px;
 }
 
 
@@ -84,12 +87,19 @@ h1 {
 .achieveButton {
   width: 210px;
   height: 274px;
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: inherit; /* наследует цвет у родителя */
 }
 
 .achieveTitle {
   margin-top: 10px;
   text-align: center;
-  color: white; /* Цвет заголовка */
+  color: inherit; /* наследует цвет у родителя */
 }
 .achieveImg {
   width: 140px;
