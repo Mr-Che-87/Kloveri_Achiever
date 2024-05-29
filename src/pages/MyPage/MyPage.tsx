@@ -7,6 +7,7 @@ import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
+import WorkerRanks from "./WorkerRanks/WorkerRanks";
 
 import { IUser } from "../../types/IUser";
 import { fetchGetUserData } from "../../api/apiService";  //api
@@ -19,7 +20,7 @@ export default function MyPage() {
 
   // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
-    const adminId = "4e1f1c7f-297a-4b34-ac57-df30269b199a";    //заглушка для презентации
+    const adminId = "4d90df35-0d1f-4cba-b1e9-47674bca2f51";    //заглушка для презентации
     
     if (adminId) { //проверяем, что profile_id определен
       //console.log("useEffect: Загружен список данных юзера");
@@ -63,11 +64,18 @@ export default function MyPage() {
         </div>
       </section>
 
-      <div className={styles.workerAchievements}>
-      {userData && (
-        <WorkerAchievements     userId={userData.profile_id} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
-      )}
-      </div>
+      <section className={styles.workerRanksAndAchievements}>
+        <div className={styles.workerRanks}>
+        <WorkerRanks />
+        </div>
+
+        <div className={styles.workerAchievements}>
+        {userData && (
+          <WorkerAchievements     userId={userData.profile_id} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
+        )}
+        </div>
+      </section>
     </div>
   );
 }
+

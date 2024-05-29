@@ -1,5 +1,8 @@
 import styles from "./WorkerInitial.module.scss";
-import defaultAvatar from "../../../assets/defaultAvatar.png";  //заглушка если бэк ниалё
+import defaultAvatar from "@/assets/defaultAvatar.png";  //заглушка если бэк ниалё
+import iconMale from "@/assets/icon_male.png";
+import iconFemale from "@/assets/icon_female.png";     
+
 import { IUser } from "../../../types/IUser";
 
 interface WorkerInitialProps {
@@ -27,6 +30,9 @@ export default function WorkerInitial({
     return img.complete && img.naturalHeight !== 0; 
 };  
 
+ // Определяем иконку пола
+ const genderIcon = user.sex === "female" ? iconFemale : user.sex === "male" ? iconMale : null;
+
   return (
     <div className={`${styles.workerInitial} ${avatarSize === "small" ? styles.small : styles.large}`}>
       <img
@@ -38,6 +44,10 @@ export default function WorkerInitial({
         <div className={styles.workerName}>
           {`${user.first_name} ${user.last_name}` || "Загружаем имя..."}
         </div>
+        {genderIcon && (
+          <img src={genderIcon} alt="пол" />
+        )}
+        
         {showEmail && (
           <div className={styles.workerMail}>
             {user.email || "Загружаем email..."}

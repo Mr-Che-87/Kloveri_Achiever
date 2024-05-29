@@ -19,7 +19,7 @@ export function SearchAchieveInput({ searchQuery, setSearchQuery }: Props) {
       onChange={handleChange}
       placeholder="Найти по названию"
       type="text"
-      className={styles.searchWorkersInput}
+      className={styles.searchInput}
     />
     </div>
   );

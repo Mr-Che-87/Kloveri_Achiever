@@ -5,15 +5,12 @@ import { AllAchieveButton } from "../buttons&inputes/AllAchieveButton";
 
 import { ModalAchieveLibrary } from "../ModalAchieveLibrary/ModalAchieveLibrary";
 
-
 //import { mockAchieveLibrary, IAchieve } from "../../../../mocks/AchieveLibrary";  //старая заглушка
 //import { IUser } from "../../../../types/IUser";
 import { IAchieve } from "../../../types/IAchieve";
 import { IConnection } from "../../../types/IConnection";
 import { fetchGetAchieveLibrary, 
-         //fetchGetUserAchievements,
          fetchGetIDUserAchieve,
-         
         } from "../../../api/apiService";
 
 
@@ -28,7 +25,6 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({ userId }
   const [userAchievements, setUserAchievements] = useState<IConnection[]>([]);  //стейт на ачивки юзера
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
 
 
 
@@ -48,6 +44,7 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({ userId }
 
 
 //GET-Получение списка достижений пользователя по ID:
+//проблема в отображении дублирующихся ачивок!!(отображает, но криво удаляет + ошибка)
 useEffect(() => {
   if (userId) {
     console.log("useEffect: загрузка ачивок пользователя с userId:", userId);
@@ -77,10 +74,6 @@ useEffect(() => {
   const closeModal = () => {
     setShowModal(false);
   };
-
-
-
-
 
   return (
     <div className={styles.workerAchievements}>
@@ -112,7 +105,6 @@ useEffect(() => {
                 <h3 className={styles.achieveTitle}>{connect.data.achievement.data.title}</h3>
                 <p>{connect.data.achievement.data.description}</p>
                 </button>
-                
             </div>
           ))
         }
@@ -123,11 +115,8 @@ useEffect(() => {
           allAchievements={allAchievements} 
           userAchievements={userAchievements} 
           closeModal={closeModal} 
-             
         />    
         )}
-
-
     </div>
   );
 }

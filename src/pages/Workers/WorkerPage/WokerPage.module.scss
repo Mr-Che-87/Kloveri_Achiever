@@ -48,6 +48,18 @@
   display: flex;
   flex-direction: column;
 }
-.workerAchievements {
-  visibility: inherit;
+
+
+.workerRanksAndAchievements {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+
+  .workerAchievements {
+    padding-top: 125px;
+  }
+  .workerRanks {
+    visibility: inherit;
+  }
 }
+
