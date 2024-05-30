@@ -1,5 +1,4 @@
 declare const classNames: {
-  notFound: string | undefined;
   readonly workers: "workers";
   readonly workersTitle: "workersTitle";
   readonly workersBtn: "workersBtn";
