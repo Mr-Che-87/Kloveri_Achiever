@@ -63,7 +63,8 @@ build_prod_image:
 
 deploy_in_test:
   stage: deploy
-  image: willhallonline/ansible:2.16.4-bookworm
+  image: registry.redhat.io/ansible-automation-platform/ee-29-rhel8@sha256:3abc61cbabee2cfa1fa1c98ad582485e03bbd47eec4a0cd49e8b9d34bd4a4fdb
+#  image: willhallonline/ansible:2.16.4-bookworm
   variables:
     PATH_SSH_KEY: ssh_ansible
     ANSIBLE_FORCE_COLOR: 'true'
