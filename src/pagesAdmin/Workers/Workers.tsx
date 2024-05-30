@@ -93,7 +93,7 @@ export default function Workers() {
             <ul className={styles.workersList__item}>
               {filtredUserList.map((user, index) => (
                 <li key={index}>
-                  <NavLink to={`/worker-page/${user.profile_id}`}>
+                  <NavLink to={`/admin/worker-page/${user.profile_id}`}>
                     <WorkerInitial
                       user={user} //передаем данные пользователя в WorkerInitial
                       showEmail={false}
