@@ -7,7 +7,7 @@ export default function Teams() {
   return (
     <div className={styles.teamsAchievements}>
       <header className={styles.teamsAchievementsHeader}>
-        <h1>Команды</h1>
+        <h1>Команды и проекты</h1>
         <div className={styles.editTeams}>
           <AddTeamButton />
           <SearchTeamInput />

@@ -1,4 +1,7 @@
-export default function AdminAccount() {
+import styles from "./PrivacySettings.module.scss";
+import mockPrivacySettingsContent from "@/assets/mock-PrivacySettings-content.png"
+
+export default function PrivacySettings() {
 
     return (      
     <div>
@@ -7,6 +10,7 @@ export default function AdminAccount() {
         <br />
         <p>И дополнительные настройки: <u>фоновая тема всего приложения</u>, например - <strong>у кадровички</strong>
         </p>
+        <img  className={styles.mockPrivacySettingsContent}  src={mockPrivacySettingsContent} />
     </div>
     )
 }
