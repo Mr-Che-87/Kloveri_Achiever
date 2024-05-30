@@ -1,17 +1,42 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import styles from "./WorkersModal.module.scss";
 import uploadFile from "../../../assets/UploadFile.svg";
 import iconCollaborator from "../../../assets/iconCollaborator.svg";
 import iconClose from "../../../assets/iconCross.svg";
 import iconCheack from "../../../assets/IconCheck.svg";
+import WorkersModalAddUser from "../WorkersModalAddUser/WorkersModalAddUser";
+import { IUser } from "../../../types/IUser";
 
-const WorkersModal = ({ isOpen, onClose }) => {
+interface WorkersModalProps{
+  isOpen: boolean;
+  onClose: () => void;
+  createdUser: IUser | null;
+  onAddContact: (user: IUser) => void;
+  userData: IUser | null;
+}
+
+const WorkersModal = ({
+   isOpen,
+    onClose, 
+    userData
+
+ }: WorkersModalProps) => {
+  
+ // Добавление состояния для contacts и setContacts функции
+ const [, setContacts] = useState<IUser[]>([]);
+
+  const handleAddContact = (user: IUser) => {
+    setContacts((prevContacts) => [...prevContacts,user])
+  }
+  
+  const [isAddUserOpen, setIsAddUserOpen] = useState(false);
   if (!isOpen) {
     return null;
   }
 
   // закрывает модальное вне контента
-  const onWrapperClick = (event) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onWrapperClick = (event:any) => {
     if (!event.currentTarget.contains(event.target)) {
      
       onClose();
@@ -19,6 +44,11 @@ const WorkersModal = ({ isOpen, onClose }) => {
   };
 
 
+
+
+const handleAddUserClick = () =>{
+  setIsAddUserOpen(true)
+}
   return (
     <>
       {isOpen && (
@@ -39,15 +69,11 @@ const WorkersModal = ({ isOpen, onClose }) => {
                   />
                     <img src={uploadFile} alt="" />
                     <p>Загрузить файл</p>
-                  {/* <button type="button" className={styles.btn_upload}>
-                   
-                    Загрузить файл
-                  </button> */}
                 </label>
               </form>
               <p className={styles.or}>или</p>
               <form action="">
-                <button type="button" className={styles.btn_collaborator}>
+                <button type="button" className={styles.btn_collaborator} onClick={handleAddUserClick} >
                   <img src={iconCollaborator} alt="" />
                   Ввести данные
                 </button>
@@ -74,13 +100,19 @@ const WorkersModal = ({ isOpen, onClose }) => {
                 <img src={iconClose} alt="" />
                 Отменить
               </button>
-              <button className={styles.btn__add}>
-                <img src={iconCheack} alt="" />
+              <button className={styles.btn__add} >
+                <img src={iconCheack}  alt="" />
                 Добавить
               </button>
             </div>
           </div>
         </div>
+      )}
+      {isAddUserOpen &&(
+        <WorkersModalAddUser  
+          onAddContact={handleAddContact}
+          userData={userData}
+          onClose={() => setIsAddUserOpen(false)} user={undefined}/>
       )}
     </>
   );

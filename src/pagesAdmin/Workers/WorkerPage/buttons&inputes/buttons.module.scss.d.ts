@@ -9,5 +9,6 @@ declare const classNames: {
   readonly allAchieveButton: "allAchieveButton";
   readonly searchInputContainer: "searchInputContainer";
   readonly searchInput: "searchInput";
+  readonly addWorkButton: "addWorkButton";
 };
 export = classNames;

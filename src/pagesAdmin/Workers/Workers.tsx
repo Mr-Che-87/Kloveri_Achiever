@@ -16,9 +16,20 @@ import WorkersModalAddUser from "./WorkersModalAddUser/WorkersModalAddUser";
 import { fetchGetAllUsers } from "../../api/apiService"; //api
 
 
+//n
+import AddWorkButton from "./WorkerPage/buttons&inputes/AddWorkButton";
+import { Value } from "sass";
+interface WorkersModalProps{
+  isOpne: boolean;
+  onClose: () => void;
+  createdUser: IUser | null;
+  onAddContact?:(user:IUser) => void;
+}
 
 
-function filterName (searchTextName, nameList)  {
+
+
+function filterName (searchTextName: string, nameList: any[])  {
   if(!searchTextName){
     return nameList;
   }
@@ -30,7 +41,7 @@ function filterName (searchTextName, nameList)  {
   )
 }
 
-export default function Workers() {
+export default function Workers({}: WorkersModalProps) {
   const [userList, setUserList] = useState<IUser[]>([]); //state списка всех юзеров
   const [isSearchName, setIsSearchName] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false)
@@ -39,6 +50,10 @@ export default function Workers() {
 
  const filtredUserList = filterName(isSearchName, userList)
 
+//n
+ const handleAddContact = (user: IUser) => {
+  setUserList((prevUserList:IUser[]) =>[...prevUserList, user])
+}
 
 
  console.log("filtredUserList", filtredUserList)
@@ -133,3 +148,67 @@ export default function Workers() {
     </>
   );
 }
+
+
+
+/*
+//RETURN Андрея - до закоменнченного (но он тоже ниалё):
+return (
+  <>
+    <div className={styles.workers}>
+      <div className={styles.workersTitle}>
+        <img src={iconHeader} alt="title icon" />
+        <h1> Сотрудники</h1>
+      </div>
+      <div className={styles.workersBtn}>
+        <AddWorkButton onClick={() => setIsOpenModal(true)} />
+        <WorkersModal
+          isOpen={isOpenModal}
+          onClose={() => setIsOpenModal(false)}
+          onAddContact={handleAddContact} 
+          createdUser={null} 
+          userData={null}           
+        />
+       
+
+        <SearchInputWorkers
+          isSearchName={isSearchName}
+          setIsSearchName={setIsSearchName}
+        />
+      </div>
+
+      <div className={styles.workersCards}>
+        <div className={styles.workersList}>
+          {filtredUserList.length > 0 ? (
+               <ul className={styles.workersList__item}>
+            {filtredUserList.map((user: IUser | undefined, index: React.Key | null | undefined) => (
+              <li key={index} >
+                <NavLink to={`/worker-page/${user.profile_id}`}>
+                  <WorkerInitial
+                    user={user} //передаем данные пользователя в WorkerInitial
+                    showEmail={false}
+                    avatarSize="small"
+                  />
+                </NavLink>
+                <div className={styles.workersTeamName}>
+                  <p>Название команды</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          ) : (
+            <div className={styles.notFound}>
+              {isSearchName ? `Пользователь "${isSearchName}" не найден ` : "Пользователь не найден"}
+               </div>
+          )}
+          
+       
+        </div>
+
+        {/* <div className={styles.workersNotInTheTeam}>
+          <p>НЕ В КОМАНДЕ</p>
+          .....
+          ....
+          ...
+          
+*/
