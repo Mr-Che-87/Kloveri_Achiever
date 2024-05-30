@@ -73,7 +73,7 @@ deploy_in_test:
 #  image: registry.redhat.io/ansible-automation-platform/ee-29-rhel8@sha256:3abc61cbabee2cfa1fa1c98ad582485e03bbd47eec4a0cd49e8b9d34bd4a4fdb
 #  image: willhallonline/ansible:2.16.4-bookworm
   variables:
-    DOCKER_AUTH_CONFIG: "{\"username\":\"registry-token-test \",\"password\":\"xz_voffSfxH8ezjTbiig\"}"
+    # DOCKER_AUTH_CONFIG: "{\"username\":\"registry-token-test \",\"password\":\"xz_voffSfxH8ezjTbiig\"}"
     PATH_SSH_KEY: ssh_ansible
     ANSIBLE_FORCE_COLOR: 'true'
     ANSIBLE_HOST_KEY_CHECKING: 'False'
@@ -109,3 +109,5 @@ deploy_in_test:
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
   tags: [achiever-dind]
+
+
