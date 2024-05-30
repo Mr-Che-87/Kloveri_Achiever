@@ -1,5 +1,5 @@
 import {
-  BrowserRouter as Router,
+  
   Routes,
   Route,
   NavLink,
@@ -34,31 +34,31 @@ const NotFound = () => <div>404 Not Found</div>;
 //NavMenu РАБОТНИКА c прокинутым аватаром
 const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar }) => { 
   return (
-    <Router>
+    <>
       <nav className="navigation-menu">
         <div className="menu">
           <div className="logo-container">
             <img src={logoIcon} alt="Логотип" />
           </div>
-          <NavLink to="/my-page" className="menu-item">
+          <NavLink to="/worker/my-page" className="menu-item">
             <img src={myPageIcon} alt="Личная карточка" />
             Личная карточка
           </NavLink>
-          <NavLink to="/my-achievements" className="menu-item">
+          <NavLink to="/worker/my-achievements" className="menu-item">
             <img src={achievementsIcon} alt="Мои достижения и баллы" />
             Мои достижения и баллы
           </NavLink>
-          <NavLink to="/teams" className="menu-item">
+          <NavLink to="/worker/teams" className="menu-item">
             <img src={workersIcon} alt="Команды и проекты" />
             Команды и проекты
           </NavLink>
-          <NavLink to="/my-shop" className="menu-item">
+          <NavLink to="/worker/my-shop" className="menu-item">
             <img src={ShopIcon} alt="Мой магазин" />
             Мой магазин
           </NavLink>
         </div>
         <div className="privacy-settings">
-          <NavLink to="/privacy-settings">
+          <NavLink to="/worker/privacy-settings">
             <img src={userAvatar || defaultAvatar} alt="User" />
           </NavLink>
         </div>
@@ -66,22 +66,19 @@ const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
 
       <div className="routes">
         <Routes>
-          <Route path="/" element={<MyPage />} />
+             <Route path="/" element={<MyPage />} />
+             <Route path="my-page" element={<MyPage />}  />
           <Route
-            path="/my-page"
-            element={<MyPage />}
-          />
-          <Route
-            path="/my-achievements"
+            path="my-achievements"
             element={<MyAchievements />}
           />
-          <Route path="/teams" element={<Teams />} />
-          <Route path="/my-shop" element={<MyShop />} />
-          <Route path="/privacy-settings" element={<PrivacySettings />} />
+          <Route path="teams" element={<Teams />} />
+          <Route path="my-shop" element={<MyShop />} />
+          <Route path="privacy-settings" element={<PrivacySettings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-    </Router>
+    </>
   );
 };
 

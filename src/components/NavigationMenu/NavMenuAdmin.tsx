@@ -1,5 +1,5 @@
 import {
-  BrowserRouter as Router,
+  
   Routes,
   Route,
   NavLink,
@@ -37,35 +37,35 @@ const NotFound = () => <div>404 Not Found</div>;
 //NavMenu HR-а c прокинутым аватаром
 const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => { 
   return (
-    <Router>
+    <>
       <nav className="navigation-menu">
         <div className="menu">
           <div className="logo-container">
             <img src={logoIcon} alt="Логотип" />
           </div>
-          <NavLink to="/my-page" className="menu-item">
+          <NavLink to="/admin/my-page" className="menu-item">
             <img src={myPageIcon} alt="Личная карточка" />
             Личная карточка
           </NavLink>
-          <NavLink to="/achievements-constructor" className="menu-item">
+          <NavLink to="/admin/achievements-constructor" className="menu-item">
             <img src={achievementsIcon} alt="Конструктор достижений" />
             Конструктор достижений
           </NavLink>
-          <NavLink to="/workers" className="menu-item">
+          <NavLink to="/admin/workers" className="menu-item">
             <img src={managementIcon} alt="Сотрудники" />
             Сотрудники
           </NavLink>
-          <NavLink to="/teams" className="menu-item">
+          <NavLink to="/admin/teams" className="menu-item">
             <img src={workersIcon} alt="Команды и проекты" />
             Команды и проекты
           </NavLink>
-          <NavLink to="/shop-constructor" className="menu-item">
+          <NavLink to="/admin/shop-constructor" className="menu-item">
             <img src={ShopIcon} alt="Конструктор товаров" />
             Конструктор товаров
           </NavLink>
         </div>
         <div className="privacy-settings">
-          <NavLink to="/privacy-settings">
+          <NavLink to="/admin/privacy-settings">
             <img src={userAvatar || defaultAvatar} alt="Admin" />
           </NavLink>
         </div>
@@ -74,25 +74,22 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
       <div className="routes">
         <Routes>
           <Route path="/" element={<MyPage />} />
+          <Route path="my-page" element={<MyPage />}  />
           <Route
-            path="/my-page"
-            element={<MyPage />}
-          />
-          <Route
-            path="/achievements-constructor"
+            path="achievements-constructor"
             element={<AchievementsConstructor />}
           />
-          <Route path="/workers" element={<Workers />} />
+          <Route path="workers" element={<Workers />} />
           <>
-            <Route path="/worker-page/:profile_id" element={<WorkerPage />} />  {/*в путь добавлен id юзера*/}
+            <Route path="worker-page/:profile_id" element={<WorkerPage />} />  {/*в путь добавлен id юзера*/}
           </>
-          <Route path="/teams" element={<Teams />} />
-          <Route path="/shop-constructor" element={<ShopConstructor />} />
-          <Route path="/privacy-settings" element={<PrivacySettings />} />
+          <Route path="teams" element={<Teams />} />
+          <Route path="shop-constructor" element={<ShopConstructor />} />
+          <Route path="privacy-settings" element={<PrivacySettings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-    </Router>
+    </>
   );
 };
 
