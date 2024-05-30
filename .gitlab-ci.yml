@@ -70,7 +70,7 @@ deploy_in_test:
     name: docker.infra.cloveri.com/cloveri.start/achiever/front/ubuntu/ansible:2.16.3
     entrypoint: [""]
   variables:
-    DOCKER_AUTH_CONFIG: "{\"username\":\"repository_user_token\",\"password\":\"$repository_user_token\"}"
+    DOCKER_AUTH_CONFIG: "{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_JOB_TOKEN\"}"
 #  image: registry.redhat.io/ansible-automation-platform/ee-29-rhel8@sha256:3abc61cbabee2cfa1fa1c98ad582485e03bbd47eec4a0cd49e8b9d34bd4a4fdb
 #  image: willhallonline/ansible:2.16.4-bookworm
   variables:
