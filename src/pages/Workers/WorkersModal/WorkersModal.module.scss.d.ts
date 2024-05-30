@@ -1,7 +1,4 @@
 declare const classNames: {
-  workersModal__form: string | undefined;
-  title: string | undefined;
-  workersModal__content: string | undefined;
   readonly workersModal: "workersModal";
   readonly workersModal__upload: "workersModal__upload";
   readonly or: "or";

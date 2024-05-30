@@ -1,5 +1,4 @@
 declare const classNames: {
-  formFilling__rightContent: string | undefined;
   readonly workerModalAddUser: "workerModalAddUser";
   readonly title: "title";
   readonly WorkersModalAddUserContent: "WorkersModalAddUserContent";
