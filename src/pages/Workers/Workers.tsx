@@ -22,7 +22,7 @@ interface WorkersModalProps{
 
 
 
-function filterName(searchTextName, nameList) {
+function filterName(searchTextName: string, nameList: any[]) {
   if (!searchTextName) {
     return nameList;
   }
@@ -33,7 +33,8 @@ function filterName(searchTextName, nameList) {
   );
 }
 
-export default function Workers({isOpen, onClose, createdUser, onAddContact}: WorkersModalProps) {
+export default function Workers({}: WorkersModalProps) {
+  
   //GET-Получение списка всех пользователей:
   const [userList, setUserList] = useState<IUser[]>([]); //state списка всех юзеров
   const [isSearchName, setIsSearchName] = useState("");
@@ -82,8 +83,9 @@ const handleAddContact = (user: IUser) => {
           <WorkersModal
             isOpen={isOpenModal}
             onClose={() => setIsOpenModal(false)}
-            onAddContact={handleAddContact}
-           
+            onAddContact={handleAddContact} 
+            createdUser={null} 
+            userData={null}           
           />
           {/* <AuthorizationLinksButton /> */}
 
@@ -97,7 +99,7 @@ const handleAddContact = (user: IUser) => {
           <div className={styles.workersList}>
             {filtredUserList.length > 0 ? (
                  <ul className={styles.workersList__item}>
-              {filtredUserList.map((user, index) => (
+              {filtredUserList.map((user: IUser | undefined, index: React.Key | null | undefined) => (
                 <li key={index} >
                   <NavLink to={`/worker-page/${user.profile_id}`}>
                     <WorkerInitial

@@ -5,7 +5,6 @@ import iconCollaborator from "../../../assets/iconCollaborator.svg";
 import iconClose from "../../../assets/iconCross.svg";
 import iconCheack from "../../../assets/IconCheck.svg";
 import WorkersModalAddUser from "../WorkersModalAddUser/WorkersModalAddUser";
-import { fetchPostUser } from "../../../api/apiService";
 import { IUser } from "../../../types/IUser";
 
 interface WorkersModalProps{
@@ -19,12 +18,12 @@ interface WorkersModalProps{
 const WorkersModal = ({
    isOpen,
     onClose, 
-    onAddContact,
-     userData
+    userData
 
  }: WorkersModalProps) => {
   
- 
+ // Добавление состояния для contacts и setContacts функции
+ const [, setContacts] = useState<IUser[]>([]);
 
   const handleAddContact = (user: IUser) => {
     setContacts((prevContacts) => [...prevContacts,user])
@@ -36,7 +35,8 @@ const WorkersModal = ({
   }
 
   // закрывает модальное вне контента
-  const onWrapperClick = (event) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onWrapperClick = (event:any) => {
     if (!event.currentTarget.contains(event.target)) {
      
       onClose();
@@ -110,9 +110,9 @@ const handleAddUserClick = () =>{
       )}
       {isAddUserOpen &&(
         <WorkersModalAddUser  
-        onAddContact={handleAddContact}
-        userData={userData}
-        onClose={() => setIsAddUserOpen(false)}/>
+          onAddContact={handleAddContact}
+          userData={userData}
+          onClose={() => setIsAddUserOpen(false)} user={undefined}/>
       )}
     </>
   );

@@ -1,52 +1,60 @@
 .modalContainer {
   display: flex;
   align-items: center;
+  border-radius: 16px;
   justify-content: center;
   position: fixed;
-  top: 10%; /* Отступ сверху на 10% от высоты экрана */
-  left: 10%; /* Отступ слева на 10% от ширины экрана */
-  width: 80%; /* Ширина окна 80% от ширины экрана */
-  height: 80%; /* Высота окна 80% от высоты экрана */
+  top: 10%;
+  left: center;
+  width: 40%;
+  height: 40%;
   overflow-y: auto; /* Включаем вертикальный скролл при необходимости */
-  background-color: black; /* Цвет фона */
+  background: rgba(32, 32, 33);
+
   z-index: 1000;
 }
 
 .modalContent {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 28px 32px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%; /* Ширина контента 100% от родительского контейнера */
   height: 100%; /* Высота контента 100% от родительского контейнера */
-  align-items: center;
+  position: relative;
 }
 
 .closeButton {
   position: absolute;
-  top: 10px;
+  top: 30px;
   right: 10px;
   background: none;
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: white; /* Цвет кнопки */
+  color: rgba(244, 244, 244, 0.7);
 }
 
 h1 {
-  align-items: center;
+  align-items: left;
   justify-self: center;
+  font-family: Proxima Nova;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: 0.01em;
+  text-align: left;
+  color: rgba(244, 244, 244, 1);
 }
 
 .searchInput {
   display: flex;
-    align-items: center;
-    width: 1245px;
-    padding-bottom: 24px;
-   
+  align-items: center;
+  width: 100%;
+  max-width: 600px; /* Ограничение ширины поля поиска */
+  padding-bottom: 24px;
 }
-
 
 .achievementsList {
   width: 100%;
@@ -76,21 +84,30 @@ h1 {
   font-size: 1.25rem;
   cursor: pointer;
 
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-      }
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
 }
+
 .achieveButton {
   width: 210px;
   height: 274px;
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: inherit; /* Цвет текста */
 }
 
 .achieveTitle {
   margin-top: 10px;
   text-align: center;
-  color: white; /* Цвет заголовка */
+  color: inherit; /* Цвет заголовка */
 }
+
 .achieveImg {
   width: 140px;
   height: 140px;

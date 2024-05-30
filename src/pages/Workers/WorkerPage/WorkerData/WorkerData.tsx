@@ -203,14 +203,14 @@ export default function WorkerData({
             name="proffesion"
             type="text"
             placeholder="Введите Роль"
-            value={formData?.other_info?.proffesion || ""}
+            value={formData?.other_info?.profession || ""}
             onChange={e => {
               const value = e.target.value;
               setFormData((prevFormData) => ({
                 ...prevFormData,
                 other_info: {
                   ...prevFormData?.other_info,
-                  proffesion: value,
+                  profession: value,
                 },
               }));
             }}
