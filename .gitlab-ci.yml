@@ -28,6 +28,7 @@ variables:
 update_version:
   stage: vars
   script:
+    - ansible --version || true
     - export OLD_VERSION=`grep version package.json | grep -Po [0-9.]*`
     - export NEW_VERSION=`echo $OLD_VERSION | awk '{split($NF,v,/[.]/); $NF=v[1]"."v[2]"."++v[3]}1'`
     - 'sed -i "s/\"version\": \"$OLD_VERSION\"/\"version\": \"$NEW_VERSION\"/g" package.json'
@@ -35,6 +36,8 @@ update_version:
     - cp package.json git_project/package.json
     - cd git_project && git add . && git commit -m "Update build version" 
     - git push https://repository_user_token:$repository_user_token@git.infra.cloveri.com/cloveri.start/achiever/front.git/
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev|master"'
 
 build_test_image:
   stage: build
@@ -63,7 +66,11 @@ build_prod_image:
 
 deploy_in_test:
   stage: deploy
-  image: docker.infra.cloveri.com/cloveri.start/achiever/front/ubuntu/ansible:2.16.3
+  image:
+    name: docker.infra.cloveri.com/cloveri.start/achiever/front/ubuntu/ansible:2.16.3
+    entrypoint: [""]
+  variables:
+    DOCKER_AUTH_CONFIG: "{\"username\":\"repository_user_token\",\"password\":\"$repository_user_token\"}"
 #  image: registry.redhat.io/ansible-automation-platform/ee-29-rhel8@sha256:3abc61cbabee2cfa1fa1c98ad582485e03bbd47eec4a0cd49e8b9d34bd4a4fdb
 #  image: willhallonline/ansible:2.16.4-bookworm
   variables:
