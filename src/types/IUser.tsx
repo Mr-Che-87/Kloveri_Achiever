@@ -13,7 +13,8 @@ export interface IUser {
   photo_small?: string | undefined;       //"https://i.ibb.co/VwzhZgk/small1.png"
   other_info?: {
       proffesion?: string | undefined;     
-      start_work?: string | undefined;  
+      start_work?: string | undefined; 
+      password_work?: string | undefined;  
       //СЮДА МЫ МОЖЕМ САМИ КЛАСТЬ ДОП-СВОЙСТВА
    },
   project_id?: string | undefined;        

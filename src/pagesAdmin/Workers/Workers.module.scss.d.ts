@@ -8,5 +8,6 @@ declare const classNames: {
   readonly workersTeamName: "workersTeamName";
   readonly workersNotInTheTeam: "workersNotInTheTeam";
   readonly workersAddTeam: "workersAddTeam";
+  readonly formFilling__rightContent: "formFilling__rightContent";
 };
 export = classNames;
