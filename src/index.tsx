@@ -1,10 +1,26 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './styles/general.scss'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './styles/general.scss';
+
+import AppAdmin from './AppAdmin';
+import AppWorker from './AppWorker';
+import Login from './Login/Login';
+
+const Root: React.FC = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/admin/*" element={<AppAdmin />} />  {/*  "/*"-чтоб был возможен дальнейший под-роутинг */ }
+        <Route path="/worker/*" element={<AppWorker />} />
+      </Routes>
+    </Router>
+  );
+};
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <Root />
   </React.StrictMode>,
-)
+);
