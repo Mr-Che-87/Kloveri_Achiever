@@ -67,9 +67,9 @@ build_prod_image:
 deploy_in_test:
   stage: deploy
   # image: registry.access.redhat.com/ansible-runner-12/ansible-runner
-  image:
-    name: docker.infra.cloveri.com/cloveri.start/achiever/front/ubuntu/ansible:2.16.3
-    entrypoint: [""]
+  # image:
+    # name: docker.infra.cloveri.com/cloveri.start/achiever/front/ubuntu/ansible:2.16.3
+    # entrypoint: [""]
 #  image: registry.redhat.io/ansible-automation-platform/ee-29-rhel8@sha256:3abc61cbabee2cfa1fa1c98ad582485e03bbd47eec4a0cd49e8b9d34bd4a4fdb
 #  image: willhallonline/ansible:2.16.4-bookworm
   variables:
@@ -99,7 +99,7 @@ deploy_in_test:
       image_name='docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME'
 # image_tag=$IMAGE_TAG
   script:
-    - apt-get update && apt-get install -y ansible
+    # - apt-get update && apt-get install -y ansible
     - ansible --version
     - echo "${SSH_PRIVATE_KEY}" > $PATH_SSH_KEY && chmod 600 $PATH_SSH_KEY
     - export ANSIBLE_HOST_KEY_CHECKING=False
@@ -108,6 +108,7 @@ deploy_in_test:
     - ansible-playbook --private-key $PATH_SSH_KEY --user $USER_NAME --inventory hosts playbook.yaml ${extraVars:+--extra-vars "$extraVars"}
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
-  tags: [achiever-dind]
+  # tags: [achiever-dind]
+
 
 
