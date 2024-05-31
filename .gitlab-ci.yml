@@ -101,7 +101,7 @@ deploy_in_test:
 # image_tag=$IMAGE_TAG
   script:
     # - apt-get update && apt-get install -y ansible
-    - ping -c 5 10.0.0.33
+    # - ping -c 5 10.0.0.33
     - ansible --version
     - echo "${SSH_PRIVATE_KEY}" > $PATH_SSH_KEY && chmod 600 $PATH_SSH_KEY
     - export ANSIBLE_HOST_KEY_CHECKING=False
@@ -110,7 +110,7 @@ deploy_in_test:
     - ansible-playbook --private-key $PATH_SSH_KEY --user $USER_NAME --inventory hosts playbook.yaml ${extraVars:+--extra-vars "$extraVars"}
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
-  # tags: [achiever-dind]
+  tags: [achiever-dind]
 
 
 
