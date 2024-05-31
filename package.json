@@ -1,7 +1,11 @@
 {
   "name": "vitetest",
   "private": true,
+<<<<<<< HEAD
   "version": "0.0.46",
+=======
+  "version": "0.0.41",
+>>>>>>> a0276545e955abaf5808b0bb1f509ad5479a8afc
   "type": "module",
   "scripts": {
     "dev": "vite",

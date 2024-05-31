@@ -4,6 +4,7 @@ declare const classNames: {
   readonly small: "small";
   readonly large: "large";
   readonly workerName: "workerName";
+  readonly genderIcon: "genderIcon";
   readonly workerMail: "workerMail";
   readonly hidden: "hidden";
 };

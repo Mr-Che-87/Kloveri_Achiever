@@ -45,7 +45,7 @@ export default function WorkerInitial({
           {`${user.first_name} ${user.last_name}` || "Загружаем имя..."}
         </div>
         {genderIcon && (
-          <img src={genderIcon} alt="пол" />
+          <img className={styles.genderIcon} src={genderIcon} alt="пол" />
         )}
         
         {showEmail && (
