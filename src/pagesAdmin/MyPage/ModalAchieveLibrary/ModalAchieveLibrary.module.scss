@@ -1,0 +1,107 @@
+.modalContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  border-radius: 16px;
+  top: 10%; /* Отступ сверху на 10% от высоты экрана */
+  left: 10%; /* Отступ слева на 10% от ширины экрана */
+  width: 80%; /* Ширина окна 80% от ширины экрана */
+  height: 80%; /* Высота окна 80% от высоты экрана */
+  overflow-y: auto; /* Включаем вертикальный скролл при необходимости */
+  background-color: black; /* Цвет фона */
+  z-index: 1000;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ширина контента 100% от родительского контейнера */
+  height: 100%; /* Высота контента 100% от родительского контейнера */
+  align-items: center;
+  position: relative;
+}
+
+.closeButton {
+  position:sticky;
+  display: flex;
+  align-self:flex-end;
+  top: 15px;
+  
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white; /* Цвет кнопки */
+}
+
+h1 {
+  align-items: center;
+  justify-self: center;
+}
+
+.searchInput {
+  display: flex;
+  align-self: start;
+  width: 100px;
+  padding-bottom: 24px;
+}
+
+
+.achievementsList {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.achieveCard {
+  border-radius: 20px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 210px;
+  height: 274px;
+  flex-direction: column;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  position: relative;
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+}
+.achieveButton {
+  width: 210px;
+  height: 274px;
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: inherit; /* наследует цвет у родителя */
+}
+
+.achieveTitle {
+  margin-top: 10px;
+  text-align: center;
+  color: inherit; /* наследует цвет у родителя */
+}
+.achieveImg {
+  width: 140px;
+  height: 140px;
+}

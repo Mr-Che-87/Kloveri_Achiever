@@ -1,0 +1,119 @@
+.workerData {
+  visibility: inherit;
+}
+
+.workerDataTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+h2 {
+  font-family: Proxima Nova;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.4%;
+  text-align: left;  
+}
+
+.workerInformation {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin-bottom: 36px;
+}
+
+.workerInformation > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+
+.workerInformation input,
+.workerInformation .react-datepicker-wrapper {
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 10px;
+  //field-sizing: content;
+  color: white;
+  margin-bottom: 12px;
+  &:enabled {
+    background: #f4f4f405;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+  &:enabled {
+    background: #f4f4f405;
+  }
+  &:focus {
+    background-color: #193117; //гыгыгы
+  }
+}
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(#f4f4f4, 0.64),
+    rgba(#f4f4f4, 0.16)
+  );
+  opacity: 0.8;
+}
+
+
+.workerInformation input[type=text],  //чтобы инпут дата-пикера не выезжал за пределы контейнера.
+.workerInformation textarea {  //но так имя не влезает!
+   width: 100%;
+    box-sizing: border-box;
+  
+  //или:
+  //width: -webkit-fill-available !important;
+}
+/*
+.workerInformation .react-datepicker-wrapper {
+    width: calc(100% - 22px); 
+}
+.react-datepicker-wrapper {
+  width: 100%;
+  overflow: hidden;
+  .react-datepicker__input-container {
+    width: 100% !important;
+  }
+}
+.react-datepicker-wrapper input {
+  width: 100% !important;
+  box-sizing: border-box;
+}
+*/
+
+.workerInformation button {
+  border: none;
+  background: rgb(58, 58, 58);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.workerLogin {
+  visibility: inherit;
+}
+.workerFullname {
+  visibility: inherit;
+}
+.workerBirthday {
+  visibility: inherit;
+}
+.workerNumber {
+  visibility: inherit;
+}
+.workerStartdate {
+  visibility: inherit;
+}
+.workerPosition {
+  visibility: inherit;
+}

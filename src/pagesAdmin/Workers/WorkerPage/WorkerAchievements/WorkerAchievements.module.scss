@@ -1,0 +1,91 @@
+.workerAchievements {
+  visibility: inherit;
+}
+
+.workerAchievementsNav {
+  ul {
+    display: flex;
+    flex-direction: row;
+    margin-top: 32px;
+    gap: 20px;
+    list-style: none;
+  }
+}
+
+.workerAchievementsList {
+  height: 568px; /* ПРИМЕРНАЯ ВЫСОТА ИЗ МАКЕТА */
+  overflow-y: auto; /* вертикальный скролл */
+  overflow-x: hidden; /* Скрыть горизонтальный скролл */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Три столбца равной ширины */
+  gap: 20px; /* Расстояние между элементами */
+}
+
+
+.achievementCard {
+  border-radius: 20px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 210px;
+  height: 274px;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  position: relative;
+  color: #fff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.achieveButton {
+  width: 210px;
+  height: 274px;
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.achieveTitle {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.achieveImg {
+  width: 140px;
+  height: 140px;
+}
+
+.removeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  color: white;
+}
+
+
+button {
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+}

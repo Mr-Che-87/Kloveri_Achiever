@@ -12,10 +12,16 @@ export interface IUser {
   photo_main?: string | undefined;        //"https://i.ibb.co/dK1hhcD/big1.png"
   photo_small?: string | undefined ;       //"https://i.ibb.co/VwzhZgk/small1.png"
   other_info?: {
+<<<<<<< HEAD
       profession?: string | undefined;     
       start_work?: string | undefined;
       password_work?: string | undefined  
       
+=======
+      proffesion?: string | undefined;     
+      start_work?: string | undefined; 
+      password_work?: string | undefined;  
+>>>>>>> 1795f636b9e2f4c151d22d8d1510a5b189f1cdf4
       //СЮДА МЫ МОЖЕМ САМИ КЛАСТЬ ДОП-СВОЙСТВА
    },
   project_id?: string | undefined;        
