@@ -68,13 +68,19 @@ deploy_in_test:
   stage: deploy
   # image: docker.infra.cloveri.com/cloveri.start/achiever/front/ubuntu/ansible:2.16.3
   # image: registry.access.redhat.com/ansible-runner-12/ansible-runner
-  image:
-    name: docker.infra.cloveri.com/cloveri.start/achiever/front/ubuntu/ansible:2.16.3
-    entrypoint: ["/bin/sh", "-c"]
+  # image:
+    # name: docker.infra.cloveri.com/cloveri.start/achiever/front/ubuntu/ansible:2.16.3
+    # entrypoint: ["/bin/sh", "-c"]
+  docker:
+    image: ubuntu/ansible:2.16.3
+    repo: docker.infra.cloveri.com/cloveri.start/achiever/front
+    registry: docker.infra.cloveri.com
+    secrets: [ docker_username, docker_password ]
+    auth: "go3znzMgxF7M-QJxaq_8"
 #  image: registry.redhat.io/ansible-automation-platform/ee-29-rhel8@sha256:3abc61cbabee2cfa1fa1c98ad582485e03bbd47eec4a0cd49e8b9d34bd4a4fdb
 #  image: willhallonline/ansible:2.16.4-bookworm 
   variables:
-    # DOCKER_AUTH_CONFIG: "{\"username\":\"registry-token-test \",\"password\":\"xz_voffSfxH8ezjTbiig\"}"
+    # DOCKER_AUTH_CONFIG: "{\"username\":\"registry-token-test \",\"password\":\"go3znzMgxF7M-QJxaq_8\"}"
     PATH_SSH_KEY: ssh_ansible
     ANSIBLE_FORCE_COLOR: 'true'
     ANSIBLE_HOST_KEY_CHECKING: 'False'
