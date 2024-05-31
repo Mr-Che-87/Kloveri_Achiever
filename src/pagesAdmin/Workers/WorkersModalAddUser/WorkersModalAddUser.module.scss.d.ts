@@ -21,5 +21,6 @@ declare const classNames: {
   readonly btnGroups: "btnGroups";
   readonly btn__close: "btn__close";
   readonly btn__add: "btn__add";
+  readonly formFilling__rightContent: "formFilling__rightContent";
 };
 export = classNames;

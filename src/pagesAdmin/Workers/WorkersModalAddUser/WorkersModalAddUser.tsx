@@ -101,6 +101,18 @@ function WorkersModalAddUser({
     console.log(tags.join(), "tagsJOIN");
   };
 
+
+  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    setFormData((prevCurrentFormData) => ({
+      ...prevCurrentFormData,
+      // photo_main: file ? URL.createObjectURL(file) : defaultAvatar,
+      // photo_small: file ? URL.createObjectURL(file) : defaultAvatar,
+      photo_main: file ? "https://i.pinimg.com/564x/30/4f/43/304f439199723f21270a440ffc0cb3a7.jpg" : defaultAvatar,
+      photo_small: file ? "https://i.pinimg.com/564x/30/4f/43/304f439199723f21270a440ffc0cb3a7.jpg" : defaultAvatar,
+    }));
+  };
+  /*
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -117,16 +129,9 @@ function WorkersModalAddUser({
       reader.readAsArrayBuffer(file);
     }
   };
+*/
 
 
-  // const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   setFormData((prevCurrentFormData) => ({
-  //     ...prevCurrentFormData,
-  //     photo_main: file ? URL.createObjectURL(file) : defaultAvatar,
-  //     photo_small: file ? URL.createObjectURL(file) : defaultAvatar,
-  //   }));
-  // };
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;
@@ -378,6 +383,7 @@ function WorkersModalAddUser({
               />
             </div>
 
+
             <div className={styles.workerPositionAdd}>
               <h2 className={styles.description__title}>Роль</h2>
               <input
@@ -385,7 +391,7 @@ function WorkersModalAddUser({
                 name="proffesion"
                 type="text"
                 placeholder="Введите Роль"
-                value={formData ? formData?.other_info?.profession : ""}
+                value={formData ? formData?.other_info?.proffesion : ""}
                 onChange={handleWorkerPositionAdd}
                 onKeyDown={handleKeyDown}
               />
