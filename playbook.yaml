@@ -124,7 +124,7 @@
 
         - name:     Print information about container
           ansible.builtin.debug:
-          var:      result.container
+            var:      result.container
     
       when: result.exists
 
