@@ -66,7 +66,8 @@ build_prod_image:
 
 deploy_in_test:
   stage: deploy
-  image: willhallonline/ansible:2.16.4-bookworm 
+  # image: willhallonline/ansible:2.16.4-bookworm 
+  image: public.ecr.aws/ubuntu/redis:6.0-22.04_edge
   variables:
     PATH_SSH_KEY: ssh_ansible
     ANSIBLE_FORCE_COLOR: 'true'
@@ -92,6 +93,7 @@ deploy_in_test:
       project_name=achiever_front
       image_name='docker.infra.cloveri.com/$CI_PROJECT_PATH/$IMAGE_NAME'
   script:
+    - apt-get update && apt-get install -y ansible
     - ansible --version
     - echo "${SSH_PRIVATE_KEY}" > $PATH_SSH_KEY && chmod 600 $PATH_SSH_KEY
     - export ANSIBLE_HOST_KEY_CHECKING=False
