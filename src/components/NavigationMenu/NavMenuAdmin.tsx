@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   
   Routes,
@@ -36,6 +37,12 @@ const NotFound = () => <div>404 Not Found</div>;
 
 //NavMenu HR-а c прокинутым аватаром
 const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => { 
+
+  //на будущее - выпадающее меню:
+  const [isAchievementsMenuOpen, setAchievementsMenuOpen] = useState(false);
+  const [isShopMenuOpen, setShopMenuOpen] = useState(false);
+
+
   return (
     <>
       <nav className="navigation-menu">
@@ -51,6 +58,13 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
             <img src={achievementsIcon} alt="Конструктор достижений" />
             Конструктор достижений
           </NavLink>
+          <div className="down-arrow" //на будущее - выпадающее меню 
+              onClick={() => setAchievementsMenuOpen(!isAchievementsMenuOpen)}
+          >
+            ▼
+          </div>
+        
+
           <NavLink to="/admin/workers" className="menu-item">
             <img src={managementIcon} alt="Сотрудники" />
             Сотрудники
@@ -63,6 +77,14 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
             <img src={ShopIcon} alt="Конструктор товаров" />
             Конструктор товаров
           </NavLink>
+          <div  className="down-arrow" //на будущее - выпадающее меню 
+                onClick={() => setShopMenuOpen(!isShopMenuOpen)}
+          >
+            ▼
+          </div>
+       
+
+
         </div>
         <div className="privacy-settings">
           <NavLink to="/admin/privacy-settings">
@@ -70,6 +92,30 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
           </NavLink>
         </div>
       </nav>
+
+      {/*на будущее - выпадающее меню*/}  
+      <nav className="navigation-menu-dop">
+        {isAchievementsMenuOpen && (
+          <div className="dropdown-menu dropdown-menu-1">
+            <NavLink to="/admin/achievements-constructor" className="menu-item">
+              <img src={achievementsIcon} alt="Конструктор достижений" />
+              Конструктор достижений
+            </NavLink>
+            <button className="menu-item">Мои достижения</button>
+          </div>
+        )}
+        {isShopMenuOpen && (
+          <div className="dropdown-menu dropdown-menu-2">
+            <NavLink to="/admin/shop-constructor" className="menu-item">
+              <img src={ShopIcon} alt="Конструктор товаров" />
+              Конструктор товаров
+            </NavLink>
+            <button className="menu-item">Мой магазин</button>
+          </div>
+        )}
+      </nav>
+      {/*на будущее - выпадающее меню*/}  
+
 
       <div className="routes">
         <Routes>
