@@ -22,9 +22,8 @@ interface WorkerAchievementsProps {
 export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
   userId,
 }) => {
-  //const [achieveList, setAchieveList] = useState<IAchieve[]>([]);  //старый-единый стейт(фильтрация по added)
-  const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]);  //стейт на ачивки библиотеки
-  const [userAchievements, setUserAchievements] = useState<IConnection[]>([]);  //стейт на ачивки юзера
+  const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]);
+  const [userAchievements, setUserAchievements] = useState<IConnection[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -34,11 +33,9 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
   );
 
   useEffect(() => {
-    //console.log("useEffect: загрузка всей библиотеки наград");
     fetchGetAchieveLibrary()
       .then((response) => {
-        console.log("useEffect: Response всей библиотеки наград", response);
-        setAllAchievements(response.data); //data - все данные из бэка{...}
+        setAllAchievements(response.data);
       })
       .catch((error) => {
         console.error("Ошибка при получении библиотеки наград:", error);

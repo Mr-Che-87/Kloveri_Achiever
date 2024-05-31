@@ -101,32 +101,16 @@ function WorkersModalAddUser({
     console.log(tags.join(), "tagsJOIN");
   };
 
+
+
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const binaryData = new Uint8Array(reader.result as ArrayBuffer);
-        const base64Data = `data:${file.type};base64,${btoa(String.fromCharCode(...binaryData))}`;
-        setFormData((prevCurrentFormData) => ({
-          ...prevCurrentFormData,
-          photo_main: base64Data,
-          photo_small: base64Data,
-        }));
-      };
-      reader.readAsArrayBuffer(file);
-    }
+    setFormData((prevCurrentFormData) => ({
+      ...prevCurrentFormData,
+      photo_main: file ? "https://i.pinimg.com/564x/e5/a9/f2/e5a9f2c13568e948fe40b2024329a03a.jpg" : defaultAvatar,
+      photo_small: file ? "https://i.pinimg.com/564x/e5/a9/f2/e5a9f2c13568e948fe40b2024329a03a.jpg" : defaultAvatar,
+    }));
   };
-
-
-  // const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   setFormData((prevCurrentFormData) => ({
-  //     ...prevCurrentFormData,
-  //     photo_main: file ? URL.createObjectURL(file) : defaultAvatar,
-  //     photo_small: file ? URL.createObjectURL(file) : defaultAvatar,
-  //   }));
-  // };
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;
