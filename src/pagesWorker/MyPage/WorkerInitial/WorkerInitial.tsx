@@ -45,13 +45,7 @@ export default function WorkerInitial({
           {`${user.first_name} ${user.last_name}` || "Загружаем имя..."}
           
         </div>
-<<<<<<< HEAD:src/pages/Workers/WorkerPage/WorkerInitial/WorkerInitial.tsx
        
-=======
-        {genderIcon && (
-          <img src={genderIcon} alt="пол" />
-        )}
->>>>>>> 1795f636b9e2f4c151d22d8d1510a5b189f1cdf4:src/pagesWorker/MyPage/WorkerInitial/WorkerInitial.tsx
         
         {showEmail && (
           <div className={styles.workerMail}>

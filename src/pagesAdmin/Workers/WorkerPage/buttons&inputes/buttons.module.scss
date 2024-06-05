@@ -163,39 +163,6 @@ button {
   }
 }
 
-<<<<<<< HEAD:src/pages/Workers/WorkerPage/buttons&inputes/buttons.module.scss
-.addWorkButton{
-  padding: 12px 18px;
-  border-radius: 16px;
-  text-decoration: none;
-  background: #6a11c352;
-  border: 1px solid #762dbf52;
-=======
-
-.searchInputContainer {
-  border: none;
-.searchInput {
->>>>>>> 1795f636b9e2f4c151d22d8d1510a5b189f1cdf4:src/pagesAdmin/Workers/WorkerPage/buttons&inputes/buttons.module.scss
-  color: white;
-  opacity: 0.8;
-  font-size: 16px;
-  padding: 8px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 28px;
-  transition:
-    background-color 0.3s,
-    transform 0.3s;
-
-<<<<<<< HEAD:src/pages/Workers/WorkerPage/buttons&inputes/buttons.module.scss
-=======
-}
-
-
 .addWorkButton{
   padding: 12px 18px;
   border-radius: 16px;
@@ -217,7 +184,6 @@ button {
     background-color 0.3s,
     transform 0.3s;
 
->>>>>>> 1795f636b9e2f4c151d22d8d1510a5b189f1cdf4:src/pagesAdmin/Workers/WorkerPage/buttons&inputes/buttons.module.scss
   &:hover {
     background: linear-gradient(90deg, #6a50ea, #8950ea);
     transform: scale(1.05);
@@ -227,9 +193,4 @@ button {
       transform: scale(0.95);
     }
   }
-<<<<<<< HEAD:src/pages/Workers/WorkerPage/buttons&inputes/buttons.module.scss
 }
-=======
-}
-
->>>>>>> 1795f636b9e2f4c151d22d8d1510a5b189f1cdf4:src/pagesAdmin/Workers/WorkerPage/buttons&inputes/buttons.module.scss

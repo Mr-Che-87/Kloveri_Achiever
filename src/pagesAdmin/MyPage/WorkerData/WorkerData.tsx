@@ -154,12 +154,7 @@ export default function WorkerData({
             name="proffesion"
             type="text"
             placeholder="Введите Роль"
-<<<<<<< HEAD:src/pages/MyPage/WorkerData/WorkerData.tsx
             value={formData?.other_info?.profession || ""}
-            
-=======
-            value={formData?.other_info?.proffesion || ""}
->>>>>>> 1795f636b9e2f4c151d22d8d1510a5b189f1cdf4:src/pagesAdmin/MyPage/WorkerData/WorkerData.tsx
             readOnly
             required
           />
