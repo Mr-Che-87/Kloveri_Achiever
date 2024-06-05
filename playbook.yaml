@@ -98,10 +98,6 @@
         name:    '{{ container_name }}'
       register:   result
 
-    - name:       Print information about container
-      ansible.builtin.debug:
-        var:      result.container
-
     - name:       Check container exist?
       ansible.builtin.debug:
         msg:     "The container {{ 'exists' if result.exists else 'does not exist' }}"
@@ -117,13 +113,21 @@
           message_thread_id: "1491"
           chat_id:          "-1002069387923_1491"
           text: |
-            Project: `{{ CI_PROJECT_TITLE }}`
-            Commit in the `{{ CI_COMMIT_BRANCH }}` branch.
-            Comment in the commit: `{{ CI_COMMIT_MESSAGE }}`
-            Author of commit: `{{ GITLAB_USER_LOGIN }}`
-            Status: `{{ 'success' if result.exists else 'failed' }}`
+            Project: {{ CI_PROJECT_TITLE }}
+            Commit in the {{ CI_COMMIT_BRANCH }} branch.
+            Status: {{ 'success' if result.exists else 'failed' }}
+            Comment in the commit: {{ CI_COMMIT_MESSAGE }}
+            Author of commit: {{ GITLAB_USER_LOGIN }}
             {{ CI_JOB_URL }}
     
+    - block:
+
+        - name:     Print information about container
+          ansible.builtin.debug:
+            var:      result.container
+    
+      when: result.exists
+
     - name:       Register logs project
       shell:     'docker compose -p {{ project_name }} logs'
       register:   output_logs
