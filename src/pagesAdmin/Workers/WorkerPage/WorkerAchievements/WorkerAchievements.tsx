@@ -184,7 +184,6 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
     </div>
   );
 };
-
 /*
 //МОДАЛКО_ПИЗДЕЦ (не удалять пока)
 

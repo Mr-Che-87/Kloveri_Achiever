@@ -243,6 +243,7 @@ function WorkersModalAddUser({
 
   useEffect(() => {
     handleUltils();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tags]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
