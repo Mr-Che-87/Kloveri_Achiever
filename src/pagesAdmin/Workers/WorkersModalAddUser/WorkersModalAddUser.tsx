@@ -9,13 +9,11 @@ import WorkerModalTag from "./WorkerModalTag/WorkerModalTag";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 import styles from "./WorkersModalAddUser.module.scss";
-import axios from "axios";
-import styles from "./WorkersModalAddUser.module.scss";
+
 
 interface WorkerModalAddUserProps {
   user: IUser | undefined;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClose: () => void;
   onClose: () => void;
   onAddContact: (user: IUser) => void;
   userData?: IUser | null;
@@ -47,8 +45,6 @@ function WorkersModalAddUser({
     email:"",    
     photo_main:"" ,        
     photo_small:"" ,
-    photo_main:"" ,        
-    photo_small:"" ,
   } as IUser);
   const [avatarUrl, setAvatarUrl] = useState('');
   const [tags, setTags] = useState<string[]>([]);
@@ -76,11 +72,12 @@ function WorkersModalAddUser({
       !formData.email ||
       !formData.first_name ||
       !formData.last_name ||
-      !formData.phone 
+      !formData.phone ||
+      !formData.photo_main
     ) {
       alert(
         "Пожалуйста, заполните все поля, добавьте фото"
-        "Пожалуйста, заполните все поля, добавьте фото"
+       
       );
       return;
     }
@@ -109,11 +106,7 @@ function WorkersModalAddUser({
 
           console.log(newContact,"newContact")
            
-          const newContact = response.data;
 
-
-
-          console.log(newContact,"newContact")
            
           // Добавляем пользователя в список контактов
           onAddContact(newContact);
