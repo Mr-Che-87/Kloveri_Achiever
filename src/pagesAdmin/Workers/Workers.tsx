@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-empty-pattern */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-empty-pattern */
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { IUser } from "../../types/IUser";
@@ -51,9 +49,6 @@ export default function Workers({}: WorkersModalProps) {
 const handleAddContact = (user: IUser) => {
   const newUserList = [user, ...userList]
   setUserList(newUserList)
-const handleAddContact = (user: IUser) => {
-  const newUserList = [user, ...userList]
-  setUserList(newUserList)
 }
 
 
@@ -78,8 +73,6 @@ const handleAddContact = (user: IUser) => {
 
  
 
- 
-
   return (
     <>
       <div className={styles.workers}>
@@ -97,11 +90,6 @@ const handleAddContact = (user: IUser) => {
             onClose={() => setIsOpenModal(false)}
            
              userData={null}          />
-            onAddContact={handleAddContact}
-            isOpen={isOpenModal}
-            onClose={() => setIsOpenModal(false)}
-           
-             userData={null}          />
                   
           <SearchInputWorkers  
           isSearchName={isSearchName}
@@ -112,8 +100,6 @@ const handleAddContact = (user: IUser) => {
 
         <div className={styles.workersCards}>
           <div className={styles.workersList}>
-            {filtredUserList.length > 0 ? (
-              <ul className={styles.workersList__item}>
             {filtredUserList.length > 0 ? (
               <ul className={styles.workersList__item}>
               {filtredUserList.map((user, index) => (
@@ -127,7 +113,6 @@ const handleAddContact = (user: IUser) => {
                   </NavLink>
                   <div className={styles.workersTeamName}>
                     <p>Название команды</p>
-                    
                     
                   </div>
                 </li>
@@ -175,7 +160,6 @@ const handleAddContact = (user: IUser) => {
     </>
   );
 }
-
 
 
 
