@@ -95,17 +95,11 @@ function WorkersModalAddUser({
       fetchPostUser(formData)
         .then((response) => {
             
-
-            
-
           console.log("Пользователь создан успешно:", response.data);
           const newContact = response.data;
 
-           
           // Добавляем пользователя в список контактов
-      
           onAddContact(newContact);
-          
           onClose();
           onClose();
         })
