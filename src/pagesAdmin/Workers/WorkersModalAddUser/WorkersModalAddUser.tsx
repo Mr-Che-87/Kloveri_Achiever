@@ -103,9 +103,7 @@ function WorkersModalAddUser({
 
            
           // Добавляем пользователя в список контактов
-          onAddContact(newContact);
-          
-          onClose();
+      
           onAddContact(newContact);
           
           onClose();
