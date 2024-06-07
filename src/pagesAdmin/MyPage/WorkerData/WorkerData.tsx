@@ -154,7 +154,7 @@ export default function WorkerData({
             name="proffesion"
             type="text"
             placeholder="Введите Роль"
-            value={formData?.other_info?.proffesion || ""}
+            value={formData?.other_info?.profession || ""}
             readOnly
             required
           />

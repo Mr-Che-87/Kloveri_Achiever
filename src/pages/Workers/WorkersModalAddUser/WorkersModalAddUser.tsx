@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
+import styles from "./WorkersModalAddUser.module.scss";
 import { IUser } from "../../../types/IUser";
 import { fetchPostUser } from "../../../api/apiService";
 import defaultAvatar from "../../../assets/defaultAvatar.png";
@@ -7,16 +7,12 @@ import iconClose from "../../../assets/iconCross.svg";
 import iconCheack from "../../../assets/IconCheck.svg";
 import WorkerModalTag from "./WorkerModalTag/WorkerModalTag";
 import DatePicker from "react-datepicker";
-import axios from "axios";
-import styles from "./WorkersModalAddUser.module.scss";
-import axios from "axios";
-import styles from "./WorkersModalAddUser.module.scss";
+
 
 interface WorkerModalAddUserProps {
   user: IUser | undefined;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClose: () => void;
-  onClose: () => void;
+  onClose: any;
   onAddContact: (user: IUser) => void;
   userData?: IUser | null;
   
@@ -24,15 +20,11 @@ interface WorkerModalAddUserProps {
 
 interface IOtherStateInfo {
   profession: string;
-
-
   start_work: string;
   password_work: string;
 }
 
 function WorkersModalAddUser({
- 
- 
   onClose,
   onAddContact,
   userData,
@@ -45,21 +37,16 @@ function WorkersModalAddUser({
     sex:"",               
     phone:"", 
     email:"",    
-    photo_main:"" ,        
-    photo_small:"" ,
-    photo_main:"" ,        
-    photo_small:"" ,
+    photo_main:"",        
+    photo_small:"",
   } as IUser);
-  const [avatarUrl, setAvatarUrl] = useState('');
   const [tags, setTags] = useState<string[]>([]);
-  const [inputValue,setInputValue] = useState("");
+  const [inputValue] = useState("");
   const [otherState, setOtherState] = useState<IOtherStateInfo>({
     profession: "",
     start_work: "",
     password_work: "",
   });
- 
- 
 
   useEffect(() => {
     console.log(otherState, "sss");
@@ -76,18 +63,13 @@ function WorkersModalAddUser({
       !formData.email ||
       !formData.first_name ||
       !formData.last_name ||
-      !formData.phone 
+      !formData.phone
     ) {
       alert(
-        "Пожалуйста, заполните все поля, добавьте фото"
-        "Пожалуйста, заполните все поля, добавьте фото"
+        "Пожалуйста, заполните обязательные поля: Логин, Имя, Фамилия, Номер телефона"
       );
       return;
     }
-
-    
-
-    
     console.log(otherState, "otherState");
 
     if (formData) {
@@ -98,30 +80,10 @@ function WorkersModalAddUser({
       // Отправляем запрос на создание нового пользователя
       fetchPostUser(formData)
         .then((response) => {
-            
-
-            
-
           console.log("Пользователь создан успешно:", response.data);
-          const newContact = response.data;
 
-
-
-          console.log(newContact,"newContact")
-           
-          const newContact = response.data;
-
-
-
-          console.log(newContact,"newContact")
-           
           // Добавляем пользователя в список контактов
-          onAddContact(newContact);
-          
-          onClose();
-          onAddContact(newContact);
-          
-          onClose();
+          onAddContact(formData);
           onClose();
         })
         .catch((error) => {
@@ -130,9 +92,6 @@ function WorkersModalAddUser({
     }
   };
 
-  
-
-  
   const handleUltils = () => {
     setOtherState((prevFormData) => ({
       ...prevFormData,
@@ -143,57 +102,15 @@ function WorkersModalAddUser({
   };
 
 
-  // const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    
-  //   const file: File | undefined = event.target.files?.[0];
-  //    console.log(file, "file")
-  //   if(!file) return;
-  //   const newAvatar =  URL.createObjectURL(file) as string;
-  //   setFormData((prevCurrentFormData) => ({
-  //     ...prevCurrentFormData,
-  //     // photo_main: file ? newAvatar : defaultAvatar , 
-  //     // photo_small: file ? newAvatar  : defaultAvatar,
-  //     photo_main: file ? "https://i.pinimg.com/564x/30/4f/43/304f439199723f21270a440ffc0cb3a7.jpg" : defaultAvatar,
-  //     photo_small: file ? "https://i.pinimg.com/564x/30/4f/43/304f439199723f21270a440ffc0cb3a7.jpg" : defaultAvatar,
-  //   }));
-   
-  //   console.log( newAvatar, "newAvatar")
-  // };
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file: File | undefined = event.target.files?.[0];
-    if (!file) return;
-  
-    const fileUrl = URL.createObjectURL(file);
-    setAvatarUrl(fileUrl); // отображаем временный URL файла
-  
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('title', 'avatarProfile');
-    formData.append('description', 'avatarProfile');
-  
-    axios.post(`https://reg.achiever.skroy.ru/avatar-images/`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-     .then((response) => {
-      const newUrl = response.data.data.image;
-      console.log(newUrl, "newUrl")
-    setAvatarUrl(newUrl); // обновляем состояние компонента с новым URL файла
-    console.log(setAvatarUrl(newUrl), "setAvatarUrl(newUrl)")
-    // Обновляем поля photo_main и photo_small в объекте formData
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      photo_main: response.data.data.image || defaultAvatar,
-      photo_small: response.data.data.image || defaultAvatar,
+    const file = event.target.files?.[0];
+    setFormData((prevCurrentFormData) => ({
+      ...prevCurrentFormData,
+      photo_main: file ? "https://i.pinimg.com/564x/e5/a9/f2/e5a9f2c13568e948fe40b2024329a03a.jpg" : defaultAvatar,
+      photo_small: file ? "https://i.pinimg.com/564x/e5/a9/f2/e5a9f2c13568e948fe40b2024329a03a.jpg" : defaultAvatar,
     }));
-  })
-  .catch((error) => {
-    console.error("Ошибка при загрузке изображения", error);
-  });
-};
-
+  };
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;
@@ -258,7 +175,7 @@ function WorkersModalAddUser({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const inputValue = event.target.value;
-    setInputValue(inputValue)
+
     setOtherState((prevFormData) => ({
       ...prevFormData,
       profession: inputValue,
@@ -286,8 +203,6 @@ function WorkersModalAddUser({
         ...prevFormData,
         profession: inputValue,
       }));
-    
-    
     }
   };
 
@@ -310,12 +225,6 @@ function WorkersModalAddUser({
     return date instanceof Date && !isNaN(date.getTime()) ? date : null;
   };
 
-
-
-
-
-
-
   return (
     <div className={styles.workerModalAddUser}>
       <div className={styles.WorkersModalAddUserContent}>
@@ -325,26 +234,20 @@ function WorkersModalAddUser({
 
         <div className={styles.header}>
           <div className={styles.avatarUser}>
-                  <label>
-                <input
+            <label>
+              <input
                 type="file"
                 name="uploadFile"
                 id="buttonFile"
                 accept="image/*"
                 style={{ display: "none" }}
                 onChange={handleAvatarChange}
-                defaultValue={undefined}
-                
               />
               <img
                 className={styles.avatarUser}
-                src={ avatarUrl? avatarUrl : defaultAvatar}
+                src={formData?.photo_small || defaultAvatar}
                 alt="avatar"
-                onLoad={() => {
-                  setAvatarUrl(avatarUrl);
-                }}
               />
-    
             </label>
           </div>
           <div className={styles.workerLoginAdd}>
@@ -459,7 +362,6 @@ function WorkersModalAddUser({
               />
             </div>
 
-
             <div className={styles.workerPositionAdd}>
               <h2 className={styles.description__title}>Роль</h2>
               <input
@@ -467,14 +369,15 @@ function WorkersModalAddUser({
                 name="proffesion"
                 type="text"
                 placeholder="Введите Роль"
-                value={formData ? formData?.other_info?.proffesion : ""}
+                value={formData ? formData?.other_info?.profession : ""}
                 onChange={handleWorkerPositionAdd}
                 onKeyDown={handleKeyDown}
               />
-           
+          
               <WorkerModalTag
                 setTags={setTags}
                 tags={tags}
+                formData={undefined}
                 removeTag={[]}
               />
             </div>
