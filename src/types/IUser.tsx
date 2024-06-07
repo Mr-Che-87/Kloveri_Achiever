@@ -21,6 +21,7 @@ export interface IUser {
 
 }
 
+
 //"https://www.example.com/media/imag/photo_main.jpg" - ПУСТОЙ url для теста
 
 /*

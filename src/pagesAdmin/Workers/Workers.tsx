@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-empty-pattern */
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { IUser } from "../../types/IUser";
 import styles from "./Workers.module.scss";
 import iconHeader from "../../assets/iconsHeader.svg";
-
+import iconAddWorker from "../../assets/ImageAndTitle.png"
 import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
 import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 //import AuthorizationLinksButton from "./AuthorizationLinksButton/AuthorizationLinksButton";
@@ -11,14 +13,9 @@ import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 import AddWorkerButton from "./AddWorkerButton/AddWorkerButton";
 //import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
 import WorkersModal from "./WorkersModal/WorkersModal";
-import WorkersModalAddUser from "./WorkersModalAddUser/WorkersModalAddUser";
+
 
 import { fetchGetAllUsers } from "../../api/apiService"; //api
-
-
-//n
-import AddWorkButton from "./WorkerPage/buttons&inputes/AddWorkButton";
-import { Value } from "sass";
 interface WorkersModalProps{
   isOpne: boolean;
   onClose: () => void;
@@ -33,12 +30,10 @@ function filterName (searchTextName: string, nameList: any[])  {
   if(!searchTextName){
     return nameList;
   }
-  return nameList.filter(({first_name, last_name}) =>
-    [first_name, last_name].some(
-        (name) => name?.toLowerCase().includes(searchTextName.toLowerCase())
-    )
-   
-  )
+  return nameList.filter((user) => {
+    const fullName = `${user.first_name} ${user.last_name}`;
+    return fullName.toLowerCase().includes(searchTextName.toLowerCase());
+  });
 }
 
 export default function Workers({}: WorkersModalProps) {
@@ -48,11 +43,12 @@ export default function Workers({}: WorkersModalProps) {
 
   
 
- const filtredUserList = filterName(isSearchName, userList)
+//  const filtredUserList = filterName(isSearchName, userList)
+ const filtredUserList = filterName(isSearchName, userList).filter((user) => user.profile_id !== null);
 
-//n
- const handleAddContact = (user: IUser) => {
-  setUserList((prevUserList:IUser[]) =>[...prevUserList, user])
+const handleAddContact = (user: IUser) => {
+  const newUserList = [user, ...userList]
+  setUserList(newUserList)
 }
 
 
@@ -75,6 +71,8 @@ export default function Workers({}: WorkersModalProps) {
     return <div>Loading user data...</div>;
   }
 
+ 
+
   return (
     <>
       <div className={styles.workers}>
@@ -87,25 +85,23 @@ export default function Workers({}: WorkersModalProps) {
           onClick={() => setIsOpenModal(true)}
            />
           <WorkersModal
-           isOpen={isOpenModal} 
-           onClose ={() => setIsOpenModal(false)}
-          />
+            onAddContact={handleAddContact}
+            isOpen={isOpenModal}
+            onClose={() => setIsOpenModal(false)}
+           
+             userData={null}          />
                   
           <SearchInputWorkers  
           isSearchName={isSearchName}
           setIsSearchName={setIsSearchName}
           />
             
-         
-           {/* <WorkersModalAddUser/>  */}
-         
-            
         </div>
 
         <div className={styles.workersCards}>
           <div className={styles.workersList}>
-            
-            <ul className={styles.workersList__item}>
+            {filtredUserList.length > 0 ? (
+              <ul className={styles.workersList__item}>
               {filtredUserList.map((user, index) => (
                 <li key={index}>
                   <NavLink to={`/admin/worker-page/${user.profile_id}`}>
@@ -117,10 +113,26 @@ export default function Workers({}: WorkersModalProps) {
                   </NavLink>
                   <div className={styles.workersTeamName}>
                     <p>Название команды</p>
+                    
                   </div>
                 </li>
               ))}
             </ul>
+            ): (
+              <div className={styles.notFound}>
+                  {userList.length === 0? (
+                    <div>
+                      <img src={iconAddWorker} alt="Добавьте пользователя" />
+                    </div>
+                  ): (
+                    isSearchName? `Пользователь "${isSearchName}" не найден ` : "Пользователь не найден"
+                  )
+
+                }
+              </div>
+              
+            )}
+
           </div>
 
           {/* <div className={styles.workersNotInTheTeam}>
@@ -148,6 +160,7 @@ export default function Workers({}: WorkersModalProps) {
     </>
   );
 }
+
 
 
 

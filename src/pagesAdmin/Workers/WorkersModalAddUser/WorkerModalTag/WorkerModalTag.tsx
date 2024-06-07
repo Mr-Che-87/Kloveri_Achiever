@@ -1,9 +1,10 @@
-import { JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal } from "react";
 import styles from "./WorkerModalTag.module.scss";
 
 
 interface WorkerModalTagProps{
-  formData: unknown;
+ 
   removeTag:any;
 
   tags: string[];
