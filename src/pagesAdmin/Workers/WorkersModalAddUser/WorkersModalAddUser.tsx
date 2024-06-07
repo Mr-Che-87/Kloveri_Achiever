@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { IUser } from "../../../types/IUser";
 import { fetchPostUser } from "../../../api/apiService";
@@ -8,6 +9,7 @@ import WorkerModalTag from "./WorkerModalTag/WorkerModalTag";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 import styles from "./WorkersModalAddUser.module.scss";
+
 
 interface WorkerModalAddUserProps {
   user: IUser | undefined;
@@ -21,11 +23,13 @@ interface WorkerModalAddUserProps {
 interface IOtherStateInfo {
   profession: string;
 
+
   start_work: string;
   password_work: string;
 }
 
 function WorkersModalAddUser({
+ 
  
   onClose,
   onAddContact,
@@ -42,14 +46,15 @@ function WorkersModalAddUser({
     photo_main:"" ,        
     photo_small:"" ,
   } as IUser);
- 
+  const [avatarUrl, setAvatarUrl] = useState('');
   const [tags, setTags] = useState<string[]>([]);
-  const [inputValue] = useState("");
+  const [inputValue,setInputValue] = useState("");
   const [otherState, setOtherState] = useState<IOtherStateInfo>({
     profession: "",
     start_work: "",
     password_work: "",
   });
+ 
  
 
   useEffect(() => {
@@ -77,6 +82,8 @@ function WorkersModalAddUser({
     }
 
     
+
+    
     console.log(otherState, "otherState");
 
     if (formData) {
@@ -89,14 +96,16 @@ function WorkersModalAddUser({
         .then((response) => {
             
 
+            
+
           console.log("Пользователь создан успешно:", response.data);
           const newContact = response.data;
 
-
-
-          console.log(newContact,"newContact")
            
           // Добавляем пользователя в список контактов
+          onAddContact(newContact);
+          
+          onClose();
           onAddContact(newContact);
           
           onClose();
@@ -107,6 +116,8 @@ function WorkersModalAddUser({
         });
     }
   };
+
+  
 
   
   const handleUltils = () => {
@@ -127,10 +138,10 @@ function WorkersModalAddUser({
   //   const newAvatar =  URL.createObjectURL(file) as string;
   //   setFormData((prevCurrentFormData) => ({
   //     ...prevCurrentFormData,
-  //     photo_main: file ? newAvatar : defaultAvatar , 
-  //     photo_small: file ? newAvatar  : defaultAvatar,
-  //     // photo_main: file ? "https://i.pinimg.com/564x/30/4f/43/304f439199723f21270a440ffc0cb3a7.jpg" : defaultAvatar,
-  //     // photo_small: file ? "https://i.pinimg.com/564x/30/4f/43/304f439199723f21270a440ffc0cb3a7.jpg" : defaultAvatar,
+  //     // photo_main: file ? newAvatar : defaultAvatar , 
+  //     // photo_small: file ? newAvatar  : defaultAvatar,
+  //     photo_main: file ? "https://i.pinimg.com/564x/30/4f/43/304f439199723f21270a440ffc0cb3a7.jpg" : defaultAvatar,
+  //     photo_small: file ? "https://i.pinimg.com/564x/30/4f/43/304f439199723f21270a440ffc0cb3a7.jpg" : defaultAvatar,
   //   }));
    
   //   console.log( newAvatar, "newAvatar")
@@ -139,26 +150,36 @@ function WorkersModalAddUser({
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = event.target.files?.[0];
     if (!file) return;
-
+  
+    const fileUrl = URL.createObjectURL(file);
+    setAvatarUrl(fileUrl); // отображаем временный URL файла
+  
     const formData = new FormData();
-    formData.append("photo_main", file);
-    formData.append("photo_small", file);
-
+    formData.append('image', file);
+    formData.append('title', 'avatarProfile');
+    formData.append('description', 'avatarProfile');
+  
     axios.post(`https://reg.achiever.skroy.ru/avatar-images/`, formData, {
       headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((response) => {
-      const newAvatar = response.data.url;
-      setFormData((prevCurrentFormData) => ({
-        ...prevCurrentFormData,
-        photo_main: newAvatar,
-        photo_small: newAvatar,
-      }));
-    }).catch((error) => {
-      console.error("Ошибка при загрузке изображения", error);
-    });
-  };
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+     .then((response) => {
+      const newUrl = response.data.data.image;
+      console.log(newUrl, "newUrl")
+    setAvatarUrl(newUrl); // обновляем состояние компонента с новым URL файла
+    console.log(setAvatarUrl(newUrl), "setAvatarUrl(newUrl)")
+    // Обновляем поля photo_main и photo_small в объекте formData
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      photo_main: response.data.data.image || defaultAvatar,
+      photo_small: response.data.data.image || defaultAvatar,
+    }));
+  })
+  .catch((error) => {
+    console.error("Ошибка при загрузке изображения", error);
+  });
+};
 
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -224,7 +245,7 @@ function WorkersModalAddUser({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const inputValue = event.target.value;
-
+    setInputValue(inputValue)
     setOtherState((prevFormData) => ({
       ...prevFormData,
       profession: inputValue,
@@ -243,7 +264,6 @@ function WorkersModalAddUser({
 
   useEffect(() => {
     handleUltils();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tags]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -253,6 +273,8 @@ function WorkersModalAddUser({
         ...prevFormData,
         profession: inputValue,
       }));
+    
+    
     }
   };
 
@@ -278,6 +300,9 @@ function WorkersModalAddUser({
 
 
 
+
+
+
   return (
     <div className={styles.workerModalAddUser}>
       <div className={styles.WorkersModalAddUserContent}>
@@ -287,9 +312,7 @@ function WorkersModalAddUser({
 
         <div className={styles.header}>
           <div className={styles.avatarUser}>
-          
                   <label>
-              
                 <input
                 type="file"
                 name="uploadFile"
@@ -297,12 +320,16 @@ function WorkersModalAddUser({
                 accept="image/*"
                 style={{ display: "none" }}
                 onChange={handleAvatarChange}
+                defaultValue={undefined}
                 
               />
               <img
                 className={styles.avatarUser}
-                src={formData?.photo_small || defaultAvatar}
+                src={ avatarUrl? avatarUrl : defaultAvatar}
                 alt="avatar"
+                onLoad={() => {
+                  setAvatarUrl(avatarUrl);
+                }}
               />
     
             </label>
@@ -431,11 +458,10 @@ function WorkersModalAddUser({
                 onChange={handleWorkerPositionAdd}
                 onKeyDown={handleKeyDown}
               />
-          
+           
               <WorkerModalTag
                 setTags={setTags}
                 tags={tags}
-               
                 removeTag={[]}
               />
             </div>
