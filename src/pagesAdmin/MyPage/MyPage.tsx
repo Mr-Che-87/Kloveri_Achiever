@@ -8,7 +8,7 @@ import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
 
 import mockWithoutAchieve from "@/assets/mock_withoutAchieve.png"
-import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
+//import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 import WorkerRanks from "./WorkerRanks/WorkerRanks";
 
 import { IUser } from "../../types/IUser";

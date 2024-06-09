@@ -18,6 +18,17 @@
   transition: transform 0.3s ease-out;
 }
 
+.workersModal__content {
+  visibility: inherit;
+}
+.title {
+  visibility: inherit;
+}
+.workersModal__form {
+  visibility: inherit;
+}
+
+
 .workersModal__upload {
   label {
     display: flex;

@@ -12,12 +12,8 @@ const API_URL = "https://reg.achiever.skroy.ru"; //обновлённый баз
 export const fetchGetAllUsers = (): Promise<AxiosResponse> => {
   return axios.get(`${API_URL}/profiles/`);
 };
-/* //СТАРОЕ (не удалять пока)
-export const fetchGetUserData = (userRoleId: string) => {  //userRoleId(0 - админ, 1 - работник) 
-  return axios.get(`${API_URL}/user/${userRoleId}`);    
-};  */
 
-// POST-Добавление нового пользователя                      //ДЕЛАТЬ Андрей
+// POST-Добавление нового пользователя                      
 export const fetchPostUser = (
   userData: IUser
 ): Promise<AxiosResponse<IUser>> => {
