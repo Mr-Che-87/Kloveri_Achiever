@@ -3,7 +3,7 @@ import styles from "./WorkerModalTag.module.scss";
 
 
 interface WorkerModalTagProps{
-  formData: unknown;
+ 
   removeTag:any;
 
   tags: string[];

@@ -12,7 +12,7 @@ export function DeleteBanWorkerButton() {
         fetchDeleteUser(profile_id)
           .then((response) =>{
             console.log("Пользователь удален:", response)
-            window.location.href = "/workers"
+            window.location.href = "/admin/workers"
           })
           .catch((error)=>{
             console.error("Ошибка при удалении пользователя:", error)

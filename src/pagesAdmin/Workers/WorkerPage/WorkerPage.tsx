@@ -18,7 +18,7 @@ export default function WorkerPage() {
   const { profile_id } = useParams();    //получаем profileId из параметров маршрута
   const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
   const [isEditing, setIsEditing] = useState(false);  //редактирование полей
-
+  
   // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
     //const userRoleId = "1";    //0 - admin, 1 - worker - старое
@@ -35,6 +35,8 @@ export default function WorkerPage() {
     }
   }, [profile_id]);
 
+
+
   //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
 
@@ -48,6 +50,7 @@ export default function WorkerPage() {
               showEmail={true}
               avatarSize="large"  //пропс файла и css-размеров картинки
             />
+            
           )}
         </div>
         

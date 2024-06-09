@@ -10,7 +10,7 @@ export function SearchAchieveInput({ searchQuery, setSearchQuery }: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
-
+  
   return (
     <div className={styles.searchInputContainer}>
        
