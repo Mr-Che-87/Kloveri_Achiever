@@ -7,28 +7,26 @@ import iconCheack from "../../../assets/IconCheck.svg";
 import WorkersModalAddUser from "../WorkersModalAddUser/WorkersModalAddUser";
 import { IUser } from "../../../types/IUser";
 
-interface WorkersModalProps{
+interface WorkersModalProps {
   isOpen: boolean;
   onClose: () => void;
-  createdUser: IUser | null;
   onAddContact: (user: IUser) => void;
   userData: IUser | null;
 }
 
 const WorkersModal = ({
-   isOpen,
-    onClose, 
-    userData
+  isOpen,
+  onClose,
+  userData,
+  onAddContact,
+}: WorkersModalProps) => {
+  // Добавление состояния для contacts и setContacts функции
 
- }: WorkersModalProps) => {
-  
- // Добавление состояния для contacts и setContacts функции
- const [, setContacts] = useState<IUser[]>([]);
 
   const handleAddContact = (user: IUser) => {
-    setContacts((prevContacts) => [...prevContacts,user])
-  }
-  
+    onAddContact(user);
+  };
+
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
   if (!isOpen) {
     return null;
@@ -36,44 +34,47 @@ const WorkersModal = ({
 
   // закрывает модальное вне контента
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onWrapperClick = (event:any) => {
+  const onWrapperClick = (event: any) => {
     if (!event.currentTarget.contains(event.target)) {
-     
       onClose();
     }
   };
 
-
-
-
-const handleAddUserClick = () =>{
-  setIsAddUserOpen(true)
-}
+  const handleAddUserClick = () => {
+    setIsAddUserOpen(true);
+  };
   return (
     <>
       {isOpen && (
-        <div className={styles.workersModal} >
-          <div className={styles.workersModal__content} onClick={onWrapperClick} >
+        <div className={styles.workersModal}>
+          <div
+            className={styles.workersModal__content}
+            onClick={onWrapperClick}
+          >
             <div className={styles.title}>
               <h3>Добавить сотрудников</h3>
             </div>
             <div className={styles.workersModal__form}>
               <form className={styles.workersModal__upload}>
-                <label >
+                <label>
                   <input
                     type="file"
                     name="uploadFile"
                     id="buttonFile"
                     accept="image/*"
-                    style={{display:"none"}}
+                    style={{ display: "none" }}
                   />
-                    <img src={uploadFile} alt="" />
-                    <p>Загрузить файл</p>
+                  <img src={uploadFile} alt="" />
+                  <p>Загрузить файл</p>
                 </label>
               </form>
               <p className={styles.or}>или</p>
               <form action="">
-                <button type="button" className={styles.btn_collaborator} onClick={handleAddUserClick} >
+                <button
+                  type="button"
+                  className={styles.btn_collaborator}
+                  onClick={handleAddUserClick}
+                >
                   <img src={iconCollaborator} alt="" />
                   Ввести данные
                 </button>
@@ -82,16 +83,23 @@ const handleAddUserClick = () =>{
 
             <div className={styles.workersModal__formCheckbox}>
               <form action="checkbox">
-                <input type="checkbox" name="checkbox" id="checkbox" className={styles.checkboxType} />
+                <input
+                  type="checkbox"
+                  name="checkbox"
+                  id="checkbox"
+                  className={styles.checkboxType}
+                />
                 <label htmlFor="checkbox">
                   <div>
-                    <p className={styles.text__title}>Отправить ссылки для авторизации</p>
+                    <p className={styles.text__title}>
+                      Отправить ссылки для авторизации
+                    </p>
                   </div>
-                   
-                <p className={styles.text__description}>
-                  Если этот пункт отмечен, на почту сотрудников будут
-                  автоматически отправлены ссылки для авторизации
-                </p>
+
+                  <p className={styles.text__description}>
+                    Если этот пункт отмечен, на почту сотрудников будут
+                    автоматически отправлены ссылки для авторизации
+                  </p>
                 </label>
               </form>
             </div>
@@ -100,19 +108,23 @@ const handleAddUserClick = () =>{
                 <img src={iconClose} alt="" />
                 Отменить
               </button>
-              <button className={styles.btn__add} >
-                <img src={iconCheack}  alt="" />
+              <button className={styles.btn__add}>
+                <img src={iconCheack} alt="" />
                 Добавить
               </button>
             </div>
           </div>
         </div>
       )}
-      {isAddUserOpen &&(
-        <WorkersModalAddUser  
+      {isAddUserOpen &&  (
+        <WorkersModalAddUser
           onAddContact={handleAddContact}
           userData={userData}
-          onClose={() => setIsAddUserOpen(false)} user={undefined}/>
+          onClose={() => {
+            onClose();
+          }}
+          user={undefined}
+        />
       )}
     </>
   );

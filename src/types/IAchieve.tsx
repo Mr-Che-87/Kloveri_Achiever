@@ -1,4 +1,5 @@
 export interface IAchieve {
+  uuid(uuid: any): void;
   id: string;
   created_date: string;
   modified_date: string;

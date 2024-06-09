@@ -9,5 +9,6 @@ declare const classNames: {
   readonly workersNotInTheTeam: "workersNotInTheTeam";
   readonly workersAddTeam: "workersAddTeam";
   readonly formFilling__rightContent: "formFilling__rightContent";
+  readonly notFound: "notFound";
 };
 export = classNames;

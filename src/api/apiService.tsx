@@ -149,8 +149,3 @@ export const fetchDeleteUserAchievement = (
   console.log("АПИ Выполняется запрос на удаление ачивки с id:", id);
   return axios.delete<IConnection>(`${API_URL}/user-achievements/${id}/`);
 };
-
-
-
-
-

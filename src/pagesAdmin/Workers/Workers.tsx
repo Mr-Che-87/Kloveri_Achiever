@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-empty-pattern */
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { IUser } from "../../types/IUser";
@@ -11,14 +13,8 @@ import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 import AddWorkerButton from "./AddWorkerButton/AddWorkerButton";
 //import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
 import WorkersModal from "./WorkersModal/WorkersModal";
-import WorkersModalAddUser from "./WorkersModalAddUser/WorkersModalAddUser";
 
 import { fetchGetAllUsers } from "../../api/apiService"; //api
-
-
-//n
-import AddWorkButton from "./WorkerPage/buttons&inputes/AddWorkButton";
-import { Value } from "sass";
 interface WorkersModalProps{
   isOpne: boolean;
   onClose: () => void;
@@ -50,9 +46,9 @@ export default function Workers({}: WorkersModalProps) {
 
  const filtredUserList = filterName(isSearchName, userList)
 
-//n
- const handleAddContact = (user: IUser) => {
-  setUserList((prevUserList:IUser[]) =>[...prevUserList, user])
+const handleAddContact = (user: IUser) => {
+  const newUserList = [user, ...userList]
+  setUserList(newUserList)
 }
 
 
@@ -75,6 +71,8 @@ export default function Workers({}: WorkersModalProps) {
     return <div>Loading user data...</div>;
   }
 
+ 
+
   return (
     <>
       <div className={styles.workers}>
@@ -87,9 +85,11 @@ export default function Workers({}: WorkersModalProps) {
           onClick={() => setIsOpenModal(true)}
            />
           <WorkersModal
-           isOpen={isOpenModal} 
-           onClose ={() => setIsOpenModal(false)}
-          />
+            onAddContact={handleAddContact}
+            isOpen={isOpenModal}
+            onClose={() => setIsOpenModal(false)}
+           
+             userData={null}          />
                   
           <SearchInputWorkers  
           isSearchName={isSearchName}
@@ -104,8 +104,8 @@ export default function Workers({}: WorkersModalProps) {
 
         <div className={styles.workersCards}>
           <div className={styles.workersList}>
-            
-            <ul className={styles.workersList__item}>
+            {filtredUserList.length > 0 ? (
+              <ul className={styles.workersList__item}>
               {filtredUserList.map((user, index) => (
                 <li key={index}>
                   <NavLink to={`/admin/worker-page/${user.profile_id}`}>
@@ -117,10 +117,19 @@ export default function Workers({}: WorkersModalProps) {
                   </NavLink>
                   <div className={styles.workersTeamName}>
                     <p>Название команды</p>
+                    
                   </div>
                 </li>
               ))}
             </ul>
+            ): (
+              <div className={styles.notFound}>
+                {isSearchName ? `Пользователь "${isSearchName}" не найден ` : "Пользователь не найден"}
+                 </div>
+            )}
+            
+            
+            
           </div>
 
           {/* <div className={styles.workersNotInTheTeam}>
@@ -148,6 +157,7 @@ export default function Workers({}: WorkersModalProps) {
     </>
   );
 }
+
 
 
 
