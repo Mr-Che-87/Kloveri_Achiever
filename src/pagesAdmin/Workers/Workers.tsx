@@ -13,19 +13,13 @@ import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 import AddWorkerButton from "./AddWorkerButton/AddWorkerButton";
 //import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
 import WorkersModal from "./WorkersModal/WorkersModal";
-
-
 import { fetchGetAllUsers } from "../../api/apiService"; //api
-interface WorkersModalProps{
-  isOpne: boolean;
-  onClose: () => void;
-  createdUser: IUser | null;
-  onAddContact?:(user:IUser) => void;
-}
 
 
 
 
+
+// Поиск по имени и фамилии
 function filterName (searchTextName: string, nameList: any[])  {
   if(!searchTextName){
     return nameList;
@@ -36,15 +30,15 @@ function filterName (searchTextName: string, nameList: any[])  {
   });
 }
 
-export default function Workers({}: WorkersModalProps) {
+
+
+
+export default function Workers() {
   const [userList, setUserList] = useState<IUser[]>([]); //state списка всех юзеров
   const [isSearchName, setIsSearchName] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false)
+ const filtredUserList = filterName(isSearchName, userList)
 
-  
-
-//  const filtredUserList = filterName(isSearchName, userList)
- const filtredUserList = filterName(isSearchName, userList).filter((user) => user.profile_id !== null);
 
 const handleAddContact = (user: IUser) => {
   const newUserList = [user, ...userList]
@@ -88,8 +82,8 @@ const handleAddContact = (user: IUser) => {
             onAddContact={handleAddContact}
             isOpen={isOpenModal}
             onClose={() => setIsOpenModal(false)}
-           
-             userData={null}          />
+            userData={null}
+                  />
                   
           <SearchInputWorkers  
           isSearchName={isSearchName}

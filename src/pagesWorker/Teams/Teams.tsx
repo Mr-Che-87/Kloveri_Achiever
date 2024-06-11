@@ -1,4 +1,4 @@
-import styles from "./Teams.module.scss";
+// import styles from "./Teams.module.scss";
 import mockTeamsContent from "@/assets/mock-Teams-content.png"
 
 export default function Teams() {
