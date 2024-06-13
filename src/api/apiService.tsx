@@ -10,7 +10,11 @@ const API_URL = "https://reg.achiever.skroy.ru"; //обновлённый баз
 //Profiles//
 // GET-Получение списка всех пользователей
 export const fetchGetAllUsers = (): Promise<AxiosResponse> => {
-  return axios.get(`${API_URL}/profiles/`);
+  return axios.get(`${API_URL}/profiles/`,{
+    headers:{
+      "ORGANIZATION-ID": "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389"
+    }
+  });
 };
 /* //СТАРОЕ (не удалять пока)
 export const fetchGetUserData = (userRoleId: string) => {  //userRoleId(0 - админ, 1 - работник) 

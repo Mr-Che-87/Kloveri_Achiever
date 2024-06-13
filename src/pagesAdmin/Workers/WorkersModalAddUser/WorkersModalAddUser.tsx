@@ -31,6 +31,7 @@ function WorkersModalAddUser({
   userData,
 }: WorkerModalAddUserProps) {
   const [formData, setFormData] = useState<IUser>({
+    login: "",
     first_name: "",
     last_name: "",
     middle_name: "",
@@ -84,6 +85,7 @@ function WorkersModalAddUser({
     formDataToSend.append("sex", formData.sex ?? "");
     formDataToSend.append("photo_main", formData.photo_main);
     formDataToSend.append("photo_small", formData.photo_small ?? "");
+    formDataToSend.append("login",formData.login?? "" )
 
     if (formData) {
       console.log(formData, "formData");
@@ -93,9 +95,10 @@ function WorkersModalAddUser({
 
       // Отправляем запрос на создание нового пользователя
       axios
-        .post(`https://reg.achiever.skroy.ru/profiles/`, formDataToSend, {
+        .post(`https://reg.achiever.skroy.ru/registarations/`, formDataToSend, {
           headers: {
             "Content-Type": "multipart/form-data",
+             
           },
         })
         .then((response) => {
@@ -136,6 +139,8 @@ function WorkersModalAddUser({
       }));
     }
   };
+
+  
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;

@@ -2,7 +2,8 @@
 export interface IUser {
   profile_id?: string | undefined;   
   profile_type?: string | undefined;        //"anonymous"
-  profile_code?: string | undefined;        //"anonymous:a40a62fa-ee5e-4036-ae37-6c4329cffca1"
+  profile_code?: string | undefined;
+  login?: string | undefined;        //"anonymous:a40a62fa-ee5e-4036-ae37-6c4329cffca1"
   first_name?: string | undefined;
   last_name?: string | undefined;
   middle_name?: string | undefined;

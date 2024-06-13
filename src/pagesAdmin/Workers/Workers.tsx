@@ -106,7 +106,7 @@ const handleAddContact = (user: IUser) => {
                     />
                   </NavLink>
                   <div className={styles.workersTeamName}>
-                    <p>Название команды</p>
+                    {/* <p>Название команды</p> */}
                     
                   </div>
                 </li>

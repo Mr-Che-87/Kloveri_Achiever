@@ -1,7 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import styles from "./ModalAddingAchieve.module.scss";
-
+import cardAchieveBG from "../../assets/CardAchievementBG.png";
+import iconAddPhoto from "../../assets/iconAddPhoto.png";
 import { fetchPostAchieveLibrary } from "../../api/apiService";
 import { IAchieve } from "../../types/IAchieve";
 import ModalChooseImage from "./ModalChooseImage";
@@ -100,7 +101,58 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
             </button>
             <h2>Создать достижение</h2>
             <form onSubmit={handleSubmit} className={styles.form}>
-              <div className={styles.formGroup}>
+              <div className={styles.addAchievePhotoContainer}>
+                {
+                  selectedBackground? (
+                    <img 
+                    className={styles.iconAddAchieve}
+                    src={selectedBackground}
+                    style={{ maxWidth: '100%', maxHeight: '100%', marginLeft: "-20px" }}
+                    />
+                  ) : (
+                      <img
+                  className={styles.iconAddAchieve}
+                  src={cardAchieveBG}
+                  alt="Icon Add Achieve"
+                />
+                  )
+                }
+              
+                  {
+                    selectedImage? (
+                      <img 
+                      className={styles.iconAddPhoto}
+                      src={selectedImage}
+                      style={{ maxWidth: '100%', maxHeight: '100%' , left: "42px"}}
+                      
+                       />
+                    ) : (
+                        <img
+                  className={styles.iconAddPhoto}
+                  src={iconAddPhoto}
+                  alt="Add photo"
+                />
+                    )
+                  }
+              {
+                title? (
+                  <p className={styles.titleHeadIcon} >{title}</p>
+                ) : (
+                  <p className={styles.titleHeadIcon}>Заголовок</p>
+                )
+              }
+              
+              {
+                description ? (
+                  <p className={styles.descriptionHeadIcon}>{description}</p>
+                ) : (
+                  <p className={styles.descriptionHeadIcon}>Описание</p>
+                )
+              }
+                
+                
+              </div>
+              <div className={`${styles.formGroup} ${styles.formGroupName}`}>
                 <label htmlFor="title">Название</label>
                 <input
                   className={styles.titleInput}
@@ -112,7 +164,10 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
                   required
                 />
               </div>
-              <div className={styles.formGroup}>
+
+              <div
+                className={`${styles.formGroup} ${styles.formGroupDescription}`}
+              >
                 <label htmlFor="description">Описание</label>
                 <textarea
                   id="description"
@@ -122,7 +177,8 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
                   required
                 />
               </div>
-              <div className={styles.formGroup}>
+
+              <div className={`${styles.formGroup} ${styles.formGroupRank}`}>
                 <label htmlFor="rank">Ранг</label>
                 <input
                   className={styles.rankInput}
@@ -134,7 +190,8 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
                   required
                 />
               </div>
-              <div className={styles.formGroup}>
+
+              <div className={`${styles.formGroup} ${styles.formGroupImage}`}>
                 <label>Изображение</label>
                 <div className={styles.inputContainer}>
                   <button
@@ -144,18 +201,30 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
                       setIsModalVisible(false);
                     }}
                   >
+
                     Выбрать
+                 
                   </button>
-                  <input
-                    className={styles.fileDownload}
+                  
+                  <label className={styles.labelFileDownload} htmlFor="fileInput">
+                    <p>Загрузить</p> 
+                       <input
+                    className={`${styles.fileDownload} ${styles.fileDownloadImage}`}
                     type="file"
+                    id="fileInput"
                     onChange={handleImageChange}
+                    
                   />
+                    
+                    </label>
                 </div>
               </div>
-              <div className={styles.formGroup}>
+
+              <div
+                className={`${styles.formGroup} ${styles.formGroupBackground}`}
+              >
                 <label>Фон</label>
-                <div className={styles.inputContainer}>
+                <div className={`${styles.inputContainer} ${styles.inputContainer_ButtonAddBackground}`}>
                   <button
                     type="button"
                     onClick={() => {
@@ -167,6 +236,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
                   </button>
                 </div>
               </div>
+
               <div className={styles.formActions}>
                 <button
                   type="button"
