@@ -6,7 +6,7 @@ import WelcomeImg from "@/assets/Welcome-img.png";
 const Login: React.FC = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<"admin" | "worker" | "">("");
+  const [role, setRole] = useState<"employee" | "director" | "">("");
   const [loginError, setLoginError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -44,11 +44,9 @@ const Login: React.FC = () => {
       setOrganizationId(data.organization_id);
 
       // Временная логика перенаправления на основе данных
-      if (data.profile_id) {
-        console.log("Navigating to admin page");
+      if (role === "director") {
         navigate("/admin");
-      } else {
-        console.log("Navigating to worker page");
+      } else if (role === "employee") {
         navigate("/worker");
       }
     } catch (error: unknown) {
@@ -183,11 +181,11 @@ const Login: React.FC = () => {
           </label>
           <input
             type="radio"
-            id="admin"
+            id="director"
             name="role"
-            value="admin"
-            checked={role === "admin"}
-            onChange={() => setRole("admin")}
+            value="director"
+            checked={role === "director"}
+            onChange={() => setRole("director")}
           />
         </div>
         <div>
@@ -196,11 +194,11 @@ const Login: React.FC = () => {
           </label>
           <input
             type="radio"
-            id="worker"
+            id="employee"
             name="role"
-            value="worker"
-            checked={role === "worker"}
-            onChange={() => setRole("worker")}
+            value="employee"
+            checked={role === "employee"}
+            onChange={() => setRole("employee")}
           />
         </div>
       </div>

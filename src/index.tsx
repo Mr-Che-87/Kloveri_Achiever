@@ -6,7 +6,7 @@ import "./styles/general.scss";
 import AppAdmin from "./AppAdmin";
 import AppWorker from "./AppWorker";
 import Login from "./Login/Login";
-import Registration from "./Registration/Registretion";
+import Registration from "./Registration/Registration";
 
 const Root: React.FC = () => {
   return (

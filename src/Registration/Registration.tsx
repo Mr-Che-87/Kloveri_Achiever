@@ -12,6 +12,12 @@ const Registration: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [roleType, setRoleType] = useState<"employee" | "director">("employee");
+
+//КОПИПАСТА ИЗ Login.tsx//
+  const [role, setRole] = useState<"employee" | "director" | "">("");
+//КОПИПАСТА ИЗ Login.tsx//
+
+
   const [validationErrors, setValidationErrors] = useState<{
     [key: string]: string;
   }>({});
@@ -124,6 +130,16 @@ const Registration: React.FC = () => {
     }
   };
 
+  const handleRole = () => {
+    if (role === "director") {
+      navigate("/admin");
+    } else if (role === "employee") {
+      navigate("/worker");
+    }
+  };
+
+
+
   const handleReset = () => {
     setLogin("");
     setPassword("");
@@ -132,8 +148,11 @@ const Registration: React.FC = () => {
     setPhone("");
     setEmail("");
     setRoleType("employee");
+    setRole("");
     setValidationErrors({});
   };
+
+
 
   return (
     <div className={styles.registrationContainer}>
@@ -214,6 +233,7 @@ const Registration: React.FC = () => {
       <div>
         <label>Тип роли:</label>
         <select
+        onClick={handleRole}
           value={roleType}
           onChange={(e) =>
             setRoleType(e.target.value as "employee" | "director")
