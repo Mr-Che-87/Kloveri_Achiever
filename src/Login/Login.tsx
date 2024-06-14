@@ -6,30 +6,14 @@ import WelcomeImg from "@/assets/Welcome-img.png";
 const Login: React.FC = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<"employee" | "director" | "">("");
+  const [role, setRole] = useState<"admin" | "worker" | "">("");
   const [loginError, setLoginError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState("");
   const [organizationId, setOrganizationId] = useState<string | null>(null);
 
-  //ВЫБОР КНОПОК - НЕ ПАШЕТ СОХРАНЕНИЕ РОЛИ:
-//const [userRole, setUserRole] = useState<"employee" | "director" | "">("");
-
   const navigate = useNavigate();
-
-//ВЫБОР КНОПОК - НЕ ПАШЕТ СОХРАНЕНИЕ РОЛИ:
-/*
-useEffect(() => {
-  const savedRole = localStorage.getItem("userRole");
-  if (savedRole) {
-    setUserRole(savedRole as "employee" | "director");
-    setRole(savedRole as "employee" | "director");
-  }
-}, []);
-*/
-
-
 
   const handleLogin = async () => {
     console.log("handleLogin called");
@@ -59,13 +43,14 @@ useEffect(() => {
       // Сохраняем organization_id
       setOrganizationId(data.organization_id);
 
-      ////ВЫБОР КНОПОК - ПОМЕНЯЛ (у тебя была подвязка к data.profile_id)
-      if (role === "director") {
+      // Временная логика перенаправления на основе данных
+      if (data.profile_id) {
+        console.log("Navigating to admin page");
         navigate("/admin");
-      } else if (role === "employee") {
+      } else {
+        console.log("Navigating to worker page");
         navigate("/worker");
       }
-      
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : "Неизвестная ошибка";
@@ -198,12 +183,11 @@ useEffect(() => {
           </label>
           <input
             type="radio"
-            id="director"
+            id="admin"
             name="role"
-            value="director"
-            checked={role === "director"}
-            onChange={() => setRole("director")}
-            //ВЫБОР КНОПОК - НЕ ПАШЕТ СОХРАНЕНИЕ РОЛИ:  disabled={localStorage.getItem("userRole") === "employee"} 
+            value="admin"
+            checked={role === "admin"}
+            onChange={() => setRole("admin")}
           />
         </div>
         <div>
@@ -212,12 +196,11 @@ useEffect(() => {
           </label>
           <input
             type="radio"
-            id="employee"
+            id="worker"
             name="role"
-            value="employee"
-            checked={role === "employee"}
-            onChange={() => setRole("employee")}
-            
+            value="worker"
+            checked={role === "worker"}
+            onChange={() => setRole("worker")}
           />
         </div>
       </div>
