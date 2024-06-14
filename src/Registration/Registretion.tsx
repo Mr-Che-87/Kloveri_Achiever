@@ -12,16 +12,38 @@ const Registration: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [roleType, setRoleType] = useState<"employee" | "director">("employee");
-  const [organizationId, setOrganizationId] = useState(
-    "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389"
-  );
-  const [specialty, setSpecialty] = useState("");
-  const [startWorkDate, setStartWorkDate] = useState("");
   const [apiError, setApiError] = useState("");
+  const [validationErrors, setValidationErrors] = useState<{
+    [key: string]: string;
+  }>({});
 
   const navigate = useNavigate();
 
+  const validateFields = () => {
+    const errors: { [key: string]: string } = {};
+
+    if (!login) errors.login = "Логин обязателен.";
+    if (password.length < 6)
+      errors.password = "Пароль должен содержать минимум 6 символов.";
+    if (!firstName) errors.firstName = "Имя обязательно.";
+    if (!lastName) errors.lastName = "Фамилия обязательна.";
+    const phonePattern = /^[\d+()\- ]+$/;
+    if (!phone || !phonePattern.test(phone))
+      errors.phone = "Некорректный номер телефона.";
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailPattern.test(email))
+      errors.email = "Некорректный email.";
+
+    setValidationErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  };
+
   const handleRegistration = async () => {
+    if (!validateFields()) {
+      return;
+    }
+
     console.log("Начало регистрации");
 
     const requestData = {
@@ -32,9 +54,7 @@ const Registration: React.FC = () => {
       phone,
       email,
       role_type: roleType,
-      organization_id: organizationId,
-      specialty: specialty || "Не указано",
-      start_work_date: startWorkDate || "2024-01-01", // Пример значения по умолчанию
+      organization_id: "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
     };
 
     console.log("Данные, отправляемые на сервер:", requestData);
@@ -78,18 +98,8 @@ const Registration: React.FC = () => {
       const errorMessage =
         error instanceof Error ? error.message : "Неизвестная ошибка";
       console.error("Ошибка регистрации:", errorMessage);
-      if (
-        errorMessage.includes("специальность") ||
-        errorMessage.includes("start_work_date")
-      ) {
-        setApiError(errorMessage);
-        toast.error(`Ошибка валидации: ${errorMessage}`);
-      } else {
-        toast.success("Профиль создан, перенаправление на страницу входа...");
-        setTimeout(() => {
-          navigate("/login");
-        }, 3000);
-      }
+      setApiError(errorMessage);
+      toast.error(`Ошибка регистрации: ${errorMessage}`);
     }
   };
 
@@ -101,10 +111,8 @@ const Registration: React.FC = () => {
     setPhone("");
     setEmail("");
     setRoleType("employee");
-    setOrganizationId("642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389");
-    setSpecialty("");
-    setStartWorkDate("");
     setApiError("");
+    setValidationErrors({});
   };
 
   return (
@@ -118,6 +126,9 @@ const Registration: React.FC = () => {
           value={login}
           onChange={(e) => setLogin(e.target.value)}
         />
+        {validationErrors.login && (
+          <span className={styles.errorMessage}>{validationErrors.login}</span>
+        )}
       </div>
       <div>
         <label>Пароль:</label>
@@ -126,6 +137,11 @@ const Registration: React.FC = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {validationErrors.password && (
+          <span className={styles.errorMessage}>
+            {validationErrors.password}
+          </span>
+        )}
       </div>
       <div>
         <label>Имя:</label>
@@ -134,6 +150,11 @@ const Registration: React.FC = () => {
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
+        {validationErrors.firstName && (
+          <span className={styles.errorMessage}>
+            {validationErrors.firstName}
+          </span>
+        )}
       </div>
       <div>
         <label>Фамилия:</label>
@@ -142,6 +163,11 @@ const Registration: React.FC = () => {
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
+        {validationErrors.lastName && (
+          <span className={styles.errorMessage}>
+            {validationErrors.lastName}
+          </span>
+        )}
       </div>
       <div>
         <label>Телефон:</label>
@@ -150,6 +176,9 @@ const Registration: React.FC = () => {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
+        {validationErrors.phone && (
+          <span className={styles.errorMessage}>{validationErrors.phone}</span>
+        )}
       </div>
       <div>
         <label>Email:</label>
@@ -158,6 +187,9 @@ const Registration: React.FC = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {validationErrors.email && (
+          <span className={styles.errorMessage}>{validationErrors.email}</span>
+        )}
       </div>
       <div>
         <label>Тип роли:</label>
@@ -170,30 +202,6 @@ const Registration: React.FC = () => {
           <option value="employee">Работник</option>
           <option value="director">Директор</option>
         </select>
-      </div>
-      <div>
-        <label>ID организации:</label>
-        <input
-          type="text"
-          value={organizationId}
-          onChange={(e) => setOrganizationId(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Специальность:</label>
-        <input
-          type="text"
-          value={specialty}
-          onChange={(e) => setSpecialty(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Дата начала работы:</label>
-        <input
-          type="text"
-          value={startWorkDate}
-          onChange={(e) => setStartWorkDate(e.target.value)}
-        />
       </div>
       <div>
         <button onClick={handleRegistration}>Регистрация</button>
