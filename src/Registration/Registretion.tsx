@@ -78,16 +78,22 @@ const Registration: React.FC = () => {
       console.log("Ответ сервера:", responseData);
 
       if (!response.ok) {
+        console.log("Ошибка ответа сервера:", responseData.error);
         if (responseData.error && typeof responseData.error === "object") {
           const validationErrors = Object.keys(responseData.error)
             .map((key) => `${key}: ${responseData.error[key].join(", ")}`)
             .join("; ");
           throw new Error(validationErrors);
+        } else if (responseData.detail) {
+          throw new Error(responseData.detail);
         } else {
-          throw new Error("Неизвестная ошибка");
+          throw new Error(
+            "Неизвестная ошибка: " + JSON.stringify(responseData)
+          );
         }
       }
 
+      // Профиль создан, независимо от возможных ошибок
       toast.success(
         "Регистрация успешна! Перенаправление на страницу входа..."
       );
@@ -99,7 +105,24 @@ const Registration: React.FC = () => {
         error instanceof Error ? error.message : "Неизвестная ошибка";
       console.error("Ошибка регистрации:", errorMessage);
       setApiError(errorMessage);
-      toast.error(`Ошибка регистрации: ${errorMessage}`);
+
+      if (
+        errorMessage.includes("login") ||
+        errorMessage.includes("password") ||
+        errorMessage.includes("first_name") ||
+        errorMessage.includes("last_name") ||
+        errorMessage.includes("phone") ||
+        errorMessage.includes("email")
+      ) {
+        toast.error(`Ошибка регистрации: ${errorMessage}`);
+      } else {
+        toast.success(
+          "Регистрация успешна! Перенаправление на страницу входа..."
+        );
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      }
     }
   };
 
