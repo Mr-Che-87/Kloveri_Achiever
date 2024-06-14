@@ -12,7 +12,6 @@ const Registration: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [roleType, setRoleType] = useState<"employee" | "director">("employee");
-  const [apiError, setApiError] = useState("");
   const [validationErrors, setValidationErrors] = useState<{
     [key: string]: string;
   }>({});
@@ -104,7 +103,6 @@ const Registration: React.FC = () => {
       const errorMessage =
         error instanceof Error ? error.message : "Неизвестная ошибка";
       console.error("Ошибка регистрации:", errorMessage);
-      setApiError(errorMessage);
 
       if (
         errorMessage.includes("login") ||
@@ -134,7 +132,6 @@ const Registration: React.FC = () => {
     setPhone("");
     setEmail("");
     setRoleType("employee");
-    setApiError("");
     setValidationErrors({});
   };
 
@@ -230,7 +227,6 @@ const Registration: React.FC = () => {
         <button onClick={handleRegistration}>Регистрация</button>
         <button onClick={handleReset}>Сброс</button>
       </div>
-      {apiError && <span className={styles.errorMessage}>{apiError}</span>}
     </div>
   );
 };
