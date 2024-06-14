@@ -1,4 +1,2 @@
-declare const classNames: {
- 
-};
+declare const classNames: {};
 export = classNames;
