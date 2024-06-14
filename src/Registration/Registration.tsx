@@ -13,11 +13,6 @@ const Registration: React.FC = () => {
   const [email, setEmail] = useState("");
   const [roleType, setRoleType] = useState<"employee" | "director">("employee");
 
-//КОПИПАСТА ИЗ Login.tsx//
-  const [role, setRole] = useState<"employee" | "director" | "">("");
-//КОПИПАСТА ИЗ Login.tsx//
-
-
   const [validationErrors, setValidationErrors] = useState<{
     [key: string]: string;
   }>({});
@@ -49,8 +44,6 @@ const Registration: React.FC = () => {
       return;
     }
 
-    console.log("Начало регистрации");
-
     const requestData = {
       login,
       password,
@@ -61,8 +54,6 @@ const Registration: React.FC = () => {
       role_type: roleType,
       organization_id: "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
     };
-
-    console.log("Данные, отправляемые на сервер:", requestData);
 
     try {
       const response = await fetch(
@@ -80,10 +71,8 @@ const Registration: React.FC = () => {
       );
 
       const responseData = await response.json();
-      console.log("Ответ сервера:", responseData);
 
       if (!response.ok) {
-        console.log("Ошибка ответа сервера:", responseData.error);
         if (responseData.error && typeof responseData.error === "object") {
           const validationErrors = Object.keys(responseData.error)
             .map((key) => `${key}: ${responseData.error[key].join(", ")}`)
@@ -98,7 +87,9 @@ const Registration: React.FC = () => {
         }
       }
 
-      // Профиль создан, независимо от возможных ошибок
+      //ВЫБОР КНОПОК - НЕ ПАШЕТ СОХРАНЕНИЕ РОЛИ:
+      //localStorage.setItem("userRole", roleType);  
+
       toast.success(
         "Регистрация успешна! Перенаправление на страницу входа..."
       );
@@ -130,16 +121,6 @@ const Registration: React.FC = () => {
     }
   };
 
-  const handleRole = () => {
-    if (role === "director") {
-      navigate("/admin");
-    } else if (role === "employee") {
-      navigate("/worker");
-    }
-  };
-
-
-
   const handleReset = () => {
     setLogin("");
     setPassword("");
@@ -148,11 +129,8 @@ const Registration: React.FC = () => {
     setPhone("");
     setEmail("");
     setRoleType("employee");
-    setRole("");
     setValidationErrors({});
   };
-
-
 
   return (
     <div className={styles.registrationContainer}>
@@ -233,7 +211,6 @@ const Registration: React.FC = () => {
       <div>
         <label>Тип роли:</label>
         <select
-        onClick={handleRole}
           value={roleType}
           onChange={(e) =>
             setRoleType(e.target.value as "employee" | "director")

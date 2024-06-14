@@ -13,7 +13,23 @@ const Login: React.FC = () => {
   const [apiError, setApiError] = useState("");
   const [organizationId, setOrganizationId] = useState<string | null>(null);
 
+  //ВЫБОР КНОПОК - НЕ ПАШЕТ СОХРАНЕНИЕ РОЛИ:
+//const [userRole, setUserRole] = useState<"employee" | "director" | "">("");
+
   const navigate = useNavigate();
+
+//ВЫБОР КНОПОК - НЕ ПАШЕТ СОХРАНЕНИЕ РОЛИ:
+/*
+useEffect(() => {
+  const savedRole = localStorage.getItem("userRole");
+  if (savedRole) {
+    setUserRole(savedRole as "employee" | "director");
+    setRole(savedRole as "employee" | "director");
+  }
+}, []);
+*/
+
+
 
   const handleLogin = async () => {
     console.log("handleLogin called");
@@ -43,12 +59,13 @@ const Login: React.FC = () => {
       // Сохраняем organization_id
       setOrganizationId(data.organization_id);
 
-      // Временная логика перенаправления на основе данных
+      ////ВЫБОР КНОПОК - ПОМЕНЯЛ (у тебя была подвязка к data.profile_id)
       if (role === "director") {
         navigate("/admin");
       } else if (role === "employee") {
         navigate("/worker");
       }
+      
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : "Неизвестная ошибка";
@@ -186,6 +203,7 @@ const Login: React.FC = () => {
             value="director"
             checked={role === "director"}
             onChange={() => setRole("director")}
+            //ВЫБОР КНОПОК - НЕ ПАШЕТ СОХРАНЕНИЕ РОЛИ:  disabled={localStorage.getItem("userRole") === "employee"} 
           />
         </div>
         <div>
@@ -199,6 +217,7 @@ const Login: React.FC = () => {
             value="employee"
             checked={role === "employee"}
             onChange={() => setRole("employee")}
+            
           />
         </div>
       </div>
