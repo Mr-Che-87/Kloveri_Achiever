@@ -1,9 +1,4 @@
-import {
-  
-  Routes,
-  Route,
-  NavLink,
-} from "react-router-dom";
+import { Routes, Route, NavLink} from "react-router-dom";
 import "./NavigationMenu.scss";
 
 import MyPage from "../../pagesWorker/MyPage/MyPage";
@@ -12,27 +7,25 @@ import Teams from "../../pagesWorker/Teams/Teams";
 import MyShop from "../../pagesWorker/MyShop/MyShop";
 import PrivacySettings from "../../pagesWorker/PrivacySettings/PrivacySettings";
 
-
 import myPageIcon from "@/assets/mypage-icon.png";
-import workersIcon from "@/assets/workers.svg";
-import defaultAvatar from "@/assets/defaultAvatar.png";  //заглушка если бэк ниалё
-import achievementsIcon from "@/assets/achievements.svg";
-import ShopIcon from "@/assets/shop-icon.png";
+//import workersIcon from "@/assets/workers.svg";
+// import defaultAvatar from "@/assets/defaultAvatar.png";  //заглушка если бэк ниалё
+//import achievementsIcon from "@/assets/achievements.svg";
+//import ShopIcon from "@/assets/shop-icon.png";
 import logoIcon from "@/assets/logo.svg";
 
-
-
-
-interface NavigationMenuProps {
-  userAvatar: string | undefined;
-}
-
+// interface NavigationMenuProps {
+//   profileId: string | null;
+//   userAvatar: string | undefined;
+// }
 
 // Components for routing
 const NotFound = () => <div>404 Not Found</div>;
 
 //NavMenu РАБОТНИКА c прокинутым аватаром
-const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar }) => { 
+const NavMenuWorker  = () => {
+
+
   return (
     <>
       <nav className="navigation-menu">
@@ -44,7 +37,7 @@ const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
             <img src={myPageIcon} alt="Личная карточка" />
             Личная карточка
           </NavLink>
-          <NavLink to="/worker/my-achievements" className="menu-item">
+          {/*<NavLink to="/worker/my-achievements" className="menu-item">
             <img src={achievementsIcon} alt="Мои достижения и баллы" />
             Мои достижения и баллы
           </NavLink>
@@ -60,18 +53,15 @@ const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
         <div className="privacy-settings">
           <NavLink to="/worker/privacy-settings">
             <img src={userAvatar || defaultAvatar} alt="User" />
-          </NavLink>
+          </NavLink>*/}
         </div>
       </nav>
 
       <div className="routes">
         <Routes>
-             <Route path="/" element={<MyPage />} />
-             <Route path="my-page" element={<MyPage />}  />
-          <Route
-            path="my-achievements"
-            element={<MyAchievements />}
-          />
+          <Route path="/" element={<MyPage />} />
+          <Route path="my-page" element={<MyPage />} />
+          <Route path="my-achievements" element={<MyAchievements />} />
           <Route path="teams" element={<Teams />} />
           <Route path="my-shop" element={<MyShop />} />
           <Route path="privacy-settings" element={<PrivacySettings />} />

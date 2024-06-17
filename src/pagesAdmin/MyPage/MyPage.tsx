@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 import styles from "./MyPage.module.scss";
 
@@ -16,17 +15,17 @@ import { fetchGetUserData } from "../../api/apiService";  //api
 
 
 export default function MyPage() {
-  const { profile_id } = useParams();    //получаем profileId из параметров маршрута
+  // const { profile_id } = useParams();    //получаем profileId из параметров маршрута
   const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
   const [isEditing, setIsEditing] = useState(false);  //редактирование полей
-
+  const profileId = localStorage.getItem("profileId")
   // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
-    const adminId = "4d90df35-0d1f-4cba-b1e9-47674bca2f51";    //заглушка для презентации
+    // const adminId = "4d90df35-0d1f-4cba-b1e9-47674bca2f51";    //заглушка для презентации
     
-    if (adminId) { //проверяем, что profile_id определен
+    if (profileId) { //проверяем, что profile_id определен
       //console.log("useEffect: Загружен список данных юзера");
-      fetchGetUserData(adminId)
+      fetchGetUserData(profileId)
         .then((response) => {
           setUserData(response.data);   //data - все данные юзера из бэка {....}
         })
@@ -34,7 +33,7 @@ export default function MyPage() {
           console.error("Ошибка при получении данных пользователя:", error);
         });
     }
-  }, [profile_id]);
+  }, [profileId]);
 
   //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);

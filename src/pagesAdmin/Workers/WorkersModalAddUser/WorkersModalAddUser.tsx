@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { IUser } from "../../../types/IUser";
 
@@ -20,7 +21,6 @@ interface WorkerModalAddUserProps {
 
 interface IOtherStateInfo {
   profession: string;
-
   start_work: string;
   password_work: string;
 }
@@ -233,6 +233,8 @@ function WorkersModalAddUser({
         ...prevFormData,
         profession: inputValue,
       }));
+    
+    
     }
   };
 

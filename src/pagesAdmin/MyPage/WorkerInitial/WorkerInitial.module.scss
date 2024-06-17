@@ -3,7 +3,10 @@
   align-items: center;
   flex-direction: row;
   gap: 16px;
-
+}
+.workerAvatar {
+  visibility: inherit;
+}
 
    .small .workerAvatar {
   border-radius: 100% ;
@@ -21,7 +24,7 @@
 }
 
 
-}
+
 
 .workerName {
   font-size: 24px;

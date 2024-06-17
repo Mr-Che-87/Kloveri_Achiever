@@ -30,9 +30,11 @@ export const fetchPostUser = (
 
 // GET-Получение данных одного пользователя по ID
 export const fetchGetUserData = (
-  userId: string
+  // userId: string,
+  profileId: string,
+  // token: string
 ): Promise<AxiosResponse<IUser>> => {
-  return axios.get<IUser>(`${API_URL}/profiles/${userId}/`);
+  return axios.get<IUser>(`${API_URL}/profiles/${profileId}/`)
 };
 
 // PATCH-Обновление данных существующего пользователя  
@@ -45,8 +47,10 @@ export const fetchUpdateUser = (
 };
 
 // DELETE-Удаление пользователя по ID                           
-export const fetchDeleteUser = (userId: string): Promise<AxiosResponse> => {
-  return axios.delete(`${API_URL}/profiles/${userId}/`);
+export const fetchDeleteUser = (userId: string, organizationId: string): Promise<AxiosResponse> => {
+  console.log(`Sending request to delete user ${userId} with organizationId ${organizationId}`);
+  return axios.delete(`${API_URL}/profiles/${userId}/`, )
+ 
 };
 
 
@@ -57,7 +61,11 @@ export const fetchDeleteUser = (userId: string): Promise<AxiosResponse> => {
 export const fetchGetAchieveLibrary = (): Promise<
   AxiosResponse<IAchieve[]>
 > => {
-  return axios.get<IAchieve[]>(`${API_URL}/achievements/`);
+  return axios.get<IAchieve[]>(`${API_URL}/achievements/`,{
+    headers:{
+      "ORGANIZATION-ID": "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389"
+    }
+  });
 };
 
 // POST-Добавление новой награды в библиотеку
@@ -67,6 +75,7 @@ export const fetchPostAchieveLibrary = (
   return axios.post<IAchieve>(`${API_URL}/achievements/`, achieveData, {
     headers: {
       "Content-Type": "multipart/form-data",
+      "ORGANIZATION-ID": "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389"
     },
   });
 };
