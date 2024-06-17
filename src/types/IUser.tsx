@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IUser {
   profile_id?: string | undefined;   
   profile_type?: string | undefined;        //"anonymous"
-  profile_code?: string | undefined;        //"anonymous:a40a62fa-ee5e-4036-ae37-6c4329cffca1"
+  profile_code?: string | undefined;
+  login?: string | undefined;        //"anonymous:a40a62fa-ee5e-4036-ae37-6c4329cffca1"
   first_name?: string | undefined;
   last_name?: string | undefined;
   middle_name?: string | undefined;
@@ -9,8 +11,8 @@ export interface IUser {
   sex?: string | undefined;               //"male"||"female" строго 
   phone?: string | undefined; 
   email?: string | undefined;    
-  photo_main?: string | undefined;        //"https://i.ibb.co/dK1hhcD/big1.png"
-  photo_small?: string | undefined;       //"https://i.ibb.co/VwzhZgk/small1.png"
+  photo_main?: any;      //"https://i.ibb.co/dK1hhcD/big1.png"
+  photo_small?: any;   //"https://i.ibb.co/VwzhZgk/small1.png"
   other_info?: {
       proffesion?: string | undefined;     
       start_work?: string | undefined; 

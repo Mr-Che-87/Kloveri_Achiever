@@ -26,9 +26,7 @@ export default function WorkerData({
   useEffect(() => {
     if (userData) {
       setFormData({ ...userData });
-     
     }
-   
   }, [userData]);
 
   
@@ -38,7 +36,7 @@ export default function WorkerData({
     const { name, value } = event.target;
        console.log("Изменённые данные до отправки на сервер:", event.target.value);
     setFormData((currentFormData) => ({
-      ...(currentFormData ?? {}),
+      ...currentFormData,
       [name]: value,
     }));
   };
@@ -205,7 +203,7 @@ export default function WorkerData({
             name="proffesion"
             type="text"
             placeholder="Введите Роль"
-            value={formData?.other_info?.profession || ""}
+            value={formData?.other_info?.proffesion || ""}
             onChange={e => {
               const value = e.target.value;
               setFormData((prevFormData) => ({

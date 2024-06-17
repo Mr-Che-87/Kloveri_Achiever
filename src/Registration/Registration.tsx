@@ -11,6 +11,8 @@ const Registration: React.FC = () => {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const currentDate = new Date(Date.now());
+  const formattedDate = currentDate.toISOString().split("T")[0];
   const [roleType, setRoleType] = useState<"employee" | "director">("employee");
   const [validationErrors, setValidationErrors] = useState<{
     [key: string]: string;
@@ -44,7 +46,7 @@ const Registration: React.FC = () => {
     }
 
     console.log("Начало регистрации");
-
+    
     const requestData = {
       login,
       password,
@@ -52,6 +54,7 @@ const Registration: React.FC = () => {
       last_name: lastName,
       phone,
       email,
+      start_work_date: formattedDate,
       role_type: roleType,
       organization_id: "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
     };
@@ -77,11 +80,13 @@ const Registration: React.FC = () => {
       console.log("Ответ сервера:", responseData);
 
       if (!response.ok) {
-        console.log("Ошибка ответа сервера:", responseData.error);
-        if (responseData.error && typeof responseData.error === "object") {
-          const validationErrors = Object.keys(responseData.error)
-            .map((key) => `${key}: ${responseData.error[key].join(", ")}`)
-            .join("; ");
+        if (responseData.error && typeof responseData.error === "string") {
+          throw new Error(responseData.error);
+        } else if (responseData.error && typeof responseData.error === "object") {
+          const errorObject: { [key: string]: string[] } = responseData.error;
+          const validationErrors = Object.entries(errorObject)
+           .map(([key, values]) => `${key}: ${values.join(", ")}`)
+           .join("; ");
           throw new Error(validationErrors);
         } else if (responseData.detail) {
           throw new Error(responseData.detail);
@@ -90,7 +95,8 @@ const Registration: React.FC = () => {
             "Неизвестная ошибка: " + JSON.stringify(responseData)
           );
         }
-      }
+      } 
+      localStorage.setItem("organization_id", responseData.organization_id);
 
       // Профиль создан, независимо от возможных ошибок
       toast.success(

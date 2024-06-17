@@ -16,7 +16,7 @@
   padding: 20px;
   border-radius: 8px;
   width: 90%;
-  max-width: 500px;
+  max-width: 670px;
   position: relative;
 }
 
@@ -38,10 +38,98 @@ h2 {
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
+ display: grid;
+
+ grid-template-areas: 
+ "photo name"
+ "photo description"
+ "photo rank"
+ "image background "
+ "button button  "
+ ;
 }
 
+
+.addAchievePhotoContainer{
+  width: 260px;
+  height: 324px;
+ grid-area: photo;
+}
+.iconAddAchieve{
+  width: 260px;
+  height: 324px;
+
+}
+.titleHeadIcon{
+  
+  position: relative;
+  top: -318px;
+  text-align: center;
+  margin-right: 34px;
+  font-size: 20px;
+  
+}
+.descriptionHeadIcon{
+  position: relative;
+    font-size: 14px;
+    text-align: center;
+    top: -339px;
+    margin-right: 34px;
+}
+.iconAddPhoto{
+  position: relative;
+  height: 140px;
+  top: -296px;
+  left: 40px;
+
+}
+
+.formGroupName{
+  grid-area: name;
+}
+.formGroupDescription{
+  grid-area: description;
+}
+.formGroupRank{
+  grid-area: rank;
+}
+.formGroupImage{
+  grid-area: image;
+  width: 215px;
+  .inputContainer{
+    button{
+      text-align: left;
+    }
+  }
+}
+.formGroupBackground{
+  grid-area: background;
+  ;
+}
+.fileDownloadImage{
+  grid-area: fileDown;
+  display: none;
+}
+
+.labelFileDownload{
+  margin-top: 8px;
+  height: 48px;
+  border-radius: 10px;
+  padding-left: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  background: rgba(244, 244, 244, 0.0196078431);
+  border: 1px solid rgba(244, 244, 244, 0.0784313725);
+  color: #f4f4f4;
+  transition: background 0.3s ease;
+ 
+}
+.labelFileDownload:hover{
+  background: rgba(106, 17, 195, 0.32);
+    border: 1px solid rgba(118, 45, 191, 0.32);
+    color: white;
+    opacity: 0.8;
+}
 .formGroup {
   margin-bottom: 20px;
 
@@ -54,7 +142,7 @@ h2 {
   .titleInput,
   .rankInput {
     color: white;
-    width: 100%;
+    width: 88%;
     height: 36px;
     border: none;
     border-radius: 10px;
@@ -74,7 +162,7 @@ h2 {
   textarea,
   select {
     color: white;
-    width: 100%;
+    width: 88%;
     height: 36px;
     border: none;
     border-radius: 10px;
@@ -89,7 +177,7 @@ h2 {
 
   button,
   input[type="file"] {
-    width: calc(50% - 10px);
+    // width: calc(50% - 10px);
     height: 48px; /* Распределение кнопок на 50% ширины контейнера */
     border-radius: 10px;
     align-items: center;
@@ -108,18 +196,23 @@ h2 {
   }
 
   .inputContainer {
-    height: 48px;
+   
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column;
+    
   }
 }
 
+.inputContainer_ButtonAddBackground{
+  button{
+    width: 361px;
+    text-align: left;
+  }
+}
 .formActions {
   display: flex;
   justify-content: space-between;
-
+  grid-area: button;
   .cancelButton {
     background: #ff4d4d;
     border: none;

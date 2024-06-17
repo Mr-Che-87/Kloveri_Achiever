@@ -1,4 +1,4 @@
-import { Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route, NavLink} from "react-router-dom";
 import "./NavigationMenu.scss";
 
 import MyPage from "../../pagesWorker/MyPage/MyPage";
@@ -9,20 +9,23 @@ import PrivacySettings from "../../pagesWorker/PrivacySettings/PrivacySettings";
 
 import myPageIcon from "@/assets/mypage-icon.png";
 //import workersIcon from "@/assets/workers.svg";
-//import defaultAvatar from "@/assets/defaultAvatar.png";  //заглушка если бэк ниалё
+// import defaultAvatar from "@/assets/defaultAvatar.png";  //заглушка если бэк ниалё
 //import achievementsIcon from "@/assets/achievements.svg";
 //import ShopIcon from "@/assets/shop-icon.png";
 import logoIcon from "@/assets/logo.svg";
 
-interface NavigationMenuProps {
-  userAvatar: string | undefined;
-}
+// interface NavigationMenuProps {
+//   profileId: string | null;
+//   userAvatar: string | undefined;
+// }
 
 // Components for routing
 const NotFound = () => <div>404 Not Found</div>;
 
 //NavMenu РАБОТНИКА c прокинутым аватаром
-const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
+const NavMenuWorker  = () => {
+
+
   return (
     <>
       <nav className="navigation-menu">

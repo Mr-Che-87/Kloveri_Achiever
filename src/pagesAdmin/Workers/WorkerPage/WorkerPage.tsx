@@ -50,7 +50,6 @@ export default function WorkerPage() {
               showEmail={true}
               avatarSize="large"  //пропс файла и css-размеров картинки
             />
-            
           )}
         </div>
         

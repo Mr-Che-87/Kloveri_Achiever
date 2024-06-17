@@ -12,7 +12,8 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState("");
   const [organizationId, setOrganizationId] = useState<string | null>(null);
-
+  const [profileId, setProfileId] = useState<string | null>(null)
+  
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -22,12 +23,17 @@ const Login: React.FC = () => {
     console.log("role:", role);
 
     try {
+      const organizationId = localStorage.getItem("organization_id");
+      if(!organizationId){
+        throw new Error( "Organization ID is not found");
+      }
       const response = await fetch("https://reg.achiever.skroy.ru/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "ORGANIZATION-ID": organizationId,
         },
-        body: JSON.stringify({ login, password }),
+        body: JSON.stringify({ login, password, role }),
       });
 
       console.log("response status:", response.status);
@@ -40,16 +46,23 @@ const Login: React.FC = () => {
 
       console.log("response data:", data);
 
+      // Сохраняем токен авторизации в локальное хранилище
+      localStorage.setItem("userData", JSON.stringify(data))
+      localStorage.setItem("profileId", data.profile_id);
+      
       // Сохраняем organization_id
       setOrganizationId(data.organization_id);
+      
+      // Сохраняем profile_id
+      setProfileId(data.profile_id)
 
       // Временная логика перенаправления на основе данных
-      if (data.profile_id) {
+      if (data.profile_id && role === "admin") {
         console.log("Navigating to admin page");
-        navigate("/admin");
-      } else {
+        navigate("/admin",{state: {profileId: data.profile_id}});
+      } else if (data.profile_id && role === "worker") {
         console.log("Navigating to worker page");
-        navigate("/worker");
+        navigate("/worker", { state: { profileId: data.profile_id}});
       }
     } catch (error: unknown) {
       const errorMessage =
@@ -58,6 +71,9 @@ const Login: React.FC = () => {
       setApiError(`Ошибка при входе: ${errorMessage}`);
     }
   };
+
+
+ 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,7 +105,7 @@ const Login: React.FC = () => {
     };
 
     fetchData();
-  }, [organizationId]);
+  }, [organizationId, profileId]);
 
   const handleReset = () => {
     setLogin("");

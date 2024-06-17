@@ -1,4 +1,4 @@
-import styles from "./ShopConstructor.module.scss";
+// import styles from "./ShopConstructor.module.scss";
 import mockShopConstructorContent from "@/assets/mock-shop-constructor-content.png"
 
 

@@ -24,7 +24,7 @@ export default function WorkerData({
 
   useEffect(() => {
     if (userData) {
-      setFormData({ ...userData });
+      setFormData({...userData });
     }
   }, [userData]);
 
