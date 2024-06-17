@@ -1,4 +1,5 @@
 @import "@/styles/configcss.scss";
+
 nav {
   display: flex;
   flex-direction: row;
@@ -18,6 +19,7 @@ nav {
   max-width: 100%;
   background-color: $main-background-color;
 }
+
 .navigation-menu {
   display: flex;
   justify-content: space-between;
@@ -25,46 +27,108 @@ nav {
   padding-right: 40px;
   height: 76px;
   background-color: $main-background-color;
-}
-.logo-container {
-  align-items: center;
-  margin: 40px;
-}
 
-.menu {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  .menu-item {
+  .menu {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    padding: 12px 18px;
-    border-radius: 16px;
-    text-decoration: none;
-    color: #fff;
-    opacity: 0.6;
-    border: 0.5px solid #f4f4f410;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 20px;
-    margin-right: 16px;
-    cursor: pointer;
-    transition:
-      background-color 0.3s,
-      transform 0.3s;
-    img {
-      margin-right: 8px;
-    }
-    &:hover {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-    &.active {
-      background-color: #f4f4f40a;
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 18px;
+      border-radius: 16px;
+      text-decoration: none;
       color: #fff;
-      opacity: 1;
-      transform: scale(0.95);
+      opacity: 0.6;
+      border: 0.5px solid #f4f4f410;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 20px;
+      margin-right: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+
+      img {
+        margin-right: 8px;
+      }
+
+      &:hover {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+
+      &.active {
+        background-color: #f4f4f40a;
+        color: #fff;
+        opacity: 1;
+        transform: scale(0.95);
+      }
+    }
+
+    .down-arrow {
+      cursor: pointer;
+      margin-left: -10px;
+      margin-right: 26px;
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s;
+
+      &:hover {
+        transform: rotate(180deg);
+      }
     }
   }
+}
+
+
+
+//на будущее - выпадающее меню:
+.navigation-menu-dop {
+  display: flex;
+  //flex-direction: column;
+  align-items: center;
+  //padding-top: 10px;
+  background-color: $main-background-color;
+
+  .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #fff;
+      opacity: 0.8;
+      border: 0.5px solid #f4f4f410;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 18px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+
+      img {
+        margin-right: 6px;
+      }
+
+      &:hover {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+.dropdown-menu-1 {
+  position: relative;
+  left: 270px;
+}
+.dropdown-menu-2 {
+  position: relative;
+  left: 990px;
 }

@@ -1,0 +1,245 @@
+.modalOverlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modalContent {
+  background: #2c2c2c;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 670px;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+}
+
+h2 {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.form {
+ display: grid;
+
+ grid-template-areas: 
+ "photo name"
+ "photo description"
+ "photo rank"
+ "image background "
+ "button button  "
+ ;
+}
+
+
+.addAchievePhotoContainer{
+  width: 260px;
+  height: 324px;
+ grid-area: photo;
+}
+.iconAddAchieve{
+  width: 260px;
+  height: 324px;
+
+}
+.titleHeadIcon{
+  
+  position: relative;
+  top: -318px;
+  text-align: center;
+  margin-right: 34px;
+  font-size: 20px;
+  
+}
+.descriptionHeadIcon{
+  position: relative;
+    font-size: 14px;
+    text-align: center;
+    top: -339px;
+    margin-right: 34px;
+}
+.iconAddPhoto{
+  position: relative;
+  height: 140px;
+  top: -296px;
+  left: 40px;
+
+}
+
+.formGroupName{
+  grid-area: name;
+}
+.formGroupDescription{
+  grid-area: description;
+}
+.formGroupRank{
+  grid-area: rank;
+}
+.formGroupImage{
+  grid-area: image;
+  width: 215px;
+  .inputContainer{
+    button{
+      text-align: left;
+    }
+  }
+}
+.formGroupBackground{
+  grid-area: background;
+  ;
+}
+.fileDownloadImage{
+  grid-area: fileDown;
+  display: none;
+}
+
+.labelFileDownload{
+  margin-top: 8px;
+  height: 48px;
+  border-radius: 10px;
+  padding-left: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  background: rgba(244, 244, 244, 0.0196078431);
+  border: 1px solid rgba(244, 244, 244, 0.0784313725);
+  color: #f4f4f4;
+  transition: background 0.3s ease;
+ 
+}
+.labelFileDownload:hover{
+  background: rgba(106, 17, 195, 0.32);
+    border: 1px solid rgba(118, 45, 191, 0.32);
+    color: white;
+    opacity: 0.8;
+}
+.formGroup {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: white;
+  }
+
+  .titleInput,
+  .rankInput {
+    color: white;
+    width: 88%;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    background-color: #f4f4f40f;
+  }
+  .fileDownload {
+    width: 100%;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    background-color: #f4f4f40f;
+  }
+  textarea,
+  select {
+    color: white;
+    width: 88%;
+    height: 36px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    background-color: #f4f4f40f;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  button,
+  input[type="file"] {
+    // width: calc(50% - 10px);
+    height: 48px; /* Распределение кнопок на 50% ширины контейнера */
+    border-radius: 10px;
+    align-items: center;
+    cursor: pointer;
+    background: #f4f4f405;
+    border: 1px solid #f4f4f414;
+    color: #f4f4f4;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: rgba(106, 17, 195, 0.32);
+      border: 1px solid rgba(118, 45, 191, 0.32);
+      color: white;
+      opacity: 0.8;
+    }
+  }
+
+  .inputContainer {
+   
+    display: flex;
+    flex-direction: column;
+    
+  }
+}
+
+.inputContainer_ButtonAddBackground{
+  button{
+    width: 361px;
+    text-align: left;
+  }
+}
+.formActions {
+  display: flex;
+  justify-content: space-between;
+  grid-area: button;
+  .cancelButton {
+    background: #ff4d4d;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #ff1a1a;
+    }
+  }
+
+  .submitButton {
+    background: #4caf50;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background: #45a049;
+    }
+  }
+}
