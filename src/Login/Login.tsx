@@ -49,7 +49,7 @@ const Login: React.FC = () => {
       // Сохраняем токен авторизации в локальное хранилище
       localStorage.setItem("userData", JSON.stringify(data))
       localStorage.setItem("profileId", data.profile_id);
-      
+      localStorage.setItem("linkId", data.link_id);
       // Сохраняем organization_id
       setOrganizationId(data.organization_id);
       

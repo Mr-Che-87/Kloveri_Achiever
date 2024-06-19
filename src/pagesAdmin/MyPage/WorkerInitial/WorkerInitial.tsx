@@ -10,18 +10,32 @@ interface WorkerInitialProps {
   showEmail: boolean;  //отображение мейла
   avatarSize: "small" | "large";    //отображение размера фотки
   //photoType: "photo_small" | "photo_main";  //отображение размера фотки
+  // onAvatarChange: (newAvatarUrl: string) => void;
 }
 
 export default function WorkerInitial({
   user,
   showEmail,
   avatarSize,
+  // onAvatarChange
 }: WorkerInitialProps) {
   if (!user) {
     return <div>Не можем найти данные с бэка - user data...</div>;
   }
 
-
+  // const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files && event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+  //     const reader = new FileReader();
+  //     reader.onload = (event) => {
+  //       if (event.target && event.target.result) {
+  //         onAvatarChange(event.target.result as string);
+  //       }
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+ 
   //Проверка на пустой url(ошибка404) без картинки:
   const imageUrl = user[(avatarSize === "small") ? "photo_small" : "photo_main"] || defaultAvatar;
   const imageExists = (url:string) => { 
@@ -35,10 +49,16 @@ export default function WorkerInitial({
 
   return (
     <div className={`${styles.workerInitial} ${avatarSize === "small" ? styles.small : styles.large}`}>
+      {/* <input type="file"
+      accept="image/*"
+      onChange={handleAvatarChange}
+     
+      /> */}
       <img
         className={styles.workerAvatar}
         src={imageExists(imageUrl) ? imageUrl : defaultAvatar}    //defaultAvatar - если url нет или он пустой
         alt="Avatar"
+        
       />
       <div>
         <div className={styles.workerName}>
