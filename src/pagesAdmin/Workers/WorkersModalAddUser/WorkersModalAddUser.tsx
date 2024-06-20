@@ -95,7 +95,7 @@ function WorkersModalAddUser({
 
       // Отправляем запрос на создание нового пользователя
       axios
-        .post(`https://reg.achiever.skroy.ru/registarations/`, formDataToSend, {
+        .post(`https://reg.achiever.skroy.ru/registrations/`, formDataToSend, {
           headers: {
             "Content-Type": "multipart/form-data",
              
