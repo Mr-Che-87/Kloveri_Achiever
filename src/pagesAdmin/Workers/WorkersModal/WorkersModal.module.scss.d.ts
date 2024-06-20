@@ -4,6 +4,7 @@ declare const classNames: {
   readonly title: "title";
   readonly workersModal__form: "workersModal__form";
   readonly workersModal__upload: "workersModal__upload";
+  readonly linkShow: "linkShow";
   readonly or: "or";
   readonly btn_collaborator: "btn_collaborator";
   readonly workersModal__formCheckbox: "workersModal__formCheckbox";

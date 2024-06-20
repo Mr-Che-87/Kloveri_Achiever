@@ -12,6 +12,7 @@ interface WorkerInitialProps {
   //photoType: "photo_small" | "photo_main";  //отображение размера фотки
 }
 
+
 export default function WorkerInitial({
   user,
   showEmail,
