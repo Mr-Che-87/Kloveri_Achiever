@@ -67,7 +67,10 @@ export default function WorkerData({
     }
   };
 
+// const handleProffesionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//   const  
 
+// }
 
 
   if (!formData) {
@@ -135,7 +138,7 @@ export default function WorkerData({
           />
           <div className={styles.divider}></div>
         </div>
-
+        
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <input

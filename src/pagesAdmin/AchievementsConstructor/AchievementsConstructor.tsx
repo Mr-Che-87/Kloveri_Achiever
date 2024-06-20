@@ -59,7 +59,7 @@ export default function AchievementsConstructor() {
   };
 
   const handleAchieveAdd = (newAchieve: IAchieve) => {
-    setAchievements((prevAchievements) => [...prevAchievements, newAchieve]);
+    setAchievements((prevAchievements) => [ newAchieve, ...prevAchievements ]);
   };
 
   // Получение библиотеки достижений

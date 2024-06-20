@@ -1,4 +1,5 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import axios from "axios";
 import styles from "./ModalAddingAchieve.module.scss";
 import cardAchieveBG from "../../assets/CardAchievementBG.png";
@@ -29,7 +30,8 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
 }) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [imagePreview,setImagePreview] = useState<string | null>(null)
   const [selectedBackground, setSelectedBackground] = useState<string | null>(
     null
   );
@@ -37,6 +39,12 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isBGModalOpen, setIsBGModalOpen] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(true);
+
+  useEffect(() => {
+    if (backgrounds && backgrounds.length > 0) {
+      setSelectedBackground(backgrounds[3].data.image); // Set the first background as default
+    }
+  }, [backgrounds]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,6 +66,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     achieveData.append("image", selectedImage);
     achieveData.append("achiev_style", selectedBackground);
     achieveData.append("rank", rank.toString());
+ 
 
     // Отладочные сообщения
     console.log("FormData entries:");
@@ -87,9 +96,26 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     setDescription(e.target.value);
   const handleRankChange = (e: ChangeEvent<HTMLInputElement>) =>
     setRank(e.target.valueAsNumber);
+
+  // const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   // if (e.target.files) setSelectedImage(e.target.files[0].name); // Хранение имени файла
+  //   if(e.target.files && e.target.files.length > 0) {
+  //     const file = e.target.files[0];
+  //     setSelectedImage(file);
+      
+  //   }
+  // };
+ 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) setSelectedImage(e.target.files[0].name); // Хранение имени файла
-  };
+  const file = e.target.files?.[0];
+  console.log(file, "file");
+  if(file) {
+    const url = URL.createObjectURL(file);
+    setSelectedImage(file);
+    setImagePreview(url)
+  }
+      
+    }
 
   return (
     <div>
@@ -122,14 +148,14 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
                     selectedImage? (
                       <img 
                       className={styles.iconAddPhoto}
-                      src={selectedImage}
+                      src={imagePreview ? imagePreview : selectedImage}
                       style={{ maxWidth: '100%', maxHeight: '100%' , left: "42px"}}
                       
                        />
                     ) : (
                         <img
                   className={styles.iconAddPhoto}
-                  src={iconAddPhoto}
+                  src={iconAddPhoto} 
                   alt="Add photo"
                 />
                     )

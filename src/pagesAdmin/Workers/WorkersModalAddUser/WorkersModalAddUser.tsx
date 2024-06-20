@@ -82,7 +82,7 @@ function WorkersModalAddUser({
     formDataToSend.append("birth_date", formData.birth_date ?? "");
     formDataToSend.append("phone", formData.phone);
     formDataToSend.append("email", formData.email);
-    formDataToSend.append("sex", formData.sex ?? "");
+    formDataToSend.append("sex", formData.sex ?? ""); //удалить
     formDataToSend.append("photo_main", formData.photo_main);
     formDataToSend.append("photo_small", formData.photo_small ?? "");
     formDataToSend.append("login",formData.login?? "" )

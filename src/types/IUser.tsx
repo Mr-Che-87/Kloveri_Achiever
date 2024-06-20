@@ -8,15 +8,15 @@ export interface IUser {
   last_name?: string | undefined;
   middle_name?: string | undefined;
   birth_date?: string | undefined;
-  sex?: string | undefined;               //"male"||"female" строго 
+  sex?: string | undefined;     //удалить           //"male"||"female" строго 
   phone?: string | undefined; 
   email?: string | undefined;    
   photo_main?: any;      //"https://i.ibb.co/dK1hhcD/big1.png"
   photo_small?: any;   //"https://i.ibb.co/VwzhZgk/small1.png"
-  other_info?: {
-      proffesion?: string | undefined;     
-      start_work?: string | undefined; 
-      password_work?: string | undefined;  
+  other_info?: { //удалить
+      proffesion?: string | undefined;  //удалить   
+      start_work?: string | undefined; //удалить
+      password_work?: string | undefined; //удалить  
       //СЮДА МЫ МОЖЕМ САМИ КЛАСТЬ ДОП-СВОЙСТВА
    },
   project_id?: string | undefined;        

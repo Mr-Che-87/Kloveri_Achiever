@@ -18,7 +18,9 @@ export default function MyPage() {
   // const { profile_id } = useParams();    //получаем profileId из параметров маршрута
   const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
   const [isEditing, setIsEditing] = useState(false);  //редактирование полей
-  const profileId = localStorage.getItem("profileId")
+  const profileId = localStorage.getItem("profileId");
+
+
   // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
     // const adminId = "4d90df35-0d1f-4cba-b1e9-47674bca2f51";    //заглушка для презентации
@@ -35,6 +37,8 @@ export default function MyPage() {
     }
   }, [profileId]);
 
+
+
   //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
 
@@ -49,6 +53,7 @@ export default function MyPage() {
               avatarSize="large"  //пропс файла и css-размеров картинки
             />
           )}
+
         </div>
         
         <div className={styles.divider}></div>

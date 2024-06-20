@@ -82,6 +82,7 @@ console.log(JSON.stringify(userData))
               user={userData}  //передаем данные пользователя в WorkerInitial
               showEmail={true}
               avatarSize="large"  //пропс файла и css-размеров картинки
+          
             />
           )}
         </div>
