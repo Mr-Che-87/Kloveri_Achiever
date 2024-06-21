@@ -4,9 +4,8 @@ import styles from "./MyPage.module.scss";
 
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import WorkerData from "./WorkerData/WorkerData";
-import WorkerTeams from "./WorkerTeams/WorkerTeams";
-
 import mockWithoutAchieve from "@/assets/mock_withoutAchieve.png"
+//import WorkerTeams from "./WorkerTeams/WorkerTeams";
 // import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 // import WorkerRanks from "./WorkerRanks/WorkerRanks";
 
@@ -64,14 +63,17 @@ export default function MyPage() {
             toggleEdit={toggleEdit}
             userData={userData} // прокидываем userData в WorkerData
           />
+          
         </div>
+        {/*
         <div className={styles.workerTeams}>
           <WorkerTeams />
         </div>
+        */}
       </section>
 
       <section className={styles.mockWithoutAchieve}>
-        <h2>ЭЭЭЭ, ЗАЧЭМ ТЭБЭ АЧИВКИ ДАРАГОЙ, ТЫ ИТАК КРАСАУЧЕГ!!</h2>
+        <h2>ИНФОРМАЦИЯ О ТАРИФАХ И ПРОБНОМ ПЕРИОДЕ</h2>
         <img  className={styles.mockWithoutAchieveImg} src={mockWithoutAchieve}  />
 
       </section>
