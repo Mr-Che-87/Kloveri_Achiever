@@ -62,7 +62,6 @@ export default function MyPage({onPhotoUpdate}: IMyPageProps) {
         <div className={styles.workerTeams}>
           <WorkerTeams />
         </div>
-        */}
       </section>
 
       <section className={styles.mockWithoutAchieve}>
