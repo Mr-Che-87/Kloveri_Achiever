@@ -5,13 +5,16 @@ import "react-toastify/dist/ReactToastify.css";
 import styles from "./Registration.module.scss";
 
 const Registration: React.FC = () => {
+//const [roleType, setRoleType] = useState<"employee" | "director">("employee");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [roleType, setRoleType] = useState<"employee" | "director">("employee");
+  const currentDate = new Date(Date.now());
+  const formattedDate = currentDate.toISOString().split("T")[0];
+  const [apiError, setApiError] = useState("");
   const [validationErrors, setValidationErrors] = useState<{
     [key: string]: string;
   }>({});
@@ -44,16 +47,17 @@ const Registration: React.FC = () => {
     }
 
     console.log("Начало регистрации");
-
+    
     const requestData = {
+      //role_type: roleType,
+      organization_id: "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
       login,
       password,
       first_name: firstName,
       last_name: lastName,
       phone,
       email,
-      role_type: roleType,
-      organization_id: "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
+      start_work_date: formattedDate,
     };
 
     console.log("Данные, отправляемые на сервер:", requestData);
@@ -77,22 +81,20 @@ const Registration: React.FC = () => {
       console.log("Ответ сервера:", responseData);
 
       if (!response.ok) {
-        console.log("Ошибка ответа сервера:", responseData.error);
-        if (responseData.error && typeof responseData.error === "object") {
-          const validationErrors = Object.keys(responseData.error)
-            .map((key) => `${key}: ${responseData.error[key].join(", ")}`)
-            .join("; ");
+        if (responseData.error && typeof responseData.error === "string") {
+          throw new Error(responseData.error);
+        } else if (responseData.error && typeof responseData.error === "object") {
+          const errorObject: { [key: string]: string[] } = responseData.error;
+          const validationErrors = Object.entries(errorObject)
+           .map(([key, values]) => `${key}: ${values.join(", ")}`)
+           .join("; ");
           throw new Error(validationErrors);
-        } else if (responseData.detail) {
-          throw new Error(responseData.detail);
         } else {
-          throw new Error(
-            "Неизвестная ошибка: " + JSON.stringify(responseData)
-          );
+          throw new Error("Неизвестная ошибка");
         }
-      }
+      } 
+      localStorage.setItem("organization_id", responseData.organization_id);
 
-      // Профиль создан, независимо от возможных ошибок
       toast.success(
         "Регистрация успешна! Перенаправление на страницу входа..."
       );
@@ -103,42 +105,27 @@ const Registration: React.FC = () => {
       const errorMessage =
         error instanceof Error ? error.message : "Неизвестная ошибка";
       console.error("Ошибка регистрации:", errorMessage);
-
-      if (
-        errorMessage.includes("login") ||
-        errorMessage.includes("password") ||
-        errorMessage.includes("first_name") ||
-        errorMessage.includes("last_name") ||
-        errorMessage.includes("phone") ||
-        errorMessage.includes("email")
-      ) {
-        toast.error(`Ошибка регистрации: ${errorMessage}`);
-      } else {
-        toast.success(
-          "Регистрация успешна! Перенаправление на страницу входа..."
-        );
-        setTimeout(() => {
-          navigate("/login");
-        }, 3000);
-      }
+      setApiError(errorMessage);
+      toast.error(`Ошибка регистрации: ${errorMessage}`);
     }
   };
 
   const handleReset = () => {
+  //setRoleType("employee");
     setLogin("");
     setPassword("");
     setFirstName("");
     setLastName("");
     setPhone("");
     setEmail("");
-    setRoleType("employee");
+    setApiError("");
     setValidationErrors({});
   };
 
   return (
     <div className={styles.registrationContainer}>
       <ToastContainer />
-      <h1>Регистрация</h1>
+      <h1>Регистрация работника</h1>
       <div>
         <label>Логин:</label>
         <input
@@ -211,6 +198,7 @@ const Registration: React.FC = () => {
           <span className={styles.errorMessage}>{validationErrors.email}</span>
         )}
       </div>
+      {/*
       <div>
         <label>Тип роли:</label>
         <select
@@ -223,10 +211,12 @@ const Registration: React.FC = () => {
           <option value="director">Директор</option>
         </select>
       </div>
+      */}
       <div>
         <button onClick={handleRegistration}>Регистрация</button>
         <button onClick={handleReset}>Сброс</button>
       </div>
+      {apiError && <span className={styles.errorMessage}>{apiError}</span>}
     </div>
   );
 };

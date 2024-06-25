@@ -1,7 +1,7 @@
 import styles from "./WorkerInitial.module.scss";
 import defaultAvatar from "@/assets/defaultAvatar.png";  //заглушка если бэк ниалё
-import iconMale from "@/assets/icon_male.png";
-import iconFemale from "@/assets/icon_female.png";     
+// import iconMale from "@/assets/icon_male.png";
+// import iconFemale from "@/assets/icon_female.png";     
 
 import { IUser } from "../../../types/IUser";
 
@@ -11,6 +11,7 @@ interface WorkerInitialProps {
   avatarSize: "small" | "large";    //отображение размера фотки
   //photoType: "photo_small" | "photo_main";  //отображение размера фотки
 }
+
 
 export default function WorkerInitial({
   user,
@@ -31,7 +32,7 @@ export default function WorkerInitial({
 };  
 
  // Определяем иконку пола
- const genderIcon = user.sex === "female" ? iconFemale : user.sex === "male" ? iconMale : null;
+//  const genderIcon = user.sex === "female" ? iconFemale : user.sex === "male" ? iconMale : null;
 
   return (
     <div className={`${styles.workerInitial} ${avatarSize === "small" ? styles.small : styles.large}`}>

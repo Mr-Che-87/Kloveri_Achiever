@@ -1,4 +1,4 @@
-import styles from "./MyAchievements.module.scss";
+// import styles from "./MyAchievements.module.scss";
 import mockMyAchievementsContent from "@/assets/mock-MyAchievements-content.png"
 
 export default function MyAchievements() {

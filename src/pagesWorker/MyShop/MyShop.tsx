@@ -1,4 +1,4 @@
-import styles from "./MyShop.module.scss";
+// import styles from "./MyShop.module.scss";
 import mockMyShopContent from "@/assets/mock-MyShop-content.png"
 
 

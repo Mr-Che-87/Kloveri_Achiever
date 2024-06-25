@@ -8,8 +8,8 @@
   visibility: inherit;
 }
 
-.small .workerAvatar {
-  border-radius: 100%;
+   .small .workerAvatar {
+  border-radius: 100% ;
   margin-left: 24px;
   width: 48px;
   height: 48px;
@@ -17,9 +17,14 @@
 .large .workerAvatar {
   border-radius: 100%;
   margin-left: 24px;
+  border-radius: 100%;
+  margin-left: 24px;
   width: 72px;
   height: 72px;
 }
+
+
+
 
 .workerName {
   font-size: 24px;
@@ -27,6 +32,7 @@
   font-weight: 700;
   line-height: 56px;
 }
+
 .workerMail {
   font-size: 16px;
   font-weight: 400;

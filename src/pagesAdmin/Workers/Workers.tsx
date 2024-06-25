@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { IUser } from "../../types/IUser";
 import styles from "./Workers.module.scss";
 import iconHeader from "../../assets/iconsHeader.svg";
-
+import iconAddWorker from "../../assets/ImageAndTitle.png"
 import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
 import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 //import AuthorizationLinksButton from "./AuthorizationLinksButton/AuthorizationLinksButton";
@@ -13,38 +13,32 @@ import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 import AddWorkerButton from "./AddWorkerButton/AddWorkerButton";
 //import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
 import WorkersModal from "./WorkersModal/WorkersModal";
-
 import { fetchGetAllUsers } from "../../api/apiService"; //api
-interface WorkersModalProps{
-  isOpne: boolean;
-  onClose: () => void;
-  createdUser: IUser | null;
-  onAddContact?:(user:IUser) => void;
-}
 
 
 
 
+
+// Поиск по имени и фамилии
 function filterName (searchTextName: string, nameList: any[])  {
   if(!searchTextName){
     return nameList;
   }
-  return nameList.filter(({first_name, last_name}) =>
-    [first_name, last_name].some(
-        (name) => name?.toLowerCase().includes(searchTextName.toLowerCase())
-    )
-   
-  )
+  return nameList.filter((user) => {
+    const fullName = `${user.first_name} ${user.last_name}`;
+    return fullName.toLowerCase().includes(searchTextName.toLowerCase());
+  });
 }
 
-export default function Workers({}: WorkersModalProps) {
+
+
+
+export default function Workers() {
   const [userList, setUserList] = useState<IUser[]>([]); //state списка всех юзеров
   const [isSearchName, setIsSearchName] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false)
-
-  
-
  const filtredUserList = filterName(isSearchName, userList)
+
 
 const handleAddContact = (user: IUser) => {
   const newUserList = [user, ...userList]
@@ -88,17 +82,13 @@ const handleAddContact = (user: IUser) => {
             onAddContact={handleAddContact}
             isOpen={isOpenModal}
             onClose={() => setIsOpenModal(false)}
-           
-             userData={null}          />
+            userData={null}
+                  />
                   
           <SearchInputWorkers  
           isSearchName={isSearchName}
           setIsSearchName={setIsSearchName}
           />
-            
-         
-           {/* <WorkersModalAddUser/>  */}
-         
             
         </div>
 
@@ -108,7 +98,7 @@ const handleAddContact = (user: IUser) => {
               <ul className={styles.workersList__item}>
               {filtredUserList.map((user, index) => (
                 <li key={index}>
-                  <NavLink to={`/admin/worker-page/${user.profile_id}`}>
+                  <NavLink to={`/admin-panel/worker-page/${user.profile_id}`}>
                     <WorkerInitial
                       user={user} //передаем данные пользователя в WorkerInitial
                       showEmail={false}
@@ -116,7 +106,7 @@ const handleAddContact = (user: IUser) => {
                     />
                   </NavLink>
                   <div className={styles.workersTeamName}>
-                    <p>Название команды</p>
+                    {/* <p>Название команды</p> */}
                     
                   </div>
                 </li>
@@ -124,12 +114,19 @@ const handleAddContact = (user: IUser) => {
             </ul>
             ): (
               <div className={styles.notFound}>
-                {isSearchName ? `Пользователь "${isSearchName}" не найден ` : "Пользователь не найден"}
-                 </div>
+                  {userList.length === 0? (
+                    <div>
+                      <img src={iconAddWorker} alt="Добавьте пользователя" />
+                    </div>
+                  ): (
+                    isSearchName? `Пользователь "${isSearchName}" не найден ` : "Пользователь не найден"
+                  )
+
+                }
+              </div>
+              
             )}
-            
-            
-            
+
           </div>
 
           {/* <div className={styles.workersNotInTheTeam}>

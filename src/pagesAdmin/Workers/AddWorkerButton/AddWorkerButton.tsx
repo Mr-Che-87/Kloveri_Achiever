@@ -1,6 +1,10 @@
 import styles from "./AddWorkerButton.module.scss";
 
-const AddWorkerButton = ({onClick}) => {
+interface AddWorkerButtonProps{
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const AddWorkerButton: React.FC<AddWorkerButtonProps> = ({onClick}) => {
   return <button 
   onClick={onClick}
   className={styles.addWorkerButton}>+ Добавить</button>;

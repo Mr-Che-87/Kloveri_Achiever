@@ -6,9 +6,9 @@ import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
 import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
-import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 import WorkerRanks from "./WorkerRanks/WorkerRanks";
+//import WorkerTeams from "./WorkerTeams/WorkerTeams";
 
 import { IUser } from "../../../types/IUser";
 import { fetchGetUserData } from "../../../api/apiService";  //api
@@ -50,7 +50,6 @@ export default function WorkerPage() {
               showEmail={true}
               avatarSize="large"  //пропс файла и css-размеров картинки
             />
-            
           )}
         </div>
         
@@ -74,9 +73,11 @@ export default function WorkerPage() {
             userData={userData} // прокидываем userData в WorkerData
           />
         </div>
+        {/*
         <div className={styles.workerTeams}>
           <WorkerTeams />
         </div>
+        */}
       </section>
 
       <section className={styles.workerRanksAndAchievements}>

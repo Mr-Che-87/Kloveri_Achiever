@@ -10,7 +10,7 @@ export default function AppAdmin() {
   const [userAvatar, setUserAvatar] = useState<string | undefined>();
 
   useEffect(() => {
-    const adminId = "4d90df35-0d1f-4cba-b1e9-47674bca2f51"; // заглушка для презентации
+    const adminId = "85f24f8e-82ea-4711-8169-6a917ded08b1"; // заглушка для презентации
     fetchGetUserData(adminId)
       .then((response) => {
         setUserAvatar(response.data.photo_small); // установка аватара пользователя
