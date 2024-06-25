@@ -16,12 +16,8 @@ export const fetchGetAllUsers = (): Promise<AxiosResponse> => {
     }
   });
 };
-/* //СТАРОЕ (не удалять пока)
-export const fetchGetUserData = (userRoleId: string) => {  //userRoleId(0 - админ, 1 - работник) 
-  return axios.get(`${API_URL}/user/${userRoleId}`);    
-};  */
 
-// POST-Добавление нового пользователя                      //ДЕЛАТЬ Андрей
+// POST-Добавление нового пользователя                      
 export const fetchPostUser = (
   userData: IUser
 ): Promise<AxiosResponse<IUser>> => {

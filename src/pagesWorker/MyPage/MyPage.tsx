@@ -79,9 +79,11 @@ console.log(JSON.stringify(userData))
              avatarSize={"large"}  // прокидываем userData в WorkerData
           />
         </div>
+        {/*
         <div className={styles.workerTeams}>
           <WorkerTeams />
         </div>
+        */}
       </section>
 
       <section className={styles.workerRanksAndAchievements}>

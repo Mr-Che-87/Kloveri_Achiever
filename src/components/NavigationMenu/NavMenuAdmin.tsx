@@ -11,11 +11,11 @@ import ShopConstructor from "../../pagesAdmin/ShopConstructor/ShopConstructor";
 import PrivacySettings from "../../pagesAdmin/PrivacySettings/PrivacySettings";
 
 import myPageIcon from "@/assets/mypage-icon.png";
-//import workersIcon from "@/assets/workers.svg";
+
 import managementIcon from "@/assets/management.svg";
 import defaultAvatar from "@/assets/defaultAvatar.png"; //заглушка если бэк ниалё
 import achievementsIcon from "@/assets/achievements.svg";
-import ShopIcon from "@/assets/shop-icon.png";
+//import ShopIcon from "@/assets/shop-icon.png";
 //import logoIcon from "@/assets/logo.svg";
 
 interface NavigationMenuProps {
@@ -55,21 +55,15 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
           {/*<div className="logo-container">
             <img src={logoIcon} alt="Логотип" />
           </div>*/}
-          <NavLink to="/admin/my-page" className="menu-item">
+          <NavLink to="/admin-panel/my-page" className="menu-item">
             <img src={myPageIcon} alt="Личная карточка" />
-            Личная карточка
+            Ваш Ачивер
           </NavLink>
-          <NavLink to="/admin/achievements-constructor" className="menu-item">
+          <NavLink to="/admin-panel/achievements-constructor" className="menu-item">
             <img src={achievementsIcon} alt="Конструктор достижений" />
             Конструктор достижений
           </NavLink>
-          {/*<div className="down-arrow" //на будущее - выпадающее меню 
-              onClick={() => setAchievementsMenuOpen(!isAchievementsMenuOpen)}
-          >
-            ▼
-  </div>*/}
-
-          <NavLink to="/admin/workers" className="menu-item">
+          <NavLink to="/admin-panel/workers" className="menu-item">
             <img src={managementIcon} alt="Сотрудники" />
             Сотрудники
           </NavLink>
@@ -81,12 +75,7 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
             <img src={ShopIcon} alt="Конструктор товаров" />
             Конструктор товаров
           </NavLink>
-          <div
-            className="down-arrow" //на будущее - выпадающее меню
-            onClick={() => setShopMenuOpen(!isShopMenuOpen)}
-          >
-            ▼
-          </div>*/}
+          */}
         </div>
         <div className="privacy-settings ">
           <NavLink to="/admin/privacy-settings" >
@@ -95,28 +84,6 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
         </div>
       </nav>
 
-      {/*на будущее - выпадающее меню*/}
-      <nav className="navigation-menu-dop">
-        {isAchievementsMenuOpen && (
-          <div className="dropdown-menu dropdown-menu-1">
-            <NavLink to="/admin/achievements-constructor" className="menu-item">
-              <img src={achievementsIcon} alt="Конструктор достижений" />
-              Конструктор достижений
-            </NavLink>
-            <button className="menu-item">Мои достижения</button>
-          </div>
-        )}
-        {isShopMenuOpen && (
-          <div className="dropdown-menu dropdown-menu-2">
-            <NavLink to="/admin/shop-constructor" className="menu-item">
-              <img src={ShopIcon} alt="Конструктор товаров" />
-              Конструктор товаров
-            </NavLink>
-            <button className="menu-item">Мой магазин</button>
-          </div>
-        )}
-      </nav>
-      {/*на будущее - выпадающее меню*/}
 
       <div className="routes">
         <Routes>

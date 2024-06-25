@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
 import WelcomeImg from "@/assets/Welcome-img.png";
 
-const Login: React.FC = () => {
+const LoginAdmin: React.FC = () => {
 //const [role, setRole] = useState<"admin" | "worker" | "">("");
   const [organizationId, setOrganizationId] = useState<string | null>(null);
   const [login, setLogin] = useState("");
@@ -12,8 +12,7 @@ const Login: React.FC = () => {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState("");
-  const [profileId, setProfileId] = useState<string | null>(null);
-
+  const [profileId, setProfileId] = useState<string | null>(null)
 
   const navigate = useNavigate();
 
@@ -56,13 +55,13 @@ const Login: React.FC = () => {
       // Сохраняем profile_id
       setProfileId(data.profile_id)
 
-      console.log("Navigating to worker page");
-        navigate("/worker/my-page",{state: {profileId: data.profile_id}});
+      console.log("Navigating to admin page");
+      navigate("/admin-panel/my-page",{state: {profileId: data.profile_id}});
       {/*
       // Временная логика перенаправления на основе данных
       if (data.profile_id && role === "admin") {
         console.log("Navigating to admin page");
-        navigate("/admin",{state: {profileId: data.profile_id}});
+        navigate("/admin-panel",{state: {profileId: data.profile_id}});
       } else if (data.profile_id && role === "worker") {
         console.log("Navigating to worker page");
         navigate("/worker", { state: { profileId: data.profile_id}});
@@ -112,14 +111,13 @@ const Login: React.FC = () => {
   }, [organizationId, profileId]);
 
   const handleReset = () => {
-//setRole("");
+  //setRole("");
     setOrganizationId(null);
     setLogin("");
     setPassword("");
     setLoginError("");
     setPasswordError("");
     setApiError("");
-  
   };
 
   // Валидация email и пароля
@@ -153,14 +151,14 @@ const Login: React.FC = () => {
   // };
 
   const handleRegister = () => {
-    navigate("/registrations");
+    navigate("/admin-panel/registrations");
   };
 
   const isFormValid = login && password;
 
   return (
     <div className={styles.authorizationContainer}>
-      <h1>Жалкий ничтожный раб! Добро пожаловать в Ачивер!</h1>
+      <h1>О, Великий босс! Добро пожаловать в Ачивер!</h1>
       <img className={styles.welcomeImg} src={WelcomeImg} alt="Welcome" />
       <div>
         <label>Введите логин:</label>
@@ -244,4 +242,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginAdmin;
