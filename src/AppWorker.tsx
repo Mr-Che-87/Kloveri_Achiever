@@ -41,7 +41,7 @@ useEffect(() => {
 
     return (
       <>
-        <NavMenuWorker />
+        <NavMenuWorker profileId={null} userAvatar={undefined} />
         <Main />
       </>
     );
