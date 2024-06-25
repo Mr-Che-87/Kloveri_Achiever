@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
 import "./NavigationMenu.scss";
 
@@ -27,9 +27,26 @@ const NotFound = () => <div>404 Not Found</div>;
 
 //NavMenu HR-а c прокинутым аватаром
 const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
+
   //на будущее - выпадающее меню:
   const [isAchievementsMenuOpen, setAchievementsMenuOpen] = useState(false);
   const [isShopMenuOpen, setShopMenuOpen] = useState(false);
+  const [avatar, setAvatar] = useState(userAvatar || defaultAvatar);
+
+  useEffect(() => {
+    const storedAvatar = localStorage.getItem("avatar");
+    if(storedAvatar){
+      setAvatar(storedAvatar)
+    }
+  }, []);
+
+  const handlePhotoUpdate = (newPhotoUrl: string) => {
+    setAvatar(newPhotoUrl);
+    localStorage.setItem("avatar", newPhotoUrl)
+  };
+
+
+ 
 
   return (
     <>
@@ -71,9 +88,9 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
             ▼
           </div>*/}
         </div>
-        <div className="privacy-settings">
-          <NavLink to="/admin/privacy-settings">
-            <img src={userAvatar || defaultAvatar} alt="Admin" />
+        <div className="privacy-settings ">
+          <NavLink to="/admin/privacy-settings" >
+            <img className="large" src={avatar || defaultAvatar} alt="Admin" />
           </NavLink>
         </div>
       </nav>
@@ -103,8 +120,8 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
 
       <div className="routes">
         <Routes>
-          <Route path="/" element={<MyPage />} />
-          <Route path="my-page" element={<MyPage />} />
+          <Route path="/" element={<MyPage onPhotoUpdate={handlePhotoUpdate} />} />
+          <Route path="my-page" element={<MyPage onPhotoUpdate={handlePhotoUpdate} />} />
           <Route
             path="achievements-constructor"
             element={<AchievementsConstructor />}
@@ -113,7 +130,7 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
             path="workers"
             element={
               <Workers
-                isOpne={false}
+                isOpen={false}
                 onClose={function (): void {
                   throw new Error("Function not implemented.");
                 }}

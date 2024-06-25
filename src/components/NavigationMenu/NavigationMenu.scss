@@ -20,6 +20,15 @@ nav {
   background-color: $main-background-color;
 }
 
+
+
+
+.large  {
+  border-radius: 100%;
+  width: 64px;
+  height: 64px;
+}
+
 .navigation-menu {
   display: flex;
   justify-content: space-between;
