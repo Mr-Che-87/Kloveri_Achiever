@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
 import "./NavigationMenu.scss";
@@ -11,27 +12,37 @@ import ShopConstructor from "../../pagesAdmin/ShopConstructor/ShopConstructor";
 import PrivacySettings from "../../pagesAdmin/PrivacySettings/PrivacySettings";
 
 import myPageIcon from "@/assets/mypage-icon.png";
-//import workersIcon from "@/assets/workers.svg";
+
 import managementIcon from "@/assets/management.svg";
 import defaultAvatar from "@/assets/defaultAvatar.png"; //заглушка если бэк ниалё
 import achievementsIcon from "@/assets/achievements.svg";
-import ShopIcon from "@/assets/shop-icon.png";
+import { IUser } from "../../types/IUser";
+//import ShopIcon from "@/assets/shop-icon.png";
 //import logoIcon from "@/assets/logo.svg";
 
 interface NavigationMenuProps {
   userAvatar: string | undefined;
+  userData: IUser | null
 }
 
 // Components for routing
 const NotFound = () => <div>404 Not Found</div>;
 
 //NavMenu HR-а c прокинутым аватаром
-const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
+
+const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar, userData }) => {
 
   //на будущее - выпадающее меню:
-  const [isAchievementsMenuOpen, setAchievementsMenuOpen] = useState(false);
-  const [isShopMenuOpen, setShopMenuOpen] = useState(false);
+  // const [isAchievementsMenuOpen, setAchievementsMenuOpen] = useState(false);
+  // const [isShopMenuOpen, setShopMenuOpen] = useState(false);
   const [avatar, setAvatar] = useState(userAvatar || defaultAvatar);
+  const [formData, setFormData] = useState<IUser | null>(null);    //внутренний state данных юзера
+
+  useEffect(() => {
+    if (userData) {
+      setFormData({...userData });
+    }
+  }, [userData]);
 
   useEffect(() => {
     const storedAvatar = localStorage.getItem("avatar");
@@ -55,21 +66,15 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
           {/*<div className="logo-container">
             <img src={logoIcon} alt="Логотип" />
           </div>*/}
-          <NavLink to="/admin/my-page" className="menu-item">
+          <NavLink to="/admin-panel/my-page" className="menu-item">
             <img src={myPageIcon} alt="Личная карточка" />
-            Личная карточка
+            Ваш Ачивер
           </NavLink>
-          <NavLink to="/admin/achievements-constructor" className="menu-item">
+          <NavLink to="/admin-panel/achievements-constructor" className="menu-item">
             <img src={achievementsIcon} alt="Конструктор достижений" />
             Конструктор достижений
           </NavLink>
-          {/*<div className="down-arrow" //на будущее - выпадающее меню 
-              onClick={() => setAchievementsMenuOpen(!isAchievementsMenuOpen)}
-          >
-            ▼
-  </div>*/}
-
-          <NavLink to="/admin/workers" className="menu-item">
+          <NavLink to="/admin-panel/workers" className="menu-item">
             <img src={managementIcon} alt="Сотрудники" />
             Сотрудники
           </NavLink>
@@ -81,47 +86,21 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
             <img src={ShopIcon} alt="Конструктор товаров" />
             Конструктор товаров
           </NavLink>
-          <div
-            className="down-arrow" //на будущее - выпадающее меню
-            onClick={() => setShopMenuOpen(!isShopMenuOpen)}
-          >
-            ▼
-          </div>*/}
+          */}
         </div>
-        <div className="privacy-settings ">
-          <NavLink to="/admin/privacy-settings" >
-            <img className="large" src={avatar || defaultAvatar} alt="Admin" />
+        <div className="privacy-settings">
+          <NavLink to="/admin-panel/privacy-settings">
+          <img className="large" src={avatar || defaultAvatar} alt="Admin" />
+          <h1>{formData?.first_name || ""}</h1>  
           </NavLink>
         </div>
       </nav>
 
-      {/*на будущее - выпадающее меню*/}
-      <nav className="navigation-menu-dop">
-        {isAchievementsMenuOpen && (
-          <div className="dropdown-menu dropdown-menu-1">
-            <NavLink to="/admin/achievements-constructor" className="menu-item">
-              <img src={achievementsIcon} alt="Конструктор достижений" />
-              Конструктор достижений
-            </NavLink>
-            <button className="menu-item">Мои достижения</button>
-          </div>
-        )}
-        {isShopMenuOpen && (
-          <div className="dropdown-menu dropdown-menu-2">
-            <NavLink to="/admin/shop-constructor" className="menu-item">
-              <img src={ShopIcon} alt="Конструктор товаров" />
-              Конструктор товаров
-            </NavLink>
-            <button className="menu-item">Мой магазин</button>
-          </div>
-        )}
-      </nav>
-      {/*на будущее - выпадающее меню*/}
 
       <div className="routes">
         <Routes>
-          <Route path="/" element={<MyPage onPhotoUpdate={handlePhotoUpdate} />} />
-          <Route path="my-page" element={<MyPage onPhotoUpdate={handlePhotoUpdate} />} />
+          
+          <Route path="my-page" element={<MyPage  onPhotoUpdate={handlePhotoUpdate}  />} />
           <Route
             path="achievements-constructor"
             element={<AchievementsConstructor />}
@@ -130,16 +109,16 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
             path="workers"
             element={
               <Workers
-                isOpen={false}
-                onClose={function (): void {
-                  throw new Error("Function not implemented.");
-                }}
-                createdUser={null}
+                // isOpne={false}
+                // onClose={function (): void {
+                //   throw new Error("Function not implemented.");
+                //  }}
+                // createdUser={null}
               />
             }
           />
           <>
-            <Route path="worker-page/:profile_id" element={<WorkerPage />} />{" "}
+            <Route path="worker-page/:profile_id" element={<WorkerPage  onPhotoUpdate={handlePhotoUpdate}  />} />{" "}
             {/*в путь добавлен id юзера*/}
           </>
           <Route path="teams" element={<Teams />} />
@@ -153,3 +132,4 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
 };
 
 export default NavMenuAdmin;
+

@@ -19,22 +19,14 @@ interface WorkerModalAddUserProps {
   userData?: IUser | null;
 }
 
-// interface IOtherInfoProps{
-//   link_id: string | undefined,
-//   organization_id: string | undefined,
-//   specialty: string | undefined,
-//   start_work_date: string | undefined,
-// }
-
-
 function WorkersModalAddUser({
   onClose,
   onAddContact,
   userData,
 }: WorkerModalAddUserProps) {
-  const organizationId = localStorage.getItem("organization_id")
+  const organizationId = localStorage.getItem("organization_id") || "";
   const [formData, setFormData] = useState<IUser>({
-    organization_id: organizationId || "",
+    organization_id: organizationId,
     login: "",
     first_name: "",
     last_name: "",
@@ -44,25 +36,16 @@ function WorkersModalAddUser({
     email: "",
     photo_main: "",
     photo_small: "",
-    // specialty: "",
-    // start_work_date: "",
+    specialty: "",
+    start_work_date: "",
     password: ""
   } as IUser);
   const [avatar, setAvatar] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
-  // const linkId = localStorage.getItem("linkId")
-
-//  const [otherInfo, setOtherInfo] = useState<IOtherInfoProps>({
-//     link_id: linkId || "",
-//    organization_id: organizationId || "",
-//    specialty: "",
-//    start_work_date: "",
-//  })
- 
 
   useEffect(() => {
-    console.log(formData, "sss");
+    console.log("Form data updated:", formData);
   }, [formData]);
 
   useEffect(() => {
@@ -72,67 +55,46 @@ function WorkersModalAddUser({
   }, [userData]);
 
   const handleAddContact = () => {
-
-
-   
-
-    const formDataToSend = new FormData();
-    formDataToSend.append("first_name", formData.first_name?? "");
-    formDataToSend.append("last_name", formData.last_name?? "");
-    formDataToSend.append("middle_name", formData.middle_name ?? "");
-    formDataToSend.append("phone", formData.phone?? "");
-    formDataToSend.append("email", formData.email?? "");
-    formDataToSend.append("photo_main", formData.photo_main);
-    formDataToSend.append("photo_small", formData.photo_small ?? "");
-    formDataToSend.append("login",formData.login?? "" );
-    formDataToSend.append("specialty ", formData.specialty?? "");
-    formDataToSend.append("organization_id", formData.organization_id?? "");
-    formDataToSend.append("password", formData.password?? "");
-    // formDataToSend.append("start_work_date", formData.start_work_date?? "");
-
-    if (formData) {
-      console.log(formData, "formData");
-  
-
-      // Отправляем запрос на создание нового пользователя
-      axios
-        .post(`https://reg.achiever.skroy.ru/registrations/`, formDataToSend, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-             
-          },
-        })
-        .then((response) => {
-          const newContact = response.data;
-          console.log("Пользователь создан успешно:", newContact);
-          // Добавляем пользователя в список контактов
-          onAddContact(newContact);
-
-          onClose();
-          onClose();
-        })
-        .catch((error) => {
-          console.log("Ошибка при создании пользователя:", error);
-        });
+    const organizationId = localStorage.getItem("organization_id") || "";
+    if (!organizationId) {
+      console.error("Organization ID is not set in localStorage");
+      return;
     }
+
+    const jsonData = {
+      organization_id: organizationId,
+      first_name: formData.first_name ?? "",
+      last_name: formData.last_name ?? "",
+      middle_name: formData.middle_name ?? "",
+      phone: formData.phone ?? "",
+      email: formData.email ?? "",
+      photo_main: formData.photo_main ?? "",
+      photo_small: formData.photo_small ?? "",
+      login: formData.login ?? "",
+      specialty: formData.specialty ?? "",
+      password: formData.password ?? "",
+      start_work_date: formData.start_work_date ?? "",
+    };
+
+    const options = {
+      params: {
+        organization_id: organizationId,
+        link_weight: 0,
+      },
+    };
+
+    axios.post("https://reg.achiever.skroy.ru/registrations/",jsonData, options)
+
+      .then((response) => {
+        const newContact = response.data;
+        console.log("Пользователь создан успешно:", newContact);
+        onAddContact(newContact);
+        onClose();
+      })
+      .catch((error) => {
+        console.log("Ошибка при создании пользователя:", error.response.data);
+      });
   };
-
-  // const handleAddOtherInfo = async () => {
-  //   const formDataToSend  = new FormData();
-  //   formDataToSend.append("start_work_date: ", otherInfo.start_work_date?? "");
-  //   formDataToSend.append("specialty: ", otherInfo.specialty?? "");
-  //   formDataToSend.append("organization_id", otherInfo.organization_id?? "");
-  //   formDataToSend.append("link_id", otherInfo.link_id?? "");
-
-  //   try{
-  //   const response = await  axios.post(`https://reg.achiever.skroy.ru/link/`, formDataToSend);
-  //   console.log("Данные успешно отправлены:", response.data);
-  //   } catch(error){
-  //     console.error("Ошибка при отправке дынных:", error)
-  //   }
-  // }
-
-
 
   const handleUltils = () => {
     setFormData((prevFormData) => ({
@@ -158,15 +120,12 @@ function WorkersModalAddUser({
     }
   };
 
-  
-
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;
     setFormData((prevCurrentFormData) => ({
       ...prevCurrentFormData,
       email: email,
       login: email,
-
     }));
   };
 
@@ -194,12 +153,12 @@ function WorkersModalAddUser({
     }));
   };
 
-  // const handleStartWork = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setOtherInfo((prevInfo) => ({
-  //     ...prevInfo,
-  //     start_work_date: event.target.value,
-  //   }));
-  // };
+  const handleStartWork = (date: Date | null, fieldName: string) => {
+    setFormData((prevInfo) => ({
+      ...prevInfo,
+      [fieldName]: date ? date.toISOString().split("T")[0] : "",
+    }));
+  };
 
   const handleDateChange = (date: Date | null, fieldName: string) => {
     setFormData((currentFormData) => ({
@@ -251,8 +210,6 @@ function WorkersModalAddUser({
         ...prevFormData,
         specialty: inputValue,
       }));
-    
-    
     }
   };
 
@@ -273,6 +230,10 @@ function WorkersModalAddUser({
     }
     const date = new Date(dateStr);
     return date instanceof Date && !isNaN(date.getTime()) ? date : null;
+  };
+
+  const handleCloseModal = () => {
+    onClose(); // 
   };
 
   return (
@@ -374,16 +335,16 @@ function WorkersModalAddUser({
             </div>
           </div>
           <div className={styles.formFilling__rightContent}>
-            {/* <div className={styles.workerStartdateAdd}>
+            <div className={styles.workerStartdateAdd}>
               <h2 className={styles.description__title}>Дата начала работы</h2>
               <DatePicker
                 className={styles.workersModalAddUser__input}
                 placeholderText="Выберете дату"
-                selected={parseDateForPicker(otherInfo.start_work_date)}
+                selected={parseDateForPicker(formData.start_work_date)}
                 onChange={(date) => handleStartWork(date, "start_work_date")}
                 dateFormat="yyyy-MM-dd"
               />
-            </div> */}
+            </div>
 
             <div className={styles.workerPhone}>
               <h2 className={styles.description__title}>Номер телефона</h2>
@@ -429,7 +390,7 @@ function WorkersModalAddUser({
         </div>
 
         <div className={styles.btnGroups}>
-          <button className={styles.btn__close} onClick={onClose}>
+          <button className={styles.btn__close} onClick={handleCloseModal}>
             <img src={iconClose} alt="close" />
             Отменить
           </button>

@@ -100,7 +100,7 @@ const handleAddContact = (user: IUser) => {
               <ul className={styles.workersList__item}>
               {filtredUserList.map((user, index) => (
                 <li key={index}>
-                  <NavLink to={`/admin/worker-page/${user.profile_id}`}>
+                  <NavLink to={`/admin-panel/worker-page/${user.profile_id}`}>
                     <WorkerInitial
                       user={user} //передаем данные пользователя в WorkerInitial
                       showEmail={false}

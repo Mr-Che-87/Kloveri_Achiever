@@ -3,14 +3,20 @@ import styles from "./MyPage.module.scss";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import mockWithoutAchieve from "@/assets/mock_withoutAchieve.png"
+//import WorkerTeams from "./WorkerTeams/WorkerTeams";
 // import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 // import WorkerRanks from "./WorkerRanks/WorkerRanks";
 
 import { IUser } from "../../types/IUser";
-import { fetchGetUserData } from "../../api/apiService";  //api
+import { fetchGetLink, fetchGetUserData } from "../../api/apiService";  //api
 
 interface IMyPageProps{
   onPhotoUpdate: (newPhotoUrl: string) => void;
+}
+interface ILinkData {
+  link_id: string;
+  specialty: string;
+  start_work_date: string;
 }
 
 export default function MyPage({onPhotoUpdate}: IMyPageProps) {
@@ -18,24 +24,40 @@ export default function MyPage({onPhotoUpdate}: IMyPageProps) {
   const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
   const [isEditing, setIsEditing] = useState(false);  //редактирование полей
   const profileId = localStorage.getItem("profileId");
-
+  const [linkData, setLinkData] = useState<ILinkData | null>(null);
 
   // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
-    // const adminId = "4d90df35-0d1f-4cba-b1e9-47674bca2f51";    //заглушка для презентации
-    
-    if (profileId) { //проверяем, что profile_id определен
-      //console.log("useEffect: Загружен список данных юзера");
+    if (profileId) {
+      console.log("Fetching user data...");
       fetchGetUserData(profileId)
         .then((response) => {
-          setUserData(response.data);   //data - все данные юзера из бэка {....}
-         
+          console.log("User data received:", response.data);
+          setUserData(response.data);
         })
         .catch((error) => {
-          console.error("Ошибка при получении данных пользователя:", error);
+          console.error("Error fetching user data:", error);
         });
+  
+        const organizationId = localStorage.getItem("organization_id");
+        console.log("organizationId from localStorage:", organizationId);
+        
+        if (organizationId) {
+          console.log("Fetching link data...");
+          fetchGetLink(profileId, organizationId)
+            .then((response) => {
+              console.log("Link data received:", response.data);
+              setLinkData(response.data);
+            })
+            .catch((error) => {
+              console.error("Error fetching link data:", error);
+            });
+        }
     }
   }, [profileId]);
+
+
+
 
 // Обновление аватарки
  
@@ -54,7 +76,9 @@ export default function MyPage({onPhotoUpdate}: IMyPageProps) {
             isEditing={isEditing}
             toggleEdit={toggleEdit}
             userData={userData} // прокидываем userData в WorkerData
-            avatarSize={"large"}                     
+            avatarSize={"large"}   
+            linkData = {linkData} 
+            onPhotoUpdate={onPhotoUpdate}                 
                    />
         </div>
         
@@ -64,7 +88,7 @@ export default function MyPage({onPhotoUpdate}: IMyPageProps) {
       </section>
 
       <section className={styles.mockWithoutAchieve}>
-        <h2>ЭЭЭЭ, ЗАЧЭМ ТЭБЭ АЧИВКИ ДАРАГОЙ, ТЫ ИТАК КРАСАУЧЕГ!!</h2>
+        <h2>ИНФОРМАЦИЯ О ТАРИФАХ И ПРОБНОМ ПЕРИОДЕ</h2>
         <img  className={styles.mockWithoutAchieveImg} src={mockWithoutAchieve}  />
 
       </section>

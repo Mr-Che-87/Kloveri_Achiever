@@ -23,6 +23,7 @@ const WorkersModal = ({
   // Добавление состояния для contacts и setContacts функции
 
   const [showLink, setShowLink] = useState(false);
+  
   const [link, ] = useState("https://achiever.skroy.ru/registrations/");
 
   const handleButtonClick = () => {
@@ -34,9 +35,8 @@ const WorkersModal = ({
   };
 
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
-  if (!isOpen) {
-    return null;
-  }
+
+  
 
   // закрывает модальное вне контента
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -124,7 +124,7 @@ const WorkersModal = ({
           onAddContact={handleAddContact}
           userData={userData}
           onClose={() => {
-            onClose();
+            setIsAddUserOpen(false);
           }}
           user={undefined}
         />
