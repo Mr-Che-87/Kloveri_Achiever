@@ -75,7 +75,7 @@ const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar, userData }) 
           */}
         </div>
         <div className="privacy-settings">
-          <NavLink to="/worker/privacy-settings">
+          <NavLink to="/privacy-settings">
             <img  className="large"  src={avatar || defaultAvatar} alt="User" />
             <h1>{formData?.first_name || ""}</h1> 
           </NavLink>
