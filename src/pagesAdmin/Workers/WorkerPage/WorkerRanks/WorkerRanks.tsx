@@ -16,7 +16,7 @@ export default function WorkerRanks() {
 
   return (
     <div className={styles.workerRanksMenu}>
-        <h1 className={styles.workerRanksTitle}>Текущий статус баллов</h1>
+        <h1 className={styles.workerRanksTitle}>Ваша копилка</h1>
         <img className={styles.workerRanksIcon} src={iconRanks} alt="Ranks" />
         <input
           className={styles.workerRanksInput}

@@ -313,12 +313,11 @@ export default function WorkerData({
         </div>
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
-          <DatePicker
-            placeholderText="Выберете дату"
-            selected={parseDateForPicker(otherFormData.start_work_date)}
-            onChange={(date) => handleStartWork(date, "start_work_date")}
-            dateFormat="yyyy-MM-dd"
-            readOnly={!isEditing}
+          <input
+            name="start_work"
+            type="text"
+            value={  formData?.start_work_date || ""}
+            readOnly
           />
     
           <div className={styles.divider}></div>
@@ -329,9 +328,9 @@ export default function WorkerData({
             name="specialty"
             type="text"
             placeholder="Введите Роль"
-            value={otherFormData.specialty || ""}
-            readOnly={!isEditing}
-            onChange={handleInputChange}
+            value={formData?.specialty || ""}
+            readOnly
+            required
           />
           <div className={styles.divider}></div>
         </div>

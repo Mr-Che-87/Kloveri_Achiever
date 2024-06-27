@@ -37,7 +37,36 @@ export default function WorkerData({
 
   
   //РУЧКИ ИЗМЕНЕНИЯ И ВАЛИДАЦИИ ИНПУТОВ:
-    const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Вызов функции handleChange");
+    const { name, value } = event.target;
+       console.log("Изменённые данные до отправки на сервер:", event.target.value);
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      [name]: value,
+    }));
+  };
+
+ 
+  const handleFullNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fullName = event.target.value;
+    const [firstName, middleName, lastName] = fullName.split(' ');
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      first_name: firstName,
+      middle_name: middleName,
+      last_name: lastName,
+    }));
+  };
+
+  const handleDateChange = (date: Date | null, fieldName: string) => {
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      [fieldName]: date ? date.toISOString().split("T")[0] : "",
+    }));
+  };
+
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     const sanitizedValue = inputValue.replace(/[^\d8]/g, ''); // Оставляем только "8"
     if (/^(\8)?\d{0,10}$/.test(sanitizedValue)) {
@@ -218,24 +247,27 @@ export default function WorkerData({
 
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
-          <input
-            name="start_work"
-            type="text"
-            value={  formData?.start_work_date || ""}
-            readOnly
+          <DatePicker
+            selected={parseDateForPicker(formData?.start_work_date)}
+            onChange={(date) => handleDateChange(date, "start_work_date")}
+            value={formData.start_work_date || ""}
+            dateFormat="yyyy-MM-dd"
+            disabled={!isEditing}
+            onKeyDown={handleKeyDown}
           />
-          
           <div className={styles.divider}></div>
         </div>
 
         <div className={styles.workerPosition}>
           <h2>Роль</h2>
           <input
-            name="proffesion"
+            name="specialty"
             type="text"
             placeholder="Введите Роль"
             value={formData?.specialty || ""}
-            readOnly
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            disabled={!isEditing}
             required
           />
           <div className={styles.divider}></div>

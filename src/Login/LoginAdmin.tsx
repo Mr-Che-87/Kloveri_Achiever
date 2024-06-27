@@ -5,7 +5,7 @@ import WelcomeImg from "@/assets/Welcome-img.png";
 
 const LoginAdmin: React.FC = () => {
 //const [role, setRole] = useState<"admin" | "worker" | "">("");
-  const [organizationId, setOrganizationId] = useState<string | null>(null);
+//const [organizationId, setOrganizationId] = useState<string | null>(null);
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -22,15 +22,15 @@ const LoginAdmin: React.FC = () => {
     console.log("password:", password);
 
     try {
-      const organizationId = localStorage.getItem("organization_id");
-      if(!organizationId){
-        throw new Error( "Organization ID is not found");
-      }
+      //const organizationId = localStorage.getItem("organization_id");
+      //if(!organizationId){
+      //  throw new Error( "Organization ID is not found");
+      //}
       const response = await fetch("https://reg.achiever.skroy.ru/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "ORGANIZATION-ID": organizationId,
+          //"ORGANIZATION-ID": organizationId,
         },
         body: JSON.stringify({ login, password }),
       });
@@ -49,8 +49,9 @@ const LoginAdmin: React.FC = () => {
       localStorage.setItem("userData", JSON.stringify(data))
       localStorage.setItem("profileId", data.profile_id);
       localStorage.setItem("linkId", data.link_id);
-      // Сохраняем organization_id
-      setOrganizationId(data.organization_id);
+      
+     //Сохраняем organization_id
+     // setOrganizationId(data.organization_id);
       
       // Сохраняем profile_id
       setProfileId(data.profile_id)
@@ -78,41 +79,41 @@ const LoginAdmin: React.FC = () => {
 
  
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!organizationId) return;
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     //if (!organizationId) return;
 
-      try {
-        const response = await fetch(
-          "https://reg.achiever.skroy.ru/profiles/",
-          {
-            headers: {
-              "ORGANIZATION-ID": organizationId,
-            },
-          }
-        );
+  //     try {
+  //       const response = await fetch(
+  //         "https://reg.achiever.skroy.ru/profiles/",
+  //         // {
+  //         //   headers: {
+  //         //     "ORGANIZATION-ID": organizationId,
+  //         //   },
+  //         // }
+  //       );
 
-        if (!response.ok) {
-          throw new Error(
-            `Ошибка при получении данных: ${response.statusText}`
-          );
-        }
+  //       if (!response.ok) {
+  //         throw new Error(
+  //           `Ошибка при получении данных: ${response.statusText}`
+  //         );
+  //       }
 
-        const data = await response.json();
-        console.log("Fetched data:", data);
-      } catch (error: unknown) {
-        const errorMessage =
-          error instanceof Error ? error.message : "Неизвестная ошибка";
-        console.error("Fetch data error:", errorMessage);
-      }
-    };
+  //       const data = await response.json();
+  //       console.log("Fetched data:", data);
+  //     } catch (error: unknown) {
+  //       const errorMessage =
+  //         error instanceof Error ? error.message : "Неизвестная ошибка";
+  //       console.error("Fetch data error:", errorMessage);
+  //     }
+  //   };
 
-    fetchData();
-  }, [organizationId, profileId]);
+  //   fetchData();
+  // }, [organizationId, profileId]);  
 
   const handleReset = () => {
   //setRole("");
-    setOrganizationId(null);
+  //setOrganizationId(null);
     setLogin("");
     setPassword("");
     setLoginError("");
@@ -158,7 +159,7 @@ const LoginAdmin: React.FC = () => {
 
   return (
     <div className={styles.authorizationContainer}>
-      <h1>О, Великий босс! Добро пожаловать в Ачивер!</h1>
+      <h1>Администратор, добро пожаловать в Ачивер!</h1>
       <img className={styles.welcomeImg} src={WelcomeImg} alt="Welcome" />
       <div>
         <label>Введите логин:</label>

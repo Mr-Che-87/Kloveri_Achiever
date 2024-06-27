@@ -1,47 +1,49 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./styles/general.scss";
 import Main from "./pagesWorker/Main/Main";
 import NavMenuWorker from "./components/NavigationMenu/NavMenuWorker";
-import { fetchGetUserData } from "./api/apiService"; 
-import { useLocation } from "react-router-dom";
 
+import { IUser } from "./types/IUser"; 
+import { fetchGetUserData } from "./api/apiService"; //api
 
 
 export default function AppWorker() {
-  
-  //для передачи аватара в кружочек(настройки приватности) справа
-  // const [userAvatar, setUserAvatar] = useState<string | undefined>();
-  const [profileId, setProfileId] = useState<string | null>("");
-  const token = localStorage.getItem("token")
-  
-  const location = useLocation();
+//для передачи аватара и имени в кружочек справа:
+  const [profileId, setProfileId] = useState<string | null>(localStorage.getItem("profileId"));
+  //const [profileId, setProfileId] = useState<string | null>("");
+  //const profileId = localStorage.getItem("profileId")
+  const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
+  //const [userAvatar, setUserAvatar] = useState<string | undefined>();
+  //const [firstName, setFirstName] = useState<string | undefined>();
+//const token = localStorage.getItem("token")
 
-  
+const location = useLocation();
 
+
+useEffect(() => {
+  if (location.state && location.state.profileId) {
+    setProfileId(location.state.profileId);
+    localStorage.setItem("profileId", location.state.profileId); // Сохраняем profileId в localStorage
+  }
+}, [location]);
+  
   useEffect(() => {
-    if (token && profileId) {
-      console.log('profileId:', profileId);
-      fetchGetUserData(profileId )
-      
-        // .then((response) => {
-        //   setUserAvatar(response.data.photo_small); // обновляем состояние userAvatar
-        // })
+    if (profileId) {
+      fetchGetUserData(profileId)
+        .then((response) => {
+          setUserData(response.data);
+        })
         .catch((error) => {
           console.error("Ошибка при получении данных пользователя:", error);
         });
     }
-  }, [profileId, token]);
+  }, [profileId]);
 
-
-useEffect(() => {
-    if (location.state && location.state.profileId) {
-      setProfileId(location.state.profileId);
-    }
-  }, [location]);
 
     return (
       <>
-        <NavMenuWorker profileId={null} userAvatar={undefined} />
+        <NavMenuWorker userData={userData}/>  
         <Main />
       </>
     );

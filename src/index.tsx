@@ -22,8 +22,8 @@ const Root: React.FC = () => {
         <Route path="/registrations" element={<Registration />} />
         <Route path="/admin-panel/registrations" element={<RegistrationAdmin />} />
         
+        <Route path="/*" element={<AppWorker />} />
         <Route path="/admin-panel/*" element={<AppAdmin />} />{" "}
-        <Route path="/worker/*" element={<AppWorker />} />
         {/*  "*"-чтоб был возможен дальнейший под-роутинг */}
       </Routes>
     </Router>
