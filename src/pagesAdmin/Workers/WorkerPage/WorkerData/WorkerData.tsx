@@ -41,6 +41,7 @@ export default function WorkerData({
     }));
   };
 
+ 
   const handleFullNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fullName = event.target.value;
     const [firstName, middleName, lastName] = fullName.split(' ');
@@ -182,14 +183,9 @@ export default function WorkerData({
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <DatePicker
-            selected={parseDateForPicker(formData?.other_info?.start_work)}
-            onChange={(date) => setFormData({
-                ...formData,
-                other_info: {
-                 ...formData?.other_info,
-                 start_work: date?.toISOString().split("T")[0] || "",
-                },
-            })}
+            selected={parseDateForPicker(formData?.start_work_date)}
+            onChange={(date) => handleDateChange(date, "start_work_date")}
+            value={formData.start_work_date || ""}
             dateFormat="yyyy-MM-dd"
             disabled={!isEditing}
             onKeyDown={handleKeyDown}
@@ -200,20 +196,11 @@ export default function WorkerData({
         <div className={styles.workerPosition}>
           <h2>Роль</h2>
           <input
-            name="proffesion"
+            name="specialty"
             type="text"
             placeholder="Введите Роль"
-            value={formData?.other_info?.proffesion || ""}
-            onChange={e => {
-              const value = e.target.value;
-              setFormData((prevFormData) => ({
-                ...prevFormData,
-                other_info: {
-                  ...prevFormData?.other_info,
-                  profession: value,
-                },
-              }));
-            }}
+            value={formData?.specialty || ""}
+            onChange={handleChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
             required

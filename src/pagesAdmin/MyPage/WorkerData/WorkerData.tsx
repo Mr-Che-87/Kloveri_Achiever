@@ -144,7 +144,7 @@ export default function WorkerData({
           <input
             name="start_work"
             type="text"
-            value={  formData?.other_info?.start_work || ""}
+            value={  formData?.start_work_date || ""}
             readOnly
           />
           
@@ -154,10 +154,10 @@ export default function WorkerData({
         <div className={styles.workerPosition}>
           <h2>Роль</h2>
           <input
-            name="proffesion"
+            name="specialty"
             type="text"
             placeholder="Введите Роль"
-            value={formData?.other_info?.proffesion || ""}
+            value={formData?.specialty || ""}
             readOnly
             required
           />

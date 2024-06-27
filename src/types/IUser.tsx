@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IUser {
+  
   profile_id?: string | undefined;   
   profile_type?: string | undefined;        //"anonymous"
   profile_code?: string | undefined;
@@ -13,12 +14,9 @@ export interface IUser {
   email?: string | undefined;    
   photo_main?: any;      //"https://i.ibb.co/dK1hhcD/big1.png"
   photo_small?: any;   //"https://i.ibb.co/VwzhZgk/small1.png"
-  other_info?: { //удалить
-      proffesion?: string | undefined;  //удалить   
-      start_work?: string | undefined; //удалить
-      password_work?: string | undefined; //удалить  
-      //СЮДА МЫ МОЖЕМ САМИ КЛАСТЬ ДОП-СВОЙСТВА
-   },
+  start_work_date?: string | undefined;
+  specialty?: string | undefined;
+  link_weight?: number | undefined;
   project_id?: string | undefined;        
 
 }

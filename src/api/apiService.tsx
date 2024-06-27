@@ -28,6 +28,7 @@ export const fetchPostUser = (
 export const fetchGetUserData = (
   // userId: string,
   profileId: string,
+  //firstName: string,
   // token: string
 ): Promise<AxiosResponse<IUser>> => {
   return axios.get<IUser>(`${API_URL}/profiles/${profileId}/`)

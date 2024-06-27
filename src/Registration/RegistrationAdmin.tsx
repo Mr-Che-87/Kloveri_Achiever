@@ -9,6 +9,7 @@ const RegistrationAdmin: React.FC = () => {
   const [organizationId, setOrganizationId] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -66,7 +67,7 @@ const RegistrationAdmin: React.FC = () => {
 
     try {
       const response = await fetch(
-        "https://reg.achiever.skroy.ru/registrations/",
+        "https://reg.achiever.skroy.ru/registrations/",   //на будущее(веса): - https://reg.achiever.skroy.ru/registrations/?link_weigth=1&organization_id={organizationId}
         {
           method: "POST",
           headers: {
@@ -170,13 +171,19 @@ const RegistrationAdmin: React.FC = () => {
           <span className={styles.errorMessage}>{validationErrors.login}</span>
         )}
       </div>
-      <div>
+      <div className={styles.passwordContainer}>
         <label>Пароль:</label>
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <span
+            className={styles.passwordToggle}
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? "🙈" : "👁️"}
+          </span>
         {validationErrors.password && (
           <span className={styles.errorMessage}>
             {validationErrors.password}

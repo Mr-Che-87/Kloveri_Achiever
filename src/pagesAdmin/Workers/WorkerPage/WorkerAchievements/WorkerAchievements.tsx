@@ -121,9 +121,9 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
               setSearchQuery={setSearchQuery}
             />
           </li>
-          <li>
+          {/* <li>
             <AllAchieveButton />
-          </li>
+          </li> */}
         </ul>
       </div>
 
