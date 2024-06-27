@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./MyPage.module.scss";
 import WorkerData from "./WorkerData/WorkerData";
-import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import mockWithoutAchieve from "@/assets/mock_withoutAchieve.png"
 //import WorkerTeams from "./WorkerTeams/WorkerTeams";
 // import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
@@ -58,7 +57,7 @@ export default function MyPage({onPhotoUpdate}: IMyPageProps) {
             avatarSize={"large"}                     
                    />
         </div>
-        
+        {/*
         <div className={styles.workerTeams}>
           <WorkerTeams />
         </div>

@@ -11,7 +11,6 @@ import WorkerRanks from "./WorkerRanks/WorkerRanks";
 
 import { IUser } from "../../../types/IUser";
 import { fetchGetUserData } from "../../../api/apiService"; //api
-import WorkerTeams from "./WorkerTeams/WorkerTeams";
 
 export default function WorkerPage() {
   const { profile_id } = useParams(); //получаем profileId из параметров маршрута
@@ -60,6 +59,7 @@ export default function WorkerPage() {
               </li>
             </ul>
           </div>
+        {/*  
         <div className={styles.workerTeams}>
           <WorkerTeams />
         </div>
