@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IUser {
-  
+  organization_id?: string | undefined
   profile_id?: string | undefined;   
   profile_type?: string | undefined;        //"anonymous"
   profile_code?: string | undefined;
@@ -16,11 +16,7 @@ export interface IUser {
   specialty?: string | undefined;    
   photo_main?: any;      //"https://i.ibb.co/dK1hhcD/big1.png"
   photo_small?: any;   //"https://i.ibb.co/VwzhZgk/small1.png"
-  start_work_date?: string | undefined;
-  specialty?: string | undefined;
-  link_weight?: number | undefined;
-  project_id?: string | undefined;        
-
+  project_id?: string | undefined;   
 }
 
 
