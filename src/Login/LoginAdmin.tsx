@@ -235,6 +235,7 @@ const LoginAdmin: React.FC = () => {
         </button>
         <button onClick={handleReset}>Отмена</button>
         <button onClick={handleRegister}>Регистрация</button>{" "}
+        {/* Добавлена кнопка регистрации */}
       </div>
       {apiError && <span className={styles.errorMessage}>{apiError}</span>}
     </div>

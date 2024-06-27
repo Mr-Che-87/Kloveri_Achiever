@@ -17,8 +17,8 @@ const Root: React.FC = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin-panel" element={<LoginAdmin />} />
         <Route path="/admin-panel/login" element={<LoginAdmin />} />
+        <Route path="/admin-panel" element={<LoginAdmin />} />
         <Route path="/registrations" element={<Registration />} />
         <Route path="/admin-panel/registrations" element={<RegistrationAdmin />} />
         

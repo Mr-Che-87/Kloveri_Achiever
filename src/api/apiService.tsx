@@ -35,22 +35,39 @@ export const fetchGetUserData = (
 
 // PATCH-Обновление данных существующего пользователя  
 export const fetchUpdateUser = (
-  userId: string,
-  userData: IUser
+  profile_id: string,
+  formData: FormData,
 ): Promise<AxiosResponse<IUser>> => {
-  console.log("Отправка запроса на обновление данных пользователя:", userData);
-  return axios.patch<IUser>(`${API_URL}/profiles/${userId}/`, userData);
+  console.log("Отправка запроса на обновление данных пользователя:", formData);
+  return axios.patch<IUser>(`${API_URL}/profiles/${profile_id}/`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });
 };
 
 // DELETE-Удаление пользователя по ID                           
-export const fetchDeleteUser = (userId: string, organizationId: string): Promise<AxiosResponse> => {
-  console.log(`Sending request to delete user ${userId} with organizationId ${organizationId}`);
-  return axios.delete(`${API_URL}/profiles/${userId}/`, )
+export const fetchDeleteUser = (profile_id: string, organizationId: string): Promise<AxiosResponse> => {
+  console.log(`Sending request to delete user ${profile_id} with organizationId ${organizationId}`);
+  return axios.delete(`${API_URL}/profiles/${profile_id}/`, {
+    headers:{
+      "ORGANIZATION-ID":organizationId
+    }
+  })
  
 };
 
-
-
+// PATCH-Link 
+export const fetchUpdateLink = (
+  link_id: string, 
+  formData:FormData,
+) => {
+  return axios.patch(`https://reg.achiever.skroy.ru/link/${link_id}/`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });
+};
 
 //Achievements library//
 // GET-Получение всей библиотеки наград
