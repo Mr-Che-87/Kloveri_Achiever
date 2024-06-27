@@ -12,7 +12,7 @@ export function SearchAllAchieveInput({ searchQuery, setSearchQuery }: Props) {
     <input
       value={searchQuery}
       onChange={handleChange}
-      placeholder="Найти по названию"
+      placeholder="Найти из полученных"
     />
   );
 }

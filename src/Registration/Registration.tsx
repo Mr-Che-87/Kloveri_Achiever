@@ -8,6 +8,7 @@ const Registration: React.FC = () => {
 //const [roleType, setRoleType] = useState<"employee" | "director">("employee");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -110,6 +111,9 @@ const Registration: React.FC = () => {
     }
   };
 
+ 
+
+
   const handleReset = () => {
   //setRoleType("employee");
     setLogin("");
@@ -125,7 +129,7 @@ const Registration: React.FC = () => {
   return (
     <div className={styles.registrationContainer}>
       <ToastContainer />
-      <h1>Регистрация работника</h1>
+      <h1>Регистрация сотрудника</h1>
       <div>
         <label>Логин:</label>
         <input
@@ -137,13 +141,19 @@ const Registration: React.FC = () => {
           <span className={styles.errorMessage}>{validationErrors.login}</span>
         )}
       </div>
-      <div>
+      <div className={styles.passwordContainer}>
         <label>Пароль:</label>
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <span
+            className={styles.passwordToggle}
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? "🙈" : "👁️"}
+          </span>
         {validationErrors.password && (
           <span className={styles.errorMessage}>
             {validationErrors.password}

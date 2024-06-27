@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Routes, Route, NavLink } from "react-router-dom";
 import "./NavigationMenu.scss";
 
@@ -10,22 +11,34 @@ import ShopConstructor from "../../pagesAdmin/ShopConstructor/ShopConstructor";
 import PrivacySettings from "../../pagesAdmin/PrivacySettings/PrivacySettings";
 
 import myPageIcon from "@/assets/mypage-icon.png";
-
 import managementIcon from "@/assets/management.svg";
 import defaultAvatar from "@/assets/defaultAvatar.png"; //заглушка если бэк ниалё
 import achievementsIcon from "@/assets/achievements.svg";
 //import ShopIcon from "@/assets/shop-icon.png";
 //import logoIcon from "@/assets/logo.svg";
 
+import { IUser } from "../../types/IUser";
+
+
 interface NavigationMenuProps {
-  userAvatar: string | undefined;
+  //profileId: string | null;
+  //userAvatar: string | undefined;
+  userData: IUser | null;
 }
 
 // Components for routing
 const NotFound = () => <div>404 Not Found</div>;
 
 //NavMenu HR-а c прокинутым аватаром
-const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
+const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userData }) => {
+  const [formData, setFormData] = useState<IUser | null>(null);    //внутренний state данных юзера
+
+  useEffect(() => {
+    if (userData) {
+      setFormData({...userData });
+    }
+  }, [userData]);
+
  
   return (
     <>
@@ -58,7 +71,8 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
         </div>
         <div className="privacy-settings">
           <NavLink to="/admin-panel/privacy-settings">
-            <img src={userAvatar || defaultAvatar} alt="Admin" />
+          <img src={formData?.photo_small || defaultAvatar} alt="User" />
+          <h1>{formData?.first_name || ""}</h1>  
           </NavLink>
         </div>
       </nav>

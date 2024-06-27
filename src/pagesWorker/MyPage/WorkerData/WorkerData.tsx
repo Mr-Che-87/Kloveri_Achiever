@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
@@ -30,6 +31,17 @@ export default function WorkerData({
 
   
   //РУЧКИ ИЗМЕНЕНИЯ И ВАЛИДАЦИИ ИНПУТОВ:
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("Вызов функции handleChange");
+    const { name, value } = event.target;
+       console.log("Изменённые данные до отправки на сервер:", event.target.value);
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      [name]: value,
+    }));
+  };
+
+
     const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
     const sanitizedValue = inputValue.replace(/[^\d8]/g, ''); // Оставляем только "8"
@@ -40,6 +52,14 @@ export default function WorkerData({
       }));
     }
   };
+
+  const handleDateChange = (date: Date | null, fieldName: string) => {
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      [fieldName]: date ? date.toISOString().split("T")[0] : "",
+    }));
+  };
+
 
 
   //PATCH:
@@ -68,6 +88,14 @@ export default function WorkerData({
   };
 
 
+  //Дата-пикер:
+  const parseDateForPicker = (dateStr?: string): Date | null => {
+    if (!dateStr) {
+      return null;
+    }
+    const date = new Date(dateStr);
+    return date instanceof Date && !isNaN(date.getTime()) ? date : null;
+  };
 
 
   if (!formData) {
@@ -138,12 +166,15 @@ export default function WorkerData({
 
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
-          <input
-            name="start_work"
-            type="text"
-            value={  formData?.other_info?.start_work || ""}
-            readOnly
+          <DatePicker
+            selected={parseDateForPicker(formData?.start_work_date)}
+            onChange={(date) => handleDateChange(date, "start_work_date")}
+            value={formData.start_work_date || ""}
+            dateFormat="yyyy-MM-dd"
+            disabled={!isEditing}
+            onKeyDown={handleKeyDown}
           />
+          <div className={styles.divider}></div>
           
           <div className={styles.divider}></div>
         </div>
@@ -151,11 +182,13 @@ export default function WorkerData({
         <div className={styles.workerPosition}>
           <h2>Роль</h2>
           <input
-            name="proffesion"
+            name="specialty"
             type="text"
             placeholder="Введите Роль"
-            value={formData?.other_info?.proffesion || ""}
-            readOnly
+            value={formData?.specialty || ""}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            disabled={!isEditing}
             required
           />
           <div className={styles.divider}></div>

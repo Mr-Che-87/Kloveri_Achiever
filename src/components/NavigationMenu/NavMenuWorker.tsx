@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Routes, Route, NavLink} from "react-router-dom";
 import "./NavigationMenu.scss";
 
@@ -14,16 +15,27 @@ import defaultAvatar from "@/assets/defaultAvatar.png";  //заглушка ес
 //import ShopIcon from "@/assets/shop-icon.png";
 //import logoIcon from "@/assets/logo.svg";
 
+import { IUser } from "../../types/IUser";
+
+
   interface NavigationMenuProps {
-    profileId: string | null;
-    userAvatar: string | undefined;
+    //profileId: string | null;
+    //userAvatar: string | undefined;
+    userData: IUser | null;
   }
 
 // Components for routing
 const NotFound = () => <div>404 Not Found</div>;
 
 //NavMenu РАБОТНИКА c прокинутым аватаром
-const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar }) => { 
+const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userData }) => { 
+ const [formData, setFormData] = useState<IUser | null>(null);    //внутренний state данных юзера
+
+  useEffect(() => {
+    if (userData) {
+      setFormData({...userData });
+    }
+  }, [userData]);
 
 
   return (
@@ -35,7 +47,7 @@ const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
             <img src={logoIcon} alt="Логотип" />
           </div>
           */}
-          <NavLink to="/worker/my-page" className="menu-item">
+          <NavLink to="/my-page" className="menu-item">
             <img src={myPageIcon} alt="Личная карточка" />
             Личный кабинет
           </NavLink>
@@ -55,8 +67,9 @@ const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar }) => {
           */}
         </div>
         <div className="privacy-settings">
-          <NavLink to="/worker/privacy-settings">
-            <img src={userAvatar || defaultAvatar} alt="User" />
+          <NavLink to="/privacy-settings">
+          <img src={formData?.photo_small || defaultAvatar} alt="User" />
+          <h1>{formData?.first_name || ""}</h1>  
           </NavLink>
         </div>
       </nav>
