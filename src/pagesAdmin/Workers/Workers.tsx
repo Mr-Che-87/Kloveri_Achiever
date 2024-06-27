@@ -60,14 +60,12 @@ const handleAddContact = (user: IUser) => {
       });
   }, []);
 
-
   //возвращаем индикатор загрузки пока данные не загружены:
   if (userList.length === 0) {
     return <div>Loading user data...</div>;
   }
 
-
-
+ 
 
   return (
     <>

@@ -80,8 +80,8 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userData }) => {
 
       <div className="routes">
         <Routes>
-          <Route path="/" element={<MyPage onPhotoUpdate={handlePhotoUpdate} />} />
-          <Route path="my-page" element={<MyPage onPhotoUpdate={handlePhotoUpdate} />} />
+          
+          <Route path="my-page" element={<MyPage />} />
           <Route
             path="achievements-constructor"
             element={<AchievementsConstructor />}
@@ -90,11 +90,11 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userData }) => {
             path="workers"
             element={
               <Workers
-                isOpen={false}
-                onClose={function (): void {
-                  throw new Error("Function not implemented.");
-                }}
-                createdUser={null}
+                // isOpne={false}
+                // onClose={function (): void {
+                //   throw new Error("Function not implemented.");
+                //  }}
+                // createdUser={null}
               />
             }
           />

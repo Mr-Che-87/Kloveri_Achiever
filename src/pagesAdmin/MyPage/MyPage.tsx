@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+
 import styles from "./MyPage.module.scss";
+
+import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import WorkerData from "./WorkerData/WorkerData";
 import mockWithoutAchieve from "@/assets/mock_withoutAchieve.png"
 //import WorkerTeams from "./WorkerTeams/WorkerTeams";
@@ -9,11 +12,8 @@ import mockWithoutAchieve from "@/assets/mock_withoutAchieve.png"
 import { IUser } from "../../types/IUser";
 import { fetchGetUserData } from "../../api/apiService";  //api
 
-interface IMyPageProps{
-  onPhotoUpdate: (newPhotoUrl: string) => void;
-}
 
-export default function MyPage({onPhotoUpdate}: IMyPageProps) {
+export default function MyPage() {
   // const { profile_id } = useParams();    //получаем profileId из параметров маршрута
   const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
   const [isEditing, setIsEditing] = useState(false);  //редактирование полей
@@ -29,7 +29,6 @@ export default function MyPage({onPhotoUpdate}: IMyPageProps) {
       fetchGetUserData(profileId)
         .then((response) => {
           setUserData(response.data);   //data - все данные юзера из бэка {....}
-         
         })
         .catch((error) => {
           console.error("Ошибка при получении данных пользователя:", error);
@@ -37,8 +36,6 @@ export default function MyPage({onPhotoUpdate}: IMyPageProps) {
     }
   }, [profileId]);
 
-// Обновление аватарки
- 
 
 
   //Функция переключения режима редактирования:
@@ -47,15 +44,26 @@ export default function MyPage({onPhotoUpdate}: IMyPageProps) {
   return (
     <div className={styles.workerPage}>
       <section className={styles.workerSection}>
+        <div className={styles.workerInitial}>
+          {userData && (
+            <WorkerInitial
+              user={userData}  //передаем данные пользователя в WorkerInitial
+              showEmail={true}
+              avatarSize="large"  //пропс файла и css-размеров картинки
+            />
+          )}
+
+        </div>
+        
+        <div className={styles.divider}></div>
+
         <div className={styles.workerData}>
           <WorkerData
-           onPhotoUpdate={onPhotoUpdate}
-            showEmail={true}
             isEditing={isEditing}
             toggleEdit={toggleEdit}
             userData={userData} // прокидываем userData в WorkerData
-            avatarSize={"large"}                     
-                   />
+          />
+          
         </div>
         {/*
         <div className={styles.workerTeams}>
