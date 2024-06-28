@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
-
-
 import styles from "./MyPage.module.scss";
-
-import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
-
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 import WorkerRanks from "./WorkerRanks/WorkerRanks";
-
 import { IUser } from "../../types/IUser";
 import { fetchGetUserData } from "../../api/apiService";  //api
 
@@ -76,28 +70,20 @@ console.log(JSON.stringify(userData))
   return (
     <div className={styles.workerPage}>
       <section className={styles.workerSection}>
-        <div className={styles.workerInitial}>
-          {userData && (
-            <WorkerInitial
-              user={userData}  //передаем данные пользователя в WorkerInitial
-              showEmail={true}
-              avatarSize="large"  //пропс файла и css-размеров картинки
-            />
-          )}
-        </div>
-        
-        <div className={styles.divider}></div>
-
         <div className={styles.workerData}>
           <WorkerData
-            isEditing={isEditing}
-            toggleEdit={toggleEdit}
-            userData={userData} // прокидываем userData в WorkerData
+             showEmail={true}
+             isEditing={isEditing}
+             toggleEdit={toggleEdit}
+             userData={userData} // прокидываем userData в WorkerData
+             avatarSize={"large"}  // прокидываем userData в WorkerData
           />
         </div>
+        {/*
         <div className={styles.workerTeams}>
           <WorkerTeams />
         </div>
+        */}
       </section>
 
       <section className={styles.workerRanksAndAchievements}>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./WorkersModal.module.scss";
-import uploadFile from "../../../assets/UploadFile.svg";
+// import uploadFile from "../../../assets/UploadFile.svg";
 import iconCollaborator from "../../../assets/iconCollaborator.svg";
 import iconClose from "../../../assets/iconCross.svg";
 import iconCheack from "../../../assets/IconCheck.svg";
@@ -22,15 +22,21 @@ const WorkersModal = ({
 }: WorkersModalProps) => {
   // Добавление состояния для contacts и setContacts функции
 
+  const [showLink, setShowLink] = useState(false);
+  
+  const [link, ] = useState("https://achiever.skroy.ru/registrations/");
+
+  const handleButtonClick = () => {
+    setShowLink(!showLink);
+  };
 
   const handleAddContact = (user: IUser) => {
     onAddContact(user);
   };
 
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
-  if (!isOpen) {
-    return null;
-  }
+
+  
 
   // закрывает модальное вне контента
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,7 +47,7 @@ const WorkersModal = ({
   };
 
   const handleAddUserClick = () => {
-    setIsAddUserOpen(true);
+    setIsAddUserOpen(!showLink);
   };
   return (
     <>
@@ -55,19 +61,16 @@ const WorkersModal = ({
               <h3>Добавить сотрудников</h3>
             </div>
             <div className={styles.workersModal__form}>
-              <form className={styles.workersModal__upload}>
-                <label>
-                  <input
-                    type="file"
-                    name="uploadFile"
-                    id="buttonFile"
-                    accept="image/*"
-                    style={{ display: "none" }}
-                  />
-                  <img src={uploadFile} alt="" />
-                  <p>Загрузить файл</p>
-                </label>
-              </form>
+              <div className={styles.workersModal__upload}>
+                <button onClick={handleButtonClick}>
+                {showLink ? 'Скрыть ссылку' : 'Показать ссылку для регистрации'}
+                </button>
+                {showLink && (
+                  <div>
+                    <input className={styles.linkShow} type="text" value={link} readOnly />
+                  </div>
+                )}
+              </div>
               <p className={styles.or}>или</p>
               <form action="">
                 <button
@@ -82,14 +85,14 @@ const WorkersModal = ({
             </div>
 
             <div className={styles.workersModal__formCheckbox}>
-              <form action="checkbox">
+              {/* <form action="checkbox">
                 <input
                   type="checkbox"
                   name="checkbox"
                   id="checkbox"
                   className={styles.checkboxType}
-                />
-                <label htmlFor="checkbox">
+                /> */}
+                {/* <label htmlFor="checkbox">
                   <div>
                     <p className={styles.text__title}>
                       Отправить ссылки для авторизации
@@ -100,8 +103,8 @@ const WorkersModal = ({
                     Если этот пункт отмечен, на почту сотрудников будут
                     автоматически отправлены ссылки для авторизации
                   </p>
-                </label>
-              </form>
+                </label> */}
+              {/* </form> */}
             </div>
             <div className={styles.btnGroups}>
               <button className={styles.btn__close} onClick={onClose}>
@@ -116,12 +119,12 @@ const WorkersModal = ({
           </div>
         </div>
       )}
-      {isAddUserOpen &&  (
+      {isAddUserOpen && (
         <WorkersModalAddUser
           onAddContact={handleAddContact}
           userData={userData}
           onClose={() => {
-            onClose();
+            setIsAddUserOpen(false);
           }}
           user={undefined}
         />

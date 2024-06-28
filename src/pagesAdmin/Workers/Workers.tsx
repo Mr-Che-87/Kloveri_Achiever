@@ -60,12 +60,14 @@ const handleAddContact = (user: IUser) => {
       });
   }, []);
 
+
   //возвращаем индикатор загрузки пока данные не загружены:
   if (userList.length === 0) {
     return <div>Loading user data...</div>;
   }
 
- 
+
+
 
   return (
     <>
@@ -98,7 +100,7 @@ const handleAddContact = (user: IUser) => {
               <ul className={styles.workersList__item}>
               {filtredUserList.map((user, index) => (
                 <li key={index}>
-                  <NavLink to={`/admin/worker-page/${user.profile_id}`}>
+                  <NavLink to={`/admin-panel/worker-page/${user.profile_id}`}>
                     <WorkerInitial
                       user={user} //передаем данные пользователя в WorkerInitial
                       showEmail={false}

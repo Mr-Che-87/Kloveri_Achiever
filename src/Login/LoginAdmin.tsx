@@ -3,17 +3,16 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
 import WelcomeImg from "@/assets/Welcome-img.png";
 
-const Login: React.FC = () => {
+const LoginAdmin: React.FC = () => {
 //const [role, setRole] = useState<"admin" | "worker" | "">("");
-  // const [organizationId, setOrganizationId] = useState<string | null>(null);
+//const [organizationId, setOrganizationId] = useState<string | null>(null);
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState("");
-  const [profileId, setProfileId] = useState<string | null>(null);
-
+  const [profileId, setProfileId] = useState<string | null>(null)
 
   const navigate = useNavigate();
 
@@ -21,18 +20,21 @@ const Login: React.FC = () => {
     console.log("handleLogin called");
     console.log("login:", login);
     console.log("password:", password);
-    
+
     try {
-    
+      //const organizationId = localStorage.getItem("organization_id");
+      //if(!organizationId){
+      //  throw new Error( "Organization ID is not found");
+      //}
       const response = await fetch("https://reg.achiever.skroy.ru/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // "ORGANIZATION-ID": organizationId,
+          //"ORGANIZATION-ID": organizationId,
         },
         body: JSON.stringify({ login, password }),
       });
-      
+
       console.log("response status:", response.status);
 
       if (!response.ok) {
@@ -47,19 +49,20 @@ const Login: React.FC = () => {
       localStorage.setItem("userData", JSON.stringify(data))
       localStorage.setItem("profileId", data.profile_id);
       localStorage.setItem("linkId", data.link_id);
-      // Сохраняем organization_id
-      // setOrganizationId(data.organization_id);
+      
+     //Сохраняем organization_id
+     // setOrganizationId(data.organization_id);
       
       // Сохраняем profile_id
       setProfileId(data.profile_id)
 
-      console.log("Navigating to worker page");
-        navigate("/my-page",{state: {profileId: data.profile_id}});
+      console.log("Navigating to admin page");
+      navigate("/admin-panel/my-page",{state: {profileId: data.profile_id}});
       {/*
       // Временная логика перенаправления на основе данных
       if (data.profile_id && role === "admin") {
         console.log("Navigating to admin page");
-        navigate("/admin",{state: {profileId: data.profile_id}});
+        navigate("/admin-panel",{state: {profileId: data.profile_id}});
       } else if (data.profile_id && role === "worker") {
         console.log("Navigating to worker page");
         navigate("/worker", { state: { profileId: data.profile_id}});
@@ -76,17 +79,46 @@ const Login: React.FC = () => {
 
  
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     //if (!organizationId) return;
 
+  //     try {
+  //       const response = await fetch(
+  //         "https://reg.achiever.skroy.ru/profiles/",
+  //         // {
+  //         //   headers: {
+  //         //     "ORGANIZATION-ID": organizationId,
+  //         //   },
+  //         // }
+  //       );
+
+  //       if (!response.ok) {
+  //         throw new Error(
+  //           `Ошибка при получении данных: ${response.statusText}`
+  //         );
+  //       }
+
+  //       const data = await response.json();
+  //       console.log("Fetched data:", data);
+  //     } catch (error: unknown) {
+  //       const errorMessage =
+  //         error instanceof Error ? error.message : "Неизвестная ошибка";
+  //       console.error("Fetch data error:", errorMessage);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [organizationId, profileId]);  
 
   const handleReset = () => {
-//setRole("");
-    // setOrganizationId(null);
+  //setRole("");
+  //setOrganizationId(null);
     setLogin("");
     setPassword("");
     setLoginError("");
     setPasswordError("");
     setApiError("");
-  
   };
 
   // Валидация email и пароля
@@ -120,14 +152,14 @@ const Login: React.FC = () => {
   // };
 
   const handleRegister = () => {
-    navigate("/registrations");
+    navigate("/admin-panel/registrations");
   };
 
   const isFormValid = login && password;
 
   return (
     <div className={styles.authorizationContainer}>
-      <h1>Жалкий ничтожный раб! Добро пожаловать в Ачивер!</h1>
+      <h1>Администратор, добро пожаловать в Ачивер!</h1>
       <img className={styles.welcomeImg} src={WelcomeImg} alt="Welcome" />
       <div>
         <label>Введите логин:</label>
@@ -204,11 +236,10 @@ const Login: React.FC = () => {
         </button>
         <button onClick={handleReset}>Отмена</button>
         <button onClick={handleRegister}>Регистрация</button>{" "}
-        {/* Добавлена кнопка регистрации */}
       </div>
       {apiError && <span className={styles.errorMessage}>{apiError}</span>}
     </div>
   );
 };
 
-export default Login;
+export default LoginAdmin;

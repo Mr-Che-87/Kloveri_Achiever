@@ -7,7 +7,6 @@ export default function WorkerRanks() {
   
   //заглушка:
   const [points, setPoints] = useState(450);  
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPoints(Number(event.target.value));
   };
@@ -16,7 +15,7 @@ export default function WorkerRanks() {
 
   return (
     <div className={styles.workerRanksMenu}>
-        <h1 className={styles.workerRanksTitle}>Текущий статус баллов</h1>
+        <h1 className={styles.workerRanksTitle}>Ваша копилка</h1>
         <img className={styles.workerRanksIcon} src={iconRanks} alt="Ranks" />
         <input
           className={styles.workerRanksInput}
@@ -25,9 +24,6 @@ export default function WorkerRanks() {
           onChange={handleChange} 
           readOnly
         />
-        
      </div>  
-        
-
   );
 }

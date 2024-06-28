@@ -2,6 +2,72 @@
   visibility: inherit;
 }
 
+
+.workerInitial {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.avatarWrapper {
+  position: relative;
+  width: fit-content;
+}
+
+.editIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  display: none; 
+
+  p{
+    position: relative;
+    left: 6px;
+    top: -10px;
+    font-size: 12px;
+  }
+}
+
+.avatarWrapper:hover .editIcon {
+  display: block; // Показываем иконку при наведении
+}
+
+.small .workerAvatar {
+  border-radius: 100% ;
+  margin-left: 24px;
+  width: 48px;
+  height: 48px;
+}
+.large .workerAvatar {
+  border-radius: 100%;
+  margin-left: 24px;
+  border-radius: 100%;
+  margin-left: 24px;
+  width: 72px;
+  height: 72px;
+}
+
+.workerName {
+  font-size: 24px;
+  color: #fff;
+  font-weight: 700;
+  line-height: 56px;
+}
+
+.workerMail {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  opacity: 0.72;
+}
+
 .workerDataTitle {
   display: flex;
   justify-content: space-between;
@@ -21,7 +87,6 @@ h2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 25px;
-  margin-bottom: 36px;
 }
 
 .workerInformation > div {
@@ -36,7 +101,6 @@ h2 {
 .workerInformation .react-datepicker-wrapper {
   border: 1px solid #444;
   border-radius: 12px;
-  padding: 10px;
   //field-sizing: content;
   color: white;
   margin-bottom: 12px;
@@ -101,19 +165,74 @@ h2 {
 }
 .workerLogin {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
-.workerFullname {
+.workerFirstName {
   visibility: inherit;
+  input{
+    padding-left: 10px;
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
+}
+.workerMiddleName {
+  visibility: inherit;
+  input{
+    padding-left: 10px;
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+  }
+}
+.workerLastName {
+  visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerBirthday {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerNumber {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerStartdate {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerPosition {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
