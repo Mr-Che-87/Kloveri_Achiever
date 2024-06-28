@@ -45,15 +45,16 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar, userData }) =
   }, [userData]);
 
   useEffect(() => {
-    const storedAvatar = localStorage.getItem("avatar");
+    const storedAvatar = localStorage.getItem("adminAvatar");
     if(storedAvatar){
       setAvatar(storedAvatar)
     }
   }, []);
 
   const handlePhotoUpdate = (newPhotoUrl: string) => {
+    console.log("New Photo URL:", newPhotoUrl);
     setAvatar(newPhotoUrl);
-    localStorage.setItem("avatar", newPhotoUrl)
+    localStorage.setItem("adminAvatar", newPhotoUrl)
   };
 
 
@@ -118,7 +119,7 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({ userAvatar, userData }) =
             }
           />
           <>
-            <Route path="worker-page/:profile_id" element={<WorkerPage  onPhotoUpdate={handlePhotoUpdate}  />} />{" "}
+            <Route path="worker-page/:profile_id" element={<WorkerPage  />} />{" "}
             {/*в путь добавлен id юзера*/}
           </>
           <Route path="teams" element={<Teams />} />

@@ -12,9 +12,7 @@ import { IUser } from "../../../types/IUser";
 import { fetchGetLink, fetchGetUserData } from "../../../api/apiService";
 
 
-interface IMyPageProps{
-  onPhotoUpdate: (newPhotoUrl: string) => void;
-}
+
 
 
 interface ILinkData {
@@ -26,7 +24,7 @@ interface ILinkData {
 
 
 
-export default function WorkerPage({onPhotoUpdate}: IMyPageProps) {
+export default function WorkerPage() {
   const { profile_id } = useParams();
   const [userData, setUserData] = useState<IUser | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -75,7 +73,6 @@ export default function WorkerPage({onPhotoUpdate}: IMyPageProps) {
             userData={userData}
             avatarSize={"large"}
             linkData = {linkData} 
-            onPhotoUpdate={onPhotoUpdate}
           />
         </div>
         <div className={styles.workerBtnMenu}>
