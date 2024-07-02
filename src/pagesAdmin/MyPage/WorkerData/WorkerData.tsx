@@ -197,22 +197,36 @@ export default function WorkerData({
       handleSave();
     }
   };
-
+  
   const handleDateChange = (date: Date | null, fieldName: string) => {
-    setFormData((currentFormData) => ({
-      ...currentFormData!,
-      [fieldName]: date ? date.toISOString().split("T")[0] : "",
-    }));
+    if (!date) {
+      setFormData((currentFormData) => ({
+        ...currentFormData!,
+        [fieldName]: "",
+      }));
+    } else {
+      setFormData((currentFormData) => ({
+        ...currentFormData!,
+        [fieldName]: date.toISOString().split("T")[0],
+      }));
+    }
   };
 
   const handleStartWork = (date: Date | null, fieldName: string) => {
-    setOtherFormData((currentFormData) => ({
-      ...currentFormData,
-      [fieldName]: date ? date.toISOString().split("T")[0] : "",
-    }));
-    localStorage.setItem(fieldName, date ? date.toISOString().split("T")[0] : "");
+    if (!date) {
+      setOtherFormData((currentFormData) => ({
+        ...currentFormData,
+        [fieldName]: "",
+      }));
+      localStorage.setItem(fieldName, "");
+    } else {
+      setOtherFormData((currentFormData) => ({
+        ...currentFormData,
+        [fieldName]: date.toISOString().split("T")[0],
+      }));
+      localStorage.setItem(fieldName, date.toISOString().split("T")[0]);
+    }
   };
-
   const parseDateForPicker = (dateStr?: string): Date | null => {
     if (!dateStr) {
       return null;

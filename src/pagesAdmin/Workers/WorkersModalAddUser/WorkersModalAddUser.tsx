@@ -7,12 +7,11 @@ import iconClose from "../../../assets/iconCross.svg";
 import iconCheack from "../../../assets/IconCheck.svg";
 import WorkerModalTag from "./WorkerModalTag/WorkerModalTag";
 import DatePicker from "react-datepicker";
-import defaultAvatar from "../../../assets/defaultAvatar.png";
 import styles from "./WorkersModalAddUser.module.scss";
 import axios from "axios";
 
 interface WorkerModalAddUserProps {
-  user: IUser | undefined;
+  user?: IUser;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClose: () => void;
   onAddContact: (user: IUser) => void;
@@ -40,7 +39,7 @@ function WorkersModalAddUser({
     start_work_date: "",
     password: ""
   } as IUser);
-  const [avatar, setAvatar] = useState("");
+  // const [avatar, setAvatar] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
 
@@ -63,8 +62,8 @@ function WorkersModalAddUser({
 
     const jsonData = {
       organization_id: organizationId,
-      first_name: formData.first_name ?? "",
-      last_name: formData.last_name ?? "",
+      first_name: formData.first_name ,
+      last_name: formData.last_name ,
       middle_name: formData.middle_name ?? "",
       phone: formData.phone ?? "",
       email: formData.email ?? "",
@@ -74,19 +73,24 @@ function WorkersModalAddUser({
       specialty: formData.specialty ?? "",
       password: formData.password ?? "",
       start_work_date: formData.start_work_date ?? "",
+      birth_date: formData.birth_date ?? "",
     };
 
+    console.log("jsonData", jsonData)
     const options = {
       params: {
         organization_id: organizationId,
-        link_weight: 0,
       },
     };
 
-    axios.post("https://reg.achiever.skroy.ru/registrations/",jsonData, options)
+    axios.post("https://api.achiever.skroy.ru/registrations/",jsonData, options)
 
       .then((response) => {
-        const newContact = response.data;
+        const newContact = {
+          ...response.data,
+          first_name:formData.first_name,
+          last_name:formData.last_name,
+        }
         console.log("Пользователь создан успешно:", newContact);
         onAddContact(newContact);
         onClose();
@@ -105,20 +109,20 @@ function WorkersModalAddUser({
     console.log(tags.join(), "tagsJOIN");
   };
 
-  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file: File | undefined = event.target.files?.[0];
-    console.log(file, "file");
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setAvatar(url);
+  // const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file: File | undefined = event.target.files?.[0];
+  //   console.log(file, "file");
+  //   if (file) {
+  //     const url = URL.createObjectURL(file);
+  //     setAvatar(url);
 
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        photo_main: file,
-        photo_small: file,
-      }));
-    }
-  };
+  //     setFormData((prevFormData) => ({
+  //       ...prevFormData,
+  //       photo_main: file,
+  //       photo_small: file,
+  //     }));
+  //   }
+  // };
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;
@@ -244,7 +248,7 @@ function WorkersModalAddUser({
         </div>
 
         <div className={styles.header}>
-          <div className={styles.avatarUser}>
+          {/* <div className={styles.avatarUser}>
             <label>
               <input
                 type="file"
@@ -259,7 +263,7 @@ function WorkersModalAddUser({
                 alt="avatar"
               />
             </label>
-          </div>
+          </div> */}
           <div className={styles.workerLoginAdd}>
             <h2 className={styles.description__title}>Логин</h2>
             <input
@@ -272,7 +276,7 @@ function WorkersModalAddUser({
           </div>
         </div>
 
-        <div className={styles.checkbox__link}>
+        {/* <div className={styles.checkbox__link}>
           <form action="checkbox_modal">
             <label htmlFor="checkbox_modal">
               <input
@@ -283,7 +287,7 @@ function WorkersModalAddUser({
               <p>Отправить ссылку для авторизации</p>
             </label>
           </form>
-        </div>
+        </div> */}
         <div className={styles.formFilling}>
           <div className={styles.formFilling__rightContent}>
             <div className={styles.workerNameAdd}>

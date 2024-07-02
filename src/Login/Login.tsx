@@ -24,7 +24,7 @@ const Login: React.FC = () => {
     
     try {
     
-      const response = await fetch("https://reg.achiever.skroy.ru/login/", {
+      const response = await fetch("https://api.achiever.skroy.ru/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

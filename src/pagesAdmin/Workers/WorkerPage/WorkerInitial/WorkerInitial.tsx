@@ -6,15 +6,16 @@ import iconFemale from "@/assets/icon_female.png";
 import { IUser } from "../../../../types/IUser";
 
 interface WorkerInitialProps {
-  user: IUser | undefined;
+  user: IUser ;
+  userData:IUser;
   showEmail: boolean;  //отображение мейла
   avatarSize: "small" | "large";    //отображение размера фотки
   //photoType: "photo_small" | "photo_main";  //отображение размера фотки
 }
 
 export default function WorkerInitial({
+
   user,
-  showEmail,
   avatarSize,
 }: WorkerInitialProps) {
   if (!user) {
@@ -48,11 +49,7 @@ export default function WorkerInitial({
           <img className={styles.genderIcon} src={genderIcon} alt="пол" />
         )}
         
-        {showEmail && (
-          <div className={styles.workerMail}>
-            {user.email || "Загружаем email..."}
-          </div>
-        )}
+  
       </div>
     </div>
   );

@@ -19,6 +19,12 @@ import { fetchGetAllUsers } from "../../api/apiService"; //api
 
 
 
+interface IWorkers{
+  user: IUser,
+  userData: IUser
+}
+
+
 // Поиск по имени и фамилии
 function filterName (searchTextName: string, nameList: any[])  {
   if(!searchTextName){
@@ -33,18 +39,23 @@ function filterName (searchTextName: string, nameList: any[])  {
 
 
 
-export default function Workers() {
+export default function Workers({
+  user,
+  userData
+}:IWorkers) {
   const [userList, setUserList] = useState<IUser[]>([]); //state списка всех юзеров
   const [isSearchName, setIsSearchName] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false)
  const filtredUserList = filterName(isSearchName, userList)
 
+ const handleAddContact = (newUser: IUser) => {
+  setUserList((prevUserList) => [newUser, ...prevUserList]);
 
-const handleAddContact = (user: IUser) => {
-  const newUserList = [user, ...userList]
-  setUserList(newUserList)
-}
+};
 
+  //   const handleUpdateObject = () => {
+  //     setUpdateObject(prevState => !prevState);
+  // };
 
  console.log("filtredUserList", filtredUserList)
   //GET-Получение списка всех пользователей:
@@ -84,7 +95,8 @@ const handleAddContact = (user: IUser) => {
             onAddContact={handleAddContact}
             isOpen={isOpenModal}
             onClose={() => setIsOpenModal(false)}
-            userData={null}
+            userData={userData}
+             user={user}            
                   />
                   
           <SearchInputWorkers  
@@ -102,9 +114,10 @@ const handleAddContact = (user: IUser) => {
                 <li key={index}>
                   <NavLink to={`/admin-panel/worker-page/${user.profile_id}`}>
                     <WorkerInitial
+                    userData={userData}
                       user={user} //передаем данные пользователя в WorkerInitial
                       showEmail={false}
-                      avatarSize="small"
+                      avatarSize={"small"}
                     />
                   </NavLink>
                   <div className={styles.workersTeamName}>

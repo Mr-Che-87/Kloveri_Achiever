@@ -4,11 +4,11 @@ import { IAchieve } from "../types/IAchieve";
 import { IConnection } from "../types/IConnection";
 //import { IConnection } from "../types/IConnection";
 
-const API_URL = "https://reg.achiever.skroy.ru"; //обновлённый базовый URL
+const API_URL = "https://api.achiever.skroy.ru"; //обновлённый базовый URL
 
 
 //Profiles//
-// GET-Получение списка всех пользователей
+//GET-Получение списка всех пользователей
 export const fetchGetAllUsers = (): Promise<AxiosResponse> => {
   return axios.get(`${API_URL}/profiles/`,{
     headers:{
@@ -16,6 +16,7 @@ export const fetchGetAllUsers = (): Promise<AxiosResponse> => {
     }
   });
 };
+
 
 // POST-Добавление нового пользователя                      
 export const fetchPostUser = (
@@ -64,7 +65,7 @@ export const fetchGetLink = (
   organizationId: string,
 
 ) => {
-  return axios.get(`https://reg.achiever.skroy.ru/link/${profile_id}/`,{
+  return axios.get(`https://api.achiever.skroy.ru/link/${profile_id}/`,{
 headers: {
   "Content-Type": "application/json",
   "ORGANIZATION-ID": organizationId
@@ -77,7 +78,7 @@ export const fetchUpdateLink = (
   link_id: string, 
   formData:FormData,
 ) => {
-  return axios.patch(`https://reg.achiever.skroy.ru/link/${link_id}/`, formData, {
+  return axios.patch(`https://api.achiever.skroy.ru/link/${link_id}/`, formData, {
     headers: {
       "Content-Type": "multipart/form-data"
     }

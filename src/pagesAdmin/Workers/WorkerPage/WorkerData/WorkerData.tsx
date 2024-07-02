@@ -15,7 +15,9 @@ interface WorkerDataProps {
   toggleEdit: () => void;
   userData: IUser | null;
   avatarSize: "small" | "large";
+  onPhotoUpdate: (newPhotoUrl: string) => void;
   linkData: ILinkData | null;
+  user:IUser | null;
 }
 
 interface IOtherFormData {
@@ -26,11 +28,13 @@ interface IOtherFormData {
 }
 
 export default function WorkerData({
+user,
   isEditing,
   toggleEdit,
   userData,
   showEmail,
   avatarSize,
+  onPhotoUpdate,
   linkData,
 }: WorkerDataProps) {
   const [formData, setFormData] = useState<IUser | null>(null);
@@ -160,6 +164,9 @@ export default function WorkerData({
         .then((response) => {
           setFormData(response.data);
           setImageUrl(response.data.photo_main || defaultAvatar);
+          if (onPhotoUpdate) {
+            onPhotoUpdate(response.data.photo_main || defaultAvatar);
+          }
         })
         .catch((error) => {
           console.error("Ошибка при обновлении данных пользователя:", error);

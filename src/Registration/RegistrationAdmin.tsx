@@ -67,7 +67,7 @@ const RegistrationAdmin: React.FC = () => {
 
     try {
       const response = await fetch(
-        "https://reg.achiever.skroy.ru/registrations/",   //на будущее(веса): - https://reg.achiever.skroy.ru/registrations/?link_weigth=1&organization_id={organizationId}
+        "https://api.achiever.skroy.ru/registrations/",   //на будущее(веса): - https://api.achiever.skroy.ru/registrations/?link_weigth=1&organization_id={organizationId}
         {
           method: "POST",
           headers: {
