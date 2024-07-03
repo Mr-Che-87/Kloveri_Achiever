@@ -4,8 +4,8 @@ import { IAchieve } from "../types/IAchieve";
 import { IConnection } from "../types/IConnection";
 //import { IConnection } from "../types/IConnection";
 
-const API_URL = "https://reg.achiever.skroy.ru"; //обновлённый базовый URL
-
+const API_URL = "https://api.achiever.skroy.ru"; //обновлённый базовый URL
+//const API_URL = "https://reg.achiever.skroy.ru"; //старый базовый URL
 
 //Profiles//
 // GET-Получение списка всех пользователей
