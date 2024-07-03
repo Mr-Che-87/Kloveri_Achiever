@@ -38,12 +38,16 @@ const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar, userData }) 
   }, [userData]);
 
   useEffect(() => {
-    const storedAvatar = localStorage.getItem("avatar");
+    const storedAvatar = localStorage.getItem("avatarWorker");
     if(storedAvatar){
       setAvatar(storedAvatar)
     }
   }, []);
 
+  const handlePhotoUpdate = (newPhotoUrl: string) => {
+    setAvatar(newPhotoUrl);
+    localStorage.setItem("avatarWorker", newPhotoUrl)
+  };
 
 
   return (
@@ -84,7 +88,7 @@ const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar, userData }) 
 
       <div className="routes">
         <Routes>
-          <Route path="my-page" element={<MyPage />} />
+          <Route path="my-page" element={<MyPage onPhotoUpdate={handlePhotoUpdate} />} />
           <Route path="my-achievements" element={<MyAchievements />} />
           <Route path="teams" element={<Teams />} />
           <Route path="my-shop" element={<MyShop />} />

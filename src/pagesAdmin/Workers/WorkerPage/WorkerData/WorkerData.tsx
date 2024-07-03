@@ -17,6 +17,7 @@ interface WorkerDataProps {
   avatarSize: "small" | "large";
   onPhotoUpdate: (newPhotoUrl: string) => void;
   linkData: ILinkData | null;
+  user:IUser | null;
 }
 
 interface IOtherFormData {
@@ -27,6 +28,7 @@ interface IOtherFormData {
 }
 
 export default function WorkerData({
+user,
   isEditing,
   toggleEdit,
   userData,
