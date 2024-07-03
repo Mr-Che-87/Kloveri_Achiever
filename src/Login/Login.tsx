@@ -23,8 +23,7 @@ const Login: React.FC = () => {
     console.log("password:", password);
 
     try {
-
-     // const organizationId = localStorage.getItem("organization_id");
+      // const organizationId = localStorage.getItem("organization_id");
       // if(!organizationId){
       //   throw new Error( "Organization ID is not found");
       // }
