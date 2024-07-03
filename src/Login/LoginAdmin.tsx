@@ -84,7 +84,7 @@ const LoginAdmin: React.FC = () => {
 
       try {
         const response = await fetch(
-          "https://reg.achiever.skroy.ru/profiles/",
+          "https://api.achiever.skroy.ru/profiles/",
           {
             headers: {
               "ORGANIZATION-ID": organizationId,
