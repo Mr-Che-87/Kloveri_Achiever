@@ -23,11 +23,19 @@ const Login: React.FC = () => {
     console.log("password:", password);
 
     try {
+<<<<<<< HEAD
       // const organizationId = localStorage.getItem("organization_id");
       // if(!organizationId){
       //   throw new Error( "Organization ID is not found");
       // }
       const response = await fetch("https://reg.achiever.skroy.ru/login/", {
+=======
+      const organizationId = localStorage.getItem("organization_id");
+      if(!organizationId){
+        throw new Error( "Organization ID is not found");
+      }
+      const response = await fetch("https://api.achiever.skroy.ru/login/", {
+>>>>>>> 04c42da38b884fc479c996b04d7a18a04513485e
         method: "POST",
          headers: {
           "Content-Type": "application/json",

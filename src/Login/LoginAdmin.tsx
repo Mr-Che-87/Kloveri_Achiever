@@ -83,6 +83,7 @@ const LoginAdmin: React.FC = () => {
   //   const fetchData = async () => {
   //     //if (!organizationId) return;
 
+<<<<<<< HEAD
   //     try {
   //       const response = await fetch(
   //         "https://reg.achiever.skroy.ru/profiles/",
@@ -92,6 +93,17 @@ const LoginAdmin: React.FC = () => {
   //         //   },
   //         // }
   //       );
+=======
+      try {
+        const response = await fetch(
+          "https://api.achiever.skroy.ru/profiles/",
+          {
+            headers: {
+              "ORGANIZATION-ID": organizationId,
+            },
+          }
+        );
+>>>>>>> 04c42da38b884fc479c996b04d7a18a04513485e
 
   //       if (!response.ok) {
   //         throw new Error(
