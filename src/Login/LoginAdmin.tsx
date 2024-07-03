@@ -26,7 +26,7 @@ const LoginAdmin: React.FC = () => {
       //if(!organizationId){
       //  throw new Error( "Organization ID is not found");
       //}
-      const response = await fetch("https://reg.achiever.skroy.ru/login/", {
+      const response = await fetch("https://api.achiever.skroy.ru/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
