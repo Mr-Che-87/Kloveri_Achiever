@@ -50,7 +50,7 @@ const Registration: React.FC = () => {
     
     const requestData = {
       //role_type: roleType,
-      organization_id: "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
+      // organization_id: "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
       login,
       password,
       first_name: firstName,
