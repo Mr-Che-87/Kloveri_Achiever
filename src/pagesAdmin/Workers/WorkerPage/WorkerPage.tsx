@@ -7,7 +7,7 @@ import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 import WorkerRanks from "./WorkerRanks/WorkerRanks";
-import WorkerTeams from "./WorkerTeams/WorkerTeams";
+//import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import { IUser } from "../../../types/IUser";
 import { fetchGetLink, fetchGetUserData } from "../../../api/apiService";
 
@@ -88,9 +88,11 @@ export default function WorkerPage() {
             </li>
           </ul>
         </div>
+        {/*
         <div className={styles.workerTeams}>
           <WorkerTeams />
         </div>
+        */}
       </section>
 
       <section className={styles.workerRanksAndAchievements}>
