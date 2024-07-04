@@ -24,6 +24,7 @@ function WorkersModalAddUser({
   userData,
 }: WorkerModalAddUserProps) {
   const organizationId = localStorage.getItem("organization_id") || "";
+  console.log(organizationId, "organizationId")
   const [formData, setFormData] = useState<IUser>({
     organization_id: organizationId,
     login: "",
@@ -42,6 +43,13 @@ function WorkersModalAddUser({
   // const [avatar, setAvatar] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
+  const [validationErrors, setValidationErrors] = useState<{ [key: string]: string }>({});
+
+
+
+
+
+ 
 
   useEffect(() => {
     console.log("Form data updated:", formData);
@@ -53,11 +61,45 @@ function WorkersModalAddUser({
     }
   }, [userData]);
 
+  const validateForm = () => {
+    const errors: {[key: string] : string} ={}
+
+    if(!formData.login) errors.login = "Логин обязательно";
+    if(!formData.email) errors.email = "Email обязательно";
+    if(!formData.first_name) errors.first_name = "Имя обязательно";
+    if(!formData.last_name) errors.last_name = "Фамилия обязательно";
+    if(!formData.password) errors.password = "Пароль обязательно";
+    if(!formData.birth_date) errors.birth_date = "Дата рождения обязательно";
+    if(!formData.start_work_date) errors.start_work_date = "Дата начала работы обязательно";
+    if(!formData.specialty) errors.specialty = "Роль обязательно";
+    if(!formData.phone) errors.phone = "Номер телефона обязательно";
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  }
+
+
+
   const handleAddContact = () => {
-    const organizationId = localStorage.getItem("organization_id") || "";
-    if (!organizationId) {
-      console.error("Organization ID is not set in localStorage");
-      return;
+
+
+    const userDataString = localStorage.getItem("userData");
+    let organizationId = "";
+    if(userDataString){
+      try{
+        const userData = JSON.parse(userDataString);
+
+        organizationId = userData.organization_id
+      } catch(error){
+        console.error("Ошибка при парсинге данных userData из localStorage:", error);
+      }
+    }else {
+      console.error("Данные userData не найдены в localStorage");
+    }
+
+    if(!validateForm()){
+      console.log("Validation failed");
+      return
     }
 
     const jsonData = {
@@ -125,13 +167,20 @@ function WorkersModalAddUser({
   // };
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const login = event.target.value;
+    setFormData((prevCurrentFormData) => ({
+      ...prevCurrentFormData,
+      login: login,
+    }));
+  };
+
+  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;
     setFormData((prevCurrentFormData) => ({
       ...prevCurrentFormData,
       email: email,
-      login: email,
     }));
-  };
+  }
 
   const handleFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
     const firstName = event.target.value;
@@ -266,13 +315,30 @@ function WorkersModalAddUser({
           </div> */}
           <div className={styles.workerLoginAdd}>
             <h2 className={styles.description__title}>Логин</h2>
+          
+            <input
+              name="login"
+              type="login"
+              placeholder="Введите Логин"
+              value={formData ? formData.login  : ""}
+              onChange={handleLogin}
+            />
+            {validationErrors.login && (
+              <span className={styles.errorMessages}>{validationErrors.login}</span>
+            )}
+          </div>
+          <div className={styles.workerEmailAdd}>
+            <h2 className={styles.description__title}>Емайл</h2>
             <input
               name="email"
               type="email"
-              placeholder="Введите Логин"
+              placeholder="Введите Email"
               value={formData ? formData.email  : ""}
-              onChange={handleLogin}
+              onChange={handleEmail}
             />
+              {validationErrors.email && (
+              <span className={styles.errorMessages}>{validationErrors.email}</span>
+            )}
           </div>
         </div>
 
@@ -300,6 +366,9 @@ function WorkersModalAddUser({
                 value={formData ? formData.first_name : ""}
                 onChange={handleFirstName}
               />
+                {validationErrors.first_name && (
+              <span className={styles.errorMessages}>{validationErrors.first_name}</span>
+            )}
             </div>
 
             <div className={styles.workerSecondNameAdd}>
@@ -312,6 +381,9 @@ function WorkersModalAddUser({
                 value={formData ? formData.last_name : ""}
                 onChange={handleSecondName}
               />
+                {validationErrors.last_name && (
+              <span className={styles.errorMessages}>{validationErrors.last_name}</span>
+            )}
             </div>
 
             <div className={styles.workerPatronymiAdd}>
@@ -336,6 +408,9 @@ function WorkersModalAddUser({
                 value={formData.birth_date || ""}
                 dateFormat="yyyy-MM-dd"
               />
+                {validationErrors.birth_date && (
+              <span className={styles.errorMessages}>{validationErrors.birth_date}</span>
+            )}
             </div>
           </div>
           <div className={styles.formFilling__rightContent}>
@@ -348,6 +423,9 @@ function WorkersModalAddUser({
                 onChange={(date) => handleStartWork(date, "start_work_date")}
                 dateFormat="yyyy-MM-dd"
               />
+                {validationErrors.start_work_date && (
+              <span className={styles.errorMessages}>{validationErrors.start_work_date}</span>
+            )}
             </div>
 
             <div className={styles.workerPhone}>
@@ -361,6 +439,9 @@ function WorkersModalAddUser({
                 autoComplete="off"
                 onChange={handlePhoneChange}
               />
+                {validationErrors.phone && (
+              <span className={styles.errorMessages}>{validationErrors.phone}</span>
+            )}
             </div>
 
             <div className={styles.workerPassword}>
@@ -374,6 +455,9 @@ function WorkersModalAddUser({
                 value={formData ? formData?.password : ""}
                 onChange={handleWorkerPasswordAdd}
               />
+                {validationErrors.password && (
+              <span className={styles.errorMessages}>{validationErrors.password}</span>
+            )}
             </div>
 
             <div className={styles.workerPositionAdd}>
@@ -387,7 +471,9 @@ function WorkersModalAddUser({
                 onChange={handleWorkerPositionAdd}
                 onKeyDown={handleKeyDown}
               />
-
+                {validationErrors.specialty && (
+              <span className={styles.errorMessages}>{validationErrors.specialty}</span>
+            )}
               <WorkerModalTag setTags={setTags} tags={tags} removeTag={[]} />
             </div>
           </div>

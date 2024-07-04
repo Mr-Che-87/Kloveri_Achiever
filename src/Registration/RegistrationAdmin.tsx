@@ -6,7 +6,7 @@ import styles from "./Registration.module.scss";
 
 const RegistrationAdmin: React.FC = () => {
 //const [roleType, setRoleType] = useState<"employee" | "director">("employee");
-  const [organizationId, setOrganizationId] = useState("");
+  //const [organizationId, setOrganizationId] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -53,7 +53,7 @@ const RegistrationAdmin: React.FC = () => {
     
     const requestData = {
       //role_type: roleType,
-      organization_id: organizationId,    //"642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
+      //organization_id: organizationId,    //"642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
       login,
       password,
       first_name: firstName,
@@ -67,7 +67,9 @@ const RegistrationAdmin: React.FC = () => {
 
     try {
       const response = await fetch(
-        "https://api.achiever.skroy.ru/registrations/",   //на будущее(веса): - https://api.achiever.skroy.ru/registrations/?link_weigth=1&organization_id={organizationId}
+        "https://api.achiever.skroy.ru/registrations/?organization_id=642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",   
+        //ранее - "https://api.achiever.skroy.ru/registrations/"
+        //на будущее(веса): - https://api.achiever.skroy.ru/registrations/?link_weigth=1&organization_id={organizationId}
         {
           method: "POST",
           headers: {
@@ -136,7 +138,7 @@ const RegistrationAdmin: React.FC = () => {
 
   const handleReset = () => {
     //setRoleType("employee");
-    setOrganizationId("642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389");
+    //setOrganizationId("642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389");
     setLogin("");
     setPassword("");
     setFirstName("");
@@ -151,6 +153,7 @@ const RegistrationAdmin: React.FC = () => {
     <div className={styles.registrationContainer}>
       <ToastContainer />
       <h1>Регистрация администратора</h1>
+      {/*
       <div>
         <label>ID Организации:  642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389</label>  
         <input
@@ -160,6 +163,7 @@ const RegistrationAdmin: React.FC = () => {
           onChange={(e) => setOrganizationId(e.target.value)}
         />
       </div>
+*/}
       <div>
         <label>Логин:</label>
         <input

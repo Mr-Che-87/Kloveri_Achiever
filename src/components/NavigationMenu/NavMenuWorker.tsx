@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Routes, Route, NavLink} from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 import "./NavigationMenu.scss";
 
 import MyPage from "../../pagesWorker/MyPage/MyPage";
@@ -9,7 +9,7 @@ import MyShop from "../../pagesWorker/MyShop/MyShop";
 import PrivacySettings from "../../pagesWorker/PrivacySettings/PrivacySettings";
 
 import myPageIcon from "@/assets/mypage-icon.png";
-import defaultAvatar from "@/assets/defaultAvatar.png";  //заглушка если бэк ниалё
+import defaultAvatar from "@/assets/defaultAvatar.png"; // заглушка если бэк ниалё
 import { IUser } from "../../types/IUser";
 import { useEffect, useState } from "react";
 //import workersIcon from "@/assets/workers.svg";
@@ -17,38 +17,45 @@ import { useEffect, useState } from "react";
 //import ShopIcon from "@/assets/shop-icon.png";
 //import logoIcon from "@/assets/logo.svg";
 
-  interface NavigationMenuProps {
-    profileId: string | null;
-    userAvatar: string | undefined;
-    userData: IUser | null;
-  }
+interface NavigationMenuProps {
+  profileId: string | null;
+  userAvatar: string | undefined;
+  userData: IUser | null;
+  handlePhotoUpdate: (newPhotoUrl: string) => void;
+}
 
 // Components for routing
 const NotFound = () => <div>404 Not Found</div>;
 
 //NavMenu РАБОТНИКА c прокинутым аватаром
-const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar, userData }) => { 
-  const [formData, setFormData] = useState<IUser | null>(null);    //внутренний state данных юзера
+const NavMenuWorker: React.FC<NavigationMenuProps> = ({
+  userAvatar,
+  userData,
+  handlePhotoUpdate: parentHandlePhotoUpdate,
+}) => {
+  const [formData, setFormData] = useState<IUser | null>(null); // внутренний state данных юзера
   const [avatar, setAvatar] = useState(userAvatar || defaultAvatar);
 
   useEffect(() => {
     if (userData) {
-      setFormData({...userData });
+      setFormData({ ...userData });
     }
   }, [userData]);
 
   useEffect(() => {
     const storedAvatar = localStorage.getItem("avatarWorker");
-    if(storedAvatar){
-      setAvatar(storedAvatar)
+    console.log("Stored Avatar: ", storedAvatar);
+    if (storedAvatar) {
+      setAvatar(storedAvatar);
+    } else if (userAvatar) {
+      setAvatar(userAvatar);
     }
-  }, []);
+  }, [userAvatar]);
 
-  const handlePhotoUpdate = (newPhotoUrl: string) => {
+  const handleAvatarUpdate = (newPhotoUrl: string) => {
     setAvatar(newPhotoUrl);
-    localStorage.setItem("avatarWorker", newPhotoUrl)
+    parentHandlePhotoUpdate(newPhotoUrl);
   };
-
 
   return (
     <>
@@ -80,19 +87,25 @@ const NavMenuWorker: React.FC<NavigationMenuProps> = ({ userAvatar, userData }) 
         </div>
         <div className="privacy-settings">
           <NavLink to="/privacy-settings">
-            <img  className="large"  src={avatar || defaultAvatar} alt="User" />
-            <h1>{formData?.first_name || ""}</h1> 
+            <img className="large" src={avatar || defaultAvatar} alt="User" />
+            <h1>{formData?.first_name || ""}</h1>
           </NavLink>
         </div>
       </nav>
 
       <div className="routes">
         <Routes>
-          <Route path="my-page" element={<MyPage onPhotoUpdate={handlePhotoUpdate} />} />
+          <Route
+            path="my-page"
+            element={<MyPage onPhotoUpdate={handleAvatarUpdate} />}
+          />
           <Route path="my-achievements" element={<MyAchievements />} />
           <Route path="teams" element={<Teams />} />
           <Route path="my-shop" element={<MyShop />} />
-          <Route path="privacy-settings" element={<PrivacySettings />} />
+          <Route
+            path="privacy-settings"
+            element={<PrivacySettings user={null} />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

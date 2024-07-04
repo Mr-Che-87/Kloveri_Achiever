@@ -13,6 +13,7 @@ export const fetchGetAllUsers = (): Promise<AxiosResponse> => {
   return axios.get(`${API_URL}/profiles/`,{
     headers:{
       "ORGANIZATION-ID": "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389"
+      
     }
   });
 };
@@ -73,6 +74,8 @@ headers: {
   })
 }
 
+
+
 // PATCH-Link 
 export const fetchUpdateLink = (
   link_id: string, 
@@ -84,6 +87,7 @@ export const fetchUpdateLink = (
     }
   });
 };
+
 
 //Achievements library//
 // GET-Получение всей библиотеки наград
