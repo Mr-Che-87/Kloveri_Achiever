@@ -77,7 +77,7 @@ export default function WorkerData({
               specialty: data.specialty,
               start_work_date: data.start_work_date,
             });
-  
+            
             // Сохраняем полученные данные в localStorage
             localStorage.setItem("specialty", data.specialty);
             localStorage.setItem("start_work_date", data.start_work_date);
@@ -160,6 +160,7 @@ export default function WorkerData({
 
       fetchUpdateUser(formData.profile_id, formDataToSend)
         .then((response) => {
+         
           setFormData(response.data);
           setImageUrl(response.data.photo_main || defaultAvatar);
           if (onPhotoUpdate) {
@@ -183,6 +184,7 @@ export default function WorkerData({
 
       fetchUpdateLink(otherFormData.link_id, otherFormDataToSend)
         .then((linkResponse) => {
+          
           console.log("Link данные обновлены успешно:", linkResponse.data);
         })
         .catch((error) => {
