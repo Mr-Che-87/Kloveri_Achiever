@@ -2,47 +2,51 @@ import { useEffect, useState } from "react";
 import styles from "./MyPage.module.scss";
 import WorkerData from "./WorkerData/WorkerData";
 import WorkerTeams from "./WorkerTeams/WorkerTeams";
-import mockWithoutAchieve from "@/assets/mock_withoutAchieve.png"
-//import WorkerTeams from "./WorkerTeams/WorkerTeams";
-// import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
-// import WorkerRanks from "./WorkerRanks/WorkerRanks";
-
+import mockWithoutAchieve from "@/assets/mock_withoutAchieve.png";
 import { IUser } from "../../types/IUser";
-import { fetchGetUserData } from "../../api/apiService";  //api
+import { fetchGetLink, fetchGetUserData } from "../../api/apiService";
 
-interface IMyPageProps{
+interface IMyPageProps {
   onPhotoUpdate: (newPhotoUrl: string) => void;
 }
 
-export default function MyPage({onPhotoUpdate}: IMyPageProps) {
-  // const { profile_id } = useParams();    //получаем profileId из параметров маршрута
-  const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
-  const [isEditing, setIsEditing] = useState(false);  //редактирование полей
+interface ILinkData {
+  link_id: string;
+  specialty: string;
+  start_work_date: string;
+}
+
+export default function MyPage({ onPhotoUpdate }: IMyPageProps) {
+  const [userData, setUserData] = useState<IUser | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
   const profileId = localStorage.getItem("profileId");
+  const [linkData, setLinkData] = useState<ILinkData | null>(null);
 
 
-  // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
-    // const adminId = "4d90df35-0d1f-4cba-b1e9-47674bca2f51";    //заглушка для презентации
-    
-    if (profileId) { //проверяем, что profile_id определен
-      //console.log("useEffect: Загружен список данных юзера");
+    if (profileId) {
       fetchGetUserData(profileId)
         .then((response) => {
-          setUserData(response.data);   //data - все данные юзера из бэка {....}
-         
+          setUserData(response.data);
         })
         .catch((error) => {
-          console.error("Ошибка при получении данных пользователя:", error);
+          console.error("Error fetching user data:", error);
         });
+
+      const organizationId = localStorage.getItem("organization_id");
+      if (organizationId) {
+        fetchGetLink(profileId, organizationId)
+          .then((response) => {
+            setLinkData(response.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching link data:", error);
+          });
+      }
     }
   }, [profileId]);
 
-// Обновление аватарки
- 
 
-
-  //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
 
   return (
@@ -50,24 +54,22 @@ export default function MyPage({onPhotoUpdate}: IMyPageProps) {
       <section className={styles.workerSection}>
         <div className={styles.workerData}>
           <WorkerData
-           onPhotoUpdate={onPhotoUpdate}
+            onPhotoUpdate={onPhotoUpdate}
             showEmail={true}
             isEditing={isEditing}
             toggleEdit={toggleEdit}
-            userData={userData} // прокидываем userData в WorkerData
-            avatarSize={"large"}                     
-                   />
+            userData={userData}
+            avatarSize={"large"}
+            linkData={linkData}
+          />
         </div>
-        
         <div className={styles.workerTeams}>
           <WorkerTeams />
         </div>
       </section>
-
       <section className={styles.mockWithoutAchieve}>
         <h2>ИНФОРМАЦИЯ О ТАРИФАХ И ПРОБНОМ ПЕРИОДЕ</h2>
-        <img  className={styles.mockWithoutAchieveImg} src={mockWithoutAchieve}  />
-
+        <img className={styles.mockWithoutAchieveImg} src={mockWithoutAchieve} />
       </section>
 
       {/* на случай, если hr-у можно будет выдавать ачивки  

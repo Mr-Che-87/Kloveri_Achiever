@@ -12,9 +12,11 @@ interface WorkersModalProps {
   onClose: () => void;
   onAddContact: (user: IUser) => void;
   userData: IUser | null;
+  user: IUser;
 }
 
 const WorkersModal = ({
+  user,
   isOpen,
   onClose,
   userData,
@@ -23,7 +25,8 @@ const WorkersModal = ({
   // Добавление состояния для contacts и setContacts функции
 
   const [showLink, setShowLink] = useState(false);
-  const [link, ] = useState("https://achiever.skroy.ru/registrations/");
+  const organizationId = localStorage.getItem("organization_id")
+  const [link, ] = useState(`https://achiever.skroy.ru/registrations/${organizationId}`);
 
   const handleButtonClick = () => {
     setShowLink(!showLink);
@@ -34,10 +37,8 @@ const WorkersModal = ({
   };
 
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
-  if (!isOpen) {
-    return null;
-  }
 
+  
   // закрывает модальное вне контента
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onWrapperClick = (event: any) => {
@@ -124,9 +125,9 @@ const WorkersModal = ({
           onAddContact={handleAddContact}
           userData={userData}
           onClose={() => {
-            onClose();
+            setIsAddUserOpen(false);
           }}
-          user={undefined}
+          user={user}
         />
       )}
     </>

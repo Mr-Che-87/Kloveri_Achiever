@@ -35,6 +35,10 @@
   }
 }
 
+.avatarWrapper:hover .editIcon {
+  display: block; // Показываем иконку при наведении
+}
+
 .small .workerAvatar {
   border-radius: 100% ;
   margin-left: 24px;
@@ -48,10 +52,6 @@
   margin-left: 24px;
   width: 72px;
   height: 72px;
-}
-
-.avatarWrapper:hover .editIcon {
-  display: block; // Показываем иконку при наведении
 }
 
 .workerName {
@@ -68,7 +68,6 @@
   opacity: 0.72;
 }
 
-
 .workerDataTitle {
   display: flex;
   justify-content: space-between;
@@ -81,14 +80,13 @@ h2 {
   font-weight: 400;
   line-height: 28px;
   letter-spacing: 0.4%;
-  text-align: left;  
+  text-align: left;
 }
 
 .workerInformation {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 25px;
-  margin-bottom: 36px;
 }
 
 .workerInformation > div {
@@ -103,7 +101,6 @@ h2 {
 .workerInformation .react-datepicker-wrapper {
   border: 1px solid #444;
   border-radius: 12px;
-  padding: 10px;
   //field-sizing: content;
   color: white;
   margin-bottom: 12px;
@@ -168,19 +165,74 @@ h2 {
 }
 .workerLogin {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
-.workerFullname {
+.workerFirstName {
   visibility: inherit;
+  input{
+    padding-left: 10px;
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
+}
+.workerMiddleName {
+  visibility: inherit;
+  input{
+    padding-left: 10px;
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+  }
+}
+.workerLastName {
+  visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerBirthday {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerNumber {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerStartdate {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerPosition {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }

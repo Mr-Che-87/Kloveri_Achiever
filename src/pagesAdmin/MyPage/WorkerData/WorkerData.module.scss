@@ -87,7 +87,6 @@ h2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 25px;
-  margin-bottom: 36px;
 }
 
 .workerInformation > div {
@@ -102,7 +101,6 @@ h2 {
 .workerInformation .react-datepicker-wrapper {
   border: 1px solid #444;
   border-radius: 12px;
-  padding: 10px;
   //field-sizing: content;
   color: white;
   margin-bottom: 12px;
@@ -167,19 +165,74 @@ h2 {
 }
 .workerLogin {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
-.workerFullname {
+.workerFirstName {
   visibility: inherit;
+  input{
+    padding-left: 10px;
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
+}
+.workerMiddleName {
+  visibility: inherit;
+  input{
+    padding-left: 10px;
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+  }
+}
+.workerLastName {
+  visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerBirthday {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerNumber {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerStartdate {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }
 .workerPosition {
   visibility: inherit;
+  input{
+    width: 242px;
+    height: 60px;
+    border-radius: 30px;
+    padding-left: 10px;
+  }
 }

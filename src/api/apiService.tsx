@@ -4,18 +4,20 @@ import { IAchieve } from "../types/IAchieve";
 import { IConnection } from "../types/IConnection";
 //import { IConnection } from "../types/IConnection";
 
-const API_URL = "https://reg.achiever.skroy.ru"; //обновлённый базовый URL
+const API_URL = "https://api.achiever.skroy.ru"; //обновлённый базовый URL
 
 
 //Profiles//
-// GET-Получение списка всех пользователей
+//GET-Получение списка всех пользователей
 export const fetchGetAllUsers = (): Promise<AxiosResponse> => {
   return axios.get(`${API_URL}/profiles/`,{
     headers:{
       "ORGANIZATION-ID": "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389"
+      
     }
   });
 };
+
 
 // POST-Добавление нового пользователя                      
 export const fetchPostUser = (
@@ -57,17 +59,35 @@ export const fetchDeleteUser = (profile_id: string, organizationId: string): Pro
  
 };
 
+
+// get- link возвращает связь с организацией по link_id
+export const fetchGetLink = (
+  profile_id: string,
+  organizationId: string,
+
+) => {
+  return axios.get(`https://api.achiever.skroy.ru/link/${profile_id}/`,{
+headers: {
+  "Content-Type": "application/json",
+  "ORGANIZATION-ID": organizationId
+}
+  })
+}
+
+
+
 // PATCH-Link 
 export const fetchUpdateLink = (
   link_id: string, 
   formData:FormData,
 ) => {
-  return axios.patch(`https://reg.achiever.skroy.ru/link/${link_id}/`, formData, {
+  return axios.patch(`https://api.achiever.skroy.ru/link/${link_id}/`, formData, {
     headers: {
       "Content-Type": "multipart/form-data"
     }
   });
 };
+
 
 //Achievements library//
 // GET-Получение всей библиотеки наград

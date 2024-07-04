@@ -57,6 +57,25 @@
     }
   }
 
+  .passwordContainer {
+    position: relative;
+
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding-right: 30px; /* Space for the toggle icon */
+    }
+
+    .passwordToggle {
+      position: absolute;
+      right: 8px;
+      top: 60%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+  }
+
+
   .errorMessage {
     color: red;
     font-size: 14px;
