@@ -28,7 +28,6 @@ interface IOtherFormData {
 }
 
 export default function WorkerData({
-user,
   isEditing,
   toggleEdit,
   userData,

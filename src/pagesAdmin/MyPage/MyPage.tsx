@@ -22,6 +22,7 @@ export default function MyPage({ onPhotoUpdate }: IMyPageProps) {
   const profileId = localStorage.getItem("profileId");
   const [linkData, setLinkData] = useState<ILinkData | null>(null);
 
+
   useEffect(() => {
     if (profileId) {
       fetchGetUserData(profileId)
@@ -44,6 +45,7 @@ export default function MyPage({ onPhotoUpdate }: IMyPageProps) {
       }
     }
   }, [profileId]);
+
 
   const toggleEdit = () => setIsEditing(!isEditing);
 

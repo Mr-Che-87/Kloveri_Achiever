@@ -1,4 +1,5 @@
 declare const classNames: {
-  readonly mockPrivacySettingsContent: "mockPrivacySettingsContent";
+  readonly userSettingsPage: "userSettingsPage";
+  readonly userFullName: "userFullName";
 };
 export = classNames;

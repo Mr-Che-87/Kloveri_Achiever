@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IUser {
+  link_id(link_id: any, formDataToSend: FormData): unknown;
   organization_id: string | undefined;
   profile_id?: string | undefined;   
   profile_type?: string | undefined;        //"anonymous"
