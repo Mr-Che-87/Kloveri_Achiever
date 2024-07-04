@@ -1,18 +1,9 @@
 import { useEffect, useState } from "react";
-
-
 import styles from "./MyPage.module.scss";
-
-import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import WorkerData from "./WorkerData/WorkerData";
-<<<<<<< HEAD
-=======
 // import WorkerTeams from "./WorkerTeams/WorkerTeams";
->>>>>>> dev3
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 import WorkerRanks from "./WorkerRanks/WorkerRanks";
-//import WorkerTeams from "./WorkerTeams/WorkerTeams";
-
 import { IUser } from "../../types/IUser";
 import { fetchGetLink, fetchGetUserData } from "../../api/apiService";  //api
 
@@ -102,27 +93,8 @@ console.log(JSON.stringify(userData))
   return (
     <div className={styles.workerPage}>
       <section className={styles.workerSection}>
-        <div className={styles.workerInitial}>
-          {userData && (
-            <WorkerInitial
-              user={userData}  //передаем данные пользователя в WorkerInitial
-              showEmail={true}
-              avatarSize="large"  //пропс файла и css-размеров картинки
-          
-            />
-          )}
-        </div>
-        
-        <div className={styles.divider}></div>
-
         <div className={styles.workerData}>
           <WorkerData
-<<<<<<< HEAD
-            isEditing={isEditing}
-            toggleEdit={toggleEdit}
-            userData={userData} // прокидываем userData в WorkerData
-          />
-=======
             showEmail={true}
             isEditing={isEditing}
             toggleEdit={toggleEdit}
@@ -130,7 +102,6 @@ console.log(JSON.stringify(userData))
             avatarSize={"large"} // прокидываем userData в WorkerData
             onPhotoUpdate={onPhotoUpdate}
              linkData={linkData}          />
->>>>>>> dev3
         </div>
         {/*
         <div className={styles.workerTeams}>

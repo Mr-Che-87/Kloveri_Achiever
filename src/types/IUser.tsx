@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IUser {
-<<<<<<< HEAD
-  
-=======
   link_id(link_id: any, formDataToSend: FormData): unknown;
   organization_id: string | undefined;
->>>>>>> dev3
   profile_id?: string | undefined;   
   profile_type?: string | undefined;        //"anonymous"
   profile_code?: string | undefined;
@@ -22,13 +18,9 @@ export interface IUser {
   start_work_date?: string | undefined;
   specialty?: string | undefined;
   link_weight?: number | undefined;
-<<<<<<< HEAD
-  project_id?: string | undefined;        
-=======
   project_id?: string | undefined; 
   password? : string | undefined;
      
->>>>>>> dev3
 
 }
 

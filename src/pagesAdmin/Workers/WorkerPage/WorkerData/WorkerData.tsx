@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
-
+import defaultAvatar from "@/assets/defaultAvatar.png";
 import { IUser } from "../../../../types/IUser";
 import { fetchUpdateLink, fetchUpdateUser, fetchGetLink } from "../../../../api/apiService";
 import { format, parse } from "date-fns";
@@ -12,10 +11,6 @@ import { ILinkData } from "../../../../types/ILinkData";
 
 interface WorkerDataProps {
   isEditing: boolean;
-<<<<<<< HEAD
-  toggleEdit: () => void;
-  userData: IUser | null;
-=======
   showEmail: boolean;
   toggleEdit: () => void;
   userData: IUser | null;
@@ -30,22 +25,12 @@ interface IOtherFormData {
   link_id: any;
   specialty: string;
   start_work_date: string;
->>>>>>> dev3
 }
 
 export default function WorkerData({
   isEditing,
   toggleEdit,
   userData,
-<<<<<<< HEAD
-}: WorkerDataProps) {
-  
-  const [formData, setFormData] = useState<IUser | null>(null);    //внутренний state данных юзера
-
-  useEffect(() => {
-    if (userData) {
-      setFormData({ ...userData });
-=======
   showEmail,
   avatarSize,
   onPhotoUpdate,
@@ -66,7 +51,6 @@ export default function WorkerData({
     if (userData) {
       setFormData(userData);
       setImageUrl(userData.photo_main || defaultAvatar);
->>>>>>> dev3
     }
   }, [userData]);
 
@@ -74,37 +58,6 @@ export default function WorkerData({
 
 
   
-<<<<<<< HEAD
-  //РУЧКИ ИЗМЕНЕНИЯ И ВАЛИДАЦИИ ИНПУТОВ:
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Вызов функции handleChange");
-    const { name, value } = event.target;
-       console.log("Изменённые данные до отправки на сервер:", event.target.value);
-    setFormData((currentFormData) => ({
-      ...currentFormData,
-      [name]: value,
-    }));
-  };
-
- 
-  const handleFullNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fullName = event.target.value;
-    const [firstName, middleName, lastName] = fullName.split(' ');
-    setFormData((currentFormData) => ({
-      ...currentFormData,
-      first_name: firstName,
-      middle_name: middleName,
-      last_name: lastName,
-    }));
-  };
-
-  const handleDateChange = (date: Date | null, fieldName: string) => {
-    setFormData((currentFormData) => ({
-      ...currentFormData,
-      [fieldName]: date ? date.toISOString().split("T")[0] : "",
-    }));
-  };
-=======
   useEffect(() => {
     if (linkId && organizationId) {
       const storedSpecialty = localStorage.getItem("specialty");
@@ -148,7 +101,6 @@ export default function WorkerData({
       localStorage.setItem("start_work_date", linkData.start_work_date);
     }
   }, [linkData]);
->>>>>>> dev3
 
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
@@ -161,10 +113,6 @@ export default function WorkerData({
     }
   };
 
-<<<<<<< HEAD
-
-  //PATCH:
-=======
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file: File | undefined = event.target.files?.[0];
     if (file) {
@@ -195,15 +143,8 @@ export default function WorkerData({
     }
   };
 
->>>>>>> dev3
   const handleSave = () => {
     toggleEdit();
-<<<<<<< HEAD
-    if (formData !== null && formData.profile_id) { 
-      fetchUpdateUser(formData.profile_id, formData)
-        .then((response) => {
-          console.log("Данные юзера успешно обновлены:", response.data);
-=======
     if (formData !== null && formData.profile_id) {
       const formDataToSend = new FormData();
       formDataToSend.append("profile_id", formData.profile_id);
@@ -225,7 +166,6 @@ export default function WorkerData({
           if (onPhotoUpdate) {
             onPhotoUpdate(response.data.photo_main || defaultAvatar);
           }
->>>>>>> dev3
         })
         .catch((error) => {
           console.error("Ошибка при обновлении данных пользователя:", error);
@@ -251,11 +191,7 @@ export default function WorkerData({
         });
     }
   };
-<<<<<<< HEAD
-  //сохранение через Enter:
-=======
 
->>>>>>> dev3
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter" && isEditing) {
       event.preventDefault();
@@ -270,17 +206,6 @@ export default function WorkerData({
     }));
   };
 
-<<<<<<< HEAD
-//Дата-пикер:
-  const parseDateForPicker = (dateStr?: string): Date | null => {
-    if (!dateStr) {
-      return null;
-    }
-    const date = new Date(dateStr);
-    return date instanceof Date && !isNaN(date.getTime()) ? date : null;
-  };
-  
-=======
   const handleStartWork = (date: Date | null, fieldName: string) => {
     setOtherFormData((currentFormData) => ({
       ...currentFormData,
@@ -288,7 +213,6 @@ export default function WorkerData({
     }));
     localStorage.setItem(fieldName, date ? date.toISOString().split("T")[0] : "");
   };
->>>>>>> dev3
 
   const parseDateForPicker = (dateStr?: string): Date | null => {
     if (!dateStr) {
@@ -304,8 +228,6 @@ export default function WorkerData({
 
   return (
     <div className={styles.workerData}>
-<<<<<<< HEAD
-=======
       <div className={styles.workerInitial}>
         <div className={`${styles.avatarWrapper} ${styles[avatarSize]}`}>
           <img
@@ -345,7 +267,6 @@ export default function WorkerData({
         </div>
       </div>
 
->>>>>>> dev3
       <div className={styles.workerDataTitle}>
         <h1>Личные данные</h1>
         <ChangeWorkerInformationButton
@@ -362,46 +283,10 @@ export default function WorkerData({
             type="email"
             placeholder="Введите Логин"
             value={formData.email || ""}
-<<<<<<< HEAD
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            disabled={!isEditing}
-            required
-          />
-          <div className={styles.divider}></div>
-        </div>
-
-        <div className={styles.workerFullname}>
-          <h2>Имя</h2>
-          <input
-            name="full-name"
-            type="text"
-            placeholder="Введите ФИО"
-            value={`${formData.first_name || ""} ${formData.middle_name || ""} ${formData.last_name || ""}`}
-            onChange={handleFullNameChange}
-            onKeyDown={handleKeyDown}
-            disabled={!isEditing}
-          />
-          <div className={styles.divider}></div>
-        </div>
-
-        <div className={styles.workerBirthday}>
-          <h2>Дата рождения</h2>
-          <DatePicker
-            selected={parseDateForPicker(formData.birth_date)}
-            onChange={(date) => handleDateChange(date, "birth_date")}
-            value={formData.birth_date || ""}
-            dateFormat="yyyy-MM-dd"
-            disabled={!isEditing}
-            onKeyDown={handleKeyDown} 
-          />
-          <div className={styles.divider}></div>
-=======
             readOnly={!isEditing}
             onChange={handleInputChange}
           />
   
->>>>>>> dev3
         </div>
 
         <div className={styles.workerNumber}>
@@ -478,32 +363,6 @@ export default function WorkerData({
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <DatePicker
-<<<<<<< HEAD
-            selected={parseDateForPicker(formData?.start_work_date)}
-            onChange={(date) => handleDateChange(date, "start_work_date")}
-            value={formData.start_work_date || ""}
-            dateFormat="yyyy-MM-dd"
-            disabled={!isEditing}
-            onKeyDown={handleKeyDown}
-          />
-          <div className={styles.divider}></div>
-        </div>
-
-        <div className={styles.workerPosition}>
-          <h2>Роль</h2>
-          <input
-            name="specialty"
-            type="text"
-            placeholder="Введите Роль"
-            value={formData?.specialty || ""}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            disabled={!isEditing}
-            required
-          />
-          <div className={styles.divider}></div>
-        </div>
-=======
             placeholderText="Выберете дату"
             selected={parseDateForPicker(otherFormData.start_work_date)}
             onChange={(date) => handleStartWork(date, "start_work_date")}
@@ -514,13 +373,9 @@ export default function WorkerData({
 
     
 
->>>>>>> dev3
       </div>
     </div>
   );
 }
-<<<<<<< HEAD
-=======
 
 
->>>>>>> dev3

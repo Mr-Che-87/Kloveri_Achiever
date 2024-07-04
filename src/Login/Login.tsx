@@ -5,11 +5,7 @@ import WelcomeImg from "@/assets/Welcome-img.png";
 
 const Login: React.FC = () => {
 //const [role, setRole] = useState<"admin" | "worker" | "">("");
-<<<<<<< HEAD
-//const [organizationId, setOrganizationId] = useState<string | null>(null);
-=======
   // const [organizationId, setOrganizationId] = useState<string | null>(null);
->>>>>>> dev3
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -25,29 +21,15 @@ const Login: React.FC = () => {
     console.log("handleLogin called");
     console.log("login:", login);
     console.log("password:", password);
-<<<<<<< HEAD
-
-    try {
-      // const organizationId = localStorage.getItem("organization_id");
-      // if(!organizationId){
-      //   throw new Error( "Organization ID is not found");
-      // }
-=======
     
     try {
     
->>>>>>> dev3
       const response = await fetch("https://api.achiever.skroy.ru/login/", {
         method: "POST",
-         headers: {
+        headers: {
           "Content-Type": "application/json",
-<<<<<<< HEAD
-          //"ORGANIZATION-ID": organizationId,
-         },
-=======
           // "ORGANIZATION-ID": organizationId,
         },
->>>>>>> dev3
         body: JSON.stringify({ login, password }),
       });
       
@@ -65,13 +47,8 @@ const Login: React.FC = () => {
       localStorage.setItem("userData", JSON.stringify(data))
       localStorage.setItem("profileId", data.profile_id);
       localStorage.setItem("linkId", data.link_id);
-      
       // Сохраняем organization_id
-<<<<<<< HEAD
-      //setOrganizationId(data.organization_id);
-=======
       // setOrganizationId(data.organization_id);
->>>>>>> dev3
       
       // Сохраняем profile_id
       setProfileId(data.profile_id)
@@ -99,50 +76,11 @@ const Login: React.FC = () => {
 
  
 
-<<<<<<< HEAD
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     //if (!organizationId) return;
-
-  //     try {
-  //       const response = await fetch(
-  //         "https://reg.achiever.skroy.ru/profiles/",
-  //         // {
-  //         //   headers: {
-  //         //     "ORGANIZATION-ID": organizationId,
-  //         //   },
-  //         // }
-  //       );
-
-  //       if (!response.ok) {
-  //         throw new Error(
-  //           `Ошибка при получении данных: ${response.statusText}`
-  //         );
-  //       }
-
-  //       const data = await response.json();
-  //       console.log("Fetched data:", data);
-  //     } catch (error: unknown) {
-  //       const errorMessage =
-  //         error instanceof Error ? error.message : "Неизвестная ошибка";
-  //       console.error("Fetch data error:", errorMessage);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [organizationId, profileId]); 
-
-
-  const handleReset = () => {
-    //setRole("");
-    //setOrganizationId(null);
-=======
 
 
   const handleReset = () => {
 //setRole("");
     // setOrganizationId(null);
->>>>>>> dev3
     setLogin("");
     setPassword("");
     setLoginError("");
@@ -266,6 +204,7 @@ const Login: React.FC = () => {
         </button>
         <button onClick={handleReset}>Отмена</button>
         <button onClick={handleRegister}>Регистрация</button>{" "}
+        {/* Добавлена кнопка регистрации */}
       </div>
       {apiError && <span className={styles.errorMessage}>{apiError}</span>}
     </div>

@@ -2,6 +2,72 @@
   visibility: inherit;
 }
 
+
+.workerInitial {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.avatarWrapper {
+  position: relative;
+  width: fit-content;
+}
+
+.editIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  display: none; 
+
+  p{
+    position: relative;
+    left: 6px;
+    top: -10px;
+    font-size: 12px;
+  }
+}
+
+.avatarWrapper:hover .editIcon {
+  display: block; // Показываем иконку при наведении
+}
+
+.small .workerAvatar {
+  border-radius: 100% ;
+  margin-left: 24px;
+  width: 48px;
+  height: 48px;
+}
+.large .workerAvatar {
+  border-radius: 100%;
+  margin-left: 24px;
+  border-radius: 100%;
+  margin-left: 24px;
+  width: 72px;
+  height: 72px;
+}
+
+.workerName {
+  font-size: 24px;
+  color: #fff;
+  font-weight: 700;
+  line-height: 56px;
+}
+
+.workerMail {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  opacity: 0.72;
+}
+
 .workerDataTitle {
   display: flex;
   justify-content: space-between;

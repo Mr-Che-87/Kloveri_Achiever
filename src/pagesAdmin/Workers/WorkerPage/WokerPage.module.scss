@@ -13,6 +13,7 @@
 .workerInitial {
   display: flex;
   flex-direction: row;
+  margin-bottom: 64px;
 }
 .workerBtnMenu {
   ul {
@@ -42,7 +43,14 @@
 }
 
 .workerData {
-  visibility: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.workerBtnMenu{
+  position: absolute;
+    margin-top: 58px;
 }
 .workerTeams {
   display: flex;

@@ -5,11 +5,7 @@ import { IConnection } from "../types/IConnection";
 //import { IConnection } from "../types/IConnection";
 
 const API_URL = "https://api.achiever.skroy.ru"; //обновлённый базовый URL
-<<<<<<< HEAD
-//const API_URL = "https://reg.achiever.skroy.ru"; //старый базовый URL
-=======
 
->>>>>>> dev3
 
 //Profiles//
 //GET-Получение списка всех пользователей
@@ -22,10 +18,7 @@ export const fetchGetAllUsers = (): Promise<AxiosResponse> => {
   });
 };
 
-<<<<<<< HEAD
-=======
 
->>>>>>> dev3
 // POST-Добавление нового пользователя                      
 export const fetchPostUser = (
   userData: IUser
@@ -37,7 +30,6 @@ export const fetchPostUser = (
 export const fetchGetUserData = (
   // userId: string,
   profileId: string,
-  //firstName: string,
   // token: string
 ): Promise<AxiosResponse<IUser>> => {
   return axios.get<IUser>(`${API_URL}/profiles/${profileId}/`)
@@ -45,24 +37,29 @@ export const fetchGetUserData = (
 
 // PATCH-Обновление данных существующего пользователя  
 export const fetchUpdateUser = (
-  userId: string,
-  userData: IUser
+  profile_id: string,
+  formData: FormData,
 ): Promise<AxiosResponse<IUser>> => {
-  console.log("Отправка запроса на обновление данных пользователя:", userData);
-  return axios.patch<IUser>(`${API_URL}/profiles/${userId}/`, userData);
+  console.log("Отправка запроса на обновление данных пользователя:", formData);
+  return axios.patch<IUser>(`${API_URL}/profiles/${profile_id}/`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });
 };
 
 // DELETE-Удаление пользователя по ID                           
-export const fetchDeleteUser = (userId: string, organizationId: string): Promise<AxiosResponse> => {
-  console.log(`Sending request to delete user ${userId} with organizationId ${organizationId}`);
-  return axios.delete(`${API_URL}/profiles/${userId}/`, )
+export const fetchDeleteUser = (profile_id: string, organizationId: string): Promise<AxiosResponse> => {
+  console.log(`Sending request to delete user ${profile_id} with organizationId ${organizationId}`);
+  return axios.delete(`${API_URL}/profiles/${profile_id}/`, {
+    headers:{
+      "ORGANIZATION-ID":organizationId
+    }
+  })
  
 };
 
 
-<<<<<<< HEAD
-
-=======
 // get- link возвращает связь с организацией по link_id
 export const fetchGetLink = (
   profile_id: string,
@@ -90,7 +87,6 @@ export const fetchUpdateLink = (
     }
   });
 };
->>>>>>> dev3
 
 
 //Achievements library//

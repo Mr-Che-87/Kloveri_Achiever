@@ -6,19 +6,13 @@
 }
 
 .workerAvatar {
-  visibility: inherit;
+  padding-left: 24px;
 }
-   .small .workerAvatar {
-  border-radius: 100% ;
-  margin-left: 24px;
+.small .workerAvatar {
   width: 48px;
   height: 48px;
 }
 .large .workerAvatar {
-  border-radius: 100%;
-  margin-left: 24px;
-  border-radius: 100%;
-  margin-left: 24px;
   width: 72px;
   height: 72px;
 }

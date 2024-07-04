@@ -6,8 +6,4 @@ const PrivateRoute = () => {
   return isAuth ? <Outlet /> : <Navigate to="/login" />;
 };
 
-<<<<<<< HEAD
 export default PrivateRoute;
-=======
-export default PrivateRoute;
->>>>>>> dev3
