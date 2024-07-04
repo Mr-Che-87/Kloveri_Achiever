@@ -7,30 +7,39 @@ import iconClose from "../../../assets/iconCross.svg";
 import iconCheack from "../../../assets/IconCheck.svg";
 import WorkerModalTag from "./WorkerModalTag/WorkerModalTag";
 import DatePicker from "react-datepicker";
-import defaultAvatar from "../../../assets/defaultAvatar.png";
 import styles from "./WorkersModalAddUser.module.scss";
 import axios from "axios";
 
 interface WorkerModalAddUserProps {
-  user: IUser | undefined;
+  user?: IUser;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClose: () => void;
   onAddContact: (user: IUser) => void;
   userData?: IUser | null;
 }
 
+<<<<<<< HEAD
 interface IOtherStateInfo {
   profession: string;
   start_work: string;
   password_work: string;
 }
 
+=======
+>>>>>>> dev3
 function WorkersModalAddUser({
   onClose,
   onAddContact,
   userData,
 }: WorkerModalAddUserProps) {
+<<<<<<< HEAD
   const [formData, setFormData] = useState<IUser>({
+=======
+  const organizationId = localStorage.getItem("organization_id") || "";
+  console.log(organizationId, "organizationId")
+  const [formData, setFormData] = useState<IUser>({
+    organization_id: organizationId,
+>>>>>>> dev3
     login: "",
     first_name: "",
     last_name: "",
@@ -41,10 +50,17 @@ function WorkersModalAddUser({
     email: "",
     photo_main: "",
     photo_small: "",
+<<<<<<< HEAD
+=======
+    specialty: "",
+    start_work_date: "",
+    password: ""
+>>>>>>> dev3
   } as IUser);
-  const [avatar, setAvatar] = useState("");
+  // const [avatar, setAvatar] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
+<<<<<<< HEAD
   const [otherState, setOtherState] = useState<IOtherStateInfo>({
     profession: "",
     start_work: "",
@@ -54,12 +70,44 @@ function WorkersModalAddUser({
   useEffect(() => {
     console.log(otherState, "sss");
   }, [otherState]);
+=======
+  const [validationErrors, setValidationErrors] = useState<{ [key: string]: string }>({});
+
+
+
+
+
+ 
+
+  useEffect(() => {
+    console.log("Form data updated:", formData);
+  }, [formData]);
+>>>>>>> dev3
 
   useEffect(() => {
     if (userData) {
       setFormData(userData);
     }
   }, [userData]);
+
+  const validateForm = () => {
+    const errors: {[key: string] : string} ={}
+
+    if(!formData.login) errors.login = "Логин обязательно";
+    if(!formData.email) errors.email = "Email обязательно";
+    if(!formData.first_name) errors.first_name = "Имя обязательно";
+    if(!formData.last_name) errors.last_name = "Фамилия обязательно";
+    if(!formData.password) errors.password = "Пароль обязательно";
+    if(!formData.birth_date) errors.birth_date = "Дата рождения обязательно";
+    if(!formData.start_work_date) errors.start_work_date = "Дата начала работы обязательно";
+    if(!formData.specialty) errors.specialty = "Роль обязательно";
+    if(!formData.phone) errors.phone = "Номер телефона обязательно";
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  }
+
+
 
   const handleAddContact = () => {
     if (
@@ -73,6 +121,7 @@ function WorkersModalAddUser({
       return;
     }
 
+<<<<<<< HEAD
     console.log(otherState, "otherState");
 
     const formDataToSend = new FormData();
@@ -113,7 +162,66 @@ function WorkersModalAddUser({
         .catch((error) => {
           console.log("Ошибка при создании пользователя:", error);
         });
+=======
+
+    const userDataString = localStorage.getItem("userData");
+    let organizationId = "";
+    if(userDataString){
+      try{
+        const userData = JSON.parse(userDataString);
+
+        organizationId = userData.organization_id
+      } catch(error){
+        console.error("Ошибка при парсинге данных userData из localStorage:", error);
+      }
+    }else {
+      console.error("Данные userData не найдены в localStorage");
+>>>>>>> dev3
     }
+
+    if(!validateForm()){
+      console.log("Validation failed");
+      return
+    }
+
+    const jsonData = {
+      organization_id: organizationId,
+      first_name: formData.first_name ,
+      last_name: formData.last_name ,
+      middle_name: formData.middle_name ?? "",
+      phone: formData.phone ?? "",
+      email: formData.email ?? "",
+      photo_main: formData.photo_main ?? "",
+      photo_small: formData.photo_small ?? "",
+      login: formData.login ?? "",
+      specialty: formData.specialty ?? "",
+      password: formData.password ?? "",
+      start_work_date: formData.start_work_date ?? "",
+      birth_date: formData.birth_date ?? "",
+    };
+
+    console.log("jsonData", jsonData)
+    const options = {
+      params: {
+        organization_id: organizationId,
+      },
+    };
+
+    axios.post("https://api.achiever.skroy.ru/registrations/",jsonData, options)
+
+      .then((response) => {
+        const newContact = {
+          ...response.data,
+          first_name:formData.first_name,
+          last_name:formData.last_name,
+        }
+        console.log("Пользователь создан успешно:", newContact);
+        onAddContact(newContact);
+        onClose();
+      })
+      .catch((error) => {
+        console.log("Ошибка при создании пользователя:", error.response.data);
+      });
   };
 
   const handleUltils = () => {
@@ -125,31 +233,40 @@ function WorkersModalAddUser({
     console.log(tags.join(), "tagsJOIN");
   };
 
-  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file: File | undefined = event.target.files?.[0];
-    console.log(file, "file");
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setAvatar(url);
+  // const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file: File | undefined = event.target.files?.[0];
+  //   console.log(file, "file");
+  //   if (file) {
+  //     const url = URL.createObjectURL(file);
+  //     setAvatar(url);
 
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        photo_main: file,
-        photo_small: file,
-      }));
-    }
-  };
-
-  
+  //     setFormData((prevFormData) => ({
+  //       ...prevFormData,
+  //       photo_main: file,
+  //       photo_small: file,
+  //     }));
+  //   }
+  // };
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const login = event.target.value;
+    setFormData((prevCurrentFormData) => ({
+      ...prevCurrentFormData,
+      login: login,
+    }));
+  };
+
+  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;
     setFormData((prevCurrentFormData) => ({
       ...prevCurrentFormData,
       email: email,
+<<<<<<< HEAD
       sex: "male",
+=======
+>>>>>>> dev3
     }));
-  };
+  }
 
   const handleFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
     const firstName = event.target.value;
@@ -176,9 +293,14 @@ function WorkersModalAddUser({
   };
 
   const handleStartWork = (date: Date | null, fieldName: string) => {
+<<<<<<< HEAD
     setOtherState((prevFormData) => ({
       ...prevFormData,
 
+=======
+    setFormData((prevInfo) => ({
+      ...prevInfo,
+>>>>>>> dev3
       [fieldName]: date ? date.toISOString().split("T")[0] : "",
     }));
   };
@@ -233,8 +355,6 @@ function WorkersModalAddUser({
         ...prevFormData,
         profession: inputValue,
       }));
-    
-    
     }
   };
 
@@ -257,6 +377,10 @@ function WorkersModalAddUser({
     return date instanceof Date && !isNaN(date.getTime()) ? date : null;
   };
 
+  const handleCloseModal = () => {
+    onClose(); // 
+  };
+
   return (
     <div className={styles.workerModalAddUser}>
       <div className={styles.WorkersModalAddUserContent}>
@@ -265,7 +389,7 @@ function WorkersModalAddUser({
         </div>
 
         <div className={styles.header}>
-          <div className={styles.avatarUser}>
+          {/* <div className={styles.avatarUser}>
             <label>
               <input
                 type="file"
@@ -280,20 +404,43 @@ function WorkersModalAddUser({
                 alt="avatar"
               />
             </label>
-          </div>
+          </div> */}
           <div className={styles.workerLoginAdd}>
             <h2 className={styles.description__title}>Логин</h2>
+          
+            <input
+              name="login"
+              type="login"
+              placeholder="Введите Логин"
+              value={formData ? formData.login  : ""}
+              onChange={handleLogin}
+            />
+            {validationErrors.login && (
+              <span className={styles.errorMessages}>{validationErrors.login}</span>
+            )}
+          </div>
+          <div className={styles.workerEmailAdd}>
+            <h2 className={styles.description__title}>Емайл</h2>
             <input
               name="email"
               type="email"
+<<<<<<< HEAD
               placeholder="Введите Логин"
               value={formData ? formData.email : ""}
               onChange={handleLogin}
+=======
+              placeholder="Введите Email"
+              value={formData ? formData.email  : ""}
+              onChange={handleEmail}
+>>>>>>> dev3
             />
+              {validationErrors.email && (
+              <span className={styles.errorMessages}>{validationErrors.email}</span>
+            )}
           </div>
         </div>
 
-        <div className={styles.checkbox__link}>
+        {/* <div className={styles.checkbox__link}>
           <form action="checkbox_modal">
             <label htmlFor="checkbox_modal">
               <input
@@ -304,7 +451,7 @@ function WorkersModalAddUser({
               <p>Отправить ссылку для авторизации</p>
             </label>
           </form>
-        </div>
+        </div> */}
         <div className={styles.formFilling}>
           <div className={styles.formFilling__rightContent}>
             <div className={styles.workerNameAdd}>
@@ -317,6 +464,9 @@ function WorkersModalAddUser({
                 value={formData ? formData.first_name : ""}
                 onChange={handleFirstName}
               />
+                {validationErrors.first_name && (
+              <span className={styles.errorMessages}>{validationErrors.first_name}</span>
+            )}
             </div>
 
             <div className={styles.workerSecondNameAdd}>
@@ -329,6 +479,9 @@ function WorkersModalAddUser({
                 value={formData ? formData.last_name : ""}
                 onChange={handleSecondName}
               />
+                {validationErrors.last_name && (
+              <span className={styles.errorMessages}>{validationErrors.last_name}</span>
+            )}
             </div>
 
             <div className={styles.workerPatronymiAdd}>
@@ -353,6 +506,9 @@ function WorkersModalAddUser({
                 value={formData.birth_date || ""}
                 dateFormat="yyyy-MM-dd"
               />
+                {validationErrors.birth_date && (
+              <span className={styles.errorMessages}>{validationErrors.birth_date}</span>
+            )}
             </div>
           </div>
           <div className={styles.formFilling__rightContent}>
@@ -361,10 +517,20 @@ function WorkersModalAddUser({
               <DatePicker
                 className={styles.workersModalAddUser__input}
                 placeholderText="Выберете дату"
+<<<<<<< HEAD
                 selected={parseDateForPicker(otherState.start_work)}
                 onChange={(date) => handleStartWork(date, "start_work")}
                 dateFormat="yyyy-MM-dd"
               />
+=======
+                selected={parseDateForPicker(formData.start_work_date)}
+                onChange={(date) => handleStartWork(date, "start_work_date")}
+                dateFormat="yyyy-MM-dd"
+              />
+                {validationErrors.start_work_date && (
+              <span className={styles.errorMessages}>{validationErrors.start_work_date}</span>
+            )}
+>>>>>>> dev3
             </div>
 
             <div className={styles.workerPhone}>
@@ -378,6 +544,9 @@ function WorkersModalAddUser({
                 autoComplete="off"
                 onChange={handlePhoneChange}
               />
+                {validationErrors.phone && (
+              <span className={styles.errorMessages}>{validationErrors.phone}</span>
+            )}
             </div>
 
             <div className={styles.workerPassword}>
@@ -391,6 +560,9 @@ function WorkersModalAddUser({
                 value={formData ? formData.other_info?.password_work : ""}
                 onChange={handleWorkerPasswordAdd}
               />
+                {validationErrors.password && (
+              <span className={styles.errorMessages}>{validationErrors.password}</span>
+            )}
             </div>
 
             <div className={styles.workerPositionAdd}>
@@ -404,14 +576,16 @@ function WorkersModalAddUser({
                 onChange={handleWorkerPositionAdd}
                 onKeyDown={handleKeyDown}
               />
-
+                {validationErrors.specialty && (
+              <span className={styles.errorMessages}>{validationErrors.specialty}</span>
+            )}
               <WorkerModalTag setTags={setTags} tags={tags} removeTag={[]} />
             </div>
           </div>
         </div>
 
         <div className={styles.btnGroups}>
-          <button className={styles.btn__close} onClick={onClose}>
+          <button className={styles.btn__close} onClick={handleCloseModal}>
             <img src={iconClose} alt="close" />
             Отменить
           </button>

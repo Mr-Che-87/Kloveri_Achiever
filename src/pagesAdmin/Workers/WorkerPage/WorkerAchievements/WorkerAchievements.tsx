@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import styles from "./WorkerAchievements.module.scss";
 import { GiveAchieveButton } from "../buttons&inputes/GiveAchieveButton";
 import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
-import { AllAchieveButton } from "../buttons&inputes/AllAchieveButton";
 import { ModalAchieveLibrary } from "../ModalAchieveLibrary/ModalAchieveLibrary";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
@@ -184,6 +183,7 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
     </div>
   );
 };
+
 
 /*
 //МОДАЛКО_ПИЗДЕЦ (не удалять пока)

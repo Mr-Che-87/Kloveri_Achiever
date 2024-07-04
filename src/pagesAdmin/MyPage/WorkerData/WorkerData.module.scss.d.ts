@@ -5,7 +5,9 @@ declare const classNames: {
   readonly "react-datepicker-wrapper": "react-datepicker-wrapper";
   readonly divider: "divider";
   readonly workerLogin: "workerLogin";
-  readonly workerFullname: "workerFullname";
+  readonly workerFirstName: "workerFirstName";
+  readonly workerMiddleName: "workerMiddleName";
+  readonly workerLastName: "workerLastName";
   readonly workerBirthday: "workerBirthday";
   readonly workerNumber: "workerNumber";
   readonly workerStartdate: "workerStartdate";

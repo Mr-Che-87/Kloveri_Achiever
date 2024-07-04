@@ -5,16 +5,15 @@ import "react-toastify/dist/ReactToastify.css";
 import styles from "./Registration.module.scss";
 
 const Registration: React.FC = () => {
-//const [roleType, setRoleType] = useState<"employee" | "director">("employee");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const currentDate = new Date(Date.now());
   const formattedDate = currentDate.toISOString().split("T")[0];
+  const [roleType, setRoleType] = useState<"employee" | "director">("employee");
   const [apiError, setApiError] = useState("");
   const [validationErrors, setValidationErrors] = useState<{
     [key: string]: string;
@@ -50,8 +49,6 @@ const Registration: React.FC = () => {
     console.log("Начало регистрации");
     
     const requestData = {
-      //role_type: roleType,
-      //organization_id: "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
       login,
       password,
       first_name: firstName,
@@ -59,15 +56,15 @@ const Registration: React.FC = () => {
       phone,
       email,
       start_work_date: formattedDate,
+      role_type: roleType,
+      organization_id: "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
     };
 
     console.log("Данные, отправляемые на сервер:", requestData);
 
     try {
       const response = await fetch(
-        "https://api.achiever.skroy.ru/registrations/?organization_id=642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
-        //ранее - "https://reg.achiever.skroy.ru/registrations/"
-        //на будущее(веса): - https://api.achiever.skroy.ru/registrations/?link_weigth=1&organization_id={organizationId}
+        "https://reg.achiever.skroy.ru/registrations/",
         {
           method: "POST",
           headers: {
@@ -113,17 +110,14 @@ const Registration: React.FC = () => {
     }
   };
 
- 
-
-
   const handleReset = () => {
-  //setRoleType("employee");
     setLogin("");
     setPassword("");
     setFirstName("");
     setLastName("");
     setPhone("");
     setEmail("");
+    setRoleType("employee");
     setApiError("");
     setValidationErrors({});
   };
@@ -131,7 +125,7 @@ const Registration: React.FC = () => {
   return (
     <div className={styles.registrationContainer}>
       <ToastContainer />
-      <h1>Регистрация сотрудника</h1>
+      <h1>Регистрация</h1>
       <div>
         <label>Логин:</label>
         <input
@@ -143,19 +137,13 @@ const Registration: React.FC = () => {
           <span className={styles.errorMessage}>{validationErrors.login}</span>
         )}
       </div>
-      <div className={styles.passwordContainer}>
+      <div>
         <label>Пароль:</label>
         <input
-          type={showPassword ? "text" : "password"}
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <span
-            className={styles.passwordToggle}
-            onClick={() => setShowPassword((prev) => !prev)}
-          >
-            {showPassword ? "🙈" : "👁️"}
-          </span>
         {validationErrors.password && (
           <span className={styles.errorMessage}>
             {validationErrors.password}
@@ -210,7 +198,6 @@ const Registration: React.FC = () => {
           <span className={styles.errorMessage}>{validationErrors.email}</span>
         )}
       </div>
-      {/*
       <div>
         <label>Тип роли:</label>
         <select
@@ -223,7 +210,6 @@ const Registration: React.FC = () => {
           <option value="director">Директор</option>
         </select>
       </div>
-      */}
       <div>
         <button onClick={handleRegistration}>Регистрация</button>
         <button onClick={handleReset}>Сброс</button>

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> dev3
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
 import WelcomeImg from "@/assets/Welcome-img.png";
@@ -85,7 +89,11 @@ const LoginAdmin: React.FC = () => {
 
   //     try {
   //       const response = await fetch(
+<<<<<<< HEAD
   //         "https://reg.achiever.skroy.ru/profiles/",
+=======
+  //         "https://api.achiever.skroy.ru/profiles/",
+>>>>>>> dev3
   //         // {
   //         //   headers: {
   //         //     "ORGANIZATION-ID": organizationId,

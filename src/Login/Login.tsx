@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
 import WelcomeImg from "@/assets/Welcome-img.png";
 
 const Login: React.FC = () => {
 //const [role, setRole] = useState<"admin" | "worker" | "">("");
+<<<<<<< HEAD
 //const [organizationId, setOrganizationId] = useState<string | null>(null);
+=======
+  // const [organizationId, setOrganizationId] = useState<string | null>(null);
+>>>>>>> dev3
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -21,21 +25,32 @@ const Login: React.FC = () => {
     console.log("handleLogin called");
     console.log("login:", login);
     console.log("password:", password);
+<<<<<<< HEAD
 
     try {
       // const organizationId = localStorage.getItem("organization_id");
       // if(!organizationId){
       //   throw new Error( "Organization ID is not found");
       // }
+=======
+    
+    try {
+    
+>>>>>>> dev3
       const response = await fetch("https://api.achiever.skroy.ru/login/", {
         method: "POST",
          headers: {
           "Content-Type": "application/json",
+<<<<<<< HEAD
           //"ORGANIZATION-ID": organizationId,
          },
+=======
+          // "ORGANIZATION-ID": organizationId,
+        },
+>>>>>>> dev3
         body: JSON.stringify({ login, password }),
       });
-
+      
       console.log("response status:", response.status);
 
       if (!response.ok) {
@@ -52,7 +67,11 @@ const Login: React.FC = () => {
       localStorage.setItem("linkId", data.link_id);
       
       // Сохраняем organization_id
+<<<<<<< HEAD
       //setOrganizationId(data.organization_id);
+=======
+      // setOrganizationId(data.organization_id);
+>>>>>>> dev3
       
       // Сохраняем profile_id
       setProfileId(data.profile_id)
@@ -80,6 +99,7 @@ const Login: React.FC = () => {
 
  
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   const fetchData = async () => {
   //     //if (!organizationId) return;
@@ -116,6 +136,13 @@ const Login: React.FC = () => {
   const handleReset = () => {
     //setRole("");
     //setOrganizationId(null);
+=======
+
+
+  const handleReset = () => {
+//setRole("");
+    // setOrganizationId(null);
+>>>>>>> dev3
     setLogin("");
     setPassword("");
     setLoginError("");
@@ -162,7 +189,7 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.authorizationContainer}>
-      <h1>Добро пожаловать в Ачивер!</h1>
+      <h1>Жалкий ничтожный раб! Добро пожаловать в Ачивер!</h1>
       <img className={styles.welcomeImg} src={WelcomeImg} alt="Welcome" />
       <div>
         <label>Введите логин:</label>

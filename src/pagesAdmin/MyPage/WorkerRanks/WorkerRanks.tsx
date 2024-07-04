@@ -7,7 +7,6 @@ export default function WorkerRanks() {
   
   //заглушка:
   const [points, setPoints] = useState(450);  
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPoints(Number(event.target.value));
   };
@@ -25,9 +24,6 @@ export default function WorkerRanks() {
           onChange={handleChange} 
           readOnly
         />
-        
      </div>  
-        
-
   );
 }

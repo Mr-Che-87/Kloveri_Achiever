@@ -1,4 +1,5 @@
 .logoutButton {
+<<<<<<< HEAD
   padding: 10px;
     background-color: #007bff;
     color: white;
@@ -10,3 +11,17 @@
       background-color: #0056b3;
     }
   }
+=======
+    padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+  
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  
+>>>>>>> dev3

@@ -18,9 +18,11 @@ declare const classNames: {
   readonly workerPhone: "workerPhone";
   readonly workerPassword: "workerPassword";
   readonly workerPositionAdd: "workerPositionAdd";
+  readonly workerEmailAdd: "workerEmailAdd";
   readonly workerStartdateAdd: "workerStartdateAdd";
   readonly btnGroups: "btnGroups";
   readonly btn__close: "btn__close";
   readonly btn__add: "btn__add";
+  readonly errorMessages: "errorMessages";
 };
 export = classNames;

@@ -5,37 +5,64 @@ import styles from "./MyPage.module.scss";
 
 import WorkerInitial from "./WorkerInitial/WorkerInitial";
 import WorkerData from "./WorkerData/WorkerData";
+<<<<<<< HEAD
+=======
+// import WorkerTeams from "./WorkerTeams/WorkerTeams";
+>>>>>>> dev3
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 import WorkerRanks from "./WorkerRanks/WorkerRanks";
 //import WorkerTeams from "./WorkerTeams/WorkerTeams";
 
 import { IUser } from "../../types/IUser";
-import { fetchGetUserData } from "../../api/apiService";  //api
+import { fetchGetLink, fetchGetUserData } from "../../api/apiService";  //api
 
 
-export default function MyPage() {
+
+interface IMyPageProps{
+  onPhotoUpdate: (newPhotoUrl: string) => void;
+}
+
+interface ILinkData {
+  link_id: string;
+  specialty: string;
+  start_work_date: string;
+}
+
+export default function MyPage({onPhotoUpdate}: IMyPageProps) {
   // const { profileId } = useParams();    //получаем profileId из параметров маршрута
   const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
   const [isEditing, setIsEditing] = useState(false);  //редактирование полей
  const profileId = localStorage.getItem("profileId")
-
+ const [linkData, setLinkData] = useState<ILinkData | null>(null);
 
 
   // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
-    // const workerId = "86d767a8-225b-46db-846b-cae5f462c188";    //заглушка для презентации
-    // const token = localStorage.getItem("token")
-    if (profileId) { //проверяем, что profile_id определен
-      // console.log("useEffect: Загружен список данных юзера");
+    if (profileId) {
+      console.log("Fetching user data...");
       fetchGetUserData(profileId)
         .then((response) => {
-          console.log("Received user data:", response.data);
-          setUserData(response.data); 
-           //data - все данные юзера из бэка {....}
+          console.log("User data received:", response.data);
+          setUserData(response.data);
         })
         .catch((error) => {
-          console.error("Ошибка при получении данных пользователя:", error);
+          console.error("Error fetching user data:", error);
         });
+  
+        const organizationId = localStorage.getItem("organization_id");
+        console.log("organizationId from localStorage:", organizationId);
+        
+        if (organizationId) {
+          console.log("Fetching link data...");
+          fetchGetLink(profileId, organizationId)
+            .then((response) => {
+              console.log("Link data received:", response.data);
+              setLinkData(response.data);
+            })
+            .catch((error) => {
+              console.error("Error fetching link data:", error);
+            });
+        }
     }
   }, [profileId]);
 
@@ -90,10 +117,20 @@ console.log(JSON.stringify(userData))
 
         <div className={styles.workerData}>
           <WorkerData
+<<<<<<< HEAD
             isEditing={isEditing}
             toggleEdit={toggleEdit}
             userData={userData} // прокидываем userData в WorkerData
           />
+=======
+            showEmail={true}
+            isEditing={isEditing}
+            toggleEdit={toggleEdit}
+            userData={userData} // прокидываем userData в WorkerData
+            avatarSize={"large"} // прокидываем userData в WorkerData
+            onPhotoUpdate={onPhotoUpdate}
+             linkData={linkData}          />
+>>>>>>> dev3
         </div>
         {/*
         <div className={styles.workerTeams}>
