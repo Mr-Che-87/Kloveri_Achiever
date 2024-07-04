@@ -27,35 +27,49 @@ export default function MyPage({onPhotoUpdate}: IMyPageProps) {
  const [linkData, setLinkData] = useState<ILinkData | null>(null);
 
 
-  // GET-Получение данных одного пользователя по ID:
-  useEffect(() => {
-    if (profileId) {
-      console.log("Fetching user data...");
-      fetchGetUserData(profileId)
+ useEffect(() => {
+  const userDataString = localStorage.getItem("userData");
+  let organizationId = "";
+  if(userDataString){
+    try{
+      const userData = JSON.parse(userDataString);
+      organizationId = userData.organization_id
+    } catch(error){
+      console.error("Ошибка при парсинге данных userData из localStorage:", error)
+    }
+  }else{
+    console.error("Данные userData не найдены в localStorage")
+  }
+
+
+  console.log("Profile ID from localStorage:", profileId);
+  if (profileId) {
+    fetchGetUserData(profileId)
+      .then((response) => {
+        console.log("User data fetched:", response.data);
+        setUserData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+
+    console.log("Organization ID from localStorage:", organizationId);
+    if (organizationId) {
+      fetchGetLink(profileId, organizationId)
         .then((response) => {
-          console.log("User data received:", response.data);
-          setUserData(response.data);
+          console.log("Link data fetched:", response.data);
+          setLinkData(response.data);
         })
         .catch((error) => {
-          console.error("Error fetching user data:", error);
+          console.error("Error fetching link data:", error);
         });
-  
-        const organizationId = localStorage.getItem("organization_id");
-        console.log("organizationId from localStorage:", organizationId);
-        
-        if (organizationId) {
-          console.log("Fetching link data...");
-          fetchGetLink(profileId, organizationId)
-            .then((response) => {
-              console.log("Link data received:", response.data);
-              setLinkData(response.data);
-            })
-            .catch((error) => {
-              console.error("Error fetching link data:", error);
-            });
-        }
+    } else {
+      console.error("Organization ID is not available");
     }
-  }, [profileId]);
+  } else {
+    console.error("Profile ID is not available");
+  }
+}, [profileId]);
 
 console.log(JSON.stringify(userData))
 
