@@ -64,7 +64,7 @@ const Registration: React.FC = () => {
 
     try {
       const response = await fetch(
-      `https://api.achiever.skroy.ru/registrations/?organization_id=642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389`,
+        "https://reg.achiever.skroy.ru/registrations/",
         {
           method: "POST",
           headers: {
