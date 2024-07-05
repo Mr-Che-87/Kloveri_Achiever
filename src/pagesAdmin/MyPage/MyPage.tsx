@@ -24,25 +24,46 @@ export default function MyPage({ onPhotoUpdate }: IMyPageProps) {
 
 
   useEffect(() => {
+    const userDataString = localStorage.getItem("userData");
+    let organizationId = "";
+    if(userDataString){
+      try{
+        const userData = JSON.parse(userDataString);
+        organizationId = userData.organization_id
+      } catch(error){
+        console.error("Ошибка при парсинге данных userData из localStorage:", error)
+      }
+    }else{
+      console.error("Данные userData не найдены в localStorage")
+    }
+
+
+    console.log("Profile ID from localStorage:", profileId);
     if (profileId) {
       fetchGetUserData(profileId)
         .then((response) => {
+          console.log("User data fetched:", response.data);
           setUserData(response.data);
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
         });
 
-      const organizationId = localStorage.getItem("organization_id");
+      console.log("Organization ID from localStorage:", organizationId);
       if (organizationId) {
         fetchGetLink(profileId, organizationId)
           .then((response) => {
+            console.log("Link data fetched:", response.data);
             setLinkData(response.data);
           })
           .catch((error) => {
             console.error("Error fetching link data:", error);
           });
+      } else {
+        console.error("Organization ID is not available");
       }
+    } else {
+      console.error("Profile ID is not available");
     }
   }, [profileId]);
 
