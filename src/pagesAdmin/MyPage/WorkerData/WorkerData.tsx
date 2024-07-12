@@ -307,6 +307,7 @@ export default function WorkerData({
         <div className={styles.workerNumber}>
           <h2>Телефон</h2>
           <input
+           className={isEditing ? styles.editableField : ""}
             name="phone"
             type="text"
             placeholder="Введите телефон"
@@ -320,6 +321,7 @@ export default function WorkerData({
         <div className={styles.workerFirstName}>
           <h2>Имя</h2>
           <input
+           className={isEditing ? styles.editableField : ""}
             name="first_name"
             type="text"
             placeholder="Введите имя"
@@ -331,6 +333,7 @@ export default function WorkerData({
         <div className={styles.workerMiddleName}>
             <h2>Отчество</h2>
           <input
+           className={isEditing ? styles.editableField : ""}
             name="middle_name"
             type="text"
             placeholder="Введите отчество"
@@ -342,6 +345,7 @@ export default function WorkerData({
             <div className={styles.workerLastName}>
             <h2>Фамилия</h2>
           <input
+           className={isEditing ? styles.editableField : ""}
             name="last_name"
             type="text"
             placeholder="Введите фамилию"
@@ -354,6 +358,7 @@ export default function WorkerData({
           <div className={styles.workerPosition}>
           <h2>Роль</h2>
           <input
+           className={isEditing ? styles.editableField : ""}
             name="specialty"
             type="text"
             placeholder="Введите Роль"
@@ -366,6 +371,7 @@ export default function WorkerData({
         <div className={styles.workerBirthday}>
           <h2>Дата рождения</h2>
           <DatePicker
+           className={isEditing ? styles.editableField : ""}
             placeholderText="Выберите дату"
             selected={parseDateForPicker(formData.birth_date)}
             onChange={(date) => handleDateChange(date, "birth_date")}
@@ -378,6 +384,7 @@ export default function WorkerData({
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <DatePicker
+           className={isEditing ? styles.editableField : ""}
             placeholderText="Выберете дату"
             selected={parseDateForPicker(otherFormData.start_work_date)}
             onChange={(date) => handleStartWork(date, "start_work_date")}

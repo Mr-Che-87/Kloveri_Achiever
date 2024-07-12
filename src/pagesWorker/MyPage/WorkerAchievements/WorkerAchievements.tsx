@@ -80,10 +80,16 @@ useEffect(() => {
       <h1>Достижения</h1>
       <div className={styles.workerAchievementsNav}>
       <ul>
-       <li><SearchAchieveInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <li><AllAchieveButton 
+        onClick={openModal}/></li>
+
+        <li><SearchAchieveInput 
+       searchQuery={searchQuery} 
+       setSearchQuery={setSearchQuery} />
        </li>
-        <li><AllAchieveButton onClick={openModal}/></li>
       </ul>
+       
+    
       </div>
 
       <div className={styles.workerAchievementsList}>

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styles from "./WorkersModal.module.scss";
 // import uploadFile from "../../../assets/UploadFile.svg";
-import iconCollaborator from "../../../assets/iconCollaborator.svg";
-import iconClose from "../../../assets/iconCross.svg";
-import iconCheack from "../../../assets/IconCheck.svg";
+import iconDocument from "../../../assets/iconDocument.svg";
 import WorkersModalAddUser from "../WorkersModalAddUser/WorkersModalAddUser";
 import { IUser } from "../../../types/IUser";
+import iconAddPlus from "../../../assets/plus.svg"
+import iconChain from "../../../assets/chain.svg"
+
 
 interface WorkersModalProps {
   isOpen: boolean;
@@ -25,9 +26,23 @@ const WorkersModal = ({
   // Добавление состояния для contacts и setContacts функции
 
   const [showLink, setShowLink] = useState(false);
-  const organizationId = localStorage.getItem("organization_id")
-  const [link, ] = useState(`https://achiever.skroy.ru/registrations/${organizationId}`);
+  const userDataString = localStorage.getItem("userData")
+  
 
+
+  let organizationId = "";
+  if(userDataString){
+    try{
+      const userData = JSON.parse(userDataString);
+      organizationId = userData.organization_id
+    } catch(error){
+      console.error("Ошибка при парсинге данных userData из localStorage:", error)
+    }
+  }else{
+    console.log("Данные userData не найдены в localStorage")
+  }
+
+  const [link, ] = useState(`https://achiever.skroy.ru/registrations/?organization_id=${organizationId}`);
   const handleButtonClick = () => {
     setShowLink(!showLink);
   };
@@ -59,11 +74,17 @@ const WorkersModal = ({
             onClick={onWrapperClick}
           >
             <div className={styles.title}>
-              <h3>Добавить сотрудников</h3>
+              <h3>
+                <img
+                src={iconAddPlus}
+                />
+                Добавить сотрудников
+                </h3>
             </div>
             <div className={styles.workersModal__form}>
               <div className={styles.workersModal__upload}>
                 <button onClick={handleButtonClick}>
+                  <img src={iconChain} alt="Chain" />
                 {showLink ? 'Скрыть ссылку' : 'Показать ссылку для регистрации'}
                 </button>
                 {showLink && (
@@ -73,13 +94,13 @@ const WorkersModal = ({
                 )}
               </div>
               <p className={styles.or}>или</p>
-              <form action="">
+              <form >
                 <button
                   type="button"
                   className={styles.btn_collaborator}
                   onClick={handleAddUserClick}
                 >
-                  <img src={iconCollaborator} alt="" />
+                  <img src={iconDocument} alt="" />
                   Ввести данные
                 </button>
               </form>
@@ -109,11 +130,9 @@ const WorkersModal = ({
             </div>
             <div className={styles.btnGroups}>
               <button className={styles.btn__close} onClick={onClose}>
-                <img src={iconClose} alt="" />
                 Отменить
               </button>
               <button className={styles.btn__add}>
-                <img src={iconCheack} alt="" />
                 Добавить
               </button>
             </div>

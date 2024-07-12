@@ -10,6 +10,7 @@ declare const classNames: {
   readonly workerMail: "workerMail";
   readonly workerDataTitle: "workerDataTitle";
   readonly workerInformation: "workerInformation";
+  readonly editableField: "editableField";
   readonly "react-datepicker-wrapper": "react-datepicker-wrapper";
   readonly divider: "divider";
   readonly workerLogin: "workerLogin";

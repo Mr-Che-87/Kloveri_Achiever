@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./MyPage.module.scss";
 import WorkerData from "./WorkerData/WorkerData";
-//import WorkerTeams from "./WorkerTeams/WorkerTeams";
+// import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import mockWithoutAchieve from "@/assets/mock_withoutAchieve.png";
 import { IUser } from "../../types/IUser";
 import { fetchGetLink, fetchGetUserData } from "../../api/apiService";
@@ -84,11 +84,9 @@ export default function MyPage({ onPhotoUpdate }: IMyPageProps) {
             linkData={linkData}
           />
         </div>
-        {/*}
-        <div className={styles.workerTeams}>
+        {/* <div className={styles.workerTeams}>
           <WorkerTeams />
-        </div>
-        */}
+        </div> */}
       </section>
       <section className={styles.mockWithoutAchieve}>
         <h2>ИНФОРМАЦИЯ О ТАРИФАХ И ПРОБНОМ ПЕРИОДЕ</h2>

@@ -294,6 +294,7 @@ export default function WorkerData({
             onChange={handlePhoneChange}
             onKeyDown={handleKeyDown}
             disabled={!isEditing}
+            className={isEditing ? styles.editableField : ""}
           />
         </div>
 
@@ -306,6 +307,7 @@ export default function WorkerData({
             value={formData.first_name || ""}
             readOnly={!isEditing}
             onChange={handleInputChange}
+            className={isEditing ? styles.editableField : ""}
           />
         </div>
         <div className={styles.workerMiddleName}>
@@ -317,6 +319,7 @@ export default function WorkerData({
             value={formData.middle_name || ""}
             readOnly={!isEditing}
             onChange={handleInputChange}
+            className={isEditing ? styles.editableField : ""}
           />
           </div>
             <div className={styles.workerLastName}>
@@ -328,6 +331,7 @@ export default function WorkerData({
             value={formData.last_name || ""}
             readOnly={!isEditing}
             onChange={handleInputChange}
+            className={isEditing ? styles.editableField : ""}
           />
           </div>
 
@@ -340,6 +344,7 @@ export default function WorkerData({
             value={otherFormData.specialty}
             readOnly={!isEditing}
             onChange={handleInputChange}
+            className={isEditing ? styles.editableField : ""}
           />
         </div>
 
@@ -351,6 +356,7 @@ export default function WorkerData({
             onChange={(date) => handleDateChange(date, "birth_date")}
             dateFormat="yyyy-MM-dd"
             readOnly={!isEditing}
+            className={isEditing ? styles.editableField : ""}
           />
         </div>
     
@@ -363,6 +369,7 @@ export default function WorkerData({
             onChange={(date) => handleStartWork(date, "start_work_date")}
             dateFormat="yyyy-MM-dd"
             readOnly={!isEditing}
+            className={isEditing ? styles.editableField : ""}
           />
         </div>
 
