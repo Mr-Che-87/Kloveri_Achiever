@@ -25,13 +25,17 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding-right: 40px;
-  height: 76px;
+  height: 110px;
   background-color: $main-background-color;
 
   .menu {
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    .logo-container {
+      padding-right: 25px;
+    }
 
     .menu-item {
       display: flex;
@@ -60,45 +64,12 @@ nav {
 
       &.active {
         background-color: #f4f4f40a;
-        color: #fff;
+        color: #FFA91A;
         opacity: 1;
         transform: scale(0.95);
       }
     }
-
- .privacy-settings {
-    display: flex;
-    align-items: center;
-
-    img {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    h1 {
-      margin-left: 12px;
-      font-size: 18px;
-      font-weight: 500;
-      color: #fff;
-    }
   }
-
-    // .down-arrow {
-    //   cursor: pointer;
-    //   margin-left: -10px;
-    //   margin-right: 26px;
-    //   width: 20px;
-    //   height: 20px;
-    //   transition: transform 0.3s;
-
-    //   &:hover {
-    //     transform: rotate(180deg);
-    //   }
-    // }
-  }
-
 
   .privacy-settings {
     display: flex;
@@ -108,14 +79,15 @@ nav {
     text-align: center;
 
     img {
-      width: 64px;
-      height: 64px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       object-fit: cover;
     }
 
     h1 {
       margin: 0;
+      margin-top: -5px;
       width: 100%;
       text-align: center;
       font-size: 18px;
@@ -127,52 +99,3 @@ nav {
 
 
 
-// //на будущее - выпадающее меню:
-// .navigation-menu-dop {
-//   display: flex;
-//   //flex-direction: column;
-//   align-items: center;
-//   //padding-top: 10px;
-//   background-color: $main-background-color;
-
-//   .dropdown-menu {
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-
-//     .menu-item {
-//       display: flex;
-//       align-items: center;
-//       padding: 8px 12px;
-//       border-radius: 12px;
-//       text-decoration: none;
-//       color: #fff;
-//       opacity: 0.8;
-//       border: 0.5px solid #f4f4f410;
-//       font-size: 14px;
-//       font-weight: 500;
-//       line-height: 18px;
-//       margin-bottom: 8px;
-//       cursor: pointer;
-//       transition: background-color 0.3s, transform 0.3s;
-
-//       img {
-//         margin-right: 6px;
-//       }
-
-//       &:hover {
-//         opacity: 1;
-//         transform: scale(1.05);
-//       }
-//     }
-//   }
-// }
-
-// .dropdown-menu-1 {
-//   position: relative;
-//   left: 270px;
-// }
-// .dropdown-menu-2 {
-//   position: relative;
-//   left: 990px;
-// }

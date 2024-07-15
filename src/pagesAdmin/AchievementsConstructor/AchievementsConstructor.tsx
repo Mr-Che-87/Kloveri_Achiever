@@ -3,7 +3,7 @@ import { useEffect, useState, CSSProperties } from "react";
 
 import ModalAddingAchieve from "./ModalAddingAchieve";
 import ModalConfirmDelete from "./ModalConfirmDelete"; // Импорт нового компонента
-import { SearchAllAchieveInput } from "../Workers/WorkerPage/buttons&inputes/SearchAllAchieveInput";
+import { SearchAchieveInput } from "./buttons&inputes/SearchAchieveInput";
 import BookAvatar from "../../assets/book-icon.png";
 
 import { IAchieve } from "../../types/IAchieve";
@@ -97,7 +97,7 @@ export default function AchievementsConstructor() {
         <img src={BookAvatar} alt="Библиотека достижений" />
         <h1>Конструктор достижений</h1>
       </div>
-      <SearchAllAchieveInput
+      <SearchAchieveInput
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />

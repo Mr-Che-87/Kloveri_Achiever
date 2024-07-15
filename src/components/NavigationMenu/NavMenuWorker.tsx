@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route, NavLink, useLocation  } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./NavigationMenu.scss";
 
 import MyPage from "../../pagesWorker/MyPage/MyPage";
@@ -8,14 +8,18 @@ import Teams from "../../pagesWorker/Teams/Teams";
 import MyShop from "../../pagesWorker/MyShop/MyShop";
 import PrivacySettings from "../../pagesWorker/PrivacySettings/PrivacySettings";
 
-import myPageIcon from "@/assets/mypage-icon.png";
+import logoIcon from "@/assets/logo-icon.svg";
+import navMyPageIcon  from "@/assets/nav-mypage-icon.svg";
+import navMyPageIconActive  from "@/assets/nav-mypage-icon-active.svg";
+//import navAchievementsIcon from "@/assets/nav-achievements-icon.svg";
+//import navAchievementsIconActive from "@/assets/nav-achievements-icon-active.svg";
+//import navWorkersIcon from "@/assets/nav-workers-icon.svg";
+//import navWorkersIconActive from "@/assets/nav-workers-icon-active.svg";
+//import navShopIcon from "@/assets/nav-shop-icon.png";
+
 import defaultAvatar from "@/assets/defaultAvatar.png"; // заглушка если бэк ниалё
 import { IUser } from "../../types/IUser";
-import { useEffect, useState } from "react";
-//import workersIcon from "@/assets/workers.svg";
-//import achievementsIcon from "@/assets/achievements.svg";
-//import ShopIcon from "@/assets/shop-icon.png";
-//import logoIcon from "@/assets/logo.svg";
+
 
 interface NavigationMenuProps {
   profileId: string | null;
@@ -27,6 +31,7 @@ interface NavigationMenuProps {
 // Components for routing
 const NotFound = () => <div>404 Not Found</div>;
 
+
 //NavMenu РАБОТНИКА c прокинутым аватаром
 const NavMenuWorker: React.FC<NavigationMenuProps> = ({
   userAvatar,
@@ -35,6 +40,7 @@ const NavMenuWorker: React.FC<NavigationMenuProps> = ({
 }) => {
   const [formData, setFormData] = useState<IUser | null>(null); // внутренний state данных юзера
   const [avatar, setAvatar] = useState(userAvatar || defaultAvatar);
+  const location = useLocation();
 
   useEffect(() => {
     if (userData) {
@@ -57,30 +63,36 @@ const NavMenuWorker: React.FC<NavigationMenuProps> = ({
     parentHandlePhotoUpdate(newPhotoUrl);
   };
 
+  const isActive = (paths: string[]) => {
+    return paths.some(path => location.pathname.includes(path));
+  };
+
+
   return (
     <>
       <nav className="navigation-menu">
         <div className="menu">
-          {/*
           <div className="logo-container">
             <img src={logoIcon} alt="Логотип" />
           </div>
-          */}
+          
           <NavLink to="/my-page" className="menu-item">
-            <img src={myPageIcon} alt="Личная карточка" />
+            <img
+                src={isActive(["/my-page"]) ? navMyPageIconActive : navMyPageIcon}
+                alt="Личный кабинет"
+            />
             Личный кабинет
           </NavLink>
+
+
+        
           {/*
-          <NavLink to="/worker/my-achievements" className="menu-item">
-            <img src={achievementsIcon} alt="Мои достижения и баллы" />
-            Мои достижения и баллы
+          <NavLink to="/teams" className="menu-item">
+            <img src={navWorkersIcon} alt="Мои коллеги" />
+            Мои коллеги
           </NavLink>
-          <NavLink to="/worker/teams" className="menu-item">
-            <img src={workersIcon} alt="Команды и проекты" />
-            Команды и проекты
-          </NavLink>
-          <NavLink to="/worker/my-shop" className="menu-item">
-            <img src={ShopIcon} alt="Мой магазин" />
+          <NavLink to="/my-shop" className="menu-item">
+            <img src={navShopIcon} alt="Мой магазин" />
             Мой магазин
           </NavLink>
           */}
