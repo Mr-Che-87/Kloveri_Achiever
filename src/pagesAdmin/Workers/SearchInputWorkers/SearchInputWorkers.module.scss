@@ -7,12 +7,11 @@
 
 .searchWorkersInput {
   color: white;
-  width: 148px;
-  height: 40px;
+  width:488px;
+  height: 49px;
   border: none;
   background:
-    url("@/assets/search-icon.svg") no-repeat,
-    #1c1c1c;
+    url("@/assets/search-icon.svg") no-repeat;
   background-position: 6px 9px;
   box-sizing: border-box;
   border-bottom: 1px solid rgba(244, 244, 244, 0.04);

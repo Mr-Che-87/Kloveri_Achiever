@@ -1,13 +1,14 @@
 @import "../styles/configcss.scss";
+@import "./fonts";
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background: linear-gradient(160deg, rgba(40,1,79,1) 0%, rgba(84,20,148,1) 99%);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
