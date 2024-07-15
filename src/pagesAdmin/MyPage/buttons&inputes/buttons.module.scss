@@ -13,9 +13,8 @@ button {
   padding: 8px 8px;
   border-radius: 16px;
   text-decoration: none;
-  color: #fff;
-  opacity: 0.6;
-  border: 0.5px solid #f4f4f410;
+  background: none;
+  border:none;
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
@@ -24,16 +23,15 @@ button {
   transition:
     background-color 0.3s,
     transform 0.3s;
-  img {
-    margin-right: 8px;
-  }
   &:hover {
     opacity: 1;
     transform: scale(1.05);
+    background-color: #f4f4f40a;
   }
   &.active {
     background-color: #f4f4f40a;
     color: #fff;
+
     opacity: 1;
     transform: scale(0.95);
   }
@@ -168,11 +166,12 @@ button {
   border: none;
 .searchInput {
   color: white;
-  text-align: right;
-  width: 180px;
+  text-align: left;
+  padding-left: 30px;
+  width: 554px;
   height: 40px;
   border: none;
-  background: url("@/assets/search-icon.svg") no-repeat, #1C1C1C;
+  background: url("@/assets/search-icon.svg") no-repeat,;
   background-position: 6px 9px;
   box-sizing: border-box;
   border-bottom: 1px solid rgba(244, 244, 244, 0.04);

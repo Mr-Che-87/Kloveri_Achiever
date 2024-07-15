@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { IUser } from "../../../types/IUser";
-
+import iconPlus from "../../../assets/bigAdd.svg"
 import iconClose from "../../../assets/iconCross.svg";
 import iconCheack from "../../../assets/IconCheck.svg";
 import WorkerModalTag from "./WorkerModalTag/WorkerModalTag";
@@ -168,19 +168,21 @@ function WorkersModalAddUser({
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
     const login = event.target.value;
-    setFormData((prevCurrentFormData) => ({
-      ...prevCurrentFormData,
-      login: login,
-    }));
-  };
-
-  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     const email = event.target.value;
     setFormData((prevCurrentFormData) => ({
       ...prevCurrentFormData,
+      login: login,
       email: email,
     }));
-  }
+  };
+
+  // const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const email = event.target.value;
+  //   setFormData((prevCurrentFormData) => ({
+  //     ...prevCurrentFormData,
+  //     email: email,
+  //   }));
+  // }
 
   const handleFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
     const firstName = event.target.value;
@@ -293,6 +295,7 @@ function WorkersModalAddUser({
     <div className={styles.workerModalAddUser}>
       <div className={styles.WorkersModalAddUserContent}>
         <div className={styles.title}>
+          <img src={iconPlus} alt="" />
           <p>Добавить сотрудника</p>
         </div>
 
@@ -319,7 +322,7 @@ function WorkersModalAddUser({
             <input
               name="login"
               type="login"
-              placeholder="Введите Логин"
+              placeholder="login@company.ru"
               value={formData ? formData.login  : ""}
               onChange={handleLogin}
             />
@@ -327,19 +330,19 @@ function WorkersModalAddUser({
               <span className={styles.errorMessages}>{validationErrors.login}</span>
             )}
           </div>
-          <div className={styles.workerEmailAdd}>
+          {/* <div className={styles.workerEmailAdd}>
             <h2 className={styles.description__title}>Емайл</h2>
             <input
               name="email"
               type="email"
               placeholder="Введите Email"
               value={formData ? formData.email  : ""}
-              onChange={handleEmail}
+              onChange={handleLogin}
             />
               {validationErrors.email && (
               <span className={styles.errorMessages}>{validationErrors.email}</span>
             )}
-          </div>
+          </div> */}
         </div>
 
         {/* <div className={styles.checkbox__link}>
@@ -451,7 +454,7 @@ function WorkersModalAddUser({
                 className={styles.workersModalAddUser__input}
                 type="password"
                 name="password"
-                placeholder="Введите пароль"
+                placeholder="*****"
                 value={formData ? formData?.password : ""}
                 onChange={handleWorkerPasswordAdd}
               />
@@ -481,7 +484,6 @@ function WorkersModalAddUser({
 
         <div className={styles.btnGroups}>
           <button className={styles.btn__close} onClick={handleCloseModal}>
-            <img src={iconClose} alt="close" />
             Отменить
           </button>
           <button
@@ -491,8 +493,7 @@ function WorkersModalAddUser({
               handleAddContact();
             }}
           >
-            <img src={iconCheack} alt="check" />
-            Добавить
+           Сохранить
           </button>
         </div>
       </div>
