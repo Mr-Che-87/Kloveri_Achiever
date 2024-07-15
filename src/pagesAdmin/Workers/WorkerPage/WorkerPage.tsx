@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import styles from "./WokerPage.module.scss";
-import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
+// import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
 import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 import WorkerRanks from "./WorkerRanks/WorkerRanks";
-//import WorkerTeams from "./WorkerTeams/WorkerTeams";
+// import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import { IUser } from "../../../types/IUser";
 import { fetchGetLink, fetchGetUserData } from "../../../api/apiService";
 
@@ -92,7 +92,7 @@ export default function WorkerPage() {
             linkData={linkData} 
             user={null}          />
         </div>
-        <div className={styles.workerBtnMenu}>
+        {/* <div className={styles.workerBtnMenu}>
           <ul>
             <li>
               <LinkWorkerButton />
@@ -104,12 +104,13 @@ export default function WorkerPage() {
               />
             </li>
           </ul>
-        </div>
-        {/*
-        <div className={styles.workerTeams}>
+        </div> */}
+        {/* <div className={styles.workerTeams}>
           <WorkerTeams />
-        </div>
-        */}
+        </div> */}
+         <DeleteBanWorkerButton 
+              setUserData={setUserData} 
+              />
       </section>
 
       <section className={styles.workerRanksAndAchievements}>

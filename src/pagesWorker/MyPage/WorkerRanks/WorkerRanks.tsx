@@ -1,6 +1,8 @@
 import { useState } from "react";
+import React from "react";
 import styles from "./WorkerRanks.module.scss";
-import iconRanks from "@/assets/icon-ranks.png";
+import iconRanks from "../../../assets/Money-Coin.svg";
+
 
 
 export default function WorkerRanks() {
@@ -16,7 +18,6 @@ export default function WorkerRanks() {
 
   return (
     <div className={styles.workerRanksMenu}>
-        <h1 className={styles.workerRanksTitle}>Текущий статус баллов</h1>
         <img className={styles.workerRanksIcon} src={iconRanks} alt="Ranks" />
         <input
           className={styles.workerRanksInput}
@@ -25,7 +26,7 @@ export default function WorkerRanks() {
           onChange={handleChange} 
           readOnly
         />
-        
+        <span className={styles.workerRanksUnit}>B</span>
      </div>  
         
 

@@ -1,6 +1,8 @@
 .workerRanksMenu {
   display: flex;
   flex-direction: row;
+  border: 1px solid white;
+    border-radius: 20px;
 }
 
 .workerRanksTitle {
@@ -9,11 +11,12 @@
 .workerRanksIcon {
   width: 40px;
   height: 40px;
-  padding: 15px 20px;
+  padding: 15px 50px;
 }
 .workerRanksInput {
   margin: 20px;
   background-color: #1C1C1C;
+  background: none;
   color: white;
   font-size: 35px;
   text-align: right;
@@ -21,7 +24,6 @@
   height: 40px;
   border: none;
   box-sizing: border-box;
-  border-bottom: 1px solid rgba(244, 244, 244, 0.04);
   margin-left: auto; /* Сместить вправо */
   /*
   &:hover {
@@ -34,5 +36,11 @@
     background: #f4f4f405;
   }
   
+}
+.workerRanksUnit {
+  position: relative;
+  top: 11px;
+  font-size: 35px;
+  right: 37px;
 }
 

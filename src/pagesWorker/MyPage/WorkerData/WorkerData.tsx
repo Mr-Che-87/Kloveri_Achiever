@@ -238,6 +238,7 @@ export default function WorkerData({
             <>
               <label htmlFor="changeAvatar">
                 <input
+                
                   type="file"
                   accept="image/*"
                   onChange={handleImageChange}
@@ -283,6 +284,7 @@ export default function WorkerData({
             placeholder="Введите Логин"
             value={formData.email || ""}
             onChange={handleInputChange}
+            
           />
   
         </div>
@@ -290,19 +292,22 @@ export default function WorkerData({
         <div className={styles.workerNumber}>
           <h2>Телефон</h2>
           <input
+          className={isEditing ? styles.editableField : ""}
             name="phone"
             type="text"
             placeholder="Введите телефон"
             value={formData.phone || ""}
             onChange={handlePhoneChange}
             onKeyDown={handleKeyDown}
-            disabled={!isEditing}
+            readOnly={!isEditing}
+            
           />
         </div>
 
         <div className={styles.workerFirstName}>
           <h2>Имя</h2>
           <input
+          className={isEditing ? styles.editableField : ""}
             name="first_name"
             type="text"
             placeholder="Введите имя"
@@ -314,6 +319,7 @@ export default function WorkerData({
         <div className={styles.workerMiddleName}>
             <h2>Отчество</h2>
           <input
+          className={isEditing ? styles.editableField : ""}
             name="middle_name"
             type="text"
             placeholder="Введите отчество"
@@ -325,6 +331,7 @@ export default function WorkerData({
             <div className={styles.workerLastName}>
             <h2>Фамилия</h2>
           <input
+          className={isEditing ? styles.editableField : ""}
             name="last_name"
             type="text"
             placeholder="Введите фамилию"
@@ -349,6 +356,7 @@ export default function WorkerData({
         <div className={styles.workerBirthday}>
           <h2>Дата рождения</h2>
           <DatePicker
+          className={isEditing ? styles.editableField : ""}
             placeholderText="Выберите дату"
             selected={parseDateForPicker(formData.birth_date)}
             onChange={(date) => handleDateChange(date, "birth_date")}
