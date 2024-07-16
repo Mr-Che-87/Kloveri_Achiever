@@ -1,0 +1,27 @@
+.searchInputContainer {
+  border: none;
+  align-self: flex-start;
+  
+  .searchInput {
+    color: white;
+    padding-left: 40px;
+    width: 554px;
+    height: 40px;
+    border: none;
+    background: url("@/assets/search-icon.svg") no-repeat, none;
+    background-position: 6px 9px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(244, 244, 244, 0.04);
+    &:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    &.active {
+      background-color: #f4f4f40a;
+      border: none;
+      opacity: 1;
+      transform: scale(0.95);
+    }
+  }
+}
+

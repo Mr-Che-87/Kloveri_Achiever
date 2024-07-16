@@ -44,7 +44,20 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     if (backgrounds && backgrounds.length > 0) {
       setSelectedBackground(backgrounds[3].data.image); // Set the first background as default
     }
-  }, [backgrounds]);
+
+      const handleEscKey = (event: KeyboardEvent) => {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      };
+      document.addEventListener("keydown", handleEscKey);
+      return () => {
+        document.removeEventListener("keydown", handleEscKey);
+      };
+      
+  }, [backgrounds, closeModal]);
+
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -205,12 +218,12 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
               </div>
 
               <div className={`${styles.formGroup} ${styles.formGroupRank}`}>
-                <label htmlFor="rank">Ранг</label>
+                <label htmlFor="rank">Баллы</label>
                 <input
                   className={styles.rankInput}
                   type="number"
                   id="rank"
-                  placeholder="Введите ранг"
+                  placeholder="Введите цену достижения"
                   value={rank}
                   onChange={handleRankChange}
                   required
