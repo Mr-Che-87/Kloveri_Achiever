@@ -97,10 +97,12 @@ export default function AchievementsConstructor() {
         <img src={BookAvatar} alt="Библиотека достижений" />
         <h1>Конструктор достижений</h1>
       </div>
-      <SearchAchieveInput
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
+      <div className={styles.searchAchieveInputContainer}>
+        <SearchAchieveInput
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+      </div>
       <div className={styles.divider}></div>
       <div className={styles.achievementsGrid}>
         <button
@@ -133,6 +135,7 @@ export default function AchievementsConstructor() {
               <div className={styles.cardContent}>
                 <h2>{achievement.data.title}</h2>
                 <p>{achievement.data.description}</p>
+                <div className={styles.cardRank}>{achievement.data.rank}<span>&nbsp;&#x20BF;</span></div>
               </div>
             </div>
           ))}
