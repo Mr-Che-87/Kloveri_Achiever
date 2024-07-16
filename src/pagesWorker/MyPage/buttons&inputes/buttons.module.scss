@@ -135,12 +135,14 @@ button {
 .allAchieveButton {   //копипаста с .ChangeWorkerInformationButton
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 141px;
+  height: 60px;
   padding: 8px 8px;
   border-radius: 16px;
-  text-decoration: none;
+  background: #6A11C3;;
   color: #fff;
-  opacity: 0.6;
-  border: 0.5px solid #f4f4f410;
+  border: none;
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
@@ -150,7 +152,7 @@ button {
     background-color 0.3s,
     transform 0.3s;
 &:hover {
-    opacity: 1;
+    opacity: 0.8;
     transform: scale(1.05);
   }
   &.active {

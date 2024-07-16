@@ -2,7 +2,6 @@
   visibility: inherit;
 }
 
-
 .workerInitial {
   position: relative;
   display: flex;
@@ -25,22 +24,18 @@
   border-radius: 50%;
   padding: 10px;
   cursor: pointer;
-  display: none; 
 
-  p{
+  img {
     position: relative;
-    left: 6px;
-    top: -10px;
-    font-size: 12px;
+    width: 50px;
+    height: 50px;
+    left: 13px;
+    top: -4px;
   }
 }
 
-.avatarWrapper:hover .editIcon {
-  display: block; // Показываем иконку при наведении
-}
-
 .small .workerAvatar {
-  border-radius: 100% ;
+  border-radius: 100%;
   margin-left: 24px;
   width: 48px;
   height: 48px;
@@ -96,7 +91,6 @@ h1 {
 }
 
 .editableField {
-
   border: 1px solid orange !important;
 }
 
@@ -131,12 +125,11 @@ h1 {
   opacity: 0.8;
 }
 
-
 // .workerInformation input[type=text],  //чтобы инпут дата-пикера не выезжал за пределы контейнера.
 // .workerInformation textarea {  //но так имя не влезает!
 //    width: 100%;
 //     box-sizing: border-box;
-  
+
 //   //или:
 //   //width: -webkit-fill-available !important;
 // }
@@ -167,7 +160,7 @@ h1 {
 }
 .workerLogin {
   visibility: inherit;
-  input{
+  input {
     border: 1px solid rgba(209, 211, 212, 0.2);
     width: 242px;
     height: 60px;
@@ -177,7 +170,7 @@ h1 {
 }
 .workerFirstName {
   visibility: inherit;
-  input{
+  input {
     border: 1px solid rgba(209, 211, 212, 0.2);
     padding-left: 10px;
     width: 242px;
@@ -188,7 +181,7 @@ h1 {
 }
 .workerMiddleName {
   visibility: inherit;
-  input{
+  input {
     border: 1px solid rgba(209, 211, 212, 0.2);
     padding-left: 10px;
     width: 242px;
@@ -197,9 +190,8 @@ h1 {
   }
 }
 .workerLastName {
-  
   visibility: inherit;
-  input{
+  input {
     border: 1px solid rgba(209, 211, 212, 0.2);
     width: 242px;
     height: 60px;
@@ -209,7 +201,7 @@ h1 {
 }
 .workerBirthday {
   visibility: inherit;
-  input{
+  input {
     border: 1px solid rgba(209, 211, 212, 0.2);
     width: 242px;
     height: 60px;
@@ -219,7 +211,7 @@ h1 {
 }
 .workerNumber {
   visibility: inherit;
-  input{
+  input {
     border: 1px solid rgba(209, 211, 212, 0.2);
     width: 242px;
     height: 60px;
@@ -229,7 +221,7 @@ h1 {
 }
 .workerStartdate {
   visibility: inherit;
-  input{
+  input {
     border: 1px solid rgba(209, 211, 212, 0.2);
     width: 242px;
     height: 60px;
@@ -239,7 +231,7 @@ h1 {
 }
 .workerPosition {
   visibility: inherit;
-  input{
+  input {
     border: 1px solid rgba(209, 211, 212, 0.2);
     width: 242px;
     height: 60px;
@@ -247,4 +239,3 @@ h1 {
     padding-left: 10px;
   }
 }
-
