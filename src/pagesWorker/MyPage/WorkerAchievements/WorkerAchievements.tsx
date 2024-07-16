@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, CSSProperties } from "react";
 import styles from "./WorkerAchievements.module.scss";
 import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
 import { AllAchieveButton } from "../buttons&inputes/AllAchieveButton";
@@ -16,6 +16,10 @@ import { fetchGetAchieveLibrary,
 
 interface WorkerAchievementsProps {
   userId: string | undefined;
+}
+
+interface CSSPropertiesWithVars extends CSSProperties {
+  '--background-image'?: string;
 }
 
 export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({ userId }) => {
@@ -80,41 +84,57 @@ useEffect(() => {
       <h1>Достижения</h1>
       <div className={styles.workerAchievementsNav}>
       <ul>
-            <li><AllAchieveButton 
-        onClick={openModal}/></li>
-
-        <li><SearchAchieveInput 
-       searchQuery={searchQuery} 
-       setSearchQuery={setSearchQuery} />
-       </li>
+        <li className={styles.allAchieveButton}>
+          <AllAchieveButton onClick={openModal}/>
+        </li>
+        <li className={styles.searchAchieveInput}>
+          <SearchAchieveInput 
+            searchQuery={searchQuery} 
+            setSearchQuery={setSearchQuery} />
+        </li>
       </ul>
-       
-    
-      </div>
+    </div>
 
-      <div className={styles.workerAchievementsList}>
-      {userAchievements
-        .filter((connect) => 
-          //проверяем, есть ли что-то в searchQuery: 
-          searchQuery ?     //если есть, фильтруем по запросу: 
-          connect.data.achievement.data.title.toLowerCase().includes(searchQuery.toLowerCase()) :             true       //если нет, показываем все ачивки (метод includes() вернет true для всех элементов, т.к. пустая строка содержится в любой строке) 
-          ).map((connect, index) => (
+    <div className={styles.workerAchievementsList}>
+        {userAchievements
+          .filter((connect) =>
+            searchQuery
+              ? connect.data.achievement.data.title
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase())
+              : true
+          )
+          .map((connect, index) => (
             <div
-            key={index}
-            className={styles.achievementCard}
-            style={{
-              backgroundImage: `url(${connect.data.achievement.data.achiev_style})`,
-            }}
-          >
-              <button className={styles.achieveButton}>
-                <img className={styles.achieveImg} src={connect.data.achievement.data.image} alt={connect.data.achievement.data.title} />
-                <h3 className={styles.achieveTitle}>{connect.data.achievement.data.title}</h3>
-                <p>{connect.data.achievement.data.description}</p>
-                </button>
+              key={index}
+              className={styles.achievementCard}
+              style={
+                {
+                  '--background-image': `url(${connect.data.achievement.data.achiev_style})`,
+                } as CSSPropertiesWithVars
+              }
+            >
+                <img
+                  className={styles.achieveImg}
+                  src={connect.data.achievement.data.image}
+                  alt={connect.data.achievement.data.title}
+                />
+                <div className={styles.achieveContent}>
+                  <h2 className={styles.achieveTitle}>
+                    {connect.data.achievement.data.title}
+                  </h2>
+                  <p className={styles.achieveDescription}>
+                    {connect.data.achievement.data.description.length > 100 
+                      ? connect.data.achievement.data.description.slice(0, 100) + '...' 
+                      : connect.data.achievement.data.description}
+                  </p>
+                  <div className={styles.achieveRank}>
+                    {connect.data.achievement.data.rank}<span>&nbsp;&#x20BF;</span>
+                  </div>
+                </div>
             </div>
-          ))
-        }
-      </div>  
+          ))}
+      </div>
 
       {showModal && (
         <ModalAchieveLibrary 

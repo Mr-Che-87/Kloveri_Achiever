@@ -2,7 +2,7 @@ import styles from "./AchievementsConstructor.module.scss";
 import { useEffect, useState, CSSProperties } from "react";
 
 import ModalAddingAchieve from "./ModalAddingAchieve";
-import ModalConfirmDelete from "./ModalConfirmDelete"; // Импорт нового компонента
+import ModalConfirmDelete from "./ModalConfirmDelete"; 
 import { SearchAchieveInput } from "./buttons&inputes/SearchAchieveInput";
 import BookAvatar from "../../assets/book-icon.png";
 
@@ -11,7 +11,7 @@ import {
   fetchGetAchieveLibrary,
   fetchGetAvatars,
   fetchGetBackgrounds,
-  fetchDeleteAchieve, // Импорт метода удаления достижения
+  fetchDeleteAchieve, 
 } from "../../api/apiService";
 
 
@@ -131,11 +131,23 @@ export default function AchievementsConstructor() {
               >
                 &#128465;
               </button>
-              <img src={achievement.data.image} alt={achievement.data.title} />
-              <div className={styles.cardContent}>
-                <h2>{achievement.data.title}</h2>
-                <p>{achievement.data.description}</p>
-                <div className={styles.cardRank}>{achievement.data.rank}<span>&nbsp;&#x20BF;</span></div>
+              <img 
+                className={styles.achieveImg}
+                src={achievement.data.image} 
+                alt={achievement.data.title} 
+              />
+              <div className={styles.achieveContent}>
+                <h2 className={styles.achieveTitle}>
+                  {achievement.data.title}
+                </h2>
+                <p className={styles.achieveDescription}>
+                  {achievement.data.description.length > 100 
+                    ? achievement.data.description.slice(0, 100) + '...' 
+                    : achievement.data.description}
+                </p>
+                <div className={styles.achieveRank}>
+                  {achievement.data.rank}<span>&nbsp;&#x20BF;</span>
+                </div>
               </div>
             </div>
           ))}

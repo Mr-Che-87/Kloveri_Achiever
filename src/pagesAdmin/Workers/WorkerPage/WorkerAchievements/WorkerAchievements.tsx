@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, CSSProperties } from "react";
 import styles from "./WorkerAchievements.module.scss";
 import { GiveAchieveButton } from "../buttons&inputes/GiveAchieveButton";
 import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
@@ -16,6 +16,10 @@ import {
 
 interface WorkerAchievementsProps {
   userId: string | undefined;
+}
+
+interface CSSPropertiesWithVars extends CSSProperties {
+  '--background-image'?: string;
 }
 
 export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
@@ -111,10 +115,10 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
       <h1>Достижения</h1>
       <div className={styles.workerAchievementsNav}>
         <ul>
-          <li>
+          <li className={styles.giveAchieveButton}>
             <GiveAchieveButton onClick={openModal} />
           </li>
-          <li>
+          <li className={styles.searchAchieveInput}>
             <SearchAchieveInput
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
@@ -139,23 +143,33 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
             <div
               key={index}
               className={styles.achievementCard}
-              style={{
-                backgroundImage: `url(${connect.data.achievement.data.achiev_style})`,
-              }}
+              style={
+                {
+                  '--background-image': `url(${connect.data.achievement.data.achiev_style})`,
+                } as CSSPropertiesWithVars
+              }
             >
-              <button className={styles.achieveButton}>
                 <img
                   className={styles.achieveImg}
                   src={connect.data.achievement.data.image}
                   alt={connect.data.achievement.data.title}
                 />
-                <h3 className={styles.achieveTitle}>
-                  {connect.data.achievement.data.title}
-                </h3>
-                <p>{connect.data.achievement.data.description}</p>
-              </button>
+                <div className={styles.achieveContent}>
+                  <h2 className={styles.achieveTitle}>
+                    {connect.data.achievement.data.title}
+                  </h2>
+                  <p className={styles.achieveDescription}>
+                    {connect.data.achievement.data.description.length > 100 
+                      ? connect.data.achievement.data.description.slice(0, 100) + '...' 
+                      : connect.data.achievement.data.description}
+                  </p>
+                  <div className={styles.achieveRank}>
+                    {connect.data.achievement.data.rank}<span>&nbsp;&#x20BF;</span>
+                  </div>
+                </div>
+              
               <button
-                className={styles.removeButton}
+                className={styles.deleteButton}
                 onClick={() => openDeleteModal(connect.id)}
               >
                   &#128465;

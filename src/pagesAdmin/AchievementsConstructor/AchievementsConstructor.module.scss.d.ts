@@ -7,7 +7,10 @@ declare const classNames: {
   readonly createAchievementButton: "createAchievementButton";
   readonly achievementCard: "achievementCard";
   readonly deleteButton: "deleteButton";
-  readonly cardContent: "cardContent";
-  readonly cardRank: "cardRank";
+  readonly achieveImg: "achieveImg";
+  readonly achieveContent: "achieveContent";
+  readonly achieveTitle: "achieveTitle";
+  readonly achieveDescription: "achieveDescription";
+  readonly achieveRank: "achieveRank";
 };
 export = classNames;
