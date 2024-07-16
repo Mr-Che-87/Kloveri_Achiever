@@ -1,11 +1,18 @@
 .workerAchievements {
   visibility: inherit;
+  h1{
+    font-size: 30px;
+    position: relative;
+    left: 20px;
+  }
 }
 
 .workerAchievementsNav {
   ul {
     display: flex;
     flex-direction: row;
+    position: relative;
+    left: 20px;
     margin-top: 32px;
     gap: 20px;
     list-style: none;
@@ -70,15 +77,31 @@
 }
 
 .removeButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  top: 0;
-  right: 0;
-  background: transparent;
+  top: 25px;
+  right: 20px;
+  background: rgba(255, 0, 0, 0.8);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
   border: none;
   font-size: 20px;
   cursor: pointer;
   padding: 5px;
   color: white;
+  cursor: pointer;
+
+  &:hover{
+  
+    background: rgba(255, 0, 0, 1);
+  }
+}
+
+.achievementCard:hover .removeButton{
+  display: flex;
 }
 
 

@@ -8,6 +8,8 @@ import { fetchUpdateLink, fetchUpdateUser, fetchGetLink } from "../../../../api/
 import { format, parse } from "date-fns";
 import DatePicker from "react-datepicker";
 import { ILinkData } from "../../../../types/ILinkData";
+import iconCamera from "../../../../assets/camera-workerData.svg";
+
 
 interface WorkerDataProps {
   isEditing: boolean;
@@ -16,7 +18,7 @@ interface WorkerDataProps {
   userData: IUser | null;
   avatarSize: "small" | "large";
   linkData: ILinkData | null;
-  user:IUser | null;
+  user:IUser | null ;
 }
 
 interface IOtherFormData {
@@ -241,9 +243,7 @@ export default function WorkerData({
                   style={{ display: "none" }}
                 />
                 <div className={styles.editIcon}>
-                  <p>
-                    Изменить <br /> изображение
-                  </p>
+                  <img src={iconCamera} />
                 </div>
               </label>
             </>

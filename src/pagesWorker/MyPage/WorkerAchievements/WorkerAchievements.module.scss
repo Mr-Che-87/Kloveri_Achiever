@@ -1,10 +1,17 @@
 .workerAchievements {
   visibility: inherit;
+  h1{
+    position: relative;
+    left: 20px;
+    font-size: 30px;
+  }
 }
 
 
 .workerAchievementsNav {
     ul {
+      position: relative;
+      left: 20px;
       display: flex;
       flex-direction: row;
       margin-top: 32px;
