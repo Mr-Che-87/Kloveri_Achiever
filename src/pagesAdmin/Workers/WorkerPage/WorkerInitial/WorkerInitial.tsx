@@ -5,22 +5,25 @@ import iconFemale from "@/assets/icon_female.png";
 
 import { IUser } from "../../../../types/IUser";
 
+
 interface WorkerInitialProps {
   user: IUser;
-  userData: IUser;
-  
+
   showEmail: boolean;  //отображение мейла
-  avatarSize: "small" | "large";    //отображение размера фотки
+  avatarSize: "small" | "large"; 
 }
 
 export default function WorkerInitial({
 
+  linkData,
   user,
   avatarSize,
 }: WorkerInitialProps) {
   if (!user) {
     return <div>Не можем найти данные с бэка - user data...</div>;
   }
+
+  
 
   // Проверка на пустой url(ошибка404) без картинки:
   const imageUrl = user[(avatarSize === "small") ? "photo_small" : "photo_main"] || defaultAvatar;
@@ -47,6 +50,10 @@ export default function WorkerInitial({
         {genderIcon && (
           <img className={styles.genderIcon} src={genderIcon} alt="пол" />
         )}
+    
+        <div>
+        
+        </div>
       </div>
     </div>
   );

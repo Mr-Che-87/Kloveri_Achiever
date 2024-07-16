@@ -3,8 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { IUser } from "../../../types/IUser";
 import iconPlus from "../../../assets/bigAdd.svg"
-import iconClose from "../../../assets/iconCross.svg";
-import iconCheack from "../../../assets/IconCheck.svg";
 import WorkerModalTag from "./WorkerModalTag/WorkerModalTag";
 import DatePicker from "react-datepicker";
 import styles from "./WorkersModalAddUser.module.scss";

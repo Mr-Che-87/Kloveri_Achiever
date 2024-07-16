@@ -8,9 +8,15 @@
   .workersTitle {
     display: flex;
     align-items: center;
+    margin-bottom: 34px;
+    h1{
+      font-size: 44px;
+    }
     img{
-      width: 56px;
-      height: 56px;
+      position: relative;
+      margin-right: 20px;
+      width: 85px;
+      height: 70px;
 
     }
     

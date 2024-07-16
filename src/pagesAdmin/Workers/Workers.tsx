@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { IUser } from "../../types/IUser";
 import styles from "./Workers.module.scss";
 import iconHeader from "../../assets/iconsHeader.svg";
-import iconAddWorker from "../../assets/ImageAndTitle.png"
+import iconAddWorker from "../../assets/ImageAndTitle.png";
 import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
 import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 //import AuthorizationLinksButton from "./AuthorizationLinksButton/AuthorizationLinksButton";
@@ -13,21 +13,19 @@ import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 import AddWorkerButton from "./AddWorkerButton/AddWorkerButton";
 //import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
 import WorkersModal from "./WorkersModal/WorkersModal";
-import { fetchGetAllUsers } from "../../api/apiService"; //api
+import { fetchGetAllUsers} from "../../api/apiService"; //api
 
 
 
+interface IWorkers {
+  user: IUser;
+  userData: IUser;
 
-
-interface IWorkers{
-  user: IUser,
-  userData: IUser
 }
 
-
 // Поиск по имени и фамилии
-function filterName (searchTextName: string, nameList: any[])  {
-  if(!searchTextName){
+function filterName(searchTextName: string, nameList: any[]) {
+  if (!searchTextName) {
     return nameList;
   }
   return nameList.filter((user) => {
@@ -36,28 +34,21 @@ function filterName (searchTextName: string, nameList: any[])  {
   });
 }
 
-
-
-
-export default function Workers({
-  user,
-  userData
-}:IWorkers) {
+export default function Workers({ user, userData  }: IWorkers) {
   const [userList, setUserList] = useState<IUser[]>([]); //state списка всех юзеров
   const [isSearchName, setIsSearchName] = useState("");
-  const [isOpenModal, setIsOpenModal] = useState(false)
- const filtredUserList = filterName(isSearchName, userList)
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const filtredUserList = filterName(isSearchName, userList);
 
- const handleAddContact = (newUser: IUser) => {
-  setUserList((prevUserList) => [newUser, ...prevUserList]);
-
-};
+  const handleAddContact = (newUser: IUser) => {
+    setUserList((prevUserList) => [newUser, ...prevUserList]);
+  };
 
   //   const handleUpdateObject = () => {
   //     setUpdateObject(prevState => !prevState);
   // };
 
- console.log("filtredUserList", filtredUserList)
+  console.log("filtredUserList", filtredUserList);
   //GET-Получение списка всех пользователей:
   useEffect(() => {
     //const userId = "1";   //хз, как сейчас будут делить на admin | worker ???
@@ -69,16 +60,13 @@ export default function Workers({
       .catch((error) => {
         console.error("Ошибка при получении списка пользователей", error);
       });
-  }, []);
 
+  }, []);
 
   //возвращаем индикатор загрузки пока данные не загружены:
   if (userList.length === 0) {
     return <div>Loading user data...</div>;
   }
-
-
-
 
   return (
     <>
@@ -88,60 +76,56 @@ export default function Workers({
           <h1> Сотрудники</h1>
         </div>
         <div className={styles.workersBtn}>
-          <AddWorkerButton
-          onClick={() => setIsOpenModal(true)}
-           />
+          <AddWorkerButton onClick={() => setIsOpenModal(true)} />
           <WorkersModal
             onAddContact={handleAddContact}
             isOpen={isOpenModal}
             onClose={() => setIsOpenModal(false)}
             userData={userData}
-             user={user}            
-                  />
-                  
-          <SearchInputWorkers  
-          isSearchName={isSearchName}
-          setIsSearchName={setIsSearchName}
+            user={user}
+           
           />
-            
+
+          <SearchInputWorkers
+            isSearchName={isSearchName}
+            setIsSearchName={setIsSearchName}
+          />
         </div>
 
         <div className={styles.workersCards}>
           <div className={styles.workersList}>
             {filtredUserList.length > 0 ? (
               <ul className={styles.workersList__item}>
-              {filtredUserList.map((user, index) => (
-                <li key={index}>
-                  <NavLink to={`/admin-panel/worker-page/${user.profile_id}`}>
-                    <WorkerInitial
-                    userData={userData}
-                      user={user} //передаем данные пользователя в WorkerInitial
-                      showEmail={false}
-                      avatarSize={"small"}
-                    />
-                  </NavLink>
-                  <div className={styles.workersTeamName}>
-                    {/* <p>Название команды</p> */}
+                {filtredUserList.map((user, index) => (
+                  <li key={index}>
+                    <NavLink to={`/admin-panel/worker-page/${user.profile_id}`}>
                     
-                  </div>
-                </li>
-              ))}
-            </ul>
-            ): (
-              <div className={styles.notFound}>
-                  {userList.length === 0? (
-                    <div>
-                      <img src={iconAddWorker} alt="Добавьте пользователя" />
+                      <WorkerInitial
+                        user={user} //передаем данные пользователя в WorkerInitial
+                        showEmail={true}
+                        avatarSize={"small"}
+                        
+                      />
+                    </NavLink>
+                    <div className={styles.workersTeamName}>
+                      {/* <p>Название команды</p> */}
                     </div>
-                  ): (
-                    isSearchName? `Пользователь "${isSearchName}" не найден ` : "Пользователь не найден"
-                  )
-
-                }
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className={styles.notFound}>
+                {userList.length === 0 ? (
+                  <div>
+                    <img src={iconAddWorker} alt="Добавьте пользователя" />
+                  </div>
+                ) : isSearchName ? (
+                  `Пользователь "${isSearchName}" не найден `
+                ) : (
+                  "Пользователь не найден"
+                )}
               </div>
-              
             )}
-
           </div>
 
           {/* <div className={styles.workersNotInTheTeam}>
@@ -163,15 +147,11 @@ export default function Workers({
               ))}
             </ul>
           </div> */}
-
         </div>
       </div>
     </>
   );
 }
-
-
-
 
 /*
 //RETURN Андрея - до закоменнченного (но он тоже ниалё):

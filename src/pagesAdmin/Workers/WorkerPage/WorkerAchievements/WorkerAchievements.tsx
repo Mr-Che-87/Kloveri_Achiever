@@ -158,7 +158,7 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
                 className={styles.removeButton}
                 onClick={() => openDeleteModal(connect.id)}
               >
-                &times;
+                  &#128465;
               </button>
             </div>
           ))}

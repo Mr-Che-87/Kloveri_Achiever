@@ -147,6 +147,7 @@ const WorkersModal = ({
             setIsAddUserOpen(false);
           }}
           user={user}
+          
         />
       )}
     </>
