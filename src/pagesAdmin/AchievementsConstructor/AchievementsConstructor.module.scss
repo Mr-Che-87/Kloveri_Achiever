@@ -45,10 +45,11 @@
   
     .achievementsGrid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));  //старое minmax(210px,..));
       grid-gap: 30px;
       width: 100%;
-      max-width: 1200px;
+      max-width: 1300px;
+      margin: 20px;
   
       .createAchievementButton,
       .achievementCard {
@@ -56,8 +57,8 @@
         align-items: center;
         display: flex;
         justify-content: center;
-        width: 210px;  
-        height: 274px;  //НАДО БОЛЬШЕ
+        width: 230px;   //старое 210px
+        height: 300px;  //старое 274px
         flex-direction: column;
         overflow: hidden;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -79,8 +80,6 @@
         border-radius: 20px;
         align-items: center;
         display: flex;
-        width: 210px;
-        height: 274px;
         flex-direction: column;
         background-size: cover;
         background-repeat: no-repeat;
@@ -96,20 +95,20 @@
       .achievementCard {
         position: relative;
         overflow: hidden;
-  
-        &::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-image: var(--background-image);
-       
-          background-repeat: no-repeat;
-          background-position: center;
-          z-index: 0;
-        }
+ 
+         &::before {
+           content: "";
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           background-image: var(--background-image);
+           background-size: 125%;
+           background-repeat: no-repeat;
+           background-position: center;
+           z-index: 0;
+         }
   
         .deleteButton {
           position: absolute;
