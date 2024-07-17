@@ -15,28 +15,33 @@
     background-color: var(--additional-background-color); /* фон контента */
     padding: 20px;
     border-radius: 8px;
-  }
+
+    p {
+      margin-top: 5px;
+      margin-bottom: 30px;
+    }
+ 
+    .buttonGroup {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .confirmButton {
+      background-color: red; /* Красный фон кнопки удаления */
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .cancelButton {
+      background-color: blue; /* Синий фон кнопки отмены */
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   
-  .buttonGroup {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .confirmButton {
-    background-color: red; /* Красный фон кнопки удаления */
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .cancelButton {
-    background-color: blue; /* Синий фон кнопки отмены */
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
+}
