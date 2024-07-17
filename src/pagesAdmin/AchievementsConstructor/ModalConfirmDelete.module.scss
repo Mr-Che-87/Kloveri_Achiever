@@ -2,55 +2,40 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Чёрный полупрозрачный фон основного окна */
+  z-index: 1000; /* Выше всех остальных элементов */
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
 }
 
 .modalContent {
-  background: #fff;
-  border-radius: 10px;
-  padding: 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  background-color: var(--additional-background-color); /* фон контента */
+  padding: 20px;
+  border-radius: 8px;
+}
 
-  h2 {
-    margin-bottom: 1rem;
-    color: #333;
-  }
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .actions {
-    display: flex;
-    justify-content: space-around;
-  }
+.confirmButton {
+  background-color: red; /* Красный фон кнопки удаления */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-  .confirmButton {
-    background: #d9534f;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-
-    &:hover {
-      background: #c9302c;
-    }
-  }
-
-  .cancelButton {
-    background: #5bc0de;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-
-    &:hover {
-      background: #31b0d5;
-    }
-  }
+.cancelButton {
+  background-color: blue; /* Синий фон кнопки отмены */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
 }

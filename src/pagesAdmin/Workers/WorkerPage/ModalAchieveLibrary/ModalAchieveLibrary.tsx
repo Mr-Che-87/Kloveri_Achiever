@@ -44,7 +44,7 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({
   };
 
   return (
-    <div className={styles.modalContainer}>
+    <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <button className={styles.closeButton} onClick={closeModal}>
           &times;
