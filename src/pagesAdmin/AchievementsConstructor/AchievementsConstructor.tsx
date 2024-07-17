@@ -94,7 +94,7 @@ export default function AchievementsConstructor() {
   return (
     <div className={styles.achievementsConstructor}>
       <div className={styles.titleContainer}>
-        <img src={BookAvatar} alt="Библиотека достижений" />
+        <img src={BookAvatar} alt="Конструктор достижений" />
         <h1>Конструктор достижений</h1>
       </div>
       <div className={styles.searchAchieveInputContainer}>

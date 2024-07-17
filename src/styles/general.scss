@@ -8,14 +8,17 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background: linear-gradient(160deg, rgba(32, 0, 63, 1) 0%, rgba(67, 16, 118, 1) 99%); //ОБЩИЙ ГРАДИЕНТ
-
+  background: linear-gradient(160deg, rgba(26, 0, 50, 1) 0%, rgba(54, 12, 94, 1) 99%); //ОБЩИЙ ГРАДИЕНТ
+  --additional-background-color: rgba(67, 16, 118, 1);  //фон для дополнительных элементов
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
+
 
 @media (prefers-color-scheme: light) {
   :root {

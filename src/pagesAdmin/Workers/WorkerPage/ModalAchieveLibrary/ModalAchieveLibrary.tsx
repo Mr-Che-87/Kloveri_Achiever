@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, CSSProperties } from "react";
 import styles from "./ModalAchieveLibrary.module.scss";
 import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
+import BookAvatar from "../../../../assets/book-icon.png";
 
 import { IAchieve } from "../../../../types/IAchieve";
 import { IConnection } from "../../../../types/IConnection";
@@ -10,6 +11,9 @@ interface ModalAchievementsProps {
   userAchievements: IConnection[];
   closeModal: () => void;
   onAchieveAdd: (achieveId: string) => void; //функция для передачи ачивки родителю
+}
+interface CSSPropertiesWithVars extends CSSProperties {
+  '--background-image'?: string;
 }
 
 export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({ 
@@ -45,7 +49,10 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({
         <button className={styles.closeButton} onClick={closeModal}>
           &times;
         </button>
-        <h1>Библиотека достижений</h1>
+        <div className={styles.titleContainer}>
+          <img src={BookAvatar} alt="Библиотека достижений" />
+          <h1>Библиотека достижений</h1>
+        </div>
         <div className={styles.searchInput}>
           <SearchAchieveInput 
           searchQuery={searchQuery} 
@@ -65,9 +72,11 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({
               <div
                 key={achieve.id}
                 className={styles.achieveCard}
-                style={{
-                  backgroundImage: `url(${achieve.data.achiev_style})`,
-                }}
+                style={
+                  {
+                    '--background-image': `url(${achieve.data.achiev_style})`,
+                  } as CSSPropertiesWithVars
+                }
               >
                 <button
                   className={styles.achieveButton}
@@ -78,8 +87,19 @@ export const ModalAchieveLibrary: React.FC<ModalAchievementsProps> = ({
                     src={achieve.data.image}
                     alt={achieve.data.title}
                   />
-                  <h3 className={styles.achieveTitle}>{achieve.data.title}</h3>
-                  <p>{achieve.data.description}</p>
+                  <div className={styles.achieveContent}>
+                    <h2 className={styles.achieveTitle}>
+                      {achieve.data.title}
+                    </h2>
+                    <p className={styles.achieveDescription}>
+                    {achieve.data.description.length > 100 
+                      ? achieve.data.description.slice(0, 100) + '...' 
+                      : achieve.data.description}
+                  </p>
+                  <div className={styles.achieveRank}>
+                    {achieve.data.rank}<span>&nbsp;&#x20BF;</span>
+                  </div>
+                </div>
                 </button>
               </div>
             ))}
