@@ -1,6 +1,8 @@
 declare const classNames: {
+  readonly modalOverlay: "modalOverlay";
   readonly workersModal: "workersModal";
   readonly workersModal__content: "workersModal__content";
+  readonly overlay: "overlay";
   readonly title: "title";
   readonly workersModal__form: "workersModal__form";
   readonly workersModal__upload: "workersModal__upload";
