@@ -53,7 +53,7 @@ export default function WorkerInitial({
           <img className={styles.genderIcon} src={genderIcon} alt="пол" />
         )}
         <div className={styles.workerSpecialty}>
-        {linkData ? linkData.specialty : "Должность не указана"}
+        {linkData && linkData.specialty ? linkData.specialty : "Должность не указана"}
         </div>
       </div>
     </div>
