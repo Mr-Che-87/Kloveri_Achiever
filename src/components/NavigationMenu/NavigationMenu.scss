@@ -18,7 +18,7 @@ nav {
   align-items: center;
   max-width: 100%;
   background-color: $main-background-color;
-}
+  }
 
 .navigation-menu {
   display: flex;
@@ -63,7 +63,7 @@ nav {
       }
 
       &.active {
-        background-color: #f4f4f40a;
+        background-color: rgb(55, 13, 98);
         color: #FFA91A;
         opacity: 1;
         transform: scale(0.95);

@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { IUser } from "../types/IUser";
 import { IAchieve } from "../types/IAchieve";
 import { IConnection } from "../types/IConnection";
+import { ILinkData } from "../types/ILinkData";
 //import { IConnection } from "../types/IConnection";
 
 const API_URL = "https://api.achiever.skroy.ru"; //обновлённый базовый URL
@@ -74,6 +75,17 @@ headers: {
   })
 }
 
+// get -возвращает список связей с организацией
+export const fetchReturnGetLink = (
+  organizationId: string
+) => {
+  return axios.get<ILinkData>(`https://api.achiever.skroy.ru/link/`,{
+    headers:{
+      "Content-Type": "application/json",
+      "ORGANIZATION-ID": organizationId
+    }
+  })
+}
 
 
 // PATCH-Link 

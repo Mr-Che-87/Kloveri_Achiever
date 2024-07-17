@@ -8,12 +8,14 @@ import iconAddPlus from "../../../assets/plus.svg"
 import iconChain from "../../../assets/chain.svg"
 
 
+
 interface WorkersModalProps {
   isOpen: boolean;
   onClose: () => void;
   onAddContact: (user: IUser) => void;
   userData: IUser | null;
   user: IUser;
+
 }
 
 const WorkersModal = ({

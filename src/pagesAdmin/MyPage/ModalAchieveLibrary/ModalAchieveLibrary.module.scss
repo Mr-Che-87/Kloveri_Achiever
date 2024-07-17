@@ -9,7 +9,7 @@
   width: 80%; /* Ширина окна 80% от ширины экрана */
   height: 80%; /* Высота окна 80% от высоты экрана */
   overflow-y: auto; /* Включаем вертикальный скролл при необходимости */
-  background-color: black; /* Цвет фона */
+  background-color: var(--additional-background-color);
   z-index: 1000;
 }
 

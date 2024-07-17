@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import axios from "axios";
 import styles from "./ModalAddingAchieve.module.scss";
@@ -103,12 +102,25 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     }
   };
 
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setTitle(e.target.value);
+  // const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) =>
+  //   setTitle(e.target.value);
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length <= 25) {
+      setTitle(value);
+    }
+  };
+
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
     setDescription(e.target.value);
-  const handleRankChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setRank(e.target.valueAsNumber);
+
+  const handleRankChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length <= 7) {
+      setRank(e.target.valueAsNumber);
+    }
+  };
 
   // const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
   //   // if (e.target.files) setSelectedImage(e.target.files[0].name); // Хранение имени файла
@@ -200,6 +212,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
                   placeholder="Введите название"
                   value={title}
                   onChange={handleTitleChange}
+                  maxLength={25}
                   required
                 />
               </div>
@@ -226,6 +239,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
                   placeholder="Введите цену достижения"
                   value={rank}
                   onChange={handleRankChange}
+                  maxLength={7}
                   required
                 />
               </div>

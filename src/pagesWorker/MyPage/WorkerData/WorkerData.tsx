@@ -4,11 +4,14 @@ import styles from "./WorkerData.module.scss";
 import { ChangeWorkerInformationButton } from "../buttons&inputes/ChangeWorkerInformationButton";
 import defaultAvatar from "@/assets/defaultAvatar.png";
 import { IUser } from "../../../types/IUser";
-import { fetchUpdateLink, fetchUpdateUser, fetchGetLink } from "../../../api/apiService";
+import {
+  fetchUpdateLink,
+  fetchUpdateUser,
+  fetchGetLink,
+} from "../../../api/apiService";
 import { format, parse } from "date-fns";
 import DatePicker from "react-datepicker";
 import { ILinkData } from "../../../types/ILinkData";
-import iconCamera from "../../../assets/camera-workerData.svg";
 
 interface WorkerDataProps {
   isEditing: boolean;
@@ -54,15 +57,11 @@ export default function WorkerData({
     }
   }, [userData]);
 
-
-
-
-  
   useEffect(() => {
     if (linkId && organizationId) {
       const storedSpecialty = localStorage.getItem("specialty");
       const storedStartWorkDate = localStorage.getItem("start_work_date");
-  
+
       if (storedSpecialty && storedStartWorkDate) {
         setOtherFormData({
           link_id: linkId,
@@ -78,7 +77,7 @@ export default function WorkerData({
               specialty: data.specialty,
               start_work_date: data.start_work_date,
             });
-  
+
             // Сохраняем полученные данные в localStorage
             localStorage.setItem("specialty", data.specialty);
             localStorage.setItem("start_work_date", data.start_work_date);
@@ -132,13 +131,11 @@ export default function WorkerData({
         [name]: value,
       }));
     } else {
-     
       setOtherFormData((prevOtherFormData) => ({
-        
         ...prevOtherFormData,
         [name]: value,
       }));
-      
+
       localStorage.setItem(name, value); // Здесь сохраняется в localStorage
     }
   };
@@ -211,7 +208,10 @@ export default function WorkerData({
       ...currentFormData,
       [fieldName]: date ? date.toISOString().split("T")[0] : "",
     }));
-    localStorage.setItem(fieldName, date ? date.toISOString().split("T")[0] : "");
+    localStorage.setItem(
+      fieldName,
+      date ? date.toISOString().split("T")[0] : ""
+    );
   };
 
   const parseDateForPicker = (dateStr?: string): Date | null => {
@@ -231,16 +231,14 @@ export default function WorkerData({
       <div className={styles.workerInitial}>
         <div className={`${styles.avatarWrapper} ${styles[avatarSize]}`}>
           <img
-            className={`${styles.workerAvatar} ${styles[avatarSize]}`}
-            src={imageUrl? imageUrl : defaultAvatar}
+            className={`${styles.workerAvatar} ${styles[avatarSize]} ${isEditing ? styles.editableField : ""}`}
+            src={imageUrl ? imageUrl : defaultAvatar}
             alt="Avatar"
           />
           {isEditing && (
             <>
-            
               <label htmlFor="changeAvatar">
                 <input
-                
                   type="file"
                   accept="image/*"
                   onChange={handleImageChange}
@@ -248,7 +246,7 @@ export default function WorkerData({
                   style={{ display: "none" }}
                 />
                 <div className={styles.editIcon}>
-                  <img src={iconCamera} />
+                  <p>Изменить изображений</p>
                 </div>
               </label>
             </>
@@ -270,7 +268,7 @@ export default function WorkerData({
       <div className={styles.workerDataTitle}>
         <h1>Личные данные</h1>
         <ChangeWorkerInformationButton
-        isEditing={isEditing}
+          isEditing={isEditing}
           toggleEdit={toggleEdit}
           handleSave={handleSave}
         />
@@ -284,15 +282,13 @@ export default function WorkerData({
             placeholder="Введите Логин"
             value={formData.email || ""}
             onChange={handleInputChange}
-            
           />
-  
         </div>
 
         <div className={styles.workerNumber}>
           <h2>Телефон</h2>
           <input
-          className={isEditing ? styles.editableField : ""}
+            className={isEditing ? styles.editableField : ""}
             name="phone"
             type="text"
             placeholder="Введите телефон"
@@ -300,14 +296,13 @@ export default function WorkerData({
             onChange={handlePhoneChange}
             onKeyDown={handleKeyDown}
             readOnly={!isEditing}
-            
           />
         </div>
 
         <div className={styles.workerFirstName}>
           <h2>Имя</h2>
           <input
-          className={isEditing ? styles.editableField : ""}
+            className={isEditing ? styles.editableField : ""}
             name="first_name"
             type="text"
             placeholder="Введите имя"
@@ -317,9 +312,9 @@ export default function WorkerData({
           />
         </div>
         <div className={styles.workerMiddleName}>
-            <h2>Отчество</h2>
+          <h2>Отчество</h2>
           <input
-          className={isEditing ? styles.editableField : ""}
+            className={isEditing ? styles.editableField : ""}
             name="middle_name"
             type="text"
             placeholder="Введите отчество"
@@ -327,11 +322,11 @@ export default function WorkerData({
             readOnly={!isEditing}
             onChange={handleInputChange}
           />
-          </div>
-            <div className={styles.workerLastName}>
-            <h2>Фамилия</h2>
+        </div>
+        <div className={styles.workerLastName}>
+          <h2>Фамилия</h2>
           <input
-          className={isEditing ? styles.editableField : ""}
+            className={isEditing ? styles.editableField : ""}
             name="last_name"
             type="text"
             placeholder="Введите фамилию"
@@ -339,9 +334,9 @@ export default function WorkerData({
             readOnly={!isEditing}
             onChange={handleInputChange}
           />
-          </div>
+        </div>
 
-          <div className={styles.workerPosition}>
+        <div className={styles.workerPosition}>
           <h2>Роль</h2>
           <input
             name="specialty"
@@ -356,7 +351,7 @@ export default function WorkerData({
         <div className={styles.workerBirthday}>
           <h2>Дата рождения</h2>
           <DatePicker
-          className={isEditing ? styles.editableField : ""}
+            className={isEditing ? styles.editableField : ""}
             placeholderText="Выберите дату"
             selected={parseDateForPicker(formData.birth_date)}
             onChange={(date) => handleDateChange(date, "birth_date")}
@@ -364,7 +359,6 @@ export default function WorkerData({
             readOnly={!isEditing}
           />
         </div>
-    
 
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
@@ -376,11 +370,7 @@ export default function WorkerData({
             readOnly
           />
         </div>
-
-    
-
       </div>
     </div>
   );
 }
-

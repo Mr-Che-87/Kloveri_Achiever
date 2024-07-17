@@ -13,17 +13,14 @@ import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 import AddWorkerButton from "./AddWorkerButton/AddWorkerButton";
 //import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
 import WorkersModal from "./WorkersModal/WorkersModal";
-import { fetchGetAllUsers, fetchGetLink} from "../../api/apiService"; //api
+import { fetchGetAllUsers, fetchReturnGetLink } from "../../api/apiService"; //api
 import { ILinkData } from "../../types/ILinkData";
-
-
 
 interface IWorkers {
   user: IUser;
   userData: IUser;
   linkData: ILinkData;
 }
-
 
 // Поиск по имени и фамилии
 function filterName(searchTextName: string, nameList: any[]) {
@@ -36,12 +33,13 @@ function filterName(searchTextName: string, nameList: any[]) {
   });
 }
 
-export default function Workers({ user, userData, }: IWorkers) {
+export default function Workers({ user, userData }: IWorkers) {
   const [userList, setUserList] = useState<IUser[]>([]); //state списка всех юзеров
   const [isSearchName, setIsSearchName] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const filtredUserList = filterName(isSearchName, userList);
-  const [userSpecialty, setUserSpecialty] = useState<ILinkData[]>([])
+  const [linkDataMap, setLinkDataMap] = useState<Map<string, ILinkData>>();
+
   const handleAddContact = (newUser: IUser) => {
     setUserList((prevUserList) => [newUser, ...prevUserList]);
   };
@@ -50,9 +48,42 @@ export default function Workers({ user, userData, }: IWorkers) {
   //     setUpdateObject(prevState => !prevState);
   // };
 
-
-
-
+  useEffect(() => {
+    const userDataString = localStorage.getItem("userData");
+    let organizationId = "";
+    if (userDataString) {
+      try {
+        const userData = JSON.parse(userDataString);
+        organizationId = userData.organization_id;
+      } catch (error) {
+        console.error(
+          "Ошибка при парсинге данных userData из localStorage:",
+          error
+        );
+      }
+    } else {
+      console.error("Данные userData не найдены в localStorage");
+    }
+    if (organizationId) {
+      fetchReturnGetLink(organizationId)
+        .then((response) => {
+          console.log("link data fetched:", response.data);
+          // Создаем словарь linkDataMap, где ключ - это profile_id пользователя
+          const linkDataMap = new Map<string, ILinkData>();
+          response.data.forEach((link: ILinkData) => {
+            if (link.profile_id) {
+              linkDataMap.set(link.profile_id, link);
+            }
+          });
+          setLinkDataMap(linkDataMap);
+        })
+        .catch((error) => {
+          console.log("Error fetching link data:", error);
+        });
+    } else {
+      console.error("Organization ID is not available");
+    }
+  }, []);
 
   console.log("filtredUserList", filtredUserList);
   //GET-Получение списка всех пользователей:
@@ -66,14 +97,6 @@ export default function Workers({ user, userData, }: IWorkers) {
       .catch((error) => {
         console.error("Ошибка при получении списка пользователей", error);
       });
-      fetchGetLink()
-      .then((response) => {
-        setUserSpecialty(response.data)
-      })
-      .catch((error) =>{
-        console.error("Ошибка при получении списка пользователей", error);
-      })
-
   }, []);
 
   //возвращаем индикатор загрузки пока данные не загружены:
@@ -96,7 +119,6 @@ export default function Workers({ user, userData, }: IWorkers) {
             onClose={() => setIsOpenModal(false)}
             userData={userData}
             user={user}
-           
           />
 
           <SearchInputWorkers
@@ -112,12 +134,11 @@ export default function Workers({ user, userData, }: IWorkers) {
                 {filtredUserList.map((user, index) => (
                   <li key={index}>
                     <NavLink to={`/admin-panel/worker-page/${user.profile_id}`}>
-                    
                       <WorkerInitial
                         user={user} //передаем данные пользователя в WorkerInitial
                         showEmail={true}
                         avatarSize={"small"}
-                       
+                        linkData={linkDataMap?.get(user.profile_id) || null}
                       />
                     </NavLink>
                     <div className={styles.workersTeamName}>

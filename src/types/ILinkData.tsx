@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ILinkData {
-    link_id: string;
-    specialty: string;
-    start_work_date: string;
+  [x: string]: any;
+  link_id: any;
+  start_work_date: string;
+  specialty?: string;
   }

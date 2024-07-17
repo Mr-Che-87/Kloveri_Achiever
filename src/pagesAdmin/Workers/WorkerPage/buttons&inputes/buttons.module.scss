@@ -11,9 +11,9 @@ button {
 .searchInputContainer {
   border: none;
   .searchInput {
-    
+    font-size: 16px;
     color: white;
-   padding-left: 40px;
+    padding-left: 40px;
     width: 554px;
     height: 40px;
     border: none;
@@ -133,10 +133,10 @@ background: none;
 }
 
 
-.giveAchieveButton {   //копипаста из .linkWorkerButton
+.giveAchieveButton {   
   display: flex;
   align-items: center;
-  width: 141px;
+  width: 151px;
   height: 60px;
   padding: 8px 12px;
   border-radius: 16px;
@@ -144,9 +144,9 @@ background: none;
   color: #fff;
   border: none;
   background: #6A11C3;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
-  line-height: 20px;
+  line-height: 28px;
   margin-right: 16px;
   cursor: pointer;
   transition:
@@ -167,7 +167,7 @@ background: none;
   }
 }
 
-.allAchieveButton {   //копипаста с .ChangeWorkerInformationButton
+.allAchieveButton {   
   display: flex;
   align-items: center;
   padding: 8px 8px;

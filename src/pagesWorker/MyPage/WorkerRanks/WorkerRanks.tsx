@@ -26,7 +26,7 @@ export default function WorkerRanks() {
           onChange={handleChange} 
           readOnly
         />
-        <span className={styles.workerRanksUnit}>B</span>
+        <span className={styles.workerRanksUnit}>&nbsp;&#x20BF;</span>
      </div>  
         
 

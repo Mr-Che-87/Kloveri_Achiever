@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import styles from "./WorkersModalAddUser.module.scss";
 import axios from "axios";
 
+
 interface WorkerModalAddUserProps {
   user?: IUser;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,13 +46,6 @@ function WorkersModalAddUser({
 
 
 
-
-
- 
-
-  useEffect(() => {
-    console.log("Form data updated:", formData);
-  }, [formData]);
 
   useEffect(() => {
     if (userData) {
@@ -134,10 +128,13 @@ function WorkersModalAddUser({
         console.log("Пользователь создан успешно:", newContact);
         onAddContact(newContact);
         onClose();
+
+     
       })
       .catch((error) => {
         console.log("Ошибка при создании пользователя:", error.response.data);
       });
+      
   };
 
   const handleUltils = () => {

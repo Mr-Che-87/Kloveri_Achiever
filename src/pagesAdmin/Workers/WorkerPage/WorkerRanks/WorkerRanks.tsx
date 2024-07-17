@@ -24,7 +24,7 @@ export default function WorkerRanks() {
           value={points}
           onChange={handleChange} 
         />
-          <span className={styles.workerRanksUnit}>B</span>
+          <span className={styles.workerRanksUnit}>&nbsp;&#x20BF;</span>
      </div>  
         
 
