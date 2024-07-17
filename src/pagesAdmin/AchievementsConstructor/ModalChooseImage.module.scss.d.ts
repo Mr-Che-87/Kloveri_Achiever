@@ -2,6 +2,7 @@ declare const classNames: {
   readonly modalOverlay: "modalOverlay";
   readonly modalContent: "modalContent";
   readonly closeButton: "closeButton";
+  readonly textTitle: "textTitle";
   readonly imagesGrid: "imagesGrid";
   readonly card: "card";
   readonly imageCard: "imageCard";

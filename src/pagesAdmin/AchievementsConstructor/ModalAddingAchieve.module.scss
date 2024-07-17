@@ -13,13 +13,13 @@
   .modalContent {
   position: relative;
   max-width: 1115px;
-  max-height: 1115px;
+  max-height: 600px;
   width: 85%; /* Ширина контента 100% от родительского контейнера */
-  height: 85%; /* Высота контента 100% от родительского контейнера */
+  height: 80%; /* Высота контента 100% от родительского контейнера */
   padding: 28px 32px;
   border-radius: 16px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--additional-background-color); /* фон контента */
+  background-color: var(--additional-2-background-color); /* фон контента */
  
     .closeButton {
       position: absolute;
@@ -72,26 +72,35 @@
       height: 324px;
     }
     .titleHeadIcon{
-      margin-top: 40px;
+      margin-top: 30px;
       position: relative;
       top: -318px;
       text-align: center;
+      margin-left: 10px;
       margin-right: 34px;
-      font-size: 20px;
+      font-size: 18px;
+      max-width: 200px; 
+      word-wrap: break-word; /* Перенос слов на новую строку */
+      white-space: normal; /* Установка обычного пространства для переноса текста */
     }
     .descriptionHeadIcon{
       position: relative;
-      font-size: 14px;
+      font-size: 12px;
       text-align: center;
       top: -339px;
+      margin-left: 10px;
       margin-right: 34px;
+      max-width: 200px; 
+      word-wrap: break-word; /* Перенос слов на новую строку */
+      overflow: hidden; /* Обрезка текста, выходящего за пределы блока */
+      text-overflow: ellipsis; /* Добавление троеточия в конце обрезанного текста */
     }
     .rankHeadIcon {
       position: relative;
       top: -355px;
       text-align: center;
       margin-right: 34px;
-      font-size: 18px;
+      font-size: 16px;
     }
     .iconAddPhoto{
       position: relative;
@@ -180,7 +189,7 @@
     
     }
     .labelFileDownload:hover{
-      background: rgba(106, 17, 195, 0.32);
+      background: rgba(101, 9, 240, 0.32);
         border: 1px solid rgba(118, 45, 191, 0.32);
         color: white;
         opacity: 0.8;
@@ -238,7 +247,7 @@
 
       textarea {
         resize: vertical;
-        max-height: 260px;
+        max-height: 210px;
       }
 
       button,
@@ -255,7 +264,7 @@
         transition: background 0.3s ease;
 
         &:hover {
-          background: rgba(106, 17, 195, 0.32);
+          background: rgba(101, 9, 240, 0.32);
           border: 1px solid rgba(118, 45, 191, 0.32);
           color: white;
           opacity: 0.8;

@@ -36,7 +36,7 @@ const ModalChooseBG: React.FC<ModalChooseBGProps> = ({
         <button onClick={closeModal} className={styles.closeButton}>
           &times;
         </button>
-        <h2>Выбрать фон</h2>
+        <h2 className={styles.textTitle}>Выбрать фон</h2>
         <div className={styles.backgroundsGrid}>
           {backgrounds.map((background) => (
             <div

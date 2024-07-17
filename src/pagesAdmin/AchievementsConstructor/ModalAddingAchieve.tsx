@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import axios from "axios";
 import styles from "./ModalAddingAchieve.module.scss";
 import cardAchieveBG from "../../assets/CardAchievementBG.png";
-import iconAddPhoto from "../../assets/iconAddPhoto2.png";
+import iconAddPhoto from "../../assets/iconAddPhoto.png";  //iconAddPhoto2.png - оранжевый
 import iconPlus from "../../assets/bigAdd.svg"
 import { fetchPostAchieveLibrary } from "../../api/apiService";
 import { IAchieve } from "../../types/IAchieve";
@@ -42,7 +42,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
 
   useEffect(() => {
     if (backgrounds && backgrounds.length > 0) {
-      setSelectedBackground(backgrounds[5].data.image); // [5] - оранжевый фон, [3] - фиолетовый
+      setSelectedBackground(backgrounds[3].data.image); // [5] - оранжевый фон, [3] - фиолетовый
     }
 
       const handleEscKey = (event: KeyboardEvent) => {
@@ -139,9 +139,18 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
     const url = URL.createObjectURL(file);
     setSelectedImage(file);
     setImagePreview(url)
-  }
-      
     }
+  }
+
+  //функция обрезания дескрипшна с троеточием:
+  const truncateDescription = (text: string): string => {
+    const maxLength = 40;
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength - 3) + "...";
+    } else {
+      return text;
+    }
+  };
 
   return (
     <div>
@@ -191,7 +200,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
                   }
               {
                 title? (
-                  <p className={styles.titleHeadIcon} >{title}</p>
+                  <p className={styles.titleHeadIcon}>{title}</p>
                 ) : (
                   <p className={styles.titleHeadIcon}>Название</p>
                 )
@@ -199,7 +208,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
               
               {
                 description ? (
-                  <p className={styles.descriptionHeadIcon}>{description}</p>
+                  <p className={styles.descriptionHeadIcon}>{truncateDescription(description)}</p>
                 ) : (
                   <p className={styles.descriptionHeadIcon}>Описание</p>
                 )

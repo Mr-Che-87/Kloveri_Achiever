@@ -1,25 +1,33 @@
 .modalOverlay {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1000; /* Выше всех остальных элементов */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.6); /* Чёрный полупрозрачный фон основного окна */
 }
 
 .modalContent {
-  background: #2c2c2c;
-  padding: 20px;
-  border-radius: 8px;
-  width: 80%;
+
+  // width: 80%;
+  // max-width: 800px;
+  // max-height: 90%;
+  // overflow: hidden;
+
+
+
+  position: relative;
   max-width: 800px;
   max-height: 90%;
-  overflow: hidden;
-  position: relative;
+  width: 80%; 
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--additional-2-background-color); /* фон контента */
 }
 
 .closeButton {
@@ -33,10 +41,13 @@
   color: white;
 }
 
-h2 {
-  text-align: center;
+.textTitle  {
   color: white;
   margin-bottom: 20px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 8px;
 }
 
 .imagesGrid {
@@ -49,8 +60,8 @@ h2 {
 }
 .card {
   display: flex;
-  width: 136px;
-  height: 180px;
+  width: 140px;
+  height: 200px;
   align-items: center;
   flex-direction: column;
   background-image: url(../../assets/CardAchievementBG.png);
@@ -116,36 +127,43 @@ h2 {
   margin-top: 20px;
   position: sticky;
   bottom: 0;
-  background: #2c2c2c;
   padding: 10px 0;
 
   .cancelButton {
-    background: #ff4d4d;
+    margin-top: 20px;
+    background: #6A11C3;
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
     color: white;
     font-size: 1rem;
-    transition: background 0.3s ease;
+    transition:
+      background-color 0.3s,
+      transform 0.3s;
 
     &:hover {
-      background: #ff1a1a;
+      opacity: 1;
+      transform: scale(1.05);
     }
   }
 
   .confirmButton {
-    background: #4caf50;
+    margin-top: 20px;
+    background: #AB57FF;
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
     color: white;
     font-size: 1rem;
-    transition: background 0.3s ease;
+    transition:
+      background-color 0.3s,
+      transform 0.3s;
 
     &:hover {
-      background: #45a049;
+      opacity: 1;
+      transform: scale(1.05);
     }
   }
 }
