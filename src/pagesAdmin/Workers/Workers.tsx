@@ -13,15 +13,17 @@ import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
 import AddWorkerButton from "./AddWorkerButton/AddWorkerButton";
 //import AddTeamButton from "../Teams/AddTeamButton/AddTeamButton";
 import WorkersModal from "./WorkersModal/WorkersModal";
-import { fetchGetAllUsers} from "../../api/apiService"; //api
+import { fetchGetAllUsers, fetchGetLink} from "../../api/apiService"; //api
+import { ILinkData } from "../../types/ILinkData";
 
 
 
 interface IWorkers {
   user: IUser;
   userData: IUser;
-
+  linkData: ILinkData;
 }
+
 
 // Поиск по имени и фамилии
 function filterName(searchTextName: string, nameList: any[]) {
@@ -34,12 +36,12 @@ function filterName(searchTextName: string, nameList: any[]) {
   });
 }
 
-export default function Workers({ user, userData  }: IWorkers) {
+export default function Workers({ user, userData, }: IWorkers) {
   const [userList, setUserList] = useState<IUser[]>([]); //state списка всех юзеров
   const [isSearchName, setIsSearchName] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const filtredUserList = filterName(isSearchName, userList);
-
+  const [userSpecialty, setUserSpecialty] = useState<ILinkData[]>([])
   const handleAddContact = (newUser: IUser) => {
     setUserList((prevUserList) => [newUser, ...prevUserList]);
   };
@@ -47,6 +49,10 @@ export default function Workers({ user, userData  }: IWorkers) {
   //   const handleUpdateObject = () => {
   //     setUpdateObject(prevState => !prevState);
   // };
+
+
+
+
 
   console.log("filtredUserList", filtredUserList);
   //GET-Получение списка всех пользователей:
@@ -60,6 +66,13 @@ export default function Workers({ user, userData  }: IWorkers) {
       .catch((error) => {
         console.error("Ошибка при получении списка пользователей", error);
       });
+      fetchGetLink()
+      .then((response) => {
+        setUserSpecialty(response.data)
+      })
+      .catch((error) =>{
+        console.error("Ошибка при получении списка пользователей", error);
+      })
 
   }, []);
 
@@ -104,7 +117,7 @@ export default function Workers({ user, userData  }: IWorkers) {
                         user={user} //передаем данные пользователя в WorkerInitial
                         showEmail={true}
                         avatarSize={"small"}
-                        
+                       
                       />
                     </NavLink>
                     <div className={styles.workersTeamName}>

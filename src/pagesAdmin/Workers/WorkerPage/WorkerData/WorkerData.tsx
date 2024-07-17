@@ -18,7 +18,7 @@ interface WorkerDataProps {
   userData: IUser | null;
   avatarSize: "small" | "large";
   linkData: ILinkData | null;
-  user:IUser | null;
+  user:IUser | null ;
 }
 
 interface IOtherFormData {

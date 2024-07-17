@@ -8,14 +8,12 @@ import { IUser } from "../../../../types/IUser";
 
 interface WorkerInitialProps {
   user: IUser;
-
   showEmail: boolean;  //отображение мейла
   avatarSize: "small" | "large"; 
+
 }
 
 export default function WorkerInitial({
-
-  linkData,
   user,
   avatarSize,
 }: WorkerInitialProps) {
@@ -52,7 +50,7 @@ export default function WorkerInitial({
         )}
     
         <div>
-        
+          {`${user.specialty}` || "Загружаем должность"}
         </div>
       </div>
     </div>
