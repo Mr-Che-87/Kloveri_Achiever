@@ -17,7 +17,6 @@ import {
 interface WorkerAchievementsProps {
   userId: string | undefined;
 }
-
 interface CSSPropertiesWithVars extends CSSProperties {
   '--background-image'?: string;
 }
@@ -189,7 +188,6 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
 
       {showDeleteModal && (
         <ConfirmModal
-          message="Вы уверены, что хотите удалить ачивку?"
           onConfirm={handleDeleteConfirm}
           onCancel={handleCancel}
         />

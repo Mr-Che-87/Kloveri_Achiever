@@ -1,19 +1,22 @@
 import styles from './ConfirmModal.module.scss';
 
 interface ConfirmModalProps {
-  message: string;
   onConfirm: () => void;
   onCancel: () => void;
 }
 
-const ConfirmModal: React.FC<ConfirmModalProps> = ({ message, onConfirm, onCancel }) => {
+const ConfirmModal: React.FC<ConfirmModalProps> = ({ onConfirm, onCancel }) => {
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <p>{message}</p>
+        <p>Вы уверены, что хотите лишить сотрудника этого достижения?</p>
         <div className={styles.buttonGroup}>
-          <button className={styles.confirmButton} onClick={onConfirm}>Удалить</button>  {/*удалить/наградить */}
-          <button className={styles.cancelButton} onClick={onCancel}>Отмена</button>
+          <button className={styles.confirmButton} onClick={onConfirm}> {/*удалить/наградить */}
+            Лишить 
+          </button>  
+          <button className={styles.cancelButton} onClick={onCancel}>
+            Отмена
+            </button>
         </div>
       </div>
     </div>

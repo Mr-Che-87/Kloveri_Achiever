@@ -1,7 +1,7 @@
 declare const classNames: {
   readonly modalOverlay: "modalOverlay";
   readonly modalContent: "modalContent";
-  readonly actions: "actions";
+  readonly buttonGroup: "buttonGroup";
   readonly confirmButton: "confirmButton";
   readonly cancelButton: "cancelButton";
 };

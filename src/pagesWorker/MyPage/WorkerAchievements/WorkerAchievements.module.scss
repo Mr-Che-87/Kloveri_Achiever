@@ -28,13 +28,16 @@
 }
 
 .workerAchievementsList {
-  margin-top: 30px;
-  height: 650px;
   overflow-y: auto; /* вертикальный скролл */
-  overflow-x: hidden; /* Скрыть горизонтальный скролл */
+  overflow-x: hidden; /* cкрыть горизонтальный скролл */
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Три столбца равной ширины */
-  //gap: 20px; 
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));  //старое minmax(210px,..));
+  // grid-template-columns: repeat(3, 1fr); /* Три столбца равной ширины */
+  grid-gap: 30px;
+  width: 100%;
+  max-width: 780px;
+  height: 650px;
+  margin: 30px;
 }
 
 .achievementCard {
@@ -45,8 +48,8 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  width: 210px;  
-  height: 274px;  //НАДО БОЛЬШЕ
+  width: 230px;   //старое 210px
+  height: 300px;  //старое 274px
   flex-direction: column;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -71,15 +74,13 @@
       width: 100%;
       height: 100%;
       background-image: var(--background-image);
+      background-size: 125%;
       background-repeat: no-repeat;
       background-position: center;
       z-index: 0;
     }
 
-    &:hover .deleteButton {
-      display: flex;
-    }
-
+    
   .achieveImg {
     width: 120px;
     height: 120px;

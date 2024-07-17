@@ -5,7 +5,6 @@ declare const classNames: {
   readonly searchAchieveInput: "searchAchieveInput";
   readonly workerAchievementsList: "workerAchievementsList";
   readonly achievementCard: "achievementCard";
-  readonly deleteButton: "deleteButton";
   readonly achieveImg: "achieveImg";
   readonly achieveContent: "achieveContent";
   readonly achieveTitle: "achieveTitle";
