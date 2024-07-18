@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+//import { useParams } from "react-router-dom";
 import styles from "./MyPage.module.scss";
 import WorkerData from "./WorkerData/WorkerData";
 // import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 import WorkerRanks from "./WorkerRanks/WorkerRanks";
 import { IUser } from "../../types/IUser";
+import { IConnection } from "../../types/IConnection";
 import { fetchGetLink, fetchGetUserData } from "../../api/apiService";  //api
 
 
@@ -21,10 +23,13 @@ interface ILinkData {
 
 export default function MyPage({onPhotoUpdate}: IMyPageProps) {
   // const { profileId } = useParams();    //получаем profileId из параметров маршрута
+  const profileId = localStorage.getItem("profileId")
   const [userData, setUserData] = useState<IUser | null>(null); //state данных юзера
   const [isEditing, setIsEditing] = useState(false);  //редактирование полей
- const profileId = localStorage.getItem("profileId")
  const [linkData, setLinkData] = useState<ILinkData | null>(null);
+ //стейт для подъёма состояния (lifting state up) баллов ачивок из WorkerAchievements,
+//чтобы баллы юзера отображались без перезагрузки:
+const [userAchievements, setUserAchievements] = useState<IConnection[]>([]); 
 
 
  useEffect(() => {
@@ -101,6 +106,13 @@ console.log(JSON.stringify(userData))
   //   }
   // }, [ profileId]);
 
+
+
+  //подъём состояния (lifting state up):
+  const handleUpdateUserAchievements = (updatedAchievements: IConnection[]) => {
+    setUserAchievements(updatedAchievements);
+  };
+
   //Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
 
@@ -126,12 +138,16 @@ console.log(JSON.stringify(userData))
 
       <section className={styles.workerRanksAndAchievements}>
         <div className={styles.workerRanks}>
-        <WorkerRanks />
+        <WorkerRanks userAchievements={userAchievements}/> {/*подъём состояния (lifting state up)*/}
         </div>
 
         <div className={styles.workerAchievements}>
         {userData && (
-          <WorkerAchievements     userId={userData.profile_id} />  //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements 
+          <WorkerAchievements 
+            //прокидываем uuid юзера(из userData<IUser> внутрь WorkerAchievements    
+            userId={userData.profile_id}  
+            //подъём состояния (lifting state up):
+            onUpdateUserAchievements={handleUpdateUserAchievements}/>  
         )}
         </div>
       </section>
