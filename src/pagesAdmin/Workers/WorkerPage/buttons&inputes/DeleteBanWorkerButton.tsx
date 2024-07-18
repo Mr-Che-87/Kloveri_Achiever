@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./buttons.module.scss";
-import ConfirmModal from "../ConfirmModal/ConfirmModal"; // Import the ConfirmModal component
 import { fetchDeleteUser } from "../../../../api/apiService";
 import { IUser } from "../../../../types/IUser";
 import { useState } from "react";
+import ConfirmModalDelete from "../ConfirmModalDelete/ConfirmModalDelete";
 
 interface DeleteBanWorkerButtonProps {
   setUserData: React.Dispatch<React.SetStateAction<IUser | null>>;
@@ -55,7 +55,7 @@ export function DeleteBanWorkerButton({ setUserData }: DeleteBanWorkerButtonProp
         Удалить аккаунт
       </button>
       {showConfirmModal && (
-        <ConfirmModal
+        <ConfirmModalDelete
           message="Вы уверены, что хотите удалить?"
           onConfirm={handleConfirm}
           onCancel={handleCancel}
