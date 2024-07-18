@@ -2,6 +2,7 @@ declare const classNames: {
   readonly workerModalAddUser: "workerModalAddUser";
   readonly title: "title";
   readonly formFilling__rightContent: "formFilling__rightContent";
+  readonly closeButton: "closeButton";
   readonly WorkersModalAddUserContent: "WorkersModalAddUserContent";
   readonly header: "header";
   readonly avatarUser: "avatarUser";

@@ -17,6 +17,15 @@
 .formFilling__rightContent{
   visibility: inherit;
 }
+.closeButton{
+  position: absolute;
+  right: 6px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+}
 .WorkersModalAddUserContent {
   position: fixed;
   left: 436px;

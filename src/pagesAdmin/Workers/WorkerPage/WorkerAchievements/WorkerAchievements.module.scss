@@ -1,5 +1,5 @@
 .workerAchievements {
-  border: 1px solid red !important;
+
   visibility: inherit;
   max-width: 700px;
   h1{
@@ -31,6 +31,33 @@
     }
   }
 }
+.deleteButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 0, 0, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.25rem;
+  z-index: 1;
+
+  &:hover {
+    background: rgba(255, 0, 0, 1);
+  }
+}
+.achievementCard:hover .deleteButton {
+display: flex;
+}
+
+
+
 
 .workerAchievementsList {
   display: grid;

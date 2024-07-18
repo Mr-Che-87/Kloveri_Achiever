@@ -3,8 +3,9 @@ declare const classNames: {
   readonly workerAchievementsNav: "workerAchievementsNav";
   readonly allAchieveButton: "allAchieveButton";
   readonly searchAchieveInput: "searchAchieveInput";
-  readonly workerAchievementsList: "workerAchievementsList";
+  readonly deleteButton: "deleteButton";
   readonly achievementCard: "achievementCard";
+  readonly workerAchievementsList: "workerAchievementsList";
   readonly achieveImg: "achieveImg";
   readonly achieveContent: "achieveContent";
   readonly achieveTitle: "achieveTitle";

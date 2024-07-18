@@ -64,9 +64,11 @@ const WorkersModal = ({
     <>
       {isOpen && (
         <div className={styles.modalOverlay}>
-
+      
           <div className={styles.workersModal}>
-           
+               <button onClick={onClose} className={styles.closeButton}>
+          &times;
+          </button>
             <div
               className={styles.workersModal__content}
               onClick={onWrapperClick}

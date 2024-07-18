@@ -289,6 +289,9 @@ function WorkersModalAddUser({
   return (
     <div className={styles.workerModalAddUser}>
       <div className={styles.WorkersModalAddUserContent}>
+      <button onClick={onClose} className={styles.closeButton}>
+          &times;
+          </button>
         <div className={styles.title}>
           <img src={iconPlus} alt="" />
           <p>Добавить сотрудника</p>
