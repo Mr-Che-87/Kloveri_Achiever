@@ -64,22 +64,16 @@ const LoginAdmin: React.FC = () => {
     setApiError("");
   };
 
-<<<<<<< HEAD
-=======
   // Валидация email и пароля
   const validateEmail = (email: string) => {
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return re.test(String(email).toLowerCase());
   };
  
-
->>>>>>> dev1
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLogin(e.target.value);
   };
 
-<<<<<<< HEAD
-=======
   const handleEmailBlur = () => {
     if (!validateEmail(login)) {
       setLoginError("Адрес почты некорректен!");
@@ -88,13 +82,11 @@ const LoginAdmin: React.FC = () => {
     }
    };
 
->>>>>>> dev1
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-<<<<<<< HEAD
-=======
+
   const handlePasswordBlur = () => {
     if (password.length < 6) {
      setPasswordError("Ваш пароль слишком короткий!");
@@ -103,8 +95,6 @@ const LoginAdmin: React.FC = () => {
     }
   };
 
-
->>>>>>> dev1
   const handleRegister = () => {
     navigate("/admin-panel/registrations");
   };
@@ -122,10 +112,7 @@ const LoginAdmin: React.FC = () => {
           placeholder="Это ваш адрес корпоративной почты"
           value={login}
           onChange={handleEmailChange}
-<<<<<<< HEAD
-=======
           onBlur={handleEmailBlur}
->>>>>>> dev1
         />
         {loginError && (
           <span className={styles.errorMessage}>{loginError}</span>
@@ -139,10 +126,7 @@ const LoginAdmin: React.FC = () => {
             placeholder="Минимум 6 символов"
             value={password}
             onChange={handlePasswordChange}
-<<<<<<< HEAD
-=======
             onBlur={handlePasswordBlur}
->>>>>>> dev1
           />
           <span
             className={styles.passwordToggle}
@@ -155,10 +139,6 @@ const LoginAdmin: React.FC = () => {
           <span className={styles.errorMessage}>{passwordError}</span>
         )}
       </div>
-<<<<<<< HEAD
-      <div>
-        <button
-=======
       {/*
       <div>
         <label>Ваша роль:</label>
@@ -192,9 +172,8 @@ const LoginAdmin: React.FC = () => {
       */}
       <div className={styles.welcomeButtons}>
         <button className={styles.enterButton}
->>>>>>> dev1
-          onClick={handleLogin}
-          disabled={!isFormValid}
+                onClick={handleLogin}
+                disabled={!isFormValid}
         >
           Войти
         </button>

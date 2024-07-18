@@ -211,11 +211,6 @@ const Registration: React.FC = () => {
           <span className={styles.errorMessage}>{validationErrors.email}</span>
         )}
       </div>
-<<<<<<< HEAD
-      <div>
-        <button onClick={handleRegistration}>Регистрация</button>
-        <button onClick={handleReset}>Сброс</button>
-=======
       {/*
       <div>
         <label>Тип роли:</label>
@@ -248,7 +243,6 @@ const Registration: React.FC = () => {
             Отмена
         </button>
         </div>
->>>>>>> dev1
       </div>
       {apiError && <span className={styles.errorMessage}>{apiError}</span>}
     </div>

@@ -4,21 +4,15 @@ import styles from "./Login.module.scss";
 import WelcomeImg from "@/assets/Welcome-img.png";
 
 const Login: React.FC = () => {
-<<<<<<< HEAD
-=======
 //const [role, setRole] = useState<"admin" | "worker" | "">("");
 //const [organizationId, setOrganizationId] = useState<string | null>(null);
->>>>>>> dev1
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState("");
-<<<<<<< HEAD
-=======
   const [profileId, setProfileId] = useState<string | null>(null);
->>>>>>> dev1
 
   const navigate = useNavigate();
   
@@ -63,14 +57,9 @@ const Login: React.FC = () => {
     }
   };
 
-<<<<<<< HEAD
-  const handleReset = () => {
-=======
-
   const handleReset = () => {
     //setRole("");
     // setOrganizationId(null);
->>>>>>> dev1
     setLogin("");
     setPassword("");
     setLoginError("");
@@ -78,21 +67,16 @@ const Login: React.FC = () => {
     setApiError("");
   };
 
-<<<<<<< HEAD
-=======
   // Валидация email и пароля
  const validateEmail = (email: string) => {
    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
    return re.test(String(email).toLowerCase());
  };
 
->>>>>>> dev1
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLogin(e.target.value);
   };
 
-<<<<<<< HEAD
-=======
   const handleEmailBlur = () => {
     if (!validateEmail(login)) {
       setLoginError("Адрес почты некорректен!");
@@ -101,13 +85,10 @@ const Login: React.FC = () => {
     }
    };
 
->>>>>>> dev1
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-<<<<<<< HEAD
-=======
    const handlePasswordBlur = () => {
      if (password.length < 6) {
       setPasswordError("Ваш пароль слишком короткий!");
@@ -116,7 +97,6 @@ const Login: React.FC = () => {
      }
    };
 
->>>>>>> dev1
   const handleRegister = () => {
     navigate("/registrations");
   };
@@ -134,10 +114,7 @@ const Login: React.FC = () => {
           placeholder="Это ваш адрес корпоративной почты"
           value={login}
           onChange={handleEmailChange}
-<<<<<<< HEAD
-=======
           onBlur={handleEmailBlur}
->>>>>>> dev1
         />
         {loginError && (
           <span className={styles.errorMessage}>{loginError}</span>
@@ -151,10 +128,7 @@ const Login: React.FC = () => {
             placeholder="Минимум 6 символов"
             value={password}
             onChange={handlePasswordChange}
-<<<<<<< HEAD
-=======
             onBlur={handlePasswordBlur}
->>>>>>> dev1
           />
           <span
             className={styles.passwordToggle}
@@ -167,10 +141,6 @@ const Login: React.FC = () => {
           <span className={styles.errorMessage}>{passwordError}</span>
         )}
       </div>
-<<<<<<< HEAD
-      <div>
-        <button
-=======
       {/*
       <div>
         <label>Ваша роль:</label>
@@ -204,17 +174,11 @@ const Login: React.FC = () => {
       */}
       <div className={styles.welcomeButtons}>
         <button className={styles.enterButton}
->>>>>>> dev1
           onClick={handleLogin}
           disabled={!isFormValid}
         >
           Войти
         </button>
-<<<<<<< HEAD
-        <button onClick={handleReset}>Отмена</button>
-        <button onClick={handleRegister}>Регистрация</button>{" "}
-      </div>
-=======
         <button className={styles.cancelButton} 
                 onClick={handleReset}>
           Отмена
@@ -226,8 +190,7 @@ const Login: React.FC = () => {
           Регистрация
         </button>
         </div>
-      
->>>>>>> dev1
+
       {apiError && <span className={styles.errorMessage}>{apiError}</span>}
     </div>
   );

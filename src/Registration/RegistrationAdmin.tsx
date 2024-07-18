@@ -139,22 +139,16 @@ const RegistrationAdmin: React.FC = () => {
     setPhone("");
     setEmail("");
     setValidationErrors({});
-<<<<<<< HEAD
-=======
   };
 
   const handleReturnLogin = () => {
     navigate("/admin-panel/login");
->>>>>>> dev1
   };
 
   return (
     <div className={styles.registrationContainer}>
       <ToastContainer />
       <h1>Регистрация администратора</h1>
-<<<<<<< HEAD
-      <div>
-=======
       {/*
       <div>
         <label>ID Организации:  642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389</label>  
@@ -166,8 +160,7 @@ const RegistrationAdmin: React.FC = () => {
         />
       </div>
 */}
-<div>
->>>>>>> dev1
+      <div>
         <label>Логин:</label>
         <input
           type="text"
@@ -180,21 +173,6 @@ const RegistrationAdmin: React.FC = () => {
         )}
       </div>
       <div className={styles.passwordContainer}>
-<<<<<<< HEAD
-        <label>Пароль:</label>
-        <input
-          type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <span
-          className={styles.passwordToggle}
-          onClick={() => setShowPassword((prev) => !prev)}
-        >
-          {showPassword ? "🙈" : "👁️"}
-        </span>
-        {validationErrors.password && (
-=======
           <label>Пароль:</label>
           <input
             type={showPassword ? "text" : "password"}
@@ -209,7 +187,6 @@ const RegistrationAdmin: React.FC = () => {
             {showPassword ? "🙈" : "👁️"}
           </span>
           {validationErrors.password && (
->>>>>>> dev1
           <span className={styles.errorMessage}>
             {validationErrors.password}
           </span>
@@ -263,11 +240,6 @@ const RegistrationAdmin: React.FC = () => {
           <span className={styles.errorMessage}>{validationErrors.email}</span>
         )}
       </div>
-<<<<<<< HEAD
-      <div>
-        <button onClick={handleRegistration}>Регистрация</button>
-        <button onClick={handleReset}>Сброс</button>
-=======
       {/*
       <div>
         <label>Тип роли:</label>
@@ -300,7 +272,7 @@ const RegistrationAdmin: React.FC = () => {
             Отмена
         </button>
         </div>
->>>>>>> dev1
+
       </div>
     </div>
   );
