@@ -1,15 +1,17 @@
 .workerPage {
-  max-width: 1400px;  //НЕ РАБОТАЕТ!!!!!
+ border:1px solid red !important;
+  max-width: 80vw;  //НЕ РАБОТАЕТ!!!!!
   display: flex;
   flex-direction: row;
   margin-left: 40px;
   justify-content: space-around;
-  gap: 135px;
+  gap: 2%;
 }
 .workerSection {
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  margin-top: 30px;  
+ 
 }
 .workerInitial {
   display: flex;

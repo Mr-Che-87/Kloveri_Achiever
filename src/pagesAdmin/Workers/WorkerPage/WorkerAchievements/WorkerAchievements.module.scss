@@ -1,14 +1,19 @@
 .workerAchievements {
+  border: 1px solid red !important;
   visibility: inherit;
+  max-width: 700px;
   h1{
+    max-width: 10px;
     font-size: 40px;
     position: relative;
     left: 20px;
+  
   }
 }
 
 .workerAchievementsNav {
   ul {
+    max-width: 200px;
     display: flex;
     flex-direction: row;
     position: relative;
@@ -17,7 +22,7 @@
     gap: 20px;
     list-style: none;
 
-    .giveAchieveButton {
+    .allAchieveButton {
       visibility: inherit;
     }
 
@@ -28,16 +33,12 @@
 }
 
 .workerAchievementsList {
-  overflow-y: auto; /* вертикальный скролл */
-  overflow-x: hidden; /* cкрыть горизонтальный скролл */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));  //старое minmax(210px,..));
-  // grid-template-columns: repeat(3, 1fr);  /* Три столбца равной ширины */
-  grid-gap: 30px;
-  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+  grid-gap: 1em;
   max-width: 780px;
   height: 650px;
-  margin: 30px;
+  padding: 1rem;
 }
 
 .achievementCard {
@@ -80,32 +81,7 @@
       z-index: 0;
     }
 
-  .deleteButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(255, 0, 0, 0.8);
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #fff;
-    font-size: 1.25rem;
-    z-index: 1;
-
-    &:hover {
-      background: rgba(255, 0, 0, 1);
-    }
-  }
-
-  &:hover .deleteButton {
-    display: flex;
-  }
-
+    
   .achieveImg {
     width: 120px;
     height: 120px;
@@ -159,7 +135,7 @@
 
 
 button {
-  position: relative;
+  position: relative; 
 
   &:focus {
     outline: none;

@@ -1,12 +1,12 @@
 .workerRanksMenu {
+  position: relative;
+  left: 20px;
   display: flex;
   flex-direction: row;
-  flex-grow: 1;
   border: 1px solid white;
     border-radius: 20px;
-    position: relative;
-    left: 20px;
- 
+    max-width: 680px;
+    width: 100%;
 }
 
 .workerRanksTitle {
