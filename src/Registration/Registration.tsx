@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,6 +7,7 @@ import styles from "./Registration.module.scss";
 const Registration: React.FC = () => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -122,6 +123,10 @@ const Registration: React.FC = () => {
     setValidationErrors({});
   };
 
+  const handleReturnLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <div className={styles.registrationContainer}>
       <ToastContainer />
@@ -131,20 +136,28 @@ const Registration: React.FC = () => {
         <input
           type="text"
           value={login}
+          placeholder="Это ваш адрес корпоративной почты"
           onChange={(e) => setLogin(e.target.value)}
         />
         {validationErrors.login && (
           <span className={styles.errorMessage}>{validationErrors.login}</span>
         )}
       </div>
-      <div>
-        <label>Пароль:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {validationErrors.password && (
+      <div className={styles.passwordContainer}>
+          <label>Пароль:</label>
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Минимум 6 символов"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <span
+            className={styles.passwordToggle}
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? "🙈" : "👁️"}
+          </span>
+          {validationErrors.password && (
           <span className={styles.errorMessage}>
             {validationErrors.password}
           </span>
@@ -198,9 +211,44 @@ const Registration: React.FC = () => {
           <span className={styles.errorMessage}>{validationErrors.email}</span>
         )}
       </div>
+<<<<<<< HEAD
       <div>
         <button onClick={handleRegistration}>Регистрация</button>
         <button onClick={handleReset}>Сброс</button>
+=======
+      {/*
+      <div>
+        <label>Тип роли:</label>
+        <select
+          value={roleType}
+          onChange={(e) =>
+            setRoleType(e.target.value as "employee" | "director")
+          }
+        >
+          <option value="employee">Работник</option>
+          <option value="director">Директор</option>
+        </select>
+      </div>
+      */}
+      <div className={styles.вuttonsGroup}>
+        <div>
+          <button className={styles.registrationButton} 
+                  onClick={handleRegistration}>
+            Регистрация
+          </button>
+          <button className={styles.resetButton}
+                  onClick={handleReset}>
+            Сброс
+          </button>
+        </div>
+        <div className={styles.cancelButtonContainer}>
+          <button className={styles.cancelButton}
+                  onClick={handleReturnLogin} 
+                   >
+            Отмена
+        </button>
+        </div>
+>>>>>>> dev1
       </div>
       {apiError && <span className={styles.errorMessage}>{apiError}</span>}
     </div>
