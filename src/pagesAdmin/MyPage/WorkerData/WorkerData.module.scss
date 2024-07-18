@@ -25,10 +25,10 @@
   padding: 10px;
   cursor: pointer;
 
-  img {
+  p {
     position: relative;
-    width: 50px;
-    height: 50px;
+    text-align: center;
+    font-size: 11px;
     left: 13px;
     top: -4px;
   }
@@ -112,9 +112,7 @@ h1 {
   &:enabled {
     background: #f4f4f405;
   }
-  &:focus {
-    background-color: #193117; //гыгыгы
-  }
+
 }
 .divider {
   width: 100%;

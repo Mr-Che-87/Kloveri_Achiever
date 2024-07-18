@@ -4,9 +4,8 @@ import styles from "./WorkersModal.module.scss";
 import iconDocument from "../../../assets/iconDocument.svg";
 import WorkersModalAddUser from "../WorkersModalAddUser/WorkersModalAddUser";
 import { IUser } from "../../../types/IUser";
-import iconAddPlus from "../../../assets/plus.svg"
-import iconChain from "../../../assets/chain.svg"
-
+import iconAddPlus from "../../../assets/plus.svg";
+import iconChain from "../../../assets/chain.svg";
 
 interface WorkersModalProps {
   isOpen: boolean;
@@ -23,26 +22,22 @@ const WorkersModal = ({
   userData,
   onAddContact,
 }: WorkersModalProps) => {
-  // Добавление состояния для contacts и setContacts функции
-
   const [showLink, setShowLink] = useState(false);
-  const userDataString = localStorage.getItem("userData")
-  
-
+  const userDataString = localStorage.getItem("userData");
 
   let organizationId = "";
-  if(userDataString){
-    try{
+  if (userDataString) {
+    try {
       const userData = JSON.parse(userDataString);
-      organizationId = userData.organization_id
-    } catch(error){
-      console.error("Ошибка при парсинге данных userData из localStorage:", error)
+      organizationId = userData.organization_id;
+    } catch (error) {
+      console.error("Ошибка при парсинге данных userData из localStorage:", error);
     }
-  }else{
-    console.log("Данные userData не найдены в localStorage")
+  } else {
+    console.log("Данные userData не найдены в localStorage");
   }
 
-  const [link, ] = useState(`https://achiever.skroy.ru/registrations/?organization_id=${organizationId}`);
+  const [link,] = useState(`https://achiever.skroy.ru/registrations/?organization_id=${organizationId}`);
   const handleButtonClick = () => {
     setShowLink(!showLink);
   };
@@ -53,7 +48,6 @@ const WorkersModal = ({
 
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
 
-  
   // закрывает модальное вне контента
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onWrapperClick = (event: any) => {
@@ -65,91 +59,92 @@ const WorkersModal = ({
   const handleAddUserClick = () => {
     setIsAddUserOpen(!showLink);
   };
+
   return (
     <>
       {isOpen && (
-        <div className={styles.workersModal}>
-          <div
-            className={styles.workersModal__content}
-            onClick={onWrapperClick}
-          >
-            <div className={styles.title}>
-              <h3>
-                <img
-                src={iconAddPlus}
-                />
-                Добавить сотрудников
-                </h3>
-            </div>
-            <div className={styles.workersModal__form}>
-              <div className={styles.workersModal__upload}>
-                <button onClick={handleButtonClick}>
-                  <img src={iconChain} alt="Chain" />
-                {showLink ? 'Скрыть ссылку' : 'Показать ссылку для регистрации'}
-                </button>
-                {showLink && (
-                  <div>
-                    <input className={styles.linkShow} type="text" value={link} readOnly />
-                  </div>
-                )}
-              </div>
-              <p className={styles.or}>или</p>
-              <form >
-                <button
-                  type="button"
-                  className={styles.btn_collaborator}
-                  onClick={handleAddUserClick}
-                >
-                  <img src={iconDocument} alt="" />
-                  Ввести данные
-                </button>
-              </form>
-            </div>
+        <div className={styles.modalOverlay}>
 
-            <div className={styles.workersModal__formCheckbox}>
-              {/* <form action="checkbox">
-                <input
-                  type="checkbox"
-                  name="checkbox"
-                  id="checkbox"
-                  className={styles.checkboxType}
-                /> */}
+          <div className={styles.workersModal}>
+           
+            <div
+              className={styles.workersModal__content}
+              onClick={onWrapperClick}
+            >
+              <div className={styles.title}>
+                <h3>
+                  <img src={iconAddPlus} />
+                  Добавить сотрудников
+                </h3>
+              </div>
+              <div className={styles.workersModal__form}>
+                <div className={styles.workersModal__upload}>
+                  <button onClick={handleButtonClick}>
+                    <img src={iconChain} alt="Chain" />
+                    {showLink ? 'Скрыть ссылку' : 'Показать ссылку для регистрации'}
+                  </button>
+                  {showLink && (
+                    <div>
+                      <input className={styles.linkShow} type="text" value={link} readOnly />
+                    </div>
+                  )}
+                </div>
+                <p className={styles.or}>или</p>
+                <form>
+                  <button
+                    type="button"
+                    className={styles.btn_collaborator}
+                    onClick={handleAddUserClick}
+                  >
+                    <img src={iconDocument} alt="" />
+                    Ввести данные
+                  </button>
+                </form>
+              </div>
+  
+              <div className={styles.workersModal__formCheckbox}>
+                {/* <form action="checkbox">
+                  <input
+                    type="checkbox"
+                    name="checkbox"
+                    id="checkbox"
+                    className={styles.checkboxType}
+                  /> */}
                 {/* <label htmlFor="checkbox">
                   <div>
                     <p className={styles.text__title}>
                       Отправить ссылки для авторизации
                     </p>
-                  </div>
-
+                  </label>
+  
                   <p className={styles.text__description}>
                     Если этот пункт отмечен, на почту сотрудников будут
                     автоматически отправлены ссылки для авторизации
                   </p>
-                </label> */}
-              {/* </form> */}
-            </div>
-            <div className={styles.btnGroups}>
-              <button className={styles.btn__close} onClick={onClose}>
-                Отменить
-              </button>
-              <button className={styles.btn__add}>
-                Добавить
-              </button>
+                </form> */}
+              </div>
+              <div className={styles.btnGroups}>
+                <button className={styles.btn__close} onClick={onClose}>
+                  Отменить
+                </button>
+                <button className={styles.btn__add}>
+                  Добавить
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      )}
-      {isAddUserOpen && (
-        <WorkersModalAddUser
-          onAddContact={handleAddContact}
-          userData={userData}
-          onClose={() => {
-            setIsAddUserOpen(false);
-          }}
-          user={user}
-          
-        />
-      )}
+        )}
+        {isAddUserOpen && (
+          <WorkersModalAddUser
+            onAddContact={handleAddContact}
+            userData={userData}
+            onClose={() => {
+              setIsAddUserOpen(false);
+            }}
+            user={user}
+          />
+        )}
     </>
   );
 };

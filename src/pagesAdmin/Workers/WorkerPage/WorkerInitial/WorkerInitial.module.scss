@@ -37,6 +37,20 @@
   line-height: 20px;
   opacity: 0.72;
 }
+
+.workerContainer{
+  display: flex;
+  align-items: baseline;
+
+}
+
+.workerSpecialty{
+  position: absolute;
+  top: 20px;
+  margin-left: 355px;
+  color: white;
+}
+
 .hidden {
   display: none; // Стиль для скрытия элемента
 }

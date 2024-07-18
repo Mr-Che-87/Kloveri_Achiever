@@ -8,7 +8,6 @@ import { fetchUpdateLink, fetchUpdateUser, fetchGetLink } from "../../../api/api
 import { format, parse } from "date-fns";
 import DatePicker from "react-datepicker";
 import { ILinkData } from "../../../types/ILinkData";
-import iconCamera from "../../../assets/camera-workerData.svg";
 
 
 interface WorkerDataProps {
@@ -248,7 +247,7 @@ export default function WorkerData({
       <div className={styles.workerInitial}>
         <div className={`${styles.avatarWrapper} ${styles[avatarSize]}`}>
           <img
-            className={`${styles.workerAvatar} ${styles[avatarSize]}`}
+            className={`${styles.workerAvatar} ${styles[avatarSize]} ${isEditing ? styles.editableField : ""}`}
             src={imageUrl? imageUrl : defaultAvatar}
             alt="Avatar"
           />
@@ -263,7 +262,7 @@ export default function WorkerData({
                   style={{ display: "none" }}
                 />
               <div className={styles.editIcon}>
-                  <img src={iconCamera} />
+              <p>Изменить изображений</p>
                 </div>
               </label>
             </>

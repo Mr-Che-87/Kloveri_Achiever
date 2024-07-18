@@ -25,12 +25,12 @@
   padding: 10px;
   cursor: pointer;
 
-  img {
+  p {
     position: relative;
-    width: 50px;
-    height: 50px;
+    font-size: 11px;
     left: 13px;
     top: -4px;
+  text-align: center;
   }
 }
 
@@ -118,9 +118,7 @@ h2 {
   &:enabled {
     background: #f4f4f405;
   }
-  &:focus {
-    background-color: #193117; //гыгыгы
-  }
+
 }
 .divider {
   width: 100%;
@@ -136,7 +134,6 @@ h2 {
 
 .workerInformation input[type=text],  //чтобы инпут дата-пикера не выезжал за пределы контейнера.
 .workerInformation textarea {  //но так имя не влезает!
-   width: 100%;
     box-sizing: border-box;
   
   //или:
