@@ -5,6 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import styles from "./Registration.module.scss";
 
 const RegistrationAdmin: React.FC = () => {
+//const [roleType, setRoleType] = useState<"employee" | "director">("employee");
+  //const [organizationId, setOrganizationId] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -14,9 +16,10 @@ const RegistrationAdmin: React.FC = () => {
   const [email, setEmail] = useState("");
   const currentDate = new Date(Date.now());
   const formattedDate = currentDate.toISOString().split("T")[0];
-  const [validationErrors, setValidationErrors] = useState<{
+    const [validationErrors, setValidationErrors] = useState<{
     [key: string]: string;
   }>({});
+
 
   const navigate = useNavigate();
 
@@ -34,6 +37,7 @@ const RegistrationAdmin: React.FC = () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !emailPattern.test(email))
       errors.email = "Некорректный email.";
+    
 
     setValidationErrors(errors);
 
@@ -46,8 +50,10 @@ const RegistrationAdmin: React.FC = () => {
     }
 
     console.log("Начало регистрации");
-
+    
     const requestData = {
+      //role_type: roleType,
+      //organization_id: organizationId,    //"642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
       login,
       password,
       first_name: firstName,
@@ -55,14 +61,15 @@ const RegistrationAdmin: React.FC = () => {
       phone,
       email,
       start_work_date: formattedDate,
-      rank: 1, // Устанавливаем ранг для администратора
     };
 
     console.log("Данные, отправляемые на сервер:", requestData);
 
     try {
       const response = await fetch(
-        "https://api.achiever.skroy.ru/registrations/?organization_id=642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
+        "https://api.achiever.skroy.ru/registrations/?organization_id=642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",   
+        //ранее - "https://api.achiever.skroy.ru/registrations/"
+        //на будущее(веса): - https://api.achiever.skroy.ru/registrations/?link_weigth=1&organization_id={organizationId}
         {
           method: "POST",
           headers: {
@@ -81,14 +88,11 @@ const RegistrationAdmin: React.FC = () => {
       if (!response.ok) {
         if (responseData.error && typeof responseData.error === "string") {
           throw new Error(responseData.error);
-        } else if (
-          responseData.error &&
-          typeof responseData.error === "object"
-        ) {
+        } else if (responseData.error && typeof responseData.error === "object") {
           const errorObject: { [key: string]: string[] } = responseData.error;
           const validationErrors = Object.entries(errorObject)
-            .map(([key, values]) => `${key}: ${values.join(", ")}`)
-            .join("; ");
+           .map(([key, values]) => `${key}: ${values.join(", ")}`)
+           .join("; ");
           throw new Error(validationErrors);
         } else if (responseData.detail) {
           throw new Error(responseData.detail);
@@ -97,9 +101,10 @@ const RegistrationAdmin: React.FC = () => {
             "Неизвестная ошибка: " + JSON.stringify(responseData)
           );
         }
-      }
+      } 
       localStorage.setItem("organization_id", responseData.organization_id);
 
+      // Профиль создан, независимо от возможных ошибок
       toast.success(
         "Регистрация успешна! Перенаправление на страницу входа..."
       );
@@ -132,6 +137,8 @@ const RegistrationAdmin: React.FC = () => {
   };
 
   const handleReset = () => {
+    //setRoleType("employee");
+    //setOrganizationId("642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389");
     setLogin("");
     setPassword("");
     setFirstName("");
@@ -160,7 +167,7 @@ const RegistrationAdmin: React.FC = () => {
         />
       </div>
 */}
-      <div>
+<div>
         <label>Логин:</label>
         <input
           type="text"
@@ -272,7 +279,6 @@ const RegistrationAdmin: React.FC = () => {
             Отмена
         </button>
         </div>
-
       </div>
     </div>
   );

@@ -20,16 +20,18 @@ const Login: React.FC = () => {
     console.log("handleLogin called");
     console.log("login:", login);
     console.log("password:", password);
-
+    
     try {
+    
       const response = await fetch("https://api.achiever.skroy.ru/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          // "ORGANIZATION-ID": organizationId,
         },
         body: JSON.stringify({ login, password }),
       });
-
+      
       console.log("response status:", response.status);
 
       if (!response.ok) {
@@ -41,14 +43,27 @@ const Login: React.FC = () => {
       console.log("response data:", data);
 
       // Сохраняем токен авторизации в локальное хранилище
-      localStorage.setItem("userData", JSON.stringify(data));
+      localStorage.setItem("userData", JSON.stringify(data))
       localStorage.setItem("profileId", data.profile_id);
       localStorage.setItem("linkId", data.link_id);
-      localStorage.setItem("rank", data.rank); // Сохраняем ранг
-      console.log("User rank saved:", data.rank);
+      // Сохраняем organization_id
+      // setOrganizationId(data.organization_id);
+      
+      // Сохраняем profile_id
+      setProfileId(data.profile_id)
 
       console.log("Navigating to worker page");
-      navigate("/my-page", { state: { profileId: data.profile_id } });
+        navigate("/my-page",{state: {profileId: data.profile_id}});
+      {/*
+      // Временная логика перенаправления на основе данных
+      if (data.profile_id && role === "admin") {
+        console.log("Navigating to admin page");
+        navigate("/admin",{state: {profileId: data.profile_id}});
+      } else if (data.profile_id && role === "worker") {
+        console.log("Navigating to worker page");
+        navigate("/worker", { state: { profileId: data.profile_id}});
+      }
+      */}
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : "Неизвестная ошибка";
@@ -56,6 +71,7 @@ const Login: React.FC = () => {
       setApiError(`${errorMessage}`);
     }
   };
+
 
   const handleReset = () => {
     //setRole("");
@@ -65,6 +81,7 @@ const Login: React.FC = () => {
     setLoginError("");
     setPasswordError("");
     setApiError("");
+  
   };
 
   // Валидация email и пароля
@@ -190,7 +207,7 @@ const Login: React.FC = () => {
           Регистрация
         </button>
         </div>
-
+      
       {apiError && <span className={styles.errorMessage}>{apiError}</span>}
     </div>
   );

@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import styles from "./Registration.module.scss";
 
 const Registration: React.FC = () => {
+//const [roleType, setRoleType] = useState<"employee" | "director">("employee");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -47,8 +48,10 @@ const Registration: React.FC = () => {
     }
 
     console.log("Начало регистрации");
-
+    
     const requestData = {
+      //role_type: roleType,
+      // organization_id: "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
       login,
       password,
       first_name: firstName,
@@ -56,14 +59,13 @@ const Registration: React.FC = () => {
       phone,
       email,
       start_work_date: formattedDate,
-      rank: 0.1, // Устанавливаем ранг для сотрудника
     };
 
     console.log("Данные, отправляемые на сервер:", requestData);
 
     try {
       const response = await fetch(
-        `https://api.achiever.skroy.ru/registrations/?organization_id=642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389`,
+      `https://api.achiever.skroy.ru/registrations/?organization_id=642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389`,
         {
           method: "POST",
           headers: {
@@ -82,19 +84,16 @@ const Registration: React.FC = () => {
       if (!response.ok) {
         if (responseData.error && typeof responseData.error === "string") {
           throw new Error(responseData.error);
-        } else if (
-          responseData.error &&
-          typeof responseData.error === "object"
-        ) {
+        } else if (responseData.error && typeof responseData.error === "object") {
           const errorObject: { [key: string]: string[] } = responseData.error;
           const validationErrors = Object.entries(errorObject)
-            .map(([key, values]) => `${key}: ${values.join(", ")}`)
-            .join("; ");
+           .map(([key, values]) => `${key}: ${values.join(", ")}`)
+           .join("; ");
           throw new Error(validationErrors);
         } else {
           throw new Error("Неизвестная ошибка");
         }
-      }
+      } 
       localStorage.setItem("organization_id", responseData.organization_id);
 
       toast.success(
@@ -113,6 +112,7 @@ const Registration: React.FC = () => {
   };
 
   const handleReset = () => {
+  //setRoleType("employee");
     setLogin("");
     setPassword("");
     setFirstName("");
