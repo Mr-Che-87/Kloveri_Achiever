@@ -12,14 +12,18 @@
 }
 
 .modalContent {
-  position: relative;
+  position: fixed;    //position: relative;
+  z-index: 1;
   max-width: 800px;
   max-height: 650px;
   width: 557px; 
   padding: 20px 32px;
   border-radius: 16px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--additional-2-background-color); /* фон контента */
+  background: linear-gradient(160deg, rgba(40,1,79,1) 0%, rgba(84,20,148,1) 99%);
+//box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+//backdrop-filter: blur(1px);
+//transition: transform 0.3s ease-out;
 }
 
 .closeButton {

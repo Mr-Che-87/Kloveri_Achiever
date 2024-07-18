@@ -12,22 +12,18 @@
 }
 
 .modalContent {
-
-  // width: 80%;
-  // max-width: 800px;
-  // max-height: 90%;
-  // overflow: hidden;
-
-
-
-  position: relative;
+  position: fixed;    //position: relative;
+  z-index: 1;
   max-width: 800px;
   max-height: 90%;
   width: 80%; 
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--additional-2-background-color); /* фон контента */
+  background: linear-gradient(160deg, rgba(40,1,79,1) 0%, rgba(84,20,148,1) 99%);
+  box-sizing: border-box;
+//box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+//backdrop-filter: blur(1px);
+//transition: transform 0.3s ease-out;
 }
 
 .closeButton {
