@@ -174,51 +174,47 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
                     style={{ maxWidth: '100%', maxHeight: '100%', marginLeft: "-20px" }}
                     />
                   ) : (
-                      <img
+                    <img
                   className={styles.iconAddAchieve}
                   src={cardAchieveBG}
                   alt="Icon Add Achieve"
                 />
                   )
                 }
-              
-                  {
-                    selectedImage? (
-                      <img 
-                      className={styles.iconAddPhoto}
-                      src={imagePreview ? imagePreview : selectedImage}
-                      style={{ maxWidth: '100%', maxHeight: '100%' , left: "42px"}}
-                      
-                       />
-                    ) : (
-                        <img
+                {
+                selectedImage? (
+                  <img 
                   className={styles.iconAddPhoto}
-                  src={iconAddPhoto} 
-                  alt="Add photo"
-                />
-                    )
-                  }
-              {
-                title? (
-                  <p className={styles.titleHeadIcon}>{title}</p>
+                  src={imagePreview ? imagePreview : selectedImage}
+                  style={{ maxWidth: '100%', maxHeight: '100%' , left: "42px"}}
+                  />
                 ) : (
-                  <p className={styles.titleHeadIcon}>Название</p>
+                  <img
+              className={styles.iconAddPhoto}
+              src={iconAddPhoto} 
+              alt="Add photo"
+                  />
                 )
               }
-              
               {
-                description ? (
-                  <p className={styles.descriptionHeadIcon}>{truncateDescription(description)}</p>
+              title? (
+                <p className={styles.titleHeadIcon}>{title}</p>
                 ) : (
-                  <p className={styles.descriptionHeadIcon}>Описание</p>
+                <p className={styles.titleHeadIcon}>Название</p>
+                ) 
+              }
+              {
+              description ? (
+                <p className={styles.descriptionHeadIcon}>{truncateDescription(description)}</p>
+                ) : (
+                <p className={styles.descriptionHeadIcon}>Описание</p>
                 )
               }
-
-{
-                rank ? (
-                  <p className={styles.rankHeadIcon}>{rank}&#8239;&#x20BF;</p>
+              {
+              rank ? (
+                <p className={styles.rankHeadIcon}>{rank}&#8239;&#x20BF;</p>
                 ) : (
-                  <p className={styles.rankHeadIcon}>&#x20BF;</p>
+                <p className={styles.rankHeadIcon}>&#x20BF;</p>
                 )
               }
             </div>
