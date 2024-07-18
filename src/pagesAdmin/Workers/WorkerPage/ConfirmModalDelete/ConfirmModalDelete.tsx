@@ -16,7 +16,7 @@ interface ConfirmModalDeleteProps {
           <p>Вы уверены, что хотите удалить сотрудника ?</p>
           <div className={styles.buttonGroup}>
             <button className={styles.confirmButton} onClick={onConfirm}> {/*удалить/наградить */}
-              удалить 
+              Удалить 
             </button>  
             <button className={styles.cancelButton} onClick={onCancel}>
               Отмена

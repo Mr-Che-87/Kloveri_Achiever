@@ -1,11 +1,15 @@
 declare const classNames: {
   readonly workerAchievements: "workerAchievements";
   readonly workerAchievementsNav: "workerAchievementsNav";
+  readonly giveAchieveButton: "giveAchieveButton";
+  readonly searchAchieveInput: "searchAchieveInput";
   readonly workerAchievementsList: "workerAchievementsList";
   readonly achievementCard: "achievementCard";
-  readonly achieveButton: "achieveButton";
-  readonly achieveTitle: "achieveTitle";
+  readonly deleteButton: "deleteButton";
   readonly achieveImg: "achieveImg";
-  readonly removeButton: "removeButton";
+  readonly achieveContent: "achieveContent";
+  readonly achieveTitle: "achieveTitle";
+  readonly achieveDescription: "achieveDescription";
+  readonly achieveRank: "achieveRank";
 };
 export = classNames;
