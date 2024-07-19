@@ -16,15 +16,18 @@ import { fetchGetAchieveLibrary,
 
 interface WorkerAchievementsProps {
   userId: string | undefined;
+    //подъём состояния (lifting state up):
+    onUpdateUserAchievements: (updatedAchievements: IConnection[]) => void; 
 }
 
 interface CSSPropertiesWithVars extends CSSProperties {
   '--background-image'?: string;
 }
 
-export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({ userId }) => {
- 
-  //const [achieveList, setAchieveList] = useState<IAchieve[]>([]);  //старый-единый стейт(фильтрация по added)
+export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
+  userId,
+  onUpdateUserAchievements, //подъём состояния (lifting state up):
+}) => {
   const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]);  //стейт на ачивки библиотеки
   const [userAchievements, setUserAchievements] = useState<IConnection[]>([]);  //стейт на ачивки юзера
   const [showModal, setShowModal] = useState(false);
@@ -37,7 +40,6 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({ userId }
     //console.log("useEffect: загрузка всей библиотеки наград"); 
     fetchGetAchieveLibrary()
      .then((response) => {
-      //console.log("useEffect: Response всей библиотеки наград", response);
       setAllAchievements(response.data);   //data - все данные из бэка{...}
     })
       .catch((error) => {
@@ -48,26 +50,24 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({ userId }
 
 
 //GET-Получение списка достижений пользователя по ID:
-//проблема в отображении дублирующихся ачивок!!(отображает, но криво удаляет + ошибка)
 useEffect(() => {
   if (userId) {
     console.log("useEffect: загрузка ачивок пользователя с userId:", userId);
     fetchGetIDUserAchieve(userId)
     .then((response) => {
-      console.log("useEffect: Response ачивок пользователя:", response);
       const userAchievements: IConnection[] = response.data.map((connection: IConnection) => ({
         id: connection.id,
         data: connection.data
-        //connection.data.achievement); // извлекаем только награды из соединений
       }))
       
         setUserAchievements(userAchievements);
+        onUpdateUserAchievements(response.data); //обновляем состояние родителя (lifting state up)
     })
     .catch((error) => {
       console.error("Ошибка при загрузке ачивок пользователя:", error);
     });
   }
-}, [userId]);
+}, [userId, onUpdateUserAchievements]);  //подъём состояния (lifting state up)
 
 
 

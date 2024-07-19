@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -146,7 +146,10 @@ const RegistrationAdmin: React.FC = () => {
     setPhone("");
     setEmail("");
     setValidationErrors({});
-    
+  };
+
+  const handleReturnLogin = () => {
+    navigate("/admin-panel/login");
   };
 
   return (
@@ -164,11 +167,12 @@ const RegistrationAdmin: React.FC = () => {
         />
       </div>
 */}
-      <div>
+<div>
         <label>Логин:</label>
         <input
           type="text"
           value={login}
+          placeholder="Это ваш адрес корпоративной почты"
           onChange={(e) => setLogin(e.target.value)}
         />
         {validationErrors.login && (
@@ -176,19 +180,20 @@ const RegistrationAdmin: React.FC = () => {
         )}
       </div>
       <div className={styles.passwordContainer}>
-        <label>Пароль:</label>
-        <input
-          type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <span
+          <label>Пароль:</label>
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Минимум 6 символов"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <span
             className={styles.passwordToggle}
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? "🙈" : "👁️"}
           </span>
-        {validationErrors.password && (
+          {validationErrors.password && (
           <span className={styles.errorMessage}>
             {validationErrors.password}
           </span>
@@ -256,9 +261,24 @@ const RegistrationAdmin: React.FC = () => {
         </select>
       </div>
       */}
-      <div>
-        <button onClick={handleRegistration}>Регистрация</button>
-        <button onClick={handleReset}>Сброс</button>
+      <div className={styles.вuttonsGroup}>
+        <div>
+          <button className={styles.registrationButton} 
+                  onClick={handleRegistration}>
+            Регистрация
+          </button>
+          <button className={styles.resetButton}
+                  onClick={handleReset}>
+            Сброс
+          </button>
+        </div>
+        <div className={styles.cancelButtonContainer}>
+          <button className={styles.cancelButton}
+                  onClick={handleReturnLogin} 
+                   >
+            Отмена
+        </button>
+        </div>
       </div>
     </div>
   );

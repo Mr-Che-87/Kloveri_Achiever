@@ -14,8 +14,11 @@ import {
   fetchDeleteUserAchievement,
 } from "../../../../api/apiService";
 
+
 interface WorkerAchievementsProps {
   userId: string | undefined;
+  //подъём состояния (lifting state up):
+  onUpdateUserAchievements: (updatedAchievements: IConnection[]) => void; 
 }
 interface CSSPropertiesWithVars extends CSSProperties {
   '--background-image'?: string;
@@ -23,6 +26,7 @@ interface CSSPropertiesWithVars extends CSSProperties {
 
 export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
   userId,
+  onUpdateUserAchievements, //подъём состояния (lifting state up):
 }) => {
   const [allAchievements, setAllAchievements] = useState<IAchieve[]>([]);
   const [userAchievements, setUserAchievements] = useState<IConnection[]>([]);
@@ -49,12 +53,13 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
       fetchGetIDUserAchieve(userId)
         .then((response) => {
           setUserAchievements(response.data);
+          onUpdateUserAchievements(response.data); //обновляем состояние родителя (lifting state up)
         })
         .catch((error) => {
           console.error("Ошибка при загрузке достижений пользователя:", error);
         });
     }
-  }, [userId]);
+  }, [userId, onUpdateUserAchievements]);  //подъём состояния (lifting state up)
 
   const openModal = () => {
     setShowModal(true);

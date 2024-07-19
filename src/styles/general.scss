@@ -10,9 +10,10 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background: linear-gradient(160deg, rgba(26, 0, 50, 1) 0%, rgba(54, 12, 94, 1) 99%); //ОБЩИЙ ГРАДИЕНТ
-  --additional-background-color: rgba(67, 16, 118, 1);  //фон1 для дополнительных элементов
+  --modal-background-color: linear-gradient(160deg, rgba(40,1,79,1) 0%, rgba(84,20,148,1) 99%);  //фон1 для дополнительных элементов
+  --additional-1-background-color: rgba(67, 16, 118, 1);  //фон1 для дополнительных элементов 
   --additional-2-background-color: rgb(35, 8, 61);;  //фон2 для дополнительных элементов
-  
+
 
 
   font-synthesis: none;

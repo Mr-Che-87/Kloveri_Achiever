@@ -11,15 +11,19 @@
   background-color: rgba(0, 0, 0, 0.6); /* Чёрный полупрозрачный фон основного окна */
 
   .modalContent {
-  position: relative;
+  position: fixed;    //position: relative;
+  z-index: 1;
   max-width: 1115px;
   max-height: 600px;
-  width: 85%; /* Ширина контента 100% от родительского контейнера */
-  height: 80%; /* Высота контента 100% от родительского контейнера */
+  width: 85%; /* Ширина контента от родительского контейнера */
+  height: 85%; /* Высота контента от родительского контейнера */
   padding: 28px 32px;
   border-radius: 16px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: var(--additional-2-background-color); /* фон контента */
+  background: linear-gradient(160deg, rgba(40,1,79,1) 0%, rgba(84,20,148,1) 99%);
+ // box-sizing: border-box;
+//box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+//backdrop-filter: blur(1px);
+//transition: transform 0.3s ease-out;
  
     .closeButton {
       position: absolute;
@@ -150,7 +154,6 @@
         font-size: 16px;
         line-height: 20px;
       }
-
     }
     .formGroupBackground{
       grid-area: background;
@@ -164,14 +167,13 @@
       grid-area: fileDown;
       display: none;
     }
-
     .labelFileDownload{
       height: 48px;
       border-radius: 10px;
       //padding-left: 5px;
       font-size: 16px;
       cursor: pointer;
-      background: rgba(244, 244, 244, 0.0196078431);
+      background: rgba(209, 211, 212, 0.2);
       border: 1px solid rgba(244, 244, 244, 0.0784313725);
       color: #f4f4f4;
       transition: background 0.3s ease;
@@ -210,7 +212,7 @@
         border-radius: 10px;
         margin-top: 5px;
         font-size: 1rem;
-        background-color: #f4f4f40f;
+        background-color: #8f17170f;
       }
       .rankInput {
         color: white;
@@ -250,13 +252,13 @@
 
       button,
       input[type="file"] {
-        width: 170px;
+        width: 180px;
         // width: calc(50% - 10px);
         height: 48px; /* Распределение кнопок на 50% ширины контейнера */
         border-radius: 10px;
         align-items: center;
         cursor: pointer;
-        background: #f4f4f405;
+        background: rgba(209, 211, 212, 0.2);
         border: 1px solid #f4f4f414;
         color: #f4f4f4;
         transition: background 0.3s ease;
@@ -293,6 +295,7 @@
       display: flex;
       justify-content: space-between;
       grid-area: button;
+      
       .cancelButton {
         margin-top: 20px;
         background: #6A11C3;
