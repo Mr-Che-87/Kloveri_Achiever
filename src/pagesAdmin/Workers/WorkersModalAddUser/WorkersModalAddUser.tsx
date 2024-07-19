@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { IUser } from "../../../types/IUser";
 import iconPlus from "../../../assets/bigAdd.svg"
 import WorkerModalTag from "./WorkerModalTag/WorkerModalTag";
@@ -282,9 +282,25 @@ function WorkersModalAddUser({
     return date instanceof Date && !isNaN(date.getTime()) ? date : null;
   };
 
-  const handleCloseModal = () => {
-    onClose(); // 
-  };
+  const handleCloseModal = useCallback(() => {
+    onClose()
+  }, [onClose])
+
+  useEffect(() => {
+    document.addEventListener("keydown", (event) => {
+      if(event.key === "Escape"){
+        handleCloseModal();
+      }
+    });
+    return() => {
+      document.removeEventListener("keydown", (event) => {
+        if(event.key === "Escape") {
+          handleCloseModal()
+        }
+      })
+    }
+  })
+
 
   return (
     <div className={styles.workerModalAddUser}>

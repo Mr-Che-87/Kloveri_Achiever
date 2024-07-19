@@ -54,11 +54,12 @@
 }
 
 .workerName {
-  font-size: 24px;
+  font-size: 44px;
   color: #fff;
   font-weight: 700;
   line-height: 56px;
 }
+
 
 .workerMail {
   font-size: 16px;
@@ -86,7 +87,6 @@ h2 {
 .workerInformation {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
 }
 
 .workerInformation > div {
@@ -109,29 +109,17 @@ h2 {
   color: white;
   margin-bottom: 12px;
   &:enabled {
-    background: #f4f4f405;
+    background: rgb(54, 12, 94);
   }
 
   &:disabled {
     cursor: default;
-    
   }
   &:enabled {
     background: #f4f4f405;
   }
 
 }
-.divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    rgba(#f4f4f4, 0.64),
-    rgba(#f4f4f4, 0.16)
-  );
-  opacity: 0.8;
-}
-
 
 .workerInformation input[type=text],  //чтобы инпут дата-пикера не выезжал за пределы контейнера.
 .workerInformation textarea {  //но так имя не влезает!
@@ -169,74 +157,81 @@ h2 {
   visibility: inherit;
 
   input{
-    width: 242px;
+    border: 1px solid white;
+    width: 150px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerFirstName {
   visibility: inherit;
   input{
-    padding-left: 10px;
-    width: 242px;
+    border: 1px solid white;
+    width: 150px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerMiddleName {
   visibility: inherit;
   input{
-    padding-left: 10px;
-    width: 242px;
+    border: 1px solid white;
+    width: 150px;
     height: 60px;
     border-radius: 30px;
+    text-align: center;
   }
 }
 .workerLastName {
   visibility: inherit;
   input{
-    width: 242px;
+    border: 1px solid white;
+    width: 150px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerBirthday {
   visibility: inherit;
   input{
-    width: 242px;
+    border: 1px solid white;
+    width: 150px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerNumber {
   visibility: inherit;
   input{
     background: none;
-    width: 242px;
+    border: 1px solid white;
+    width: 150px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerStartdate {
   visibility: inherit;
   input{
-    width: 242px;
+    border: 1px solid white;
+    width: 150px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerPosition {
   visibility: inherit;
   input{
-    width: 242px;
+    border: 1px solid white;
+    width: 150px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
