@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
 import styles from "./WokerPage.module.scss";
+
 // import { LinkWorkerButton } from "./buttons&inputes/LinkWorkerButton";
 import { DeleteBanWorkerButton } from "./buttons&inputes/DeleteBanWorkerButton";
 import WorkerData from "./WorkerData/WorkerData";
@@ -9,10 +9,8 @@ import { WorkerAchievements } from "./WorkerAchievements/WorkerAchievements";
 import WorkerRanks from "./WorkerRanks/WorkerRanks";
 // import WorkerTeams from "./WorkerTeams/WorkerTeams";
 import { IUser } from "../../../types/IUser";
+import { IConnection } from "../../../types/IConnection";
 import { fetchGetLink, fetchGetUserData } from "../../../api/apiService";
-
-
-
 
 
 interface ILinkData {
@@ -21,16 +19,16 @@ interface ILinkData {
   start_work_date: string;
 }
 
-
-
-
 export default function WorkerPage() {
   const { profile_id } = useParams();
   const [userData, setUserData] = useState<IUser | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [linkData, setLinkData] = useState<ILinkData | null>(null);
-  // GET-Получение данных одного пользователя по ID:
+//стейт для подъёма состояния (lifting state up) баллов ачивок из WorkerAchievements,
+//чтобы баллы юзера отображались без перезагрузки:
+  const [userAchievements, setUserAchievements] = useState<IConnection[]>([]); 
 
+  // GET-Получение данных одного пользователя по ID:
   useEffect(() => {
     const userDataString = localStorage.getItem("userData");
     let organizationId = "";
@@ -76,8 +74,14 @@ export default function WorkerPage() {
   }, [profile_id]);
 
 
+  //подъём состояния (lifting state up):
+  const handleUpdateUserAchievements = (updatedAchievements: IConnection[]) => {
+    setUserAchievements(updatedAchievements);
+  };
+
   // Функция переключения режима редактирования:
   const toggleEdit = () => setIsEditing(!isEditing);
+
 
   return (
     <div className={styles.workerPage}>
@@ -115,15 +119,19 @@ export default function WorkerPage() {
 
       <section className={styles.workerRanksAndAchievements}>
         <div className={styles.workerRanks}>
-          <WorkerRanks />
+          <WorkerRanks userAchievements={userAchievements}/> {/*подъём состояния (lifting state up)*/}
         </div>
 
         <div className={styles.workerAchievements}>
           {userData && (
-            <WorkerAchievements userId={userData.profile_id} />
+            <WorkerAchievements 
+              userId={userData.profile_id} 
+              //подъём состояния (lifting state up):
+              onUpdateUserAchievements={handleUpdateUserAchievements}/> 
           )}
         </div>
       </section>
     </div>
+
   );
 }
