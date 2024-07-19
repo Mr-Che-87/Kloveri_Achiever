@@ -289,7 +289,7 @@ function WorkersModalAddUser({
   useEffect(() => {
     document.addEventListener("keydown", (event) => {
       if(event.key === "Escape"){
-        handleCloseModal();
+        onClose();
       }
     });
     return() => {

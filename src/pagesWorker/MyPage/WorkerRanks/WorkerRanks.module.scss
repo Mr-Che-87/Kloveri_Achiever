@@ -3,8 +3,9 @@
   flex-direction: row;
   flex-grow: 1;
   border: 1px solid white;
-    border-radius: 20px;
-    width: 490px;
+  border-radius: 20px;
+  position: relative;
+  left: 20px;
 }
 
 .workerRanksIcon {

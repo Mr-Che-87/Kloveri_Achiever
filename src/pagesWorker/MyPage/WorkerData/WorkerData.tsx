@@ -93,10 +93,10 @@ export default function WorkerData({
     if (linkData) {
       setOtherFormData({
         link_id: linkData.link_id,
-        specialty: linkData.specialty,
+        specialty: linkData.specialty ?? "",
         start_work_date: linkData.start_work_date,
       });
-      localStorage.setItem("specialty", linkData.specialty);
+      localStorage.setItem("specialty", linkData.specialty ?? "");
       localStorage.setItem("start_work_date", linkData.start_work_date);
     }
   }, [linkData]);
@@ -246,7 +246,7 @@ export default function WorkerData({
                   style={{ display: "none" }}
                 />
                 <div className={styles.editIcon}>
-                  <p>Изменить изображений</p>
+                  <p>Изменить изображение</p>
                 </div>
               </label>
             </>
