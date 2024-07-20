@@ -24,5 +24,6 @@ declare const classNames: {
   readonly btn__close: "btn__close";
   readonly btn__add: "btn__add";
   readonly errorMessages: "errorMessages";
+  readonly passwordToggle: "passwordToggle";
 };
 export = classNames;
