@@ -102,15 +102,17 @@ h1 {
   //field-sizing: content;
   color: white;
   margin-bottom: 12px;
-  &:enabled {
+  &:enabled{
     background: #f4f4f405;
   }
 
   &:disabled {
     cursor: default;
+    background: none;
+    
   }
-  &:enabled {
-    background: #f4f4f405;
+  &.editableField {
+    background:  rgb(54, 12, 94);
   }
 
 }

@@ -109,15 +109,18 @@ h2 {
   //field-sizing: content;
   color: white;
   margin-bottom: 12px;
-  &:enabled {
-    background: rgb(54, 12, 94);
+
+  &:enabled{
+    background: #f4f4f405;
   }
 
   &:disabled {
     cursor: default;
+    background: none;
+    
   }
-  &:enabled {
-    background: #f4f4f405;
+  &.editableField {
+    background:  rgb(54, 12, 94);
   }
 
 }
@@ -146,14 +149,7 @@ h2 {
 }
 */
 
-.workerInformation button {
-  border: none;
-  background: rgb(58, 58, 58);
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+
 .workerLogin {
   visibility: inherit;
 
