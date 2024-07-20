@@ -12,7 +12,6 @@ declare const classNames: {
   readonly workerInformation: "workerInformation";
   readonly editableField: "editableField";
   readonly "react-datepicker-wrapper": "react-datepicker-wrapper";
-  readonly divider: "divider";
   readonly workerLogin: "workerLogin";
   readonly workerFirstName: "workerFirstName";
   readonly workerMiddleName: "workerMiddleName";

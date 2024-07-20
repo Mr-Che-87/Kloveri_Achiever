@@ -1,6 +1,9 @@
 .workerAchievements {
+
   visibility: inherit;
+  max-width: 700px;
   h1{
+    max-width: 10px;
     font-size: 40px;
     position: relative;
     left: 20px;
@@ -9,6 +12,7 @@
 
 .workerAchievementsNav {
   ul {
+    max-width: 200px;
     display: flex;
     flex-direction: row;
     position: relative;
@@ -28,16 +32,15 @@
 }
 
 .workerAchievementsList {
-  overflow-y: auto; /* вертикальный скролл */
-  overflow-x: hidden; /* cкрыть горизонтальный скролл */
+  overflow-y: auto;
+  overflow-x: hidden;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));  //старое minmax(210px,..));
-  // grid-template-columns: repeat(3, 1fr); /* Три столбца равной ширины */
-  grid-gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   width: 100%;
   max-width: 780px;
   height: 650px;
   margin: 30px;
+  
 }
 
 .achievementCard {

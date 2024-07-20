@@ -24,7 +24,7 @@
   .workersBtn {
     display: flex;
     align-items: center;
-    width: 1245px;
+    max-width: 1245px;
     padding-bottom: 24px;
     border-bottom: 1px solid rgba(244, 244, 244, 80%);
   }
@@ -44,14 +44,26 @@
         justify-content: space-between;
         align-items: center;
         padding-right: 32px;
-        width: 640px;
+        width: 850px;
         box-sizing: border-box;
         border-radius: 28px;
         backdrop-filter: blur(12px);
-        background: rgba(244, 244, 244, 0.02);
-
+        background: rgb(54, 12, 94);
+        transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
         a {
           text-decoration: none;
+            button{
+              width: 850px;
+              background: none;
+               border: none;
+              cursor: pointer;
+            }
         }
       }
       .workersTeamName {

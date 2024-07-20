@@ -1,5 +1,6 @@
 declare const classNames: {
   readonly modalOverlay: "modalOverlay";
+  readonly closeButton: "closeButton";
   readonly workersModal: "workersModal";
   readonly workersModal__content: "workersModal__content";
   readonly overlay: "overlay";

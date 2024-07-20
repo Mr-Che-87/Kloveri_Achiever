@@ -4,14 +4,15 @@ import styles from "./Login.module.scss";
 import WelcomeAdminImg from "@/assets/Welcome-Admin-img.png";
 
 const LoginAdmin: React.FC = () => {
-  //const [role, setRole] = useState<"admin" | "worker" | "">("");
-  //const [organizationId, setOrganizationId] = useState<string | null>(null);
+//const [role, setRole] = useState<"admin" | "worker" | "">("");
+//const [organizationId, setOrganizationId] = useState<string | null>(null);
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState("");
+  const [profileId, setProfileId] = useState<string | null>(null)
 
   const navigate = useNavigate();
 
@@ -21,12 +22,17 @@ const LoginAdmin: React.FC = () => {
     console.log("password:", password);
 
     try {
+      //const organizationId = localStorage.getItem("organization_id");
+      //if(!organizationId){
+      //  throw new Error( "Organization ID is not found");
+      //}
       const response = await fetch("https://api.achiever.skroy.ru/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          //"ORGANIZATION-ID": organizationId,
         },
-        body: JSON.stringify({ login, password, rank: 1 }),
+        body: JSON.stringify({ login, password }),
       });
 
       console.log("response status:", response.status);
@@ -40,14 +46,28 @@ const LoginAdmin: React.FC = () => {
       console.log("response data:", data);
 
       // Сохраняем токен авторизации в локальное хранилище
-      localStorage.setItem("userData", JSON.stringify(data));
+      localStorage.setItem("userData", JSON.stringify(data))
       localStorage.setItem("profileId", data.profile_id);
       localStorage.setItem("linkId", data.link_id);
+      
+     //Сохраняем organization_id
+     // setOrganizationId(data.organization_id);
+      
+      // Сохраняем profile_id
+      setProfileId(data.profile_id)
 
       console.log("Navigating to admin page");
-      navigate("/admin-panel/my-page", {
-        state: { profileId: data.profile_id },
-      });
+      navigate("/admin-panel/my-page",{state: {profileId: data.profile_id}});
+      {/*
+      // Временная логика перенаправления на основе данных
+      if (data.profile_id && role === "admin") {
+        console.log("Navigating to admin page");
+        navigate("/admin-panel",{state: {profileId: data.profile_id}});
+      } else if (data.profile_id && role === "worker") {
+        console.log("Navigating to worker page");
+        navigate("/worker", { state: { profileId: data.profile_id}});
+      }
+      */}
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : "Неизвестная ошибка";
@@ -92,6 +112,8 @@ const LoginAdmin: React.FC = () => {
   // }, [organizationId, profileId]);  
 
   const handleReset = () => {
+  //setRole("");
+  //setOrganizationId(null);
     setLogin("");
     setPassword("");
     setLoginError("");

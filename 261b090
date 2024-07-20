@@ -1,0 +1,46 @@
+[33me0adf9b[m[33m ([m[1;36mHEAD -> [m[1;32mdev3[m[33m)[m HEAD@{0}: pull origin dev: Merge made by the 'ort' strategy.
+[33mda8cfb1[m[33m ([m[1;31morigin/dev3[m[33m)[m HEAD@{1}: checkout: moving from dev to dev3
+[33m545ca55[m[33m ([m[1;31morigin/dev2[m[33m, [m[1;31morigin/dev[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mdev[m[33m)[m HEAD@{2}: checkout: moving from dev to dev
+[33m545ca55[m[33m ([m[1;31morigin/dev2[m[33m, [m[1;31morigin/dev[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mdev[m[33m)[m HEAD@{3}: pull: Fast-forward
+[33m261b090[m HEAD@{4}: checkout: moving from dev3 to dev
+[33mda8cfb1[m[33m ([m[1;31morigin/dev3[m[33m)[m HEAD@{5}: commit: dev3_1807
+[33m261b090[m HEAD@{6}: pull origin dev: Fast-forward
+[33m8829603[m HEAD@{7}: checkout: moving from dev to dev3
+[33m261b090[m HEAD@{8}: commit: Merge dev3 into dev 1807
+[33mcc81d17[m HEAD@{9}: pull origin dev3: Merge made by the 'ort' strategy.
+[33m6485fb8[m HEAD@{10}: commit: dev
+[33me4e1e25[m HEAD@{11}: pull origin dev3: updating HEAD
+[33me4e1e25[m HEAD@{12}: pull origin dev3: updating HEAD
+[33me4e1e25[m HEAD@{13}: pull origin dev3: updating HEAD
+[33me4e1e25[m HEAD@{14}: pull: Fast-forward
+[33m74b13ed[m HEAD@{15}: checkout: moving from dev3 to dev
+[33m8829603[m HEAD@{16}: commit: dev3_1707
+[33m4d9cf95[m HEAD@{17}: pull origin dev: Merge made by the 'ort' strategy.
+[33m7b2e01c[m HEAD@{18}: checkout: moving from dev to dev3
+[33m74b13ed[m HEAD@{19}: pull: Fast-forward
+[33m00af34b[m HEAD@{20}: checkout: moving from dev3 to dev
+[33m7b2e01c[m HEAD@{21}: commit: dev3_1707
+[33m30a640b[m HEAD@{22}: commit (merge): dev3_1707
+[33m9dd86da[m HEAD@{23}: checkout: moving from dev to dev3
+[33m00af34b[m HEAD@{24}: pull: Fast-forward
+[33mc37a52f[m HEAD@{25}: checkout: moving from dev3 to dev
+[33m9dd86da[m HEAD@{26}: commit: dev3_1707
+[33m224e02e[m HEAD@{27}: commit: dev3_1607
+[33m71da42b[m HEAD@{28}: commit: dev3_1607
+[33mb128dce[m HEAD@{29}: commit (merge): Merge branch 'dev' into dev3
+[33m2848a3f[m HEAD@{30}: checkout: moving from dev to dev3
+[33mc37a52f[m HEAD@{31}: pull: Fast-forward
+[33m47354ee[m HEAD@{32}: checkout: moving from dev3 to dev
+[33m2848a3f[m HEAD@{33}: checkout: moving from dev to dev3
+[33m47354ee[m HEAD@{34}: checkout: moving from dev3 to dev
+[33m2848a3f[m HEAD@{35}: checkout: moving from dev to dev3
+[33m47354ee[m HEAD@{36}: commit: Merge dev3 into dev
+[33ma06dd72[m HEAD@{37}: checkout: moving from dev3 to dev
+[33m2848a3f[m HEAD@{38}: commit: dev3_1507
+[33m3ad18ac[m HEAD@{39}: commit: dev3_1207
+[33mca5ecf1[m[33m ([m[1;32mdev2[m[33m)[m HEAD@{40}: reset: moving to ca5ecf1e80dafde9ffa43e405f1f52c042bd5338
+[33m7743a8d[m HEAD@{41}: checkout: moving from dev2 to dev3
+[33mca5ecf1[m[33m ([m[1;32mdev2[m[33m)[m HEAD@{42}: checkout: moving from dev3 to dev2
+[33m7743a8d[m HEAD@{43}: commit: dev3_1007
+[33mca5ecf1[m[33m ([m[1;32mdev2[m[33m)[m HEAD@{44}: checkout: moving from dev to dev3
+[33ma06dd72[m HEAD@{45}: clone: from https://github.com/Mr-Che-87/Kloveri_Achiever.git

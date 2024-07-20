@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { IUser } from "../../types/IUser";
 import styles from "./Workers.module.scss";
-import iconHeader from "../../assets/iconsHeader.svg";
+import iconHeader from "../../assets/nav-workers-icon.svg";
 import iconAddWorker from "../../assets/ImageAndTitle.png";
 import WorkerInitial from "./WorkerPage/WorkerInitial/WorkerInitial";
 import SearchInputWorkers from "./SearchInputWorkers/SearchInputWorkers";
@@ -133,13 +133,18 @@ export default function Workers({ user, userData }: IWorkers) {
               <ul className={styles.workersList__item}>
                 {filtredUserList.map((user, index) => (
                   <li key={index}>
+                  
                     <NavLink to={`/admin-panel/worker-page/${user.profile_id}`}>
+                     <button>
+
                       <WorkerInitial
                         user={user} //передаем данные пользователя в WorkerInitial
                         showEmail={true}
                         avatarSize={"small"}
                         linkData={linkDataMap?.get(user.profile_id) || null}
                       />
+                     </button>
+                    
                     </NavLink>
                     <div className={styles.workersTeamName}>
                       {/* <p>Название команды</p> */}

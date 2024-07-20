@@ -7,7 +7,6 @@
   display: flex;
   position: relative;
   left: 20px;
-  margin-top: 20px;
   font-size: 24px;
   font-weight: bold;
   img{
@@ -17,12 +16,20 @@
 .formFilling__rightContent{
   visibility: inherit;
 }
+.closeButton{
+  position: relative;
+  left: 564px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+}
 .WorkersModalAddUserContent {
   position: fixed;
   left: 436px;
   top: 96px;
-  width: 670px;
-  height: 718px;
+  width: 600px;
   box-sizing: border-box;
   border-radius: 16px;
   box-shadow:
@@ -44,14 +51,14 @@
     cursor: pointer;
   }
   .workerLoginAdd {
-    margin-top: 63px;
-    margin-left: 30px;
-    margin-bottom:  30px;
+    margin-top: 10px;
+    margin-bottom:  10px;
     input {
       color: white;
       padding-left: 10px;
       position: relative;
-      width: 555px;
+      left: 10px;
+      width: 549px;
       height: 40px;
       box-sizing: border-box;
       border: 1px solid #F4F4F4;
@@ -168,6 +175,7 @@
   display: flex;
   justify-content: space-between;
   position: relative;
+  top: -18px;
   align-items: center;
   margin-left: 46px;
 }

@@ -12,6 +12,17 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 }
+
+.closeButton{
+  position: absolute;
+  right: 6px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+}
+
 .workersModal {
   display: flex;
   padding-left: 20px;

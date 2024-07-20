@@ -102,15 +102,17 @@ h1 {
   //field-sizing: content;
   color: white;
   margin-bottom: 12px;
-  &:enabled {
+  &:enabled{
     background: #f4f4f405;
   }
 
   &:disabled {
     cursor: default;
+    background: none;
+    
   }
-  &:enabled {
-    background: #f4f4f405;
+  &.editableField {
+    background:  rgb(54, 12, 94);
   }
 
 }
@@ -161,74 +163,81 @@ h1 {
 .workerLogin {
   visibility: inherit;
   input {
-    width: 242px;
+    border: 1px solid white;
+    width: 220px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerFirstName {
   visibility: inherit;
   input {
-    padding-left: 10px;
-    width: 242px;
+    border: 1px solid white;
+    width: 220px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerMiddleName {
   visibility: inherit;
   input {
-    padding-left: 10px;
-    width: 242px;
+    border: 1px solid white;
+    width: 220px;
     height: 60px;
     border-radius: 30px;
+    text-align: center;
   }
 }
 .workerLastName {
   visibility: inherit;
   input {
-    width: 242px;
+    border: 1px solid white;
+    width: 220px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerBirthday {
   visibility: inherit;
   input {
-    width: 242px;
+    border: 1px solid white;
+    width: 220px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerNumber {
   visibility: inherit;
   input {
     background: none;
-    width: 242px;
+    border: 1px solid white;
+    width: 220px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerStartdate {
   visibility: inherit;
   input {
-    width: 242px;
+    border: 1px solid white;
+    width: 220px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }
 .workerPosition {
   visibility: inherit;
   input {
-    width: 242px;
+    border: 1px solid white;
+    width: 220px;
     height: 60px;
     border-radius: 30px;
-    padding-left: 10px;
+    text-align: center;
   }
 }

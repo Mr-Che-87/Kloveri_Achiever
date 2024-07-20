@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./WorkersModal.module.scss";
 // import uploadFile from "../../../assets/UploadFile.svg";
 import iconDocument from "../../../assets/iconDocument.svg";
@@ -60,13 +60,33 @@ const WorkersModal = ({
     setIsAddUserOpen(!showLink);
   };
 
+  const handleCloseModal = useCallback(() => {
+    onClose()
+  }, [onClose])
+
+  useEffect(() => {
+    document.addEventListener("keydown", (event) => {
+      if(event.key === "Escape"){
+        handleCloseModal();
+      }
+    });
+    return() => {
+      document.removeEventListener("keydown", (event) => {
+        if(event.key === "Escape") {
+          handleCloseModal()
+        }
+      })
+    }
+  })
   return (
     <>
       {isOpen && (
         <div className={styles.modalOverlay}>
-
+      
           <div className={styles.workersModal}>
-           
+               <button onClick={onClose} className={styles.closeButton}>
+          &times;
+          </button>
             <div
               className={styles.workersModal__content}
               onClick={onWrapperClick}
