@@ -242,13 +242,14 @@ export default function WorkerData({
     return <div>Загрузка...</div>;
   }
 
+ 
   return (
     <div className={styles.workerData}>
       <div className={styles.workerInitial}>
         <div className={`${styles.avatarWrapper} ${styles[avatarSize]}`}>
           <img
             className={`${styles.workerAvatar} ${styles[avatarSize]} ${isEditing ? styles.editableField : ""}`}
-            src={imageUrl? imageUrl : defaultAvatar}
+            src={imageUrl ? imageUrl : defaultAvatar}
             alt="Avatar"
           />
           {isEditing && (
@@ -261,8 +262,8 @@ export default function WorkerData({
                   id="changeAvatar"
                   style={{ display: "none" }}
                 />
-              <div className={styles.editIcon}>
-              <p>Изменить изображение</p>
+                <div className={styles.editIcon}>
+                  <p>Изменить изображение</p>
                 </div>
               </label>
             </>
@@ -284,12 +285,25 @@ export default function WorkerData({
       <div className={styles.workerDataTitle}>
         <h1>Личные данные</h1>
         <ChangeWorkerInformationButton
-        isEditing={isEditing}
+          isEditing={isEditing}
           toggleEdit={toggleEdit}
           handleSave={handleSave}
         />
       </div>
       <div className={styles.workerInformation}>
+    
+                <div className={styles.workerLastName}>
+          <h2>Фамилия</h2>
+          <input
+            className={isEditing ? styles.editableField : ""}
+            name="last_name"
+            type="text"
+            placeholder="Введите фамилию"
+            value={formData.last_name || ""}
+            readOnly={!isEditing}
+            onChange={handleInputChange}
+          />
+        </div>
         <div className={styles.workerLogin}>
           <h2>Логин</h2>
           <input
@@ -297,30 +311,15 @@ export default function WorkerData({
             type="email"
             placeholder="Введите Логин"
             value={formData.email || ""}
-            readOnly={!isEditing}
             onChange={handleInputChange}
           />
-  
         </div>
 
-        <div className={styles.workerNumber}>
-          <h2>Телефон</h2>
-          <input
-           className={isEditing ? styles.editableField : ""}
-            name="phone"
-            type="text"
-            placeholder="Введите телефон"
-            value={formData.phone || ""}
-            onChange={handlePhoneChange}
-            onKeyDown={handleKeyDown}
-            disabled={!isEditing}
-          />
-        </div>
 
         <div className={styles.workerFirstName}>
           <h2>Имя</h2>
           <input
-           className={isEditing ? styles.editableField : ""}
+            className={isEditing ? styles.editableField : ""}
             name="first_name"
             type="text"
             placeholder="Введите имя"
@@ -329,10 +328,23 @@ export default function WorkerData({
             onChange={handleInputChange}
           />
         </div>
-        <div className={styles.workerMiddleName}>
-            <h2>Отчество</h2>
+        <div className={styles.workerNumber}>
+          <h2>Телефон</h2>
           <input
-           className={isEditing ? styles.editableField : ""}
+            className={isEditing ? styles.editableField : ""}
+            name="phone"
+            type="text"
+            placeholder="Введите телефон"
+            value={formData.phone || ""}
+            onChange={handlePhoneChange}
+            onKeyDown={handleKeyDown}
+            readOnly={!isEditing}
+          />
+        </div>
+        <div className={styles.workerMiddleName}>
+          <h2>Отчество</h2>
+          <input
+            className={isEditing ? styles.editableField : ""}
             name="middle_name"
             type="text"
             placeholder="Введите отчество"
@@ -340,29 +352,17 @@ export default function WorkerData({
             readOnly={!isEditing}
             onChange={handleInputChange}
           />
-          </div>
-            <div className={styles.workerLastName}>
-            <h2>Фамилия</h2>
-          <input
-           className={isEditing ? styles.editableField : ""}
-            name="last_name"
-            type="text"
-            placeholder="Введите фамилию"
-            value={formData.last_name || ""}
-            readOnly={!isEditing}
-            onChange={handleInputChange}
-          />
-          </div>
+        </div>
 
-          <div className={styles.workerPosition}>
+
+        <div className={styles.workerPosition}>
           <h2>Роль</h2>
           <input
-           className={isEditing ? styles.editableField : ""}
             name="specialty"
             type="text"
             placeholder="Введите Роль"
             value={otherFormData.specialty}
-            readOnly={!isEditing}
+            readOnly
             onChange={handleInputChange}
           />
         </div>
@@ -370,7 +370,7 @@ export default function WorkerData({
         <div className={styles.workerBirthday}>
           <h2>Дата рождения</h2>
           <DatePicker
-           className={isEditing ? styles.editableField : ""}
+            className={isEditing ? styles.editableField : ""}
             placeholderText="Выберите дату"
             selected={parseDateForPicker(formData.birth_date)}
             onChange={(date) => handleDateChange(date, "birth_date")}
@@ -378,22 +378,17 @@ export default function WorkerData({
             readOnly={!isEditing}
           />
         </div>
-    
 
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <DatePicker
-           className={isEditing ? styles.editableField : ""}
             placeholderText="Выберете дату"
             selected={parseDateForPicker(otherFormData.start_work_date)}
             onChange={(date) => handleStartWork(date, "start_work_date")}
             dateFormat="yyyy-MM-dd"
-            readOnly={!isEditing}
+            readOnly
           />
         </div>
-
-    
-
       </div>
     </div>
   );

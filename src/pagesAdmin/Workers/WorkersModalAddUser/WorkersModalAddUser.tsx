@@ -43,7 +43,7 @@ function WorkersModalAddUser({
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [validationErrors, setValidationErrors] = useState<{ [key: string]: string }>({});
-
+  const [showPassword, setShowPassword] = useState(false);
 
 
 
@@ -466,12 +466,18 @@ function WorkersModalAddUser({
 
               <input
                 className={styles.workersModalAddUser__input}
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="*****"
                 value={formData ? formData?.password : ""}
                 onChange={handleWorkerPasswordAdd}
               />
+                    <span
+            className={styles.passwordToggle}
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? "🙈" : "👁️"}
+          </span>
                 {validationErrors.password && (
               <span className={styles.errorMessages}>{validationErrors.password}</span>
             )}

@@ -274,6 +274,19 @@ export default function WorkerData({
         />
       </div>
       <div className={styles.workerInformation}>
+    
+                <div className={styles.workerLastName}>
+          <h2>Фамилия</h2>
+          <input
+            className={isEditing ? styles.editableField : ""}
+            name="last_name"
+            type="text"
+            placeholder="Введите фамилию"
+            value={formData.last_name || ""}
+            readOnly={!isEditing}
+            onChange={handleInputChange}
+          />
+        </div>
         <div className={styles.workerLogin}>
           <h2>Логин</h2>
           <input
@@ -285,19 +298,6 @@ export default function WorkerData({
           />
         </div>
 
-        <div className={styles.workerNumber}>
-          <h2>Телефон</h2>
-          <input
-            className={isEditing ? styles.editableField : ""}
-            name="phone"
-            type="text"
-            placeholder="Введите телефон"
-            value={formData.phone || ""}
-            onChange={handlePhoneChange}
-            onKeyDown={handleKeyDown}
-            readOnly={!isEditing}
-          />
-        </div>
 
         <div className={styles.workerFirstName}>
           <h2>Имя</h2>
@@ -309,6 +309,19 @@ export default function WorkerData({
             value={formData.first_name || ""}
             readOnly={!isEditing}
             onChange={handleInputChange}
+          />
+        </div>
+        <div className={styles.workerNumber}>
+          <h2>Телефон</h2>
+          <input
+            className={isEditing ? styles.editableField : ""}
+            name="phone"
+            type="text"
+            placeholder="Введите телефон"
+            value={formData.phone || ""}
+            onChange={handlePhoneChange}
+            onKeyDown={handleKeyDown}
+            readOnly={!isEditing}
           />
         </div>
         <div className={styles.workerMiddleName}>
@@ -323,18 +336,7 @@ export default function WorkerData({
             onChange={handleInputChange}
           />
         </div>
-        <div className={styles.workerLastName}>
-          <h2>Фамилия</h2>
-          <input
-            className={isEditing ? styles.editableField : ""}
-            name="last_name"
-            type="text"
-            placeholder="Введите фамилию"
-            value={formData.last_name || ""}
-            readOnly={!isEditing}
-            onChange={handleInputChange}
-          />
-        </div>
+
 
         <div className={styles.workerPosition}>
           <h2>Роль</h2>

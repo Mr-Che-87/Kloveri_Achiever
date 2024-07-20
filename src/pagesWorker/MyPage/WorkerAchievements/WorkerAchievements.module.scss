@@ -3,7 +3,6 @@
   visibility: inherit;
   max-width: 700px;
   h1{
-    max-width: 10px;
     font-size: 40px;
     position: relative;
     left: 20px;
@@ -38,7 +37,6 @@
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   width: 100%;
   max-width: 780px;
-  height: 650px;
   margin: 30px;
   
 }
