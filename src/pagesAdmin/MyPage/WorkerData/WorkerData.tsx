@@ -263,7 +263,7 @@ export default function WorkerData({
                   style={{ display: "none" }}
                 />
                 <div className={styles.editIcon}>
-                  <p>Изменить изображение</p>
+                  {/* <p>Изменить</p> */}
                 </div>
               </label>
             </>

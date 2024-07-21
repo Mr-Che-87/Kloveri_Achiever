@@ -243,7 +243,7 @@ export default function WorkerData({
                   style={{ display: "none" }}
                 />
                 <div className={styles.editIcon}>
-                  <p>Изменить изображение</p>
+                  {/* <p>Изменить</p> */}
                 </div>
               </label>
             </>
@@ -338,11 +338,12 @@ export default function WorkerData({
         <div className={styles.workerPosition}>
           <h2>Роль</h2>
           <input
+            className={isEditing ? styles.editableField : ""}
             name="specialty"
             type="text"
             placeholder="Введите Роль"
             value={otherFormData.specialty}
-            readOnly
+            readOnly={!isEditing}
             onChange={handleInputChange}
           />
         </div>
@@ -362,11 +363,12 @@ export default function WorkerData({
         <div className={styles.workerStartdate}>
           <h2>Дата начала работы</h2>
           <DatePicker
+            className={isEditing ? styles.editableField : ""}
             placeholderText="Выберете дату"
             selected={parseDateForPicker(otherFormData.start_work_date)}
             onChange={(date) => handleStartWork(date, "start_work_date")}
             dateFormat="yyyy-MM-dd"
-            readOnly
+            readOnly={!isEditing}
           />
         </div>
       </div>

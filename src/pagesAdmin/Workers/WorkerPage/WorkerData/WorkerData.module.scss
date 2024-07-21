@@ -28,7 +28,8 @@
   p {
     position: relative;
     font-size: 11px;
-    left: 13px;
+    font-weight: bold;
+      left: 13px;
     top: -4px;
   text-align: center;
   }
@@ -54,7 +55,7 @@
 }
 
 .workerName {
-  font-size: 44px;
+  font-size: 40px;
   color: #fff;
   font-weight: 700;
   line-height: 56px;
@@ -98,8 +99,7 @@ h2 {
 
 
 .editableField {
-
-  border: 1px solid orange !important;
+  border: 2px solid orange !important;
 }
 
 .workerInformation input,

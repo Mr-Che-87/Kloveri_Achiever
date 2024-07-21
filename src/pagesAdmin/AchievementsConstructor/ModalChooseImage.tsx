@@ -34,7 +34,7 @@ const ModalChooseImage: React.FC<ModalChooseImageProps> = ({
         <button onClick={closeModal} className={styles.closeButton}>
           &times;
         </button>
-        <h2 className={styles.textTitle}>Выбрать изображение</h2>
+        <h2 className={styles.textTitle}>Выбрать изменить</h2>
         <div className={styles.imagesGrid}>
           {images.map((image) => (
             <div className={styles.card}>
