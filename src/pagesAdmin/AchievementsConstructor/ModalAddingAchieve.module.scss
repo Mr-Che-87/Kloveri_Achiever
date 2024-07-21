@@ -190,7 +190,7 @@
     }
     .labelFileDownload:hover{
       background: rgba(101, 9, 240, 0.32);
-        border: 1px solid rgba(118, 45, 191, 0.32);
+        border: 1px solid white;
         color: white;
         opacity: 0.8;
     }
@@ -265,7 +265,7 @@
 
         &:hover {
           background: rgba(101, 9, 240, 0.32);
-          border: 1px solid rgba(118, 45, 191, 0.32);
+          border: 1px solid white;
           color: white;
           opacity: 0.8;
         }

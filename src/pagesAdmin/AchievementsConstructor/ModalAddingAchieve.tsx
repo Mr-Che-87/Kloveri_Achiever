@@ -281,7 +281,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
               </div>
 
               <div className={`${styles.formGroup} ${styles.formGroupImage}`}>
-                <label>изменить</label>
+                <label>Изображение</label>
                 <div className={styles.avatarContainer}>
                   <div className={styles.chooseImageContainer}>
                     <button
@@ -291,7 +291,7 @@ const ModalAddingAchieve: React.FC<ModalAddingAchieveProps> = ({
                         setIsModalVisible(false);
                       }}
                     >
-                      Выбрать изменить
+                      Выбрать изображение
                     </button>
                   </div>
                   <div className={styles.addImageContainer}>                

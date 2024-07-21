@@ -44,6 +44,7 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({
 }) => {
   const [avatar, setAvatar] = useState(userAvatar || defaultAvatar);
   const [formData, setFormData] = useState<IUser | null>(null); // внутренний state данных юзера
+  const [isPrivacySettingsOpen, setIsPrivacySettingsOpen] = useState(false); //для модального окна настроек
   const location = useLocation();
 
   useEffect(() => {
@@ -66,6 +67,14 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({
 
   const isActive = (paths: string[]) => {
     return paths.some(path => location.pathname.includes(path));
+  };
+
+  const openPrivacySettings = () => {
+    setIsPrivacySettingsOpen(true);
+  };
+
+  const closePrivacySettings = () => {
+    setIsPrivacySettingsOpen(false);
   };
 
   return (
@@ -108,17 +117,20 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({
           </NavLink>
           */}
         </div>
-        <div className="privacy-settings">
-          <NavLink to="/admin-panel/privacy-settings">
-            <img
-              className="large"
-              src={avatar || defaultAvatar}
-              alt="Admin"
-            />
-            <h1>{formData?.first_name || ""}</h1>
-          </NavLink>
+        <div className="privacy-settings" onClick={openPrivacySettings}>
+          <img
+            className="large"
+            src={avatar || defaultAvatar}
+            alt="Admin"
+          />
+          <h1>{formData?.first_name || ""}</h1>
         </div>
       </nav>
+
+      {isPrivacySettingsOpen && (
+        <PrivacySettings user={formData} userData={userData!} onClose={closePrivacySettings} />
+      )}
+
 
       <div className="routes">
         <Routes>
@@ -131,7 +143,7 @@ const NavMenuAdmin: React.FC<NavigationMenuProps> = ({
           <Route path="worker-page/:profile_id" element={<WorkerPage />} />
           <Route path="teams" element={<Teams />} />
           <Route path="shop-constructor" element={<ShopConstructor />} />
-          <Route path="privacy-settings" element={<PrivacySettings />} />
+          {/* <Route path="privacy-settings" element={<PrivacySettings />} /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

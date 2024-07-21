@@ -1,8 +1,6 @@
 import { useState } from "react";
 import styles from "./WorkerRanks.module.scss";
 import iconRanks from "@/assets/Money-Coin.svg";
-import React from "react";
-
 
 export default function WorkerRanks() {
   

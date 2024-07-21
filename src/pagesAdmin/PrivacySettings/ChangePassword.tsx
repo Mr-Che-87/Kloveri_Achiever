@@ -4,6 +4,7 @@ import styles from "./ChangePassword.module.scss"; // предполагаем, 
 function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleCurrentPasswordChange = (e: {
     target: { value: SetStateAction<string> };
@@ -19,7 +20,7 @@ function ChangePassword() {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    // здесь будет логика для отправки запроса на смену пароля
+    // здесь будет логика для отправки запроса на смену пароля - ЕЩЁ НЕ ГОТОВО!!!!
     console.log("Смена пароля:", { currentPassword, newPassword });
   };
 
@@ -29,25 +30,41 @@ function ChangePassword() {
         <label>
           Текущий пароль:
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             value={currentPassword}
             onChange={handleCurrentPasswordChange}
             required
           />
+          <span
+            className={styles.passwordCurrentToggle}
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? "🙈" : "👁️"}
+          </span>
         </label>
       </div>
       <div>
         <label>
           Новый пароль:
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Минимум 6 символов"
             value={newPassword}
             onChange={handleNewPasswordChange}
             required
           />
+          <span
+            className={styles.passwordNewToggle}
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? "🙈" : "👁️"}
+          </span>
         </label>
       </div>
-      <button type="submit">Сменить пароль</button>
+
+      <div className={styles.changePasswordButton} >
+        <button type="submit">Сменить пароль</button>
+      </div>
     </form>
   );
 }
