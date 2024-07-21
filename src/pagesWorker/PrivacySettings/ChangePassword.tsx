@@ -20,8 +20,10 @@ function ChangePassword() {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    // здесь будет логика для отправки запроса на смену пароля - ЕЩЁ НЕ ГОТОВО!!!!
     console.log("Смена пароля:", { currentPassword, newPassword });
+    //...
+    // здесь будет логика для отправки запроса на смену пароля - ЕЩЁ НЕ ГОТОВО, API нет!!!!
+    //...  
   };
 
   return (
@@ -63,7 +65,7 @@ function ChangePassword() {
       </div>
 
       <div className={styles.changePasswordButton} >
-        <button type="submit">Сменить пароль</button>
+        <button type="submit" disabled>Сменить пароль</button> {/* временно заблокирована - API нет */}
       </div>
     </form>
   );

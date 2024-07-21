@@ -8,7 +8,7 @@ import iconChangePassword from "@/assets/icon-change_password.png";
 import ChangePassword from "./ChangePassword";
 
 import { IUser } from "../../types/IUser";
-import WorkerInitial from "../Workers/WorkerPage/WorkerInitial/WorkerInitial";
+import WorkerInitial from "../MyPage/WorkerInitial/WorkerInitial";
 
 interface UserSettingsPageProps {
   user: IUser | null;
@@ -77,7 +77,7 @@ const UserSettingsPage: React.FC<UserSettingsPageProps> = ({ user, userData, onC
               <span className={styles.buttonText}>Безопасность и вход</span>
             </button>
               {showChangePassword && <ChangePassword />}
-            <button> 
+            <button disabled>   {/* временно заблокирована - форма почтовой связи*/}
               <img className={styles.buttonIcon} src={iconHelp} alt="Help" />
               <span className={styles.buttonText}>Помощь</span>
             </button>

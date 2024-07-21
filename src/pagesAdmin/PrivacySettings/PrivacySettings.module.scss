@@ -84,6 +84,13 @@
         color: white;
         opacity: 0.8;
       }
+      //временно заблокирована:
+      &:disabled {
+        width: 340px;
+        cursor: not-allowed;
+        background: rgba(209, 211, 212, 0.2);
+        opacity: 0.4;
+      }
 
       .buttonIcon {
         margin-bottom: 3px;
