@@ -12,6 +12,7 @@ interface WorkerInitialProps {
   showEmail: boolean;  //отображение мейла
   avatarSize: "small" | "large"; 
   linkData:ILinkData | null;
+  userData: IUser;
 }
 
 
