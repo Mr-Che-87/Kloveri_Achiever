@@ -1,11 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./Registration.module.scss";
 
 const Registration: React.FC = () => {
-//const [roleType, setRoleType] = useState<"employee" | "director">("employee");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -48,10 +47,8 @@ const Registration: React.FC = () => {
     }
 
     console.log("Начало регистрации");
-    
+
     const requestData = {
-      //role_type: roleType,
-      // organization_id: "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
       login,
       password,
       first_name: firstName,
@@ -61,11 +58,14 @@ const Registration: React.FC = () => {
       start_work_date: formattedDate,
     };
 
+    const linkWeight = 0.1; // Устанавливаем вес ссылки для сотрудника
+    const organizationId = "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389";
+
     console.log("Данные, отправляемые на сервер:", requestData);
 
     try {
       const response = await fetch(
-      `https://api.achiever.skroy.ru/registrations/?organization_id=642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389`,
+        `https://api.achiever.skroy.ru/registrations/?organization_id=${organizationId}&link_weight=${linkWeight}`,
         {
           method: "POST",
           headers: {
@@ -84,16 +84,20 @@ const Registration: React.FC = () => {
       if (!response.ok) {
         if (responseData.error && typeof responseData.error === "string") {
           throw new Error(responseData.error);
-        } else if (responseData.error && typeof responseData.error === "object") {
+        } else if (
+          responseData.error &&
+          typeof responseData.error === "object"
+        ) {
           const errorObject: { [key: string]: string[] } = responseData.error;
           const validationErrors = Object.entries(errorObject)
-           .map(([key, values]) => `${key}: ${values.join(", ")}`)
-           .join("; ");
+            .map(([key, values]) => `${key}: ${values.join(", ")}`)
+            .join("; ");
           throw new Error(validationErrors);
         } else {
           throw new Error("Неизвестная ошибка");
         }
-      } 
+      }
+
       localStorage.setItem("organization_id", responseData.organization_id);
 
       toast.success(
@@ -112,7 +116,6 @@ const Registration: React.FC = () => {
   };
 
   const handleReset = () => {
-  //setRoleType("employee");
     setLogin("");
     setPassword("");
     setFirstName("");
@@ -121,10 +124,6 @@ const Registration: React.FC = () => {
     setEmail("");
     setApiError("");
     setValidationErrors({});
-  };
-
-  const handleReturnLogin = () => {
-    navigate("/login");
   };
 
   return (
@@ -136,7 +135,6 @@ const Registration: React.FC = () => {
         <input
           type="text"
           value={login}
-          placeholder="Это ваш адрес корпоративной почты"
           onChange={(e) => setLogin(e.target.value)}
         />
         {validationErrors.login && (
@@ -144,20 +142,19 @@ const Registration: React.FC = () => {
         )}
       </div>
       <div className={styles.passwordContainer}>
-          <label>Пароль:</label>
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Минимум 6 символов"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <span
-            className={styles.passwordToggle}
-            onClick={() => setShowPassword((prev) => !prev)}
-          >
-            {showPassword ? "🙈" : "👁️"}
-          </span>
-          {validationErrors.password && (
+        <label>Пароль:</label>
+        <input
+          type={showPassword ? "text" : "password"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <span
+          className={styles.passwordToggle}
+          onClick={() => setShowPassword((prev) => !prev)}
+        >
+          {showPassword ? "🙈" : "👁️"}
+        </span>
+        {validationErrors.password && (
           <span className={styles.errorMessage}>
             {validationErrors.password}
           </span>
@@ -211,38 +208,9 @@ const Registration: React.FC = () => {
           <span className={styles.errorMessage}>{validationErrors.email}</span>
         )}
       </div>
-      {/*
       <div>
-        <label>Тип роли:</label>
-        <select
-          value={roleType}
-          onChange={(e) =>
-            setRoleType(e.target.value as "employee" | "director")
-          }
-        >
-          <option value="employee">Работник</option>
-          <option value="director">Директор</option>
-        </select>
-      </div>
-      */}
-      <div className={styles.вuttonsGroup}>
-        <div>
-          <button className={styles.registrationButton} 
-                  onClick={handleRegistration}>
-            Регистрация
-          </button>
-          <button className={styles.resetButton}
-                  onClick={handleReset}>
-            Сброс
-          </button>
-        </div>
-        <div className={styles.cancelButtonContainer}>
-          <button className={styles.cancelButton}
-                  onClick={handleReturnLogin} 
-                   >
-            Отмена
-        </button>
-        </div>
+        <button onClick={handleRegistration}>Регистрация</button>
+        <button onClick={handleReset}>Сброс</button>
       </div>
       {apiError && <span className={styles.errorMessage}>{apiError}</span>}
     </div>
