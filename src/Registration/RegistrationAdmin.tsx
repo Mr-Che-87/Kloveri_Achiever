@@ -149,6 +149,10 @@ const RegistrationAdmin: React.FC = () => {
     setValidationErrors({});
   };
 
+  const handleReturnLogin = () => {
+    navigate("/admin-panel/login");
+  };
+
   return (
     <div className={styles.registrationContainer}>
       <ToastContainer />
@@ -231,9 +235,23 @@ const RegistrationAdmin: React.FC = () => {
           <span className={styles.errorMessage}>{validationErrors.email}</span>
         )}
       </div>
-      <div>
-        <button onClick={handleRegistration}>Регистрация</button>
-        <button onClick={handleReset}>Сброс</button>
+      <div className={styles.вuttonsGroup}>
+        <div>
+          <button
+            className={styles.registrationButton}
+            onClick={handleRegistration}
+          >
+            Регистрация
+          </button>
+          <button className={styles.resetButton} onClick={handleReset}>
+            Сброс
+          </button>
+        </div>
+        <div className={styles.cancelButtonContainer}>
+          <button className={styles.cancelButton} onClick={handleReturnLogin}>
+            Отмена
+          </button>
+        </div>
       </div>
     </div>
   );
