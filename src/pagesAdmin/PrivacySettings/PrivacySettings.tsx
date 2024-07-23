@@ -78,7 +78,7 @@ const UserSettingsPage: React.FC<UserSettingsPageProps> = ({ user, userData, onC
             </button>
               {showChangePassword && <ChangePassword />}
             <button disabled>   {/* временно заблокирована - ,будет форма почтовой связи*/}
-              <img className={styles.buttonIcon} src={iconHelp} alt="Help" />
++              <img className={styles.buttonIcon} src={iconHelp} alt="Help" />
               <span className={styles.buttonText}>Помощь</span>
             </button>
             <button onClick={handleLogout}>
