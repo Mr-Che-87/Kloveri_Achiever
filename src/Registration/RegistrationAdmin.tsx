@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./Registration.module.scss";
 
 const RegistrationAdmin: React.FC = () => {
+//const [roleType, setRoleType] = useState<"employee" | "director">("employee");
+  //const [organizationId, setOrganizationId] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -14,9 +16,10 @@ const RegistrationAdmin: React.FC = () => {
   const [email, setEmail] = useState("");
   const currentDate = new Date(Date.now());
   const formattedDate = currentDate.toISOString().split("T")[0];
-  const [validationErrors, setValidationErrors] = useState<{
+    const [validationErrors, setValidationErrors] = useState<{
     [key: string]: string;
   }>({});
+
 
   const navigate = useNavigate();
 
@@ -34,6 +37,7 @@ const RegistrationAdmin: React.FC = () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !emailPattern.test(email))
       errors.email = "Некорректный email.";
+    
 
     setValidationErrors(errors);
 
@@ -46,8 +50,10 @@ const RegistrationAdmin: React.FC = () => {
     }
 
     console.log("Начало регистрации");
-
+    
     const requestData = {
+      //role_type: roleType,
+      //organization_id: organizationId,    //"642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",
       login,
       password,
       first_name: firstName,
@@ -57,14 +63,13 @@ const RegistrationAdmin: React.FC = () => {
       start_work_date: formattedDate,
     };
 
-    const linkWeight = 1; // Устанавливаем вес ссылки для администратора
-    const organizationId = "642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389";
-
     console.log("Данные, отправляемые на сервер:", requestData);
 
     try {
       const response = await fetch(
-        `https://api.achiever.skroy.ru/registrations/?organization_id=${organizationId}&link_weight=${linkWeight}`,
+        "https://api.achiever.skroy.ru/registrations/?organization_id=642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",   
+        //ранее - "https://api.achiever.skroy.ru/registrations/"
+        //на будущее(веса): - https://api.achiever.skroy.ru/registrations/?link_weigth=1&organization_id={organizationId}
         {
           method: "POST",
           headers: {
@@ -83,14 +88,11 @@ const RegistrationAdmin: React.FC = () => {
       if (!response.ok) {
         if (responseData.error && typeof responseData.error === "string") {
           throw new Error(responseData.error);
-        } else if (
-          responseData.error &&
-          typeof responseData.error === "object"
-        ) {
+        } else if (responseData.error && typeof responseData.error === "object") {
           const errorObject: { [key: string]: string[] } = responseData.error;
           const validationErrors = Object.entries(errorObject)
-            .map(([key, values]) => `${key}: ${values.join(", ")}`)
-            .join("; ");
+           .map(([key, values]) => `${key}: ${values.join(", ")}`)
+           .join("; ");
           throw new Error(validationErrors);
         } else if (responseData.detail) {
           throw new Error(responseData.detail);
@@ -99,20 +101,10 @@ const RegistrationAdmin: React.FC = () => {
             "Неизвестная ошибка: " + JSON.stringify(responseData)
           );
         }
-      }
-
-      console.log("Проверяем значение link_weight: ", responseData.link_weight);
-
-      // Проверяем, что link_weight действительно установлен
-      if (responseData.link_weight !== linkWeight) {
-        throw new Error(
-          "Вес ссылки администратора не был установлен правильно."
-        );
-      }
-
+      } 
       localStorage.setItem("organization_id", responseData.organization_id);
-      localStorage.setItem("link_weight", responseData.link_weight.toString()); // Сохраняем вес ссылки в локальном хранилище
 
+      // Профиль создан, независимо от возможных ошибок
       toast.success(
         "Регистрация успешна! Перенаправление на страницу входа..."
       );
@@ -134,12 +126,19 @@ const RegistrationAdmin: React.FC = () => {
       ) {
         toast.error(`Ошибка регистрации: ${errorMessage}`);
       } else {
-        toast.error(`Ошибка регистрации: ${errorMessage}`);
+        toast.success(
+          "Регистрация успешна! Перенаправление на страницу входа..."
+        );
+        setTimeout(() => {
+          navigate("/admin-panel/login");
+        }, 3000);
       }
     }
   };
 
   const handleReset = () => {
+    //setRoleType("employee");
+    //setOrganizationId("642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389");
     setLogin("");
     setPassword("");
     setFirstName("");
@@ -157,11 +156,23 @@ const RegistrationAdmin: React.FC = () => {
     <div className={styles.registrationContainer}>
       <ToastContainer />
       <h1>Регистрация администратора</h1>
+      {/*
       <div>
+        <label>ID Организации:  642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389</label>  
+        <input
+          type="text"
+          placeholder="642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389"
+          value={organizationId}
+          onChange={(e) => setOrganizationId(e.target.value)}
+        />
+      </div>
+*/}
+<div>
         <label>Логин:</label>
         <input
           type="text"
           value={login}
+          placeholder="Это ваш адрес корпоративной почты"
           onChange={(e) => setLogin(e.target.value)}
         />
         {validationErrors.login && (
@@ -169,19 +180,20 @@ const RegistrationAdmin: React.FC = () => {
         )}
       </div>
       <div className={styles.passwordContainer}>
-        <label>Пароль:</label>
-        <input
-          type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <span
-          className={styles.passwordToggle}
-          onClick={() => setShowPassword((prev) => !prev)}
-        >
-          {showPassword ? "🙈" : "👁️"}
-        </span>
-        {validationErrors.password && (
+          <label>Пароль:</label>
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Минимум 6 символов"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <span
+            className={styles.passwordToggle}
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? "🙈" : "👁️"}
+          </span>
+          {validationErrors.password && (
           <span className={styles.errorMessage}>
             {validationErrors.password}
           </span>
@@ -235,22 +247,37 @@ const RegistrationAdmin: React.FC = () => {
           <span className={styles.errorMessage}>{validationErrors.email}</span>
         )}
       </div>
+      {/*
+      <div>
+        <label>Тип роли:</label>
+        <select
+          value={roleType}
+          onChange={(e) =>
+            setRoleType(e.target.value as "employee" | "director")
+          }
+        >
+          <option value="employee">Работник</option>
+          <option value="director">Директор</option>
+        </select>
+      </div>
+      */}
       <div className={styles.вuttonsGroup}>
         <div>
-          <button
-            className={styles.registrationButton}
-            onClick={handleRegistration}
-          >
+          <button className={styles.registrationButton} 
+                  onClick={handleRegistration}>
             Регистрация
           </button>
-          <button className={styles.resetButton} onClick={handleReset}>
+          <button className={styles.resetButton}
+                  onClick={handleReset}>
             Сброс
           </button>
         </div>
         <div className={styles.cancelButtonContainer}>
-          <button className={styles.cancelButton} onClick={handleReturnLogin}>
+          <button className={styles.cancelButton}
+                  onClick={handleReturnLogin} 
+                   >
             Отмена
-          </button>
+        </button>
         </div>
       </div>
     </div>
