@@ -9,5 +9,6 @@ declare const classNames: {
   readonly workerTeams: "workerTeams";
   readonly mockWithoutAchieve: "mockWithoutAchieve";
   readonly mockWithoutAchieveImg: "mockWithoutAchieveImg";
+  readonly mockWithoutAchieveText: "mockWithoutAchieveText";
 };
 export = classNames;

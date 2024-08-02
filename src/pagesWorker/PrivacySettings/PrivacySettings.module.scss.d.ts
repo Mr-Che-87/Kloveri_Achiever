@@ -8,5 +8,8 @@ declare const classNames: {
   readonly buttonsGroup: "buttonsGroup";
   readonly buttonIcon: "buttonIcon";
   readonly buttonText: "buttonText";
+  readonly helpContent: "helpContent";
+  readonly email: "email";
+  readonly copiedMessage: "copiedMessage";
 };
 export = classNames;

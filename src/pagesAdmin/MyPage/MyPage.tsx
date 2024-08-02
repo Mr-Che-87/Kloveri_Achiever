@@ -89,8 +89,10 @@ export default function MyPage({ onPhotoUpdate }: IMyPageProps) {
         </div> */}
       </section>
       <section className={styles.mockWithoutAchieve}>
-        <h2>ИНФОРМАЦИЯ О ТАРИФАХ И ПРОБНОМ ПЕРИОДЕ</h2>
+   
+        <h2 className={styles.mockWithoutAchieveText}>Здесь будет информация о тарифах и пробном периоде</h2>
         <img className={styles.mockWithoutAchieveImg} src={mockWithoutAchieve} />
+
       </section>
 
       {/* на случай, если hr-у можно будет выдавать ачивки  

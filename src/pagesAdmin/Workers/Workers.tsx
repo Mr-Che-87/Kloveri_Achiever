@@ -101,7 +101,7 @@ export default function Workers({ user, userData }: IWorkers) {
 
   //возвращаем индикатор загрузки пока данные не загружены:
   if (userList.length === 0) {
-    return <div>Loading user data...</div>;
+    return <div>Загружается список сотрудников...</div>;
   }
 
   return (

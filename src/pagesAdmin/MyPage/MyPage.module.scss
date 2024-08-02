@@ -57,12 +57,17 @@
   display: flex;
   flex-direction: column;
   padding-top: 100px;
+  align-items: center;
+
+  .mockWithoutAchieveImg {
+    width: 420px;
+    height: 300px;
+  }
+  .mockWithoutAchieveText {
+    text-align: center;
+  }
 }
-.mockWithoutAchieveImg {
-  width: 420px;
-  height: 300px;
-  
-}
+
 
 /* 
 //на случай, если hr-у можно будет выдавать ачивки:  
