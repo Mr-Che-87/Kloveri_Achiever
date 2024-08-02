@@ -56,15 +56,15 @@ function WorkersModalAddUser({
   const validateForm = () => {
     const errors: {[key: string] : string} ={}
 
-    if(!formData.login) errors.login = "Логин обязательно";
-    if(!formData.email) errors.email = "Email обязательно";
-    if(!formData.first_name) errors.first_name = "Имя обязательно";
-    if(!formData.last_name) errors.last_name = "Фамилия обязательно";
-    if(!formData.password) errors.password = "Пароль обязательно";
-    if(!formData.birth_date) errors.birth_date = "Дата рождения обязательно";
-    if(!formData.start_work_date) errors.start_work_date = "Дата начала работы обязательно";
-    if(!formData.specialty) errors.specialty = "Роль обязательно";
-    if(!formData.phone) errors.phone = "Номер телефона обязательно";
+    if(!formData.login) errors.login = "поле обязательно";
+    if(!formData.email) errors.email = "поле обязательно";
+    if(!formData.first_name) errors.first_name = "поле обязательно";
+    if(!formData.last_name) errors.last_name = "поле обязательно";
+    if(!formData.password) errors.password = "поле обязательно";
+    if(!formData.birth_date) errors.birth_date = "поле обязательно";
+    if(!formData.start_work_date) errors.start_work_date = "поле обязательно";
+    if(!formData.specialty) errors.specialty = "поле обязательно";
+    if(!formData.phone) errors.phone = "поле обязательно";
 
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;

@@ -98,8 +98,6 @@
   position: relative;
   color: #fff;
   font-size: 1.25rem;
-  cursor: pointer;
-  
     &:hover {
       transform: translateY(-5px);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -130,6 +128,9 @@
   align-items: center;
   justify-content: center;
   color: inherit; /* наследует цвет у родителя */
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .achieveTitle {

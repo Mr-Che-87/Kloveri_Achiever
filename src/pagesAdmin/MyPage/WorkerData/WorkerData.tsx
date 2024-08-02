@@ -356,11 +356,11 @@ export default function WorkerData({
 
 
         <div className={styles.workerPosition}>
-          <h2>Роль</h2>
+          <h2>Должность</h2>
           <input
             name="specialty"
             type="text"
-            placeholder="Введите Роль"
+            placeholder="Введите должность"
             value={otherFormData.specialty}
             readOnly
             onChange={handleInputChange}

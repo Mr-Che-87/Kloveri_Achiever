@@ -21,6 +21,8 @@ const UserSettingsPage: React.FC<UserSettingsPageProps> = ({ user, userData, onC
   console.log("UserData data:", userData); // вывод для отладки НЕ РАБОТАЕТ
 
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
@@ -40,8 +42,16 @@ const UserSettingsPage: React.FC<UserSettingsPageProps> = ({ user, userData, onC
       localStorage.clear();
       window.location.href = "/login"; // перенаправляем на страницу логина
     };
-  
 
+
+    const handleCopyEmail = () => {
+      navigator.clipboard.writeText("ask.achiever@yandex.ru");
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 4000); // Сбрасываем сообщение через 4 секунды
+    };
+  
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
@@ -72,15 +82,24 @@ const UserSettingsPage: React.FC<UserSettingsPageProps> = ({ user, userData, onC
           )
         } */}
           <div  className={styles.buttonsGroup}> 
-            <button onClick={() => setShowChangePassword(!showChangePassword)}>
+            {/* потом открыть кнопку смены пароля: */}
+            {/* <button onClick={() => setShowChangePassword(!showChangePassword)}>
               <img className={styles.buttonIcon} src={iconChangePassword} alt="Change Password" />
-              <span className={styles.buttonText}>Безопасность и вход</span>
-            </button>
-              {showChangePassword && <ChangePassword />}
-            <button disabled>   {/* временно заблокирована - форма почтовой связи*/}
+              <span className={styles.buttonText}>Безопасность и вход</span>  
+            </button> 
+              {showChangePassword && <ChangePassword />} */}
+            <button onClick={() => setShowHelp(!showHelp)}>
               <img className={styles.buttonIcon} src={iconHelp} alt="Help" />
               <span className={styles.buttonText}>Помощь</span>
             </button>
+            {showHelp && (
+            <div className={styles.helpContent}>
+              <p>
+                Пишите нам на почту <span className={styles.email} onClick={handleCopyEmail}>ask.achiever@yandex.ru</span>
+              </p>
+              {isCopied && <p className={styles.copiedMessage}>Адрес скопирован</p>}
+            </div>
+            )}
             <button onClick={handleLogout}>
               <img className={styles.buttonIcon} src={iconLogout} alt="Logout" />
               <span className={styles.buttonText}>Выйти</span>
