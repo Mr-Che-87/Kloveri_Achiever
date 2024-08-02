@@ -68,6 +68,7 @@ const RegistrationAdmin: React.FC = () => {
     try {
       const response = await fetch(
         "https://api.achiever.skroy.ru/registrations/?organization_id=642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389",   
+        //"https://api.achiever.skroy.ru/registrations/?organization_id=${organization_id}",
         //ранее - "https://api.achiever.skroy.ru/registrations/"
         //на будущее(веса): - https://api.achiever.skroy.ru/registrations/?link_weigth=1&organization_id={organizationId}
         {
@@ -156,7 +157,7 @@ const RegistrationAdmin: React.FC = () => {
     <div className={styles.registrationContainer}>
       <ToastContainer />
       <h1>Регистрация администратора</h1>
-      {/*
+      {/* 
       <div>
         <label>ID Организации:  642dc1e1-162d-4cb5-a3d1-7f4fcbcb5389</label>  
         <input
@@ -165,9 +166,10 @@ const RegistrationAdmin: React.FC = () => {
           value={organizationId}
           onChange={(e) => setOrganizationId(e.target.value)}
         />
-      </div>
-*/}
-<div>
+      </div> 
+      */}
+
+    <div>
         <label>Логин:</label>
         <input
           type="text"
