@@ -1,4 +1,4 @@
-import { useState, useEffect, CSSProperties } from "react";
+import { useState, useEffect, useRef, CSSProperties } from "react";
 import styles from "./WorkerAchievements.module.scss";
 import { GiveAchieveButton } from "../buttons&inputes/GiveAchieveButton";
 import { SearchAchieveInput } from "../buttons&inputes/SearchAchieveInput";
@@ -34,32 +34,53 @@ export const WorkerAchievements: React.FC<WorkerAchievementsProps> = ({
   const [searchQuery, setSearchQuery] = useState("");
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [selectedAchieveId, setSelectedAchieveId] = useState<string | null>(
-    null
-  );
+  const [selectedAchieveId, setSelectedAchieveId] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchGetAchieveLibrary()
-      .then((response) => {
-        setAllAchievements(response.data);
-      })
-      .catch((error) => {
-        console.error("Ошибка при получении библиотеки наград:", error);
-      });
-  }, []);
+  const isFetching = useRef(false); //против циклич-запросов, которые вызывает lifting state up ;))
 
-  useEffect(() => {
-    if (userId) {
-      fetchGetIDUserAchieve(userId)
-        .then((response) => {
-          setUserAchievements(response.data);
-          onUpdateUserAchievements(response.data); //обновляем состояние родителя (lifting state up)
-        })
-        .catch((error) => {
-          console.error("Ошибка при загрузке достижений пользователя:", error);
-        });
-    }
-  }, [userId, onUpdateUserAchievements]);  //подъём состояния (lifting state up)
+ // GET-Получение всей библиотеки наград
+useEffect(() => {
+  if (isFetching.current) return;
+  isFetching.current = true;
+  //console.log("useEffect: загрузка всей библиотеки наград"); 
+  fetchGetAchieveLibrary()
+    .then((response) => {
+      setAllAchievements(response.data);
+    })
+    .catch((error) => {
+      console.error("Ошибка при получении данных библиотеки:", error);
+    })
+    .finally(() => {
+      isFetching.current = false;
+    });
+}, []);
+
+// GET-Получение списка достижений пользователя по ID
+useEffect(() => {
+  if (!userId || isFetching.current) return;
+  isFetching.current = true;
+  console.log("useEffect: загрузка ачивок пользователя с userId:", userId);
+  fetchGetIDUserAchieve(userId)
+    .then((response) => {
+      const newUserAchievements = response.data.map((connection: IConnection) => ({
+        id: connection.id,
+        data: connection.data,
+      }));
+
+      if (JSON.stringify(newUserAchievements) !== JSON.stringify(userAchievements)) {
+        setUserAchievements(newUserAchievements);
+        onUpdateUserAchievements(newUserAchievements);
+      }
+    })
+    .catch((error) => {
+      console.error("Ошибка при загрузке ачивок пользователя:", error);
+    })
+    .finally(() => {
+      isFetching.current = false;
+    });
+}, [userId, onUpdateUserAchievements, userAchievements]);
+
+
 
   const openModal = () => {
     setShowModal(true);
